@@ -13,10 +13,10 @@ iSCAU-Android
 #### 版权声明
 
 1. 华农宝工作室保留**华农宝**及**iSCAU**软件名称的所有权利
-2. 本软件采用**BSD协议**开源
+2. 本软件采用**GPL V3协议**开源
 3. 软件代码仅授权个人用于非商业性质用途的开发与学习
 4. 华农宝工作室对本协议保留最终解释及更改的权力
-5. 未获事前取得的书面许可，不得使用华农宝或本软件贡献者名称，来为本软件衍生物做任何表示支持、认可或推广、促销行为。
+5. 未获事前取得的书面许可，不得使用华农宝或本软件贡献者名称，来为本软件衍生物做任何表示支持、认可或推广、促销行为
 
 # 开发环境指引
 
@@ -77,31 +77,9 @@ iSCAU-Android
 版权声明
 
 1. 华农宝工作室保留**华农宝**及**iSCAU**软件名称的所有权利
-2. 本软件采用**BSD协议**开源
+2. 本软件采用**GPL V3协议**开源
 3. 软件代码仅授权个人用于非商业性质用途的开发与学习
 4. 华农宝工作室对本协议保留最终解释及更改的权力
-5. 未获事前取得的书面许可，不得使用华农宝或本软件贡献者名称，来为本软件衍生物做任何表示支持、认可或推广、促销行为。
+5. 未获事前取得的书面许可，不得使用华农宝或本软件贡献者名称，来为本软件衍生物做任何表示支持、认可或推广、促销行为
 
-附: MIT 协议
-
-The MIT License (MIT)
-
-Copyright (c) 2014 iSCAU
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
+附: [GPL 协议全文](https://github.com/iSCAU/iSCAU-Android/blob/master/LICENSE)
