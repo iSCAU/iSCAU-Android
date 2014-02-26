@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- ActionBar Style -->
+    <style name="ActionBar" parent="Widget.Sherlock.ActionBar">
+        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
+        <item name="android:subtitleTextStyle">@style/ActionBarSubTitle</item>
+        <item name="android:background">@drawable/actionbar_background</item>
+    </style>
+
+    <!-- Theme -->
+    <style name="Theme.SpecialWhite" parent="Theme.Sherlock.Light">
+        <item name="android:windowBackground">@color/background_normal</item>
+        <item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+    </style>
+
+</resources>

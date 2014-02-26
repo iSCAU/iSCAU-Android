@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_widget"
+              android:orientation="vertical"
+              android:background="@drawable/widget_background"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/layout_panel"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingTop="6dp"
+            android:background="#4e000000"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tv_mon"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mon"/>
+
+        <TextView
+                android:id="@+id/tv_tue"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tue"/>
+
+        <TextView
+                android:id="@+id/tv_wed"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wed"/>
+
+        <TextView
+                android:id="@+id/tv_thu"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thu"/>
+
+        <TextView
+                android:id="@+id/tv_fri"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fri"/>
+
+        <TextView
+                android:id="@+id/tv_sat"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sat"/>
+
+        <TextView
+                android:id="@+id/tv_sun"
+                style="@style/widget_tab_text_style"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sun"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:padding="4dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_alignParentLeft="true"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tv_week"
+                        style="@style/widget_tab_text_style"
+                        android:textSize="@dimen/widget_title_textSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tv_calendar"
+                        style="@style/widget_tab_text_style"
+                        android:textSize="@dimen/widget_title_textSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/iv_settings"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_widget_settings"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+                android:id="@+id/layout_classtable"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_panel"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</FrameLayout>

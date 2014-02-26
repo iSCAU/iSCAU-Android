@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="background_normal">#ffffff</color>
+    <color name="login_lable_font_color">#7c8389</color>
+    <color name="login_edittext_textcolor">#7c8389</color>
+    <color name="actionar_title_color">#d9322c</color>
+    <color name="param_lable_textcolor">#34495e</color>
+    <color name="normal_item_passed_color">#70a8fb</color>
+    <!-- 合格成绩课程名称背景颜色 -->
+    <color name="goal_item_passed_color">#70a8fb</color>
+    <!-- 不合格成绩课程名称背景颜色 -->
+    <color name="goal_item_failed_color">#fa5050</color>
+    <color name="listitem_goal_sub_title_color">#a09d9d</color>
+    <color name="searchbar_left_iv_background">#70a8fb</color>
+    <color name="searchbar_edittext_hint_color">#cccdce</color>
+
+    <color name="pull_to_refresh_lable_textcolor">#fa5050</color>
+    <color name="intro_lable_textcolor">#34495e</color>
+    <color name="intro_content_textcolor">#aca9a8</color>
+    <color name="notice_lable_time_textcolor">#cccbcc</color>
+    <color name="notice_lable_textcolor">#34495e</color>
+    <color name="notice_content_textcolor">#2c2b2c</color>
+    <!--校历放假颜色-->
+    <color name="calendar_item_vacation">#ffea96ff</color>
+    <!--校历补课颜色-->
+    <color name="calendar_item_has_lesson">#ff81cced</color>
+    <!--校历普通事件，校运会，军训等-->
+    <color name="calendar_item_normal">#ff1abc9c</color>
+    <color name="calendar_weekday_textcolor">#ff34495e</color>
+    <color name="class_note_textcolor">#767373</color>
+    <color name="class_name_textcolor">#2f2f2f</color>
+    <color name="class_place_textcolor">#db7357</color>
+
+    <color name="bus_state_lable_textcolor">#908f8f</color>
+    <color name="bus_state_time_lable_textcolor">#908f8f</color>
+    <color name="textview_version_text_color">#499c8c</color>
+</resources>

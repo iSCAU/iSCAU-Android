@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_classname"
+            android:textSize="@dimen/listitem_textSize"
+            android:textColor="@android:color/white"
+            android:background="@color/goal_item_passed_color"
+            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listitem_padding"
+            android:paddingBottom="@dimen/listitem_padding"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_title_padding_left"
+            android:shrinkColumns="0,2"
+            android:stretchColumns="1,3">
+
+        <TableRow>
+
+            <!-- 交易额 -->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_amount"
+                    android:id="@+id/textView"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_amount"/>
+
+        </TableRow>
+
+        <TableRow>
+
+
+            <!-- 交易发生时间 -->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_record_time"
+                    android:id="@+id/textView1"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_time"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <!-- 子系统名称(地点) -->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_card_place"
+                    android:id="@+id/tv_lable_goal"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_place" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                <ToggleButton
+                        style="@style/expand_button"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/expandable_toggle_button"
+                        android:checked="false"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+            style="@style/listitem_separator"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription=""/>
+
+    <!-- this is the expandable view that is initially hidden and will slide out when the more button is pressed -->
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expandable"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_goal_title_padding_right"
+            android:shrinkColumns="0,2"
+            android:stretchColumns="1,3">
+
+        <TableRow>
+
+            <!--交易类型-->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_card_type"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_type"/>
+
+            <!--现有余额-->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_card_balance"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_balance"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <!--次数-->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_frequency"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_frequency"/>
+
+            <!--状态-->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_card_status"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_status"/>
+
+        </TableRow>
+
+        <TableRow>
+            <ImageView
+                    android:layout_weight="1"
+                    style="@style/listitem_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription=""/>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

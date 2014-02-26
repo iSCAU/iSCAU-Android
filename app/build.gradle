@@ -1,0 +1,57 @@
+
+apply plugin: 'android'
+apply plugin: 'android-apt'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.1"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+        versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
+        versionName "2.4"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    packagingOptions {
+        exclude "META-INF/license.txt"
+        exclude "META-INF/notice.txt"
+    }
+}
+
+ext.androidAnnotationsVersion = '3.0.1';
+
+dependencies {
+    compile files('libs/umeng_sdk.jar')
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.larswerkman:HoloColorPicker:1.3'
+    compile 'com.j256.ormlite:ormlite-android:4.45'
+    compile 'com.nhaarman.listviewanimations:library:2.6.0'
+    compile 'com.github.johnkil.android-appmsg:appmsg:1.2.0'
+    compile 'com.joanzapata.android:base-adapter-helper:1.1.3'
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile 'org.springframework.android:spring-android-rest-template:1.0.0.RELEASE'
+    apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
+    compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
+    compile project(':libraries:caldroid')
+    compile project(':libraries:wheelspinner')
+    compile project(':libraries:Android-PullToRefresh')
+    compile project(':libraries:SlideExpandableListView')
+}
+
+configurations {
+    apt
+}
+
+apt {
+    arguments {
+        androidManifestFile variant.processResources.manifestFile
+        resourcePackageName 'cn.scau.scautreasure'
+    }
+}

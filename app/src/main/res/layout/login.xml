@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@color/background_normal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <ImageView
+            android:contentDescription=""
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_background"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/login_frame_margin"
+                android:padding="@dimen/login_frame_padding"
+                android:background="@drawable/login_frame">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_login"
+                            android:layout_gravity="center"
+                            android:textSize="@dimen/login_lable_textsize"
+                            android:textColor="@color/login_lable_font_color"/>
+                    <TextView
+                            style="@style/login_lable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_username"
+                            android:id="@+id/textView"/>
+                    <EditText
+                            style="@style/login_edittext"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_username"
+                            android:id="@+id/edt_userName"/>
+                    <TextView
+                            style="@style/login_lable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_edupassword"
+                            android:id="@+id/textView1"/>
+                    <EditText
+                            style="@style/login_edittext"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_edusyspassword"
+                            android:id="@+id/edt_eduSysPassword"
+                            android:password="true"/>
+                    <TextView
+                            style="@style/login_lable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_libpassword"
+                            android:id="@+id/textView2"/>
+                    <EditText
+                            style="@style/login_edittext"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_libpassword"
+                            android:id="@+id/edt_libPassword"
+                            android:password="true"/>
+                    <TextView
+                            style="@style/login_lable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_cardpassword"
+                            android:visibility="gone"
+                            android:id="@+id/textView3"/>
+                    <EditText
+                            style="@style/login_edittext"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_cardpassword"
+                            android:id="@+id/edt_cardPassword"
+                            android:visibility="gone"
+                            android:password="true"/>
+                    <TextView
+                            android:textSize="13sp"
+                            android:textColor="#A8A8A8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_special_entrance"
+                            android:id="@+id/tv_special_entrance"
+                            android:layout_marginTop="@dimen/login_lable_padding_top"
+                            android:layout_gravity="center"/>
+
+                    <Button
+                            style="@style/login_button"
+                            android:layout_width="120dp"
+                            android:layout_height="40dp"
+                            android:text="@string/btn_save"
+                            android:id="@+id/btn_save"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/login_lable_padding_top"
+                            android:layout_marginBottom="@dimen/login_lable_padding_bottom"/>
+
+                </LinearLayout>
+         </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>
+

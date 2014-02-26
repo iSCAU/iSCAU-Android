@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:showAsAction="always"
+            android:id="@+id/menu_add_class"
+            android:title="@string/menu_add_class"/>
+
+    <item
+          android:showAsAction="always"
+          android:title=""
+          android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_light">
+        <menu>
+            <group>
+                <item
+                        android:id="@+id/menu_refresh_classtable"
+                        android:showAsAction="ifRoom"
+                        android:title="@string/menu_refresh_classtable"/>
+
+                <item
+                        android:id="@+id/menu_load_classtable_with_params"
+                        android:showAsAction="ifRoom"
+                        android:title="@string/menu_load_classtable_with_params"/>
+                <item
+                        android:id="@+id/menu_load_classtable_all"
+                        android:showAsAction="ifRoom"
+                        android:title="@string/menu_load_classtable_with_all"/>
+            </group>
+        </menu>
+    </item>
+</menu>

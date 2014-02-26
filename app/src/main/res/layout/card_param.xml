@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        <LinearLayout
+                      android:id="@+id/linear_parent"
+                      android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/layout_start_date"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                              android:orientation="horizontal"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content">
+
+                        <ImageView
+                                android:id="@+id/param_iv"
+                                android:layout_width="4dp"
+                                android:layout_height="match_parent"
+                                android:src="#ff70a8fb"
+                                android:contentDescription=""/>
+
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            <TextView
+                                    style="@style/param_text_style"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/listitem_lable_start_date"
+                                    android:layout_marginTop="15dp"/>
+
+                            <EditText
+                                    style="@style/edt_card_style"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/edt_start_date" />
+
+                        </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                        style="@style/listitem_separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/listitem_separator_margin_right"
+                        android:contentDescription=""/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:id="@+id/layout_end_date"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:orientation="horizontal"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content">
+
+                    <ImageView
+                            android:id="@+id/param_iv"
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:src="#ffff8be8"
+                            android:contentDescription=""/>
+
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                                style="@style/param_text_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:text="@string/listitem_lable_end_date"
+                                android:layout_marginTop="15dp"/>
+
+                        <EditText
+                                style="@style/edt_card_style"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/edt_end_date" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                        style="@style/listitem_separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/listitem_separator_margin_right"
+                        android:contentDescription=""/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="6">
+
+        <Button
+                style="@style/noraml_button"
+                android:id="@+id/btn_continue"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:text="@string/btn_continue"/>
+
+    </LinearLayout>
+
+</LinearLayout>

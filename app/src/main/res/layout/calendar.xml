@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:background="@color/background_normal"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_weight="1.3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#ffade0fb">
+
+        <FrameLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <antistatic.spinnerwheel.WheelHorizontalView
+                    xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                    android:id="@+id/wheel"
+                    android:layout_gravity="center_vertical|bottom"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+        <FrameLayout
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:id="@+id/tv_event"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/round_text_background"
+                    android:layout_gravity="center_horizontal|top"
+                    android:gravity="center"
+                    android:text="@string/tips_calendar_click"
+                    android:layout_width="200dp"
+                    android:layout_height="36dp"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:id="@+id/layout_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
+
+    <Button
+            style="@style/noraml_button"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:text="@string/btn_back"
+            android:id="@id/abs__home"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/login_lable_padding_bottom"/>
+</LinearLayout>

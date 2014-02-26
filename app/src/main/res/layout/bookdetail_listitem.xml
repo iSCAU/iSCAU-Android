@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_serial_number"
+            android:textSize="@dimen/listitem_textSize"
+            android:textColor="@android:color/white"
+            android:background="@color/normal_item_passed_color"
+            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/listitem_padding"
+                android:paddingBottom="@dimen/listitem_padding"
+                android:paddingLeft="@dimen/listitem_title_padding_left"
+                android:paddingRight="@dimen/listitem_title_padding_left">
+
+            <TableRow>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_book_status"
+                        android:id="@+id/textView"/>
+
+                <!-- 书刊状态 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_book_status"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_collection_place"
+                        android:id="@+id/textView"/>
+
+                <!-- 校区—馆藏地 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_collection_place"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_barcode_number"/>
+
+                <!-- 条码号 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_barcode_number" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_year_title"/>
+
+                <!-- 年卷期 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_year_title" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </TableRow>
+        </TableLayout>
+
+</LinearLayout>

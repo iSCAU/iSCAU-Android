@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingRight="@dimen/normal_listview_padding"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/abs__ic_ab_back_holo_light"
+                android:contentDescription=""/>
+
+        <ImageView
+                android:layout_width="4dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:paddingRight="3dp"
+                android:background="@color/searchbar_left_iv_background"
+                android:contentDescription=""/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    style="@style/search_edittext"
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_search"
+                    android:hint="@string/hint_searchbook"/>
+
+            <FrameLayout
+                    android:layout_weight="5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <Button
+                        android:layout_gravity="center"
+                        style="@style/search_button"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/btn_search"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

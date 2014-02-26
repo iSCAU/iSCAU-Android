@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!-- 书籍名称 -->
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_bookname"
+            android:textSize="@dimen/listitem_textSize"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:background="@color/normal_item_passed_color"
+            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listitem_padding"
+            android:paddingBottom="@dimen/listitem_padding"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_title_padding_left">
+
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_borrow_date"
+                        android:id="@+id/textView"/>
+
+                <!-- 借阅日期 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_borrow_date"/>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_return_date"
+                        android:id="@+id/tv_lable_return_date"/>
+
+                <!-- 应还日期 归还日期 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_return_date"/>
+
+            </TableRow>
+
+
+            <TableRow
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_barcode_number"/>
+
+                <!-- 条码号 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_barcode_number" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_collection_place"/>
+
+                <!-- 馆藏地 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_collection_place" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+            </TableRow>
+        </TableLayout>
+
+        <Button
+                android:focusable="false"
+                android:layout_gravity="right|bottom"
+                style="@style/noraml_button"
+                android:id="@+id/btn_renew"
+                android:padding="2dp"
+                android:text="@string/btn_renew"
+                android:textSize="13sp"
+                android:layout_width="40dp"
+                android:layout_height="30dp"/>
+    </FrameLayout>
+
+    <ImageView
+            style="@style/listitem_separator"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription=""/>
+
+</LinearLayout>

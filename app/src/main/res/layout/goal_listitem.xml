@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!-- 课程名称 -->
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="classname"
+            android:id="@+id/tv_classname"
+            android:textSize="@dimen/listitem_textSize"
+            android:textColor="@android:color/white"
+            android:background="@color/goal_item_passed_color"
+            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listitem_padding"
+            android:paddingBottom="@dimen/listitem_padding"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_title_padding_left"
+            android:shrinkColumns="0,2"
+            android:stretchColumns="1,3">
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_year"
+                    android:id="@+id/textView"/>
+
+            <!-- 学年 -->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_year"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_team"
+                    android:id="@+id/textView1"/>
+
+            <!-- 学期 -->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_team"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_goal"
+                    android:id="@+id/tv_lable_goal"/>
+
+            <!-- 所得成绩 -->
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_goal" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content">
+
+                <ToggleButton
+                        style="@style/expand_button"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/expandable_toggle_button"
+                        android:checked="false"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+            style="@style/listitem_separator"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription=""/>
+
+    <!-- this is the expandable view that is initially hidden and will slide out when the more button is pressed -->
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expandable"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_goal_title_padding_right"
+            android:shrinkColumns="0,2"
+            android:stretchColumns="1,3">
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_credit"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_credit"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_grade_point"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_grade_point"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_classcode"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_classcode"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_classify"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_classify"/>
+
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_college_belong"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_college_belong"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_college_hold"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_college_hold"/>
+
+        </TableRow>
+
+        <TableRow>
+            <ImageView
+                    android:layout_weight="1"
+                    style="@style/listitem_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription=""/>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

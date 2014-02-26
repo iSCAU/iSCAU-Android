@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="listitem_padding">4dp</dimen>
+    <dimen name="listitem_textSize">15sp</dimen>
+    <dimen name="login_frame_padding">20dp</dimen>
+    <dimen name="login_frame_margin">10dp</dimen>
+    <dimen name="normal_edittext_textsize">12sp</dimen>
+    <dimen name="modify_edittext_textsize">15sp</dimen>
+    <dimen name="login_edittext_padding">10dp</dimen>
+    <dimen name="login_lable_padding_top">10dp</dimen>
+    <dimen name="login_lable_padding_bottom">5dp</dimen>
+    <dimen name="login_lable_textsize">15sp</dimen>
+    <dimen name="param_lable_textsize">15sp</dimen>
+    <dimen name="listitem_separator_margin_right">10dp</dimen>
+    <dimen name="listitem_title_padding_left">16dp</dimen>
+    <dimen name="normal_listview_padding">6dp</dimen>
+    <dimen name="listitem_goal_title_padding_right">4dp</dimen>
+    <dimen name="normal_listview_dividerHeight">3dp</dimen>
+    <dimen name="listitem_goal_sub_title_size">12sp</dimen>
+    <dimen name="pull_to_refresh_header_textsize">12sp</dimen>
+    <dimen name="intro_lable_textsize">16sp</dimen>
+    <dimen name="intro_content_textsize">16sp</dimen>
+    <dimen name="notice_lable_time_textsize">13sp</dimen>
+    <dimen name="notice_lable_textsize">17sp</dimen>
+    <dimen name="notice_content_textsize">14sp</dimen>
+    <dimen name="class_note_textsize">12sp</dimen>
+    <dimen name="class_name_textsize">14sp</dimen>
+    <dimen name="class_place_textsize">13sp</dimen>
+    <dimen name="modify_lable_marginTop">10dp</dimen>
+    <dimen name="modify_lable_marginBottom">5dp</dimen>
+    <dimen name="menu_lable_textsize">18sp</dimen>
+    <dimen name="bus_state_lable_textsize">13sp</dimen>
+    <dimen name="bus_state_time_lable_textsize">10sp</dimen>
+    <dimen name="widget_tab_textSize">14sp</dimen>
+    <dimen name="widget_title_textSize">20sp</dimen>
+    <dimen name="widget_item_textSize">16sp</dimen>
+</resources>

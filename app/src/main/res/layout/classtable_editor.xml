@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/background_normal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="1">
+
+        <LinearLayout
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_class_name"/>
+
+                <EditText
+                        style="@style/modify_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/edt_classname"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_name_teacher"/>
+
+                <EditText
+                        style="@style/modify_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/edt_teacher"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_class_place"/>
+
+                <EditText
+                        style="@style/modify_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/edt_place"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_weekday"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/wheel_weekday"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_dsz"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/wheel_dsz"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_note_start"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/wheel_note_start"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_note_end"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/wheel_note_end"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_week_start"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/wheel_week_start"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/class_modify_text_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_week_end"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/wheel_week_end"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="6">
+
+        <Button
+                style="@style/noraml_button"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:text="@string/btn_modify"
+                android:id="@+id/btn_modify"/>
+    </LinearLayout>
+
+</LinearLayout>

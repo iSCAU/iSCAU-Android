@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!-- 书籍名称 -->
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_bookname"
+            android:textSize="@dimen/listitem_textSize"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:background="@color/normal_item_passed_color"
+            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listitem_padding"
+            android:paddingBottom="@dimen/listitem_padding"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_title_padding_left">
+
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_author"
+                        android:id="@+id/textView"/>
+
+                <!-- 作者 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_author"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_author"
+                        android:id="@+id/textView"/>
+
+                <!-- 出版社 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_press"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_lable_serial_number"/>
+
+                <!-- 索书号 -->
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_serial_number" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+            </TableRow>
+        </TableLayout>
+
+        <ToggleButton
+                android:focusable="false"
+                android:layout_gravity="right|bottom"
+                style="@style/expand_button"
+                android:id="@+id/expandable_toggle_button"
+                android:checked="false"/>
+    </FrameLayout>
+
+    <ImageView
+            style="@style/listitem_separator"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription=""/>
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expandable"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_goal_title_padding_right">
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_bookname"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_all_bookname"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_document_type"/>
+
+            <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_document_type"/>
+
+        </TableRow>
+
+        <TableRow>
+            <ImageView
+                    android:layout_weight="1"
+                    style="@style/listitem_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription=""/>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:id="@+id/param_iv"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:contentDescription=""/>
+
+            <LinearLayout
+                          android:orientation="vertical"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+                <TextView
+                        style="@style/param_text_style"
+                        android:id="@+id/param_lable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="15dp"/>
+
+                <antistatic.spinnerwheel.WheelHorizontalView
+                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
+                        android:id="@+id/param_wheel"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+                style="@style/listitem_separator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/listitem_separator_margin_right"
+                android:contentDescription=""/>
+
+</LinearLayout>
