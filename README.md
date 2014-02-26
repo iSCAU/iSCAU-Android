@@ -10,9 +10,98 @@ iSCAU-Android
 3. 同时希望发布这份源代码能帮助更多的学校能够开发出属于自己的APP
 4. 希望更多高人指点，提高APP的用户体验与质量
 
-#### 关于版权协议
+#### 版权声明
 
-1. 本工作室保留 **华农宝** 及 **iSCAU** 软件名称的所有权利
-2. 仅授权于个人用于非商业用途的开发及学习
-3. 保留对协议最终解释及更改的权力
-3. 除此两点外，我们采用 **BSD 协议** 开源
+1. 华农宝工作室保留**华农宝**及**iSCAU**软件名称的所有权利
+2. 本软件采用**BSD协议**开源
+3. 软件代码仅授权个人用于非商业性质用途的开发与学习
+4. 华农宝工作室对本协议保留最终解释及更改的权力
+5. 未获事前取得的书面许可，不得使用华农宝或本软件贡献者名称，来为本软件衍生物做任何表示支持、认可或推广、促销行为。
+
+# 开发环境指引
+
+本项目建议使用以下环境进行开发:
+
+* Android Studio 0.4.6 (不建议低于本版本，可能有BUG未修正)
+* Gradle 1.10 (不建议低于本版本，可能有BUG未修正)
+* Genymotion (非必要，但推荐用其代替官方的模拟器)
+* Android 4.4.2 SDK API 19 (在Android Studio的SDK Manager可下载)
+* Android SDK Build-tools version 19.0.1 (在Android Studio的SDK Manager可下载)
+
+在下载了以上环境后，请用Android Studio导入本项目，**并且在Android Studio配置使用本地的Gradle而不使用Android Studio自带的Gradle**
+
+> Preferences -> Gradle -> check "Use local gradle distribution" and fill your gradle path
+
+在完成了以上操作后，点击工具栏的 "Sync Project with Gradle Files"，Gradle会自动为项目解决依赖并构建。
+
+如出现不能下载可能您所在的区域网络存在不文明上网现象(自行访问Maven Central判断)，请自行使用GoAgent等文明上网工具进行上网。
+
+# 项目架构说明
+
+软件主要以androidannotations作为支撑框架，因此您在代码中随处可见 @xxx 的注解。关于 androidannotations 的使用方法及介绍，请自行搜索Github。另外还使用了较多的开源框架控件，可参看 libraries 文件夹及 app/build.gradle 的依赖项目。
+
+### 文件夹结构
+
+```
+├── app                         // 代码主要文件夹
+│   ├── libs                    // jar库文件夹
+│   └── src                     // 源代码及资源文件
+├── gradle
+│   └── wrapper
+└── libraries                   // 引用的Android Libary project
+    ├── Android-PullToRefresh
+    ├── SlideExpandableListView
+    ├── caldroid
+    └── wheelspinner
+```
+
+#### Java代码目录说明
+
+```
+├── adapter // ListView用到的adapters
+├── api     // 连接服务器的API
+├── helper  // 帮助方法
+├── impl    // java接口文件
+├── model
+├── ui      // Activity, Fragment存放目录
+├── util
+└── widget  // 自定义控件目录
+```
+
+# 贡献代码
+
+我们非常欢迎您Fork本项目，并提交Pull request。如果您想加入我们成为维护开发的主要人员，可Email至: specialcyci#gmail.com
+
+
+```
+版权声明
+
+1. 华农宝工作室保留**华农宝**及**iSCAU**软件名称的所有权利
+2. 本软件采用**BSD协议**开源
+3. 软件代码仅授权个人用于非商业性质用途的开发与学习
+4. 华农宝工作室对本协议保留最终解释及更改的权力
+5. 未获事前取得的书面许可，不得使用华农宝或本软件贡献者名称，来为本软件衍生物做任何表示支持、认可或推广、促销行为。
+
+附: MIT 协议
+
+The MIT License (MIT)
+
+Copyright (c) 2014 iSCAU
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
