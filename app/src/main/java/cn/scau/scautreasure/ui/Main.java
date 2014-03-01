@@ -32,6 +32,8 @@ import cn.scau.scautreasure.widget.ResideMenu;
 import cn.scau.scautreasure.widget.ResideMenu_;
 
 /**
+ * 软件启动的首页, 就是目前的菜单页
+ *
  * User:  Special Leung
  * Date:  13-7-28
  * Time:  下午9:11
