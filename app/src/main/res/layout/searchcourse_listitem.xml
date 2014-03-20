@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!-- 书籍名称 -->
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/course_name"
+            android:textSize="@dimen/listitem_textSize"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:background="@color/normal_item_passed_color"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:text="情感心理学（梁娟）" />
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listitem_padding"
+            android:paddingBottom="@dimen/listitem_padding"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_title_padding_left">
+
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TableRow
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/listitem_course_property"/>
+
+                <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                    android:text="自然科学"
+                    android:id="@+id/course_property" />
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content">
+
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_course_score" />
+
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/course_score"
+                    android:text="2" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tableRow"
+                android:gravity="right">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="评论:" />
+
+                    <TextView
+                        style="@style/normal_item_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xxx"
+                        android:id="@+id/comments_number" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:drawableLeft="@drawable/icon_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1111"
+                    android:id="@+id/like_number" />
+
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:drawableLeft="@drawable/icon_dislike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dislike_number"
+                    android:text="1111" />
+            </TableRow>
+
+        </TableLayout>
+
+    </FrameLayout>
+
+    <ImageView
+            style="@style/listitem_separator"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription=""/>
+
+</LinearLayout>

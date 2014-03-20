@@ -1,21 +1,32 @@
 package cn.scau.scautreasure.helper;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingLeftInAnimationAdapter;
 import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
+
 import java.util.ArrayList;
+
 import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
 
@@ -56,6 +67,40 @@ public class UIHelper {
             dialog.setCancelable(true);
             dialog.setOnCancelListener(listener);
         }
+    }
+
+    /**
+     * @param msgResourceId it can be 0.
+     * @param listener it can be null.
+     */
+    public static Dialog buildLoadingDialog(Context context, int msgResourceId,
+                                            DialogInterface.OnCancelListener listener) {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.loading_dialog, null);
+        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);
+
+        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
+        TextView tip = (TextView) v.findViewById(R.id.tip);
+
+        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
+                context, R.anim.loading_animation);
+
+        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
+        if (msgResourceId != 0) tip.setText(msgResourceId);
+
+        Dialog dialog = new Dialog(context, R.style.loading_dialog);
+
+        if( listener != null){
+            dialog.setCancelable(true);
+            dialog.setOnCancelListener(listener);
+        }
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(layout, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        return dialog;
+
     }
 
     public static void buildDialog(Context ctx){
@@ -169,7 +214,8 @@ public class UIHelper {
      * @param objects
      * @return
      */
-    private static Bundle buildBundle(Object... objects){
+    private static Bundle
+    buildBundle(Object... objects){
         Bundle bundle = new Bundle();
         for (int index = 0; index < objects.length; index = index + 2){
             String key   = (String) objects[index];

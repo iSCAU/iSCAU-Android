@@ -259,6 +259,11 @@ public class Main extends SherlockFragmentActivity{
     }
 
     @OptionsItem
+    void menu_courseInfo(){
+        UIHelper.startFragment(this,SearchCourse_.builder().build());
+    }
+
+    @OptionsItem
     void menu_searchBook(){
         UIHelper.startFragment(this, SearchBook_.builder().build());
     }

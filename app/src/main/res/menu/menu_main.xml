@@ -17,6 +17,8 @@
                       android:title="@string/menu_pickCourseInfo"/>
                 <item android:id="@+id/menu_emptyClassRoom"
                       android:title="@string/menu_emptyClassRoom"/>
+                <item android:id="@+id/menu_courseInfo"
+                    android:title="@string/menu_courseInfo"/>
                 <item android:id="@+id/menu_back"
                       android:title="@string/menu_back"/>
             </group>

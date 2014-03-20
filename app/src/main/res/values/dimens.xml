@@ -18,6 +18,7 @@
     <dimen name="listitem_goal_title_padding_right">4dp</dimen>
     <dimen name="normal_listview_dividerHeight">3dp</dimen>
     <dimen name="listitem_goal_sub_title_size">12sp</dimen>
+    <dimen name="comment_text_size">15sp</dimen>
     <dimen name="pull_to_refresh_header_textsize">12sp</dimen>
     <dimen name="intro_lable_textsize">16sp</dimen>
     <dimen name="intro_content_textsize">16sp</dimen>

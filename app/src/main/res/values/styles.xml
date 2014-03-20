@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <!-- Action Bar title -->
     <style name="ActionBarTitle" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
         <item name="android:layout_centerHorizontal">true</item>
@@ -25,6 +26,12 @@
         <item name="android:windowBackground">@color/background_normal</item>
         <item name="windowContentOverlay">@drawable/actionbar_shadow</item>
         <item name="actionBarStyle">@style/ActionBar</item>
+    </style>
+
+    <!-- comment -->
+    <style name="comment_item_sub_title" parent="Widget">
+        <item name="android:textSize">@dimen/comment_text_size</item>
+        <item name="android:textColor">@color/listitem_goal_sub_title_color</item>
     </style>
 
     <!--login edittext-->
@@ -56,6 +63,14 @@
         <item name="android:background">@drawable/login_button_selector</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <!-- loading dialog -->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <!-- noraml button -->

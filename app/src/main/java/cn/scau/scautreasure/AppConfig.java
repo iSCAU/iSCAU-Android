@@ -57,5 +57,8 @@ public interface AppConfig {
     @DefaultBoolean(false)
     boolean classTableAsFirstScreen();
 
+    @DefaultString("")
+    String courseComment();
+
     long lastUpdated();
 }

@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:icon="@drawable/icon"
         android:name=".AppContext_"
-        android:theme="@style/Theme.SpecialWhite">>
+        android:theme="@style/Theme.SpecialWhite">
 
         <activity android:name=".ui.Login_"
             android:label="@string/app_name">
@@ -29,6 +29,12 @@
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".ui.BookDetail_"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".ui.AddComments_"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".ui.CourseComments_"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".ui.InjectedSherlockActivity_"
