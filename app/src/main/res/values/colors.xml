@@ -35,4 +35,6 @@
     <color name="bus_state_lable_textcolor">#908f8f</color>
     <color name="bus_state_time_lable_textcolor">#908f8f</color>
     <color name="textview_version_text_color">#499c8c</color>
+    <color name="upcolor">#f8041b</color>
+    <color name="downcolor">#ff81cced</color>
 </resources>

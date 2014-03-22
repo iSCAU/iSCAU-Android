@@ -33,9 +33,16 @@
     <string name="tips_emptyclassroom_null">没有找到你想要的课室..</string>
     <string name="tips_searchbook_null">没有找到你想要的图书窝..</string>
     <string name="loading_seachbook">正在搜索图书..</string>
+    <string name="loading_seachcourse">正在搜索课程..</string>
+    <string name="no_text">请输入关键词</string>
+    <string name="search_fail">查询失败,请重试</string>
+    <string name="net_err">网络错误</string>
     <string name="loading_bookdetail">加载图书详细中..</string>
+    <string name="loading_course_comments">课程评论加载中..</string>
     <string name="tips_bookdetail_null">没有找到你想要的书的馆藏信息窝</string>
+    <string name="tips_coursecomment_null">该课程暂无评论,欢迎您参与吐槽!</string>
     <string name="menu_searchBook">搜索图书</string>
+    <string name="submit_err">请求失败</string>
     <string name="menu_nowBorrowedBook">当前借阅</string>
     <string name="menu_pastBorrowedBook">过去借阅</string>
     <string name="menu_lifeinformation">生活资讯</string>
@@ -128,6 +135,7 @@
     <string name="menu_card">校园卡</string>
     <string name="menu_other">应用汇</string>
     <string name="menu_about">关于</string>
+    <string name="menu_courseInfo">查课程</string>
     <string name="menu_back">返回</string>
     <string name="title_params">查询条件</string>
     <string name="listitem_lable_line">线路</string>
@@ -173,7 +181,8 @@
     <string name="total_credit_point">学分绩点之和：</string>
     <string name="tips_main_edusyspassword_not_existed">抱歉，请先配置您的教务系统密码</string>
     <string name="tips_main_libpassword_not_existed">抱歉，图书馆密码尚未设置</string>
-    <string name="tips_main_cardpassword_not_existed">抱歉，校园卡密码尚未设置</string><string name="version">Version</string>
+    <string name="tips_main_cardpassword_not_existed">抱歉，校园卡密码尚未设置</string>
+    <string name="version">Version</string>
     <string name="menu_update">检查更新</string>
     <string name="tips_no_update">暂时没有更新.</string>
     <string name="btn_back">返回</string>
@@ -189,6 +198,40 @@
     <string name="menu_configuration">软件设置</string>
     <string name="listitem_lable_classTableAsFirstScreen">课程表设为启动界面</string>
     <string name="btn_retry">重试</string>
+    <string name="comments_repeat_operate">亲，你已经点评过了好不好</string>
     <string name="btn_cancel">取消</string>
-
+    <string name="comments_waitForVote">亲，网络不太好，不过我们已经在为你投票中。</string>
+    <string name="hit_search_course">请输入课程名称或教师姓名</string>
+    <string name="comments_hasVotePoint">你已经评价过，谢谢。</string>
+    <string name="comments_loading">正在加载信息请稍等</string>
+    <string name="comments_fail">网络错误请重试</string>
+    <string name="comments_nomore">没有更多的评论了</string>
+    <string name="comments_askForSave">尚未提交成功，确定要离开吗?</string>
+    <string name="comments_vote_success">点赞成功，您的点赞将在稍候显示</string>
+    <string name="comments_Incomplete_information">信息不完整！</string>
+    <string name="comments_posting">正在提交，请稍等...</string>
+    <string name="comments_success">评论成功，谢谢你的参与</string>
+    <string name="comments_json_fail">请求失败</string>
+    <string name="str_have">有</string>
+    <string name="str_none">无</string>
+    <string name="str_yes">是</string>
+    <string name="str_no">否</string>
+    <string name="ups"> 个赞</string>
+    <string name="downs"> 个踩</string>
+    <string name="un_name">匿名</string>
+    <string name="info_un_enough">请填写完整再发布!</string>
+    <string name="submiting_comments">正在提交评论...</string>
+    <string name="comment_ok_show_later">评论成功!您的评论稍候将显示.</string>
+    <string name="comment_failed"> 评论失败!请重试!</string>
+    <string name="up">赞 </string>
+    <string name="down">踩 </string>
+    <string name="enter_key_word">请输入课程名称或者教师名字</string>
+    <string name="teacher_name">教师名字:</string>
+    <string name="course_type">课程类别:</string>
+    <string name="i_need_tucao">我也要吐槽</string>
+    <string name="loading_comments">正在加载评论...</string>
+    <string name="check_name">点名:</string>
+    <string name="homework">作业:</string>
+    <string name="exam">考试:</string>
+    <string name="comments">点评:</string>
 </resources>

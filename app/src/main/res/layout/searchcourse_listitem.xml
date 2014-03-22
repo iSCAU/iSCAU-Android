@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!-- 课程名称(教师名字)-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/course_name"
+        android:textSize="23sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@android:color/white"
+        android:background="@color/normal_item_passed_color"
+        android:paddingLeft="@dimen/listitem_title_padding_left"/>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/listitem_padding"
+        android:paddingBottom="@dimen/listitem_padding"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_title_padding_left">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+
+            <TableRow>
+
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="课程类别:"
+                    android:id="@+id/textView"/>
+
+                <!-- 出版社 -->
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/course_property"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content">
+
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="课程学分:"/>
+
+                <!-- 课程学分 -->
+                <TextView
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/course_scroe"/>
+
+
+            </TableRow>
+        </TableLayout>
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_title_padding_left">
+
+        <ImageView
+            style="@style/listitem_separator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="图片"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/normal_item_sub_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_liked"/>
+
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="@style/normal_item_sub_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_disliked"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

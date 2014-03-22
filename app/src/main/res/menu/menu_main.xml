@@ -22,8 +22,8 @@
             </group>
         </menu>
     </item>
-
-
+    <item android:id="@+id/menu_courseInfo"
+          android:title="@string/menu_courseInfo"/>
     <item
         android:title="@string/menu_lib">
         <menu>
@@ -80,7 +80,6 @@
             android:id="@+id/menu_update"
             android:title="@string/menu_update">
     </item>
-
     <item
         android:id="@+id/menu_about"
         android:title="@string/menu_about">

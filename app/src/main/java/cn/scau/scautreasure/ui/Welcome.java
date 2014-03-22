@@ -1,11 +1,14 @@
 package cn.scau.scautreasure.ui;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.widget.TextView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.PackageHelper;
-import org.androidannotations.annotations.*;
 
 /**
  * User: special

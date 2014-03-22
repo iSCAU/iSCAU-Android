@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@color/background_normal"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listitem_padding"
+            android:paddingBottom="@dimen/listitem_padding"
+            android:paddingLeft="@dimen/listitem_title_padding_left"
+            android:paddingRight="@dimen/listitem_title_padding_left">
+
+            <TableRow>
+
+                <TextView
+                    android:textSize="20dp"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/teacher_name"
+                    />
+
+
+                <TextView
+                    android:textSize="20dp"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t1"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:textSize="20dp"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/course_type"
+                    android:id="@+id/textView"/>
+
+                <TextView
+                    android:textSize="20dp"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t2"/>
+
+            </TableRow>
+
+
+        </TableLayout>
+
+        <TextView
+            android:gravity="center_horizontal"
+            android:id="@+id/t3"
+            android:textSize="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:background="@drawable/up_button"
+            android:id="@+id/up"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:background="@drawable/down_button"
+            android:id="@+id/down"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:text="@string/i_need_tucao"
+        android:id="@+id/tucao"
+        android:background="@drawable/cao_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Sherlock.ProgressBar"/>
+
+        <TextView
+            android:id="@+id/loading_status"
+            android:layout_width="wrap_content"
+            android:text="@string/loading_comments"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        ptr:ptrMode="pullFromEnd"
+        ptr:ptrHeaderTextAppearance="@style/ptrHeader_text"
+        ptr:ptrDrawable="@drawable/ptr_rotate"
+        style="@style/noraml_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/listView"
+        android:orientation="horizontal"/>
+
+
+</LinearLayout>

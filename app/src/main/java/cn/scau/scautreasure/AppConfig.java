@@ -4,6 +4,7 @@ import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.DefaultInt;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
+import org.androidannotations.api.sharedpreferences.StringPrefField;
 
 import cn.scau.scautreasure.ui.ClassTable;
 
@@ -56,6 +57,10 @@ public interface AppConfig {
 
     @DefaultBoolean(false)
     boolean classTableAsFirstScreen();
+    @DefaultString("")
+    String courseComment();
 
     long lastUpdated();
+
+
 }

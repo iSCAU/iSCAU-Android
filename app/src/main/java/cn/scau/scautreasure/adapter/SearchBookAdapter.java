@@ -3,6 +3,7 @@ package cn.scau.scautreasure.adapter;
 import android.content.Context;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.model.BookModel;
+
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
 
@@ -31,3 +32,5 @@ public class SearchBookAdapter extends QuickAdapter<BookModel> {
                          .setText(R.id.tv_all_bookname,model.getTitle());
     }
 }
+
+

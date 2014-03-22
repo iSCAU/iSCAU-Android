@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -33,29 +34,32 @@ import cn.scau.scautreasure.widget.ResideMenu_;
 
 /**
  * 软件启动的首页, 就是目前的菜单页
- *
+ * <p/>
  * User:  Special Leung
  * Date:  13-7-28
  * Time:  下午9:11
  * Mail:  specialcyci@gmail.com
  */
 @EActivity(R.layout.menu)
-public class Main extends SherlockFragmentActivity{
+public class Main extends SherlockFragmentActivity {
 
-    @Pref cn.scau.scautreasure.AppConfig_ config;
-    @App AppContext app;
-    @Bean DateUtil dateUtil;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
+    @App
+    AppContext app;
+    @Bean
+    DateUtil dateUtil;
     private Context context;
     private ResideMenu resideMenu;
 
     @AfterInject
-    void hideActionBar(){
+    void hideActionBar() {
         context = this;
         getSupportActionBar().hide();
     }
 
     @AfterViews
-    void initView(){
+    void initView() {
         initMobclickAgent();
         setUpMenu();
         checkForUpdate();
@@ -63,12 +67,12 @@ public class Main extends SherlockFragmentActivity{
         showNotification();
     }
 
-    private void initMobclickAgent(){
+    private void initMobclickAgent() {
         MobclickAgent.updateOnlineConfig(this);
         MobclickAgent.openActivityDurationTrack(false);
     }
 
-    private void setUpMenu(){
+    private void setUpMenu() {
         resideMenu = ResideMenu_.build(this);
         resideMenu.attachToActivity(this);
         resideMenu.attachToMenu(R.menu.menu_main);
@@ -76,7 +80,7 @@ public class Main extends SherlockFragmentActivity{
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
-    private void showWelcome(){
+    private void showWelcome() {
         menu_about();
         showMenu();
     }
@@ -87,22 +91,22 @@ public class Main extends SherlockFragmentActivity{
     }
 
     @UiThread(delay = 2000)
-    void showMenu(){
+    void showMenu() {
         // if user has set the class table as the first screen.
-        if (config.classTableAsFirstScreen().get()){
+        if (config.classTableAsFirstScreen().get()) {
             UIHelper.startFragment(this, ClassTable_.builder().build());
-        }else{
+        } else {
             getResideMenu().openMenu();
         }
     }
 
     @UiThread(delay = 4000)
-    void showNotification(){
+    void showNotification() {
         String notification = MobclickAgent.getConfigParams(this, "notification");
-        if(isConfigAble(notification)){
+        if (isConfigAble(notification)) {
             // 今天显示过就不显示了
-            if(!config.lastSeeNotificationDate().get().equals(dateUtil.getCurrentDateString()))
-                UIHelper.startFragment(this, Notification_.builder().build(), "notification",notification);
+            if (!config.lastSeeNotificationDate().get().equals(dateUtil.getCurrentDateString()))
+                UIHelper.startFragment(this, Notification_.builder().build(), "notification", notification);
         }
     }
 
@@ -113,26 +117,26 @@ public class Main extends SherlockFragmentActivity{
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(!isKeyBack(event))
-            return super.onKeyDown(keyCode,event);
-        if(isDialogShowing() || !isEmptyBackStackEntry())
-            return super.onKeyDown(keyCode,event);
+        if (!isKeyBack(event))
+            return super.onKeyDown(keyCode, event);
+        if (isDialogShowing() || !isEmptyBackStackEntry())
+            return super.onKeyDown(keyCode, event);
 
-        if(isNotInTopMenu()){
+        if (isNotInTopMenu()) {
             resideMenu.popBackMenu();
-        }else if(!resideMenu.isOpened()){
+        } else if (!resideMenu.isOpened()) {
             resideMenu.openMenu();
-        }else{
+        } else {
             menu_exit();
         }
         return true;
     }
 
     @OptionsItem
-    public void home(){
-        if(isEmptyBackStackEntry()){
+    public void home() {
+        if (isEmptyBackStackEntry()) {
             resideMenu.openMenu();
-        }else{
+        } else {
             getSupportFragmentManager().popBackStack();
         }
     }
@@ -141,7 +145,7 @@ public class Main extends SherlockFragmentActivity{
         return resideMenu;
     }
 
-    private boolean isEmptyBackStackEntry(){
+    private boolean isEmptyBackStackEntry() {
         getSupportFragmentManager().executePendingTransactions();
         return getSupportFragmentManager().getBackStackEntryCount() == 0;
     }
@@ -150,23 +154,23 @@ public class Main extends SherlockFragmentActivity{
         return UIHelper.getDialog() != null && UIHelper.getDialog().isShowing();
     }
 
-    private boolean isKeyBack(KeyEvent event){
+    private boolean isKeyBack(KeyEvent event) {
         return event.getKeyCode() == KeyEvent.KEYCODE_BACK;
     }
 
-    private boolean isNotInTopMenu(){
+    private boolean isNotInTopMenu() {
         return resideMenu.isOpened() && !resideMenu.isTopMenu();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getGroupId()){
+        switch (item.getGroupId()) {
             case R.id.group_edusys:
                 return ensureExisted(AppContext.eduSysPassword, R.string.tips_main_edusyspassword_not_existed);
 
             case R.id.group_lib:
-                if(item.getItemId() != R.id.menu_searchBook)
+                if (item.getItemId() != R.id.menu_searchBook)
                     return ensureExisted(AppContext.libPassword, R.string.tips_main_libpassword_not_existed);
                 break;
 
@@ -176,21 +180,21 @@ public class Main extends SherlockFragmentActivity{
     }
 
     private boolean ensureExisted(String targetString, int notExistedTipsString) {
-        if (targetString == null || targetString.equals("")){
-            AppMsg.makeText(this,notExistedTipsString,AppMsg.STYLE_ALERT).show();
+        if (targetString == null || targetString.equals("")) {
+            AppMsg.makeText(this, notExistedTipsString, AppMsg.STYLE_ALERT).show();
             return true;
         }
         return false;
     }
 
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT)
-    void onEditAccountResult(){
+    void onEditAccountResult() {
         getResideMenu().openMenu();
     }
 
     private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {
         @Override
-        public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+        public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
             switch (updateStatus) {
                 case UpdateStatus.Yes: // has update
                     UmengUpdateAgent.showUpdateDialog(context, updateInfo);
@@ -228,112 +232,120 @@ public class Main extends SherlockFragmentActivity{
 //        if (isConfigAble(enforceupdate))
 //            Toast.makeText(this,R.string.tips_forceupdate,Toast.LENGTH_LONG).show();
 //    }
-
-    private boolean isConfigAble(String config){
+    private boolean isConfigAble(String config) {
         return !config.trim().equals("0") && !config.trim().equals("");
     }
 
     @OptionsItem
-    void menu_classtable(){
+    void menu_classtable() {
         UIHelper.startFragment(this, ClassTable_.builder().build());
     }
 
     @OptionsItem
-    void menu_goal(){
-        UIHelper.startFragment(this, Param_.builder().build(),"target","goal","targetFragment",Goal_.class.getName());
+    void menu_goal() {
+        UIHelper.startFragment(this, Param_.builder().build(), "target", "goal", "targetFragment", Goal_.class.getName());
     }
 
     @OptionsItem
-    void menu_exam(){
+    void menu_exam() {
         UIHelper.startFragment(this, Exam_.builder().build());
     }
 
     @OptionsItem
-    void menu_pickCourseInfo(){
+    void menu_pickCourseInfo() {
         UIHelper.startFragment(this, PickClassInfo_.builder().build());
     }
 
     @OptionsItem
-    void menu_emptyClassRoom(){
-        UIHelper.startFragment(this, Param_.builder().build(),"target","emptyclassroom","targetFragment",EmptyClassRoom_.class.getName());
+    void menu_emptyClassRoom() {
+        UIHelper.startFragment(this, Param_.builder().build(), "target", "emptyclassroom", "targetFragment", EmptyClassRoom_.class.getName());
     }
 
     @OptionsItem
-    void menu_searchBook(){
+    void menu_searchBook() {
         UIHelper.startFragment(this, SearchBook_.builder().build());
     }
 
     @OptionsItem
-    void menu_nowBorrowedBook(){
-        UIHelper.startFragment(this, BorrowedBook_.builder().build(),"target",UIHelper.TARGET_FOR_NOW_BORROW);
+    void menu_nowBorrowedBook() {
+        UIHelper.startFragment(this, BorrowedBook_.builder().build(), "target", UIHelper.TARGET_FOR_NOW_BORROW);
     }
 
     @OptionsItem
-    void menu_pastBorrowedBook(){
-        UIHelper.startFragment(this, BorrowedBook_.builder().build(),"target",UIHelper.TARGET_FOR_PAST_BORROW);
+    void menu_pastBorrowedBook() {
+        UIHelper.startFragment(this, BorrowedBook_.builder().build(), "target", UIHelper.TARGET_FOR_PAST_BORROW);
     }
 
     @OptionsItem
-    void menu_lifeinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","LifeInformation","title",R.string.menu_lifeinformation);
+    void menu_lifeinformation() {
+        UIHelper.startFragment(this, Introduction_.builder().build(), "target", "LifeInformation", "title", R.string.menu_lifeinformation);
     }
 
     @OptionsItem
-    void menu_communityinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","CommunityInformation","title",R.string.menu_communityinformation);
+    void menu_communityinformation() {
+        UIHelper.startFragment(this, Introduction_.builder().build(), "target", "CommunityInformation", "title", R.string.menu_communityinformation);
     }
 
     @OptionsItem
-    void menu_guardianserves(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","GuardianServes","title",R.string.menu_guardianserves);
+    void menu_guardianserves() {
+        UIHelper.startFragment(this, Introduction_.builder().build(), "target", "GuardianServes", "title", R.string.menu_guardianserves);
     }
 
     @OptionsItem
-    void menu_studyinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","StudyInformation","title",R.string.menu_studyinformation);
+    void menu_studyinformation() {
+        UIHelper.startFragment(this, Introduction_.builder().build(), "target", "StudyInformation", "title", R.string.menu_studyinformation);
     }
 
     @OptionsItem
-    void menu_busandtelphone(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","Bus&Telphone","title",R.string.menu_busandtelphone);
+    void menu_busandtelphone() {
+        UIHelper.startFragment(this, Introduction_.builder().build(), "target", "Bus&Telphone", "title", R.string.menu_busandtelphone);
     }
 
     @OptionsItem
-    void menu_calendar(){
+    void menu_calendar() {
         UIHelper.startFragment(this, Calendar_.builder().build());
     }
 
     @OptionsItem
-    void menu_notice(){
+    void menu_notice() {
         UIHelper.startFragment(this, Notice_.builder().build());
     }
 
 
     @OptionsItem
-    void menu_account(){
+    void menu_account() {
         Login_.intent(this).isStartFormMenu(true).startForResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT);
     }
 
     @OptionsItem
-    void menu_configuration(){
+    void menu_configuration() {
         UIHelper.startFragment(this, Configuration_.builder().build());
     }
 
     @OptionsItem
-    void menu_update(){
-        Toast.makeText(this,R.string.loading_default,Toast.LENGTH_LONG).show();
+    void menu_update() {
+        Toast.makeText(this, R.string.loading_default, Toast.LENGTH_LONG).show();
         UmengUpdateAgent.setUpdateAutoPopup(false);
         UmengUpdateAgent.setUpdateListener(umengUpdateListener);
         UmengUpdateAgent.forceUpdate(this);
     }
 
     @OptionsItem
-    void menu_about(){
-        UIHelper.startFragment(this,Welcome_.builder().build());
+    void menu_about() {
+
+        UIHelper.startFragment(this, Welcome_.builder().build());
+    }
+    /*
+     *搜索课程
+     */
+
+    @OptionsItem
+    void menu_courseInfo() {
+        UIHelper.startFragment(this, SearchCourse_.builder().build());
     }
 
     @OptionsItem
-    void menu_exit(){
+    void menu_exit() {
         MobclickAgent.onKillProcess(this);
         System.exit(0);
     }

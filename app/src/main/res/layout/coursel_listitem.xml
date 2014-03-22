@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/normal_item_passed_color"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/username"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:paddingLeft="5dp"/>
+
+        <TextView
+            android:gravity="right"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:paddingRight="5dp"/>
+    </LinearLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/listitem_padding"
+        android:paddingBottom="@dimen/listitem_padding"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_title_padding_left">
+
+        <TableRow>
+
+            <TextView
+
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/check_name"
+                />
+
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ischeck"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/homework"
+                android:id="@+id/textView"/>
+
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ishomework"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content">
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exam"/>
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/isexam"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content">
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comments"/>
+
+
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/comment"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+    </TableLayout>
+
+
+</LinearLayout>
