@@ -40,7 +40,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edt_search"
-                    android:hint="@string/hint_searchbook"/>
+                    />
 
             <FrameLayout
                     android:layout_weight="5"

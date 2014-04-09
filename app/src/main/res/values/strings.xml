@@ -37,6 +37,7 @@
     <string name="no_text">请输入关键词</string>
     <string name="search_fail">查询失败,请重试</string>
     <string name="net_err">网络错误</string>
+    <string name="no_you_want">找不到你想要的..</string>
     <string name="loading_bookdetail">加载图书详细中..</string>
     <string name="loading_course_comments">课程评论加载中..</string>
     <string name="tips_bookdetail_null">没有找到你想要的书的馆藏信息窝</string>

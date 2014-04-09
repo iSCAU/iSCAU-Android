@@ -23,7 +23,7 @@
             <TableRow>
 
                 <TextView
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 
 
                 <TextView
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             <TableRow>
 
                 <TextView
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                     android:id="@+id/textView"/>
 
                 <TextView
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,6 +78,7 @@
         <Button
             android:background="@drawable/up_button"
             android:id="@+id/up"
+            android:textColor="#ffffff"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -85,6 +86,7 @@
         <Button
             android:background="@drawable/down_button"
             android:id="@+id/down"
+            android:textColor="#ffffff"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

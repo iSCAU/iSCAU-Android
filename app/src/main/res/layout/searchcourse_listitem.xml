@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/course_name"
-        android:textSize="23sp"
+        android:textSize="18sp"
         android:singleLine="true"
         android:ellipsize="end"
         android:textColor="@android:color/white"
@@ -95,6 +95,7 @@
                 style="@style/normal_item_sub_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:id="@+id/course_liked"/>
 
 
@@ -105,6 +106,7 @@
                 style="@style/normal_item_sub_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
                 android:id="@+id/course_disliked"/>
 
         </LinearLayout>

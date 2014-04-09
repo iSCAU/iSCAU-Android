@@ -90,7 +90,8 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
 
     private PostHelper.PostCallBack voteBack = new PostHelper.PostCallBack() {
         public void onSuccess() {
-            showInfo(getString(R.string.comments_vote_success));
+            AppMsg.makeText(CourseComments.this, getString(R.string.comments_vote_success), AppMsg.STYLE_CONFIRM).show();
+
         }
 
         public void onFail(int extraMsgId) {
@@ -194,8 +195,10 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
         if (courseCommentModel.getUserName().toString().equals("") ||
                 courseCommentModel.getExam().toString().equals("") ||
                 courseCommentModel.getComment().toString().equals("")) {
-            showInfo(getString(R.string.info_un_enough));
-            tucao();
+            AppMsg.makeText(CourseComments.this, getString(R.string.info_un_enough), AppMsg.STYLE_CONFIRM).show();
+
+
+           tucao();
         } else {
             params.clear();
             params.add("userName", courseCommentModel.getUserName().toString());
@@ -204,7 +207,9 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
             params.add("hasHomework", String.valueOf(courseCommentModel.getHasHomework()));
             params.add("exam", courseCommentModel.getExam().toString());
             params.add("comment", courseCommentModel.getComment().toString());
-            showInfo(getString(R.string.submiting_comments));
+
+            AppMsg.makeText(CourseComments.this, getString(R.string.submiting_comments ), AppMsg.STYLE_CONFIRM).show();
+
             try {
                 PostData(Paths.URL, params);
             } catch (Exception er) {
@@ -219,21 +224,19 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
         PostHelper.PostCallBack callback = new PostHelper.PostCallBack() {
             @Override
             public void onSuccess() {
-                showInfo(getString(R.string.comment_ok_show_later));
+
+                AppMsg.makeText(CourseComments.this, getString(R.string.comment_ok_show_later), AppMsg.STYLE_CONFIRM).show();
+
             }
 
             @Override
             public void onFail(int extraMsgId) {
-                showInfo(getString(R.string.comment_failed));
+                AppMsg.makeText(CourseComments.this, getString(R.string.comment_failed ), AppMsg.STYLE_CONFIRM).show();
             }
         };
         PostHelper.PostData(URL, params, callback);
     }
 
-    @UiThread
-    void showInfo(String info) {
-        Toast.makeText(CourseComments.this, info, Toast.LENGTH_LONG).show();
-    }
 
     @Click
     void up() {
@@ -261,9 +264,10 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
             }
 
         } catch (HttpStatusCodeException e) {
-            showResult(CourseComments.this, R.string.comments_json_fail);
+            AppMsg.makeText(CourseComments.this, getString(R.string.comments_json_fail), AppMsg.STYLE_CONFIRM).show();
+
         } catch (RestClientException e) {
-            showResult(CourseComments.this, R.string.comments_fail);
+            AppMsg.makeText(CourseComments.this, getString(R.string.comments_fail), AppMsg.STYLE_CONFIRM).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -293,7 +297,8 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
             if (!endOfPage) {
                 loadData(SumPage);
             } else {
-                showInfo(getString(R.string.comments_nomore));
+                AppMsg.makeText(CourseComments.this, getString( R.string.comments_nomore), AppMsg.STYLE_CONFIRM).show();
+
                 pullListView.onRefreshComplete();
                 pullListView.setRefreshing(false);
             }
@@ -341,7 +346,9 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
                     hideProgress();
                 } else {
                     endOfPage = true;
-                    showInfo(getString(R.string.comments_nomore));
+                    AppMsg.makeText(CourseComments.this, getString(R.string.comments_nomore ), AppMsg.STYLE_CONFIRM).show();
+
+
                 }
                 return;
             }
@@ -357,7 +364,8 @@ public class CourseComments extends InjectedSherlockActivity implements DialogIn
     void showErroResult(int requestCode) {
         UIHelper.getDialog().dismiss();
         if (requestCode == 404) {
-            showInfo(getString(R.string.tips_coursecomment_null));
+            AppMsg.makeText(CourseComments.this, getString(R.string.tips_coursecomment_null ), AppMsg.STYLE_CONFIRM).show();
+
         } else {
             app.showError(requestCode, this);
         }

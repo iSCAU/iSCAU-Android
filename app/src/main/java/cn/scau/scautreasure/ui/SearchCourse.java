@@ -78,6 +78,11 @@ public class SearchCourse extends Common {
     };
 
     void btn_search(View view) {
+//        Bundle b = new Bundle();
+//        b.putSerializable("CourseModel", new CourseModel());
+//        CourseComments_.intent(getSherlockActivity()).courseBundle(b).start();
+
+
         if (view != null) {
             if (!edt_search.getText().toString().trim().equals("")) {
                 AppMsg.makeText(getSherlockActivity(), R.string.loading_seachcourse, AppMsg.STYLE_CONFIRM).show();
@@ -139,6 +144,11 @@ public class SearchCourse extends Common {
     void loadData(Object... params) {
         try {
             list = api.searchCourse((String) params[0]).getCourses();
+            if (list.size()==0)
+            {
+                AppMsg.makeText(getSherlockActivity(), getString(R.string.no_you_want), AppMsg.STYLE_CONFIRM).show();
+                return;
+            }
             showSuccessResult(list);
         } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());

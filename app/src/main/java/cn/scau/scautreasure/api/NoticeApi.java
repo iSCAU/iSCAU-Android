@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://115.28.144.49/notice/", converters = { GsonHttpMessageConverter.class } )
+@Rest(rootUrl = "http://3.huanongbao.sinaapp.com/index.php?s=notice/", converters = { GsonHttpMessageConverter.class } )
 public interface NoticeApi{
 
     @Get("getlist/{page}")
