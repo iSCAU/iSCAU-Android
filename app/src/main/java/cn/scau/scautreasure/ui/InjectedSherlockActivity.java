@@ -4,18 +4,26 @@ import android.graphics.Rect;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import cn.scau.scautreasure.util.MetricsUtil;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.umeng.analytics.MobclickAgent;
-import org.androidannotations.annotations.*;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.scau.scautreasure.util.MetricsUtil;
+
 /**
- * 辅助二级菜单左滑退出
- * (暂时没有启用!)
+ * 由于程序中大部分是使用Fragment作为软件功能的一个个页面,并且大多数都是在以Main为
+ * 母框展示, 但是我们也难免有时候需要用到一个单独的Activity弹出展示, 这个时候也需要
+ * 同时支持整个应用场景下的左滑后退并且弹出菜单, 为了方便故写下这个通用类, 如果有需要
+ * 不使用Fragment要Activity, 则只需要继承本类即可, 其它如同普通Activity用法.
  *
  * User: special
  * Date: 13-9-26

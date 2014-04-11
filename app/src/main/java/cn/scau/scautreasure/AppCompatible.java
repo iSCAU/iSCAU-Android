@@ -23,12 +23,18 @@ import cn.scau.scautreasure.util.StringUtil;
 import cn.scau.scautreasure.util.TextManager;
 
 /**
-* 兼容升级低版本数据
-* User:  Special Leung
-* Date:  13-7-26
-* Time:  下午8:17
-* Mail:  specialcyci@gmail.com
-*/
+ * 兼容升级低版本数据,可能有部分配置随着版本的升级, 需要新增或去掉,
+ * 在整个时候可以在这文件增加一个函数, 根据versionCode去判断应该执
+ * 行怎么的增加或移除配置操作.
+ *
+ * 注: 从2014-02-16开始, versionCode采用Gradle自动生成, 按照release
+ *     当天的日期自动形成版本号,例如 20140226.
+ *
+ * User:  Special Leung
+ * Date:  13-7-26
+ * Time:  下午8:17
+ * Mail:  specialcyci@gmail.com
+ */
 @EBean
 public class AppCompatible {
 
@@ -50,16 +56,17 @@ public class AppCompatible {
             System.out.println("update from version 7");
             // dealwith the old data
             upgrade_version_7();
-
         }
 
-//        //  when next version releases
-//        //  we can type "else if ( lastVersionCode = xx)"..
+        // 当有需要补充的配置迁移操作, 可以在这里添加:
+        // > if(lastVersionCode == 20140226 ){ what to do; }
+        // 表示当升级前versionCode为20140226时候执行何种操作
+
         config.versionCode().put(currentVersionCode);
     }
 
     /**
-     * upgrade the old data of version code low than 7
+     * 兼容重构版本前(v2.1)以前的账号配置, 将旧版本的数据迁移到重构后的配置命名空间
      */
     private void upgrade_version_7(){
 
@@ -127,7 +134,8 @@ public class AppCompatible {
         return classModelList;
     }
     /**
-     * get the currentVersion Code;
+     * 获得当前App的versionCode;
+     *
      * @return versionCode;
      */
     private int getVersionCode(){
