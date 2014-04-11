@@ -190,5 +190,7 @@
     <string name="listitem_lable_classTableAsFirstScreen">课程表设为启动界面</string>
     <string name="btn_retry">重试</string>
     <string name="btn_cancel">取消</string>
+    <string name="listitem_label_ringerModeDuringClass">上课时情景模式</string>
+    <string name="listitem_label_ringerModeAfterClass">下课后情景模式</string>
 
 </resources>

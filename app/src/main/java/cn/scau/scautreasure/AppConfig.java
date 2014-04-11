@@ -57,5 +57,11 @@ public interface AppConfig {
     @DefaultBoolean(false)
     boolean classTableAsFirstScreen();
 
+    @DefaultInt(-1)
+    int duringClassRingerMode();//上课时的情景模式，默认不设置
+
+    @DefaultInt(-1)
+    int afterClassRingerMode(); //下课后的情景模式，默认不设置
+
     long lastUpdated();
 }

@@ -23,6 +23,16 @@
                     android:id="@+id/param_classTableAsFirstScreen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+            <cn.scau.scautreasure.widget.ParamWidget_
+                android:id="@+id/param_ringer_mode_during_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <cn.scau.scautreasure.widget.ParamWidget_
+                android:id="@+id/param_ringer_mode_after_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <Button
                     style="@style/noraml_button"
                     android:id="@+id/btn_save"

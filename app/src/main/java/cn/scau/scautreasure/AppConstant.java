@@ -53,7 +53,7 @@ public class AppConstant {
     };
 
     /**
-     * 桌面小插件的Intente;
+     * 桌面小插件的Intent;
      */
     public static final String INTENT_CONFIGURE   = "android.appwidget.action.APPWIDGET_CONFIGURE";
     public static final String INTENT_SETTINGS    = "cn.scau.scautreasure.SETTINGS";
@@ -65,5 +65,18 @@ public class AppConstant {
     public static final String INTENT_FRIDAY      = "cn.scau.scautreasure.FRIDAY";
     public static final String INTENT_SATURDAY    = "cn.scau.scautreasure.SATURDAY";
     public static final String INTENT_SUNDAY      = "cn.scau.scautreasure.SUNDAY";
+
+    /**
+     * 更改上课情景模式
+     */
+    public static final String ACTION_RINGER_MODE_ALARM_DURING = "cn.scau.scautreasure.RINGER_MODE_ALARM_DURING";
+    /**
+     * 更改下课情景模式
+     */
+    public static final String ACTION_RINGER_MODE_ALARM_AFTER = "cn.scau.scautreasure.RINGER_MODE_ALARM_AFTER";
+    /**
+     * 0:00闹钟广播
+     */
+    public static final String ACTION_DATE_CHANGED = "cn.scau.scautreasure.DATE_CHANGED";
 
 }
