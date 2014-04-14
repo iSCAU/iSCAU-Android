@@ -23,9 +23,9 @@ public class DateChangedReceiver extends BroadcastReceiver {
         RingerMode afterMode = RingerMode.getModeByValue(config.afterClassRingerMode().get());
         RingerMode.duringClassOn(context, duringMode, -1);
         RingerMode.afterClassOn(context, afterMode, 1);
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if(Intent.ACTION_DATE_CHANGED.equals(intent.getAction())){
+        if(Intent.ACTION_DATE_CHANGED.equals(intent.getAction()) || Intent.ACTION_TIME_CHANGED.equals(intent.getAction())){
             //手动修改时间引起的日期变化，重新判断当前是否上课，设置相应的情景模式
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if(ClassUtil.isDuringClassNow(context)){
                 if(RingerMode.isSet(duringMode.getValue())){
                     audioManager.setRingerMode(duringMode.getValue());
@@ -34,13 +34,6 @@ public class DateChangedReceiver extends BroadcastReceiver {
                 if(RingerMode.isSet(afterMode.getValue())){
                     audioManager.setRingerMode(afterMode.getValue());
                 }
-            }
-        }
-        if(Intent.ACTION_TIME_CHANGED.equals(intent.getAction())){
-            if(ClassUtil.isDuringClassNow(context)){
-                audioManager.setRingerMode(duringMode.getValue());
-            } else {
-                audioManager.setRingerMode(afterMode.getValue());
             }
         }
     }

@@ -82,7 +82,7 @@ public enum RingerMode {
             if(isSet(value)){
                 ClassUtil.genClassBeginTime(c, node);
                 c.add(Calendar.MINUTE, offsetMinute);
-                alarmMgr.set(AlarmManager.RTC, c.getTimeInMillis(), pendIntent);
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendIntent);
             } else {
                 alarmMgr.cancel(pendIntent);
             }
@@ -114,7 +114,7 @@ public enum RingerMode {
             if(isSet(value)){
                 ClassUtil.genClassOverTime(c, node);
                 c.add(Calendar.MINUTE, offsetMinute);
-                alarmMgr.set(AlarmManager.RTC, c.getTimeInMillis(), pendIntent);
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendIntent);
             } else {
                 alarmMgr.cancel(pendIntent);
             }
@@ -133,6 +133,18 @@ public enum RingerMode {
         c.add(Calendar.DAY_OF_MONTH, 1);
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
-        alarmMgr.setRepeating(AlarmManager.RTC, c.getTimeInMillis(), CacheUtil.TIME_DAY * 1000, pendIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), CacheUtil.TIME_DAY * 1000, pendIntent);
+    }
+
+    /**
+     * 取消每天0:00触发的闹钟
+     * @param context
+     */
+    public static void cancelDateChangedAlarm(Context context){
+        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(AppConstant.ACTION_DATE_CHANGED);
+        PendingIntent pendIntent = PendingIntent.getBroadcast(context,
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmMgr.cancel(pendIntent);
     }
 }

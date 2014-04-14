@@ -99,6 +99,8 @@ public class Configuration extends Common{
         }
         if(RingerMode.isSet(duringMode.getValue()) || RingerMode.isSet(afterMode.getValue())){
             RingerMode.setDateChangedAlarm(getActivity());
+        } else {
+            RingerMode.cancelDateChangedAlarm(getActivity());
         }
         AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         if(ClassUtil.isDuringClassNow(getActivity())){
