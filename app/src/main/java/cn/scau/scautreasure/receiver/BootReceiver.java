@@ -20,6 +20,9 @@ public class BootReceiver extends BroadcastReceiver {
         config = new cn.scau.scautreasure.AppConfig_(context);
         RingerMode duringMode = RingerMode.getModeByValue(config.duringClassRingerMode().get());
         RingerMode afterMode = RingerMode.getModeByValue(config.afterClassRingerMode().get());
+        if(!RingerMode.isSet(duringMode.getValue()) && !RingerMode.isSet(afterMode.getValue())){
+            return;
+        }
         RingerMode.duringClassOn(context, duringMode, -1);
         RingerMode.afterClassOn(context, afterMode, 1);
         RingerMode.setDateChangedAlarm(context);

@@ -3,10 +3,8 @@ package cn.scau.scautreasure.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 
 import cn.scau.scautreasure.RingerMode;
-import cn.scau.scautreasure.util.ClassUtil;
 
 /**
  * 日期变化广播接收器<br/>
@@ -23,18 +21,5 @@ public class DateChangedReceiver extends BroadcastReceiver {
         RingerMode afterMode = RingerMode.getModeByValue(config.afterClassRingerMode().get());
         RingerMode.duringClassOn(context, duringMode, -1);
         RingerMode.afterClassOn(context, afterMode, 1);
-        if(Intent.ACTION_DATE_CHANGED.equals(intent.getAction()) || Intent.ACTION_TIME_CHANGED.equals(intent.getAction())){
-            //手动修改时间引起的日期变化，重新判断当前是否上课，设置相应的情景模式
-            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            if(ClassUtil.isDuringClassNow(context)){
-                if(RingerMode.isSet(duringMode.getValue())){
-                    audioManager.setRingerMode(duringMode.getValue());
-                }
-            } else {
-                if(RingerMode.isSet(afterMode.getValue())){
-                    audioManager.setRingerMode(afterMode.getValue());
-                }
-            }
-        }
     }
 }

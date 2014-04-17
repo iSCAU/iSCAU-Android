@@ -79,4 +79,7 @@ public class AppConstant {
      */
     public static final String ACTION_DATE_CHANGED = "cn.scau.scautreasure.DATE_CHANGED";
 
+    public static final String LOG_TAG = "scautreasure";
+    public static final String LOG_FILE_NAME = "scautreasure/log.txt";
+
 }

@@ -78,7 +78,7 @@ public enum RingerMode {
         for(ClassModel classModel : klasses){
             node = Integer.parseInt(classModel.getNode().split(",")[0]);
             pendIntent = PendingIntent.getBroadcast(context,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    node, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             if(isSet(value)){
                 ClassUtil.genClassBeginTime(c, node);
                 c.add(Calendar.MINUTE, offsetMinute);
@@ -110,7 +110,7 @@ public enum RingerMode {
             node = Integer.parseInt(nodes[nodes.length - 1]);
             //节次作为reqCode
             pendIntent = PendingIntent.getBroadcast(context,
-                    node, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    node, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             if(isSet(value)){
                 ClassUtil.genClassOverTime(c, node);
                 c.add(Calendar.MINUTE, offsetMinute);
@@ -128,7 +128,7 @@ public enum RingerMode {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(AppConstant.ACTION_DATE_CHANGED);
         PendingIntent pendIntent = PendingIntent.getBroadcast(context,
-                0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 1);
         c.set(Calendar.HOUR_OF_DAY, 0);
