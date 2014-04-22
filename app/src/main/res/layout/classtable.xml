@@ -1,33 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
 
-    <cn.scau.scautreasure.widget.ClassTabWidget_
-            android:id="@+id/titles"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent" />
+<TabHost
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabHost">
 
-    <ImageView
-            style="@style/listitem_separator"
-            android:layout_marginTop="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription=""/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+        <TabWidget
+            android:id="@android:id/tabs"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"></TabWidget>
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/class_day"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/listitem_separator"
+                    android:layout_marginTop="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="" />
+
+                <cn.scau.scautreasure.widget.ClassTabWidget_
+                    android:id="@+id/titles"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent" />
+
+                <ImageView
+                    style="@style/listitem_separator"
+                    android:layout_marginTop="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription=""/>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/class_week"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollView" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView"
+                         />
+                </ScrollView>
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>

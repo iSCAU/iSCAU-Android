@@ -9,6 +9,8 @@
                     android:id="@+id/group_edusys">
                 <item android:id="@+id/menu_classtable"
                       android:title="@string/menu_classtable"/>
+                <item android:id="@+id/menu_wclasstable"
+                      android:title="@string/menu_whole_classtable" />
                 <item android:id="@+id/menu_goal"
                       android:title="@string/menu_goal"/>
                 <item android:id="@+id/menu_exam"

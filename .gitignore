@@ -29,6 +29,8 @@ out/
 *.iml
 *.ipr
 *.iws
+*.7z
+*.apk
 local.properties
 
 .DS_Store
