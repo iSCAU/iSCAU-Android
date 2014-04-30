@@ -22,6 +22,9 @@ android {
         exclude "META-INF/license.txt"
         exclude "META-INF/notice.txt"
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 ext.androidAnnotationsVersion = '3.0.1';
