@@ -28,7 +28,6 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.ResideMenu;
-import cn.scau.scautreasure.widget.ResideMenu_;
 
 /**
  * 软件启动的首页, 就是目前的菜单页
@@ -68,10 +67,10 @@ public class Main extends ActionBarActivity{
     }
 
     private void setUpMenu(){
-        resideMenu = ResideMenu_.build(this);
+        resideMenu = new ResideMenu(this);
+        resideMenu.setBackground(R.drawable.menu_background);
         resideMenu.attachToActivity(this);
-        resideMenu.attachToMenu(R.menu.menu_main);
-        resideMenu.setBackMenuItemId(R.id.menu_back);
+        resideMenu.setDirectionDisable(ResideMenu.DIRECTION_RIGHT);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
@@ -91,7 +90,7 @@ public class Main extends ActionBarActivity{
         if (config.classTableAsFirstScreen().get()){
             UIHelper.startFragment(this, ClassTable_.builder().build());
         }else{
-            getResideMenu().openMenu();
+            getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
         }
     }
 
@@ -117,20 +116,18 @@ public class Main extends ActionBarActivity{
         if(isDialogShowing() || !isEmptyBackStackEntry())
             return super.onKeyDown(keyCode,event);
 
-        if(isNotInTopMenu()){
-            resideMenu.popBackMenu();
-        }else if(!resideMenu.isOpened()){
-            resideMenu.openMenu();
+        if(!resideMenu.isOpened()){
+            resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
         }else{
             menu_exit();
         }
         return true;
-}
+    }
 
     @OptionsItem(android.R.id.home)
     public void home(){
         if(isEmptyBackStackEntry()){
-            resideMenu.openMenu();
+            resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
         }else{
             getSupportFragmentManager().popBackStack();
         }
@@ -153,9 +150,6 @@ public class Main extends ActionBarActivity{
         return event.getKeyCode() == KeyEvent.KEYCODE_BACK;
     }
 
-    private boolean isNotInTopMenu(){
-        return resideMenu.isOpened() && !resideMenu.isTopMenu();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -184,7 +178,7 @@ public class Main extends ActionBarActivity{
 
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT)
     void onEditAccountResult(){
-        getResideMenu().openMenu();
+        getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
     }
 
     private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {

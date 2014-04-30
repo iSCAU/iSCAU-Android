@@ -104,7 +104,7 @@ public abstract class Common extends Fragment implements DialogInterface.OnCance
     }
 
     protected void openMenu(){
-        getResideMenu().openMenu();
+        getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
     }
 
     /**
