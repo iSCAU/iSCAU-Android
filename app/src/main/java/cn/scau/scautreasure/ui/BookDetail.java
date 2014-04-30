@@ -3,6 +3,22 @@ package cn.scau.scautreasure.ui;
 import android.content.DialogInterface;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import com.devspark.appmsg.AppMsg;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.api.BackgroundExecutor;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BookDetailAdapter;
@@ -10,14 +26,8 @@ import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.BookDetailModel;
 import cn.scau.scautreasure.util.CryptUtil;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.devspark.appmsg.AppMsg;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.androidannotations.api.BackgroundExecutor;
-import org.springframework.web.client.HttpStatusCodeException;
-import java.util.List;
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
 /**
  * 搜书图书后，获取详细信息;

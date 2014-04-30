@@ -1,15 +1,15 @@
 package cn.scau.scautreasure.widget;
 
 import android.content.Context;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.scau.scautreasure.R;
+
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
-import com.actionbarsherlock.view.MenuItem;
+
+import cn.scau.scautreasure.R;
 
 /**
  * User: special

@@ -2,13 +2,15 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import com.devspark.appmsg.AppMsg;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -21,8 +23,10 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassAdapter;
@@ -35,6 +39,7 @@ import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.ClassTabWidget;
+
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
 /**
@@ -216,7 +221,7 @@ public class ClassTable extends Common implements ServerOnChangeListener{
      */
     @Override
     @UiThread
-    void showErrorResult(SherlockFragmentActivity ctx, int requestCode){
+    void showErrorResult(ActionBarActivity ctx, int requestCode){
         UIHelper.getDialog().dismiss();
         if(requestCode == 404){
             AppMsg.makeText(ctx, R.string.tips_classtable_null, AppMsg.STYLE_ALERT).show();

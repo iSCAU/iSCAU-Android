@@ -1,12 +1,16 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.TextView;
-import cn.scau.scautreasure.AppConfig_;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.util.DateUtil;
-import cn.scau.scautreasure.widget.ResideMenu;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 /**
  * 软件公告通知.
@@ -34,7 +38,7 @@ public class Notification extends Common{
     }
 
     @Click
-    void abs__home(){
+    void home(){
         getSherlockActivity().getSupportFragmentManager().popBackStack();
         getResideMenu().openMenu();
     }

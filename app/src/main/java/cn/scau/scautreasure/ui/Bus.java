@@ -1,8 +1,29 @@
 package cn.scau.scautreasure.ui;
 
 import android.os.Handler;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
-import antistatic.spinnerwheel.*;
+
+import com.devspark.appmsg.AppMsg;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.api.BackgroundExecutor;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import antistatic.spinnerwheel.AbstractWheel;
+import antistatic.spinnerwheel.OnWheelChangedListener;
 import cn.scau.scautreasure.AppConstant;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
@@ -15,16 +36,6 @@ import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.widget.BusWidget;
 import cn.scau.scautreasure.widget.ParamWidget;
 import cn.scau.scautreasure.widget.ParamWidget_;
-import com.actionbarsherlock.view.MenuItem;
-import com.devspark.appmsg.AppMsg;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.res.StringArrayRes;
-import org.androidannotations.annotations.rest.RestService;
-import org.androidannotations.api.BackgroundExecutor;
-import org.springframework.web.client.HttpStatusCodeException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: special

@@ -1,12 +1,12 @@
 package cn.scau.scautreasure.ui;
 
 import android.graphics.Rect;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.AfterViews;
@@ -31,7 +31,7 @@ import cn.scau.scautreasure.util.MetricsUtil;
  * Mail: specialcyci@gmail.com
  */
 @EActivity
-public class InjectedSherlockActivity extends SherlockActivity implements GestureDetector.OnGestureListener{
+public class InjectedSherlockActivity extends ActionBarActivity implements GestureDetector.OnGestureListener{
 
     @Bean
     MetricsUtil metricsUtil;
@@ -52,7 +52,7 @@ public class InjectedSherlockActivity extends SherlockActivity implements Gestur
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    @OptionsItem
+    @OptionsItem(android.R.id.home)
     public void home(){
         finish();
     }

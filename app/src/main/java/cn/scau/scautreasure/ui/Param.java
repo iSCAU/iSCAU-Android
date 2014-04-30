@@ -1,6 +1,23 @@
 package cn.scau.scautreasure.ui;
 
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.widget.LinearLayout;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.scau.scautreasure.AppConstant;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
@@ -11,14 +28,6 @@ import cn.scau.scautreasure.model.ParamModel;
 import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 import cn.scau.scautreasure.widget.ParamWidget_;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 条件选择
@@ -73,7 +82,7 @@ public class Param extends Common implements ServerOnChangeListener {
 
     private void startDetailFragment() throws Exception {
         Class cls =  Class.forName(targetFragment);
-        SherlockFragment fragment = (SherlockFragment) cls.newInstance();
+        Fragment fragment = (Fragment) cls.newInstance();
         UIHelper.addFragment(getSherlockActivity(),fragment,"value", buildParamsValue());
     }
 

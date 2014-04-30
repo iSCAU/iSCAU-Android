@@ -1,23 +1,32 @@
 package cn.scau.scautreasure.ui;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.devspark.appmsg.AppMsg;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.Touch;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.util.DateUtil;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.devspark.appmsg.AppMsg;
-import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
-import org.androidannotations.annotations.*;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * 条件选择
@@ -116,7 +125,7 @@ public class CardParam extends Common{
     }
 
     private void startDetailFragment() throws Exception {
-        SherlockFragment fragment = new Card_();
+        Fragment fragment = new Card_();
         UIHelper.addFragment(getSherlockActivity(), fragment, "startAndEndDate", buildParamsValue());
     }
 

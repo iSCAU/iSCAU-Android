@@ -12,7 +12,6 @@ import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.CalendarHelper;
 import cn.scau.scautreasure.util.DateUtil;
-import com.actionbarsherlock.app.SherlockFragment;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.roomorama.caldroid.WeekdayArrayAdapter;
@@ -63,7 +62,7 @@ public class Calendar extends Common {
     }
 
     @Click
-    void abs__home(){
+    void home(){
         getResideMenu().openMenu();
     }
 

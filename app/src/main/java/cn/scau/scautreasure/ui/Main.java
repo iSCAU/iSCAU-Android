@@ -1,12 +1,12 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Context;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.devspark.appmsg.AppMsg;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -14,7 +14,6 @@ import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -40,7 +39,7 @@ import cn.scau.scautreasure.widget.ResideMenu_;
  * Mail:  specialcyci@gmail.com
  */
 @EActivity(R.layout.menu)
-public class Main extends SherlockFragmentActivity{
+public class Main extends ActionBarActivity{
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
     @App AppContext app;
@@ -48,7 +47,7 @@ public class Main extends SherlockFragmentActivity{
     private Context context;
     private ResideMenu resideMenu;
 
-    @AfterInject
+    @AfterViews
     void hideActionBar(){
         context = this;
         getSupportActionBar().hide();
@@ -126,9 +125,9 @@ public class Main extends SherlockFragmentActivity{
             menu_exit();
         }
         return true;
-    }
+}
 
-    @OptionsItem
+    @OptionsItem(android.R.id.home)
     public void home(){
         if(isEmptyBackStackEntry()){
             resideMenu.openMenu();

@@ -1,26 +1,32 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import cn.scau.scautreasure.AppConfig_;
+
+import com.devspark.appmsg.AppMsg;
+import com.umeng.analytics.MobclickAgent;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.api.BackgroundExecutor;
+
+import java.util.Arrays;
+import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.widget.ResideMenu;
 import cn.scau.scautreasure.widget.SpinnerDialog;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.devspark.appmsg.AppMsg;
-import com.umeng.analytics.MobclickAgent;
-import org.androidannotations.annotations.*;
-import org.androidannotations.api.BackgroundExecutor;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * 查询通用的Activiy;
@@ -30,7 +36,7 @@ import java.util.List;
  * Mail:  specialcyci@gmail.com
  */
 @EFragment
-public abstract class Common extends SherlockFragment implements DialogInterface.OnCancelListener{
+public abstract class Common extends Fragment implements DialogInterface.OnCancelListener{
 
     @App
     protected AppContext   app;
@@ -45,12 +51,12 @@ public abstract class Common extends SherlockFragment implements DialogInterface
 
     @AfterInject
     void initDialog(){
-        UIHelper.buildDialog(getSherlockActivity(), this);
+        UIHelper.buildDialog(getActivity(), this);
     }
 
     @AfterInject
     void initActionBar(){
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -60,7 +66,7 @@ public abstract class Common extends SherlockFragment implements DialogInterface
     }
 
     protected Main_ parentActivity(){
-        return (Main_) getSherlockActivity();
+        return (Main_) getActivity();
     }
 
     @Override
@@ -70,11 +76,11 @@ public abstract class Common extends SherlockFragment implements DialogInterface
     }
 
     protected void setTitle(String title){
-        getSherlockActivity().getSupportActionBar().setTitle(title);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(title);
     }
 
     protected void setTitle(int titleResource){
-        getSherlockActivity().getSupportActionBar().setTitle(titleResource);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(titleResource);
     }
 
     protected void setDataEmptyTips(int tipsResource){
@@ -110,7 +116,7 @@ public abstract class Common extends SherlockFragment implements DialogInterface
         ((ListView)listView).setAdapter(adapter);
     }
 
-    protected void showErrorResult(SherlockFragmentActivity ctx, int requestCode, ServerOnChangeListener listener){
+    protected void showErrorResult(ActionBarActivity ctx, int requestCode, ServerOnChangeListener listener){
         if (isServerError(requestCode)){
             handleServerError(ctx,listener);
         }else{
@@ -128,7 +134,7 @@ public abstract class Common extends SherlockFragment implements DialogInterface
      * @param requestCode
      */
     @UiThread
-    void showErrorResult(SherlockFragmentActivity ctx, int requestCode){
+    void showErrorResult(ActionBarActivity ctx, int requestCode){
         if(ctx == null) return;
         UIHelper.getDialog().dismiss();
         if(requestCode == 404){
@@ -139,7 +145,7 @@ public abstract class Common extends SherlockFragment implements DialogInterface
     }
 
     @UiThread
-    void handleServerError(final SherlockFragmentActivity ctx, final ServerOnChangeListener listener){
+    void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener){
         if(ctx == null) return;
         UIHelper.getDialog().dismiss();
         String[] server = ctx.getResources().getStringArray(R.array.server);
@@ -180,6 +186,16 @@ public abstract class Common extends SherlockFragment implements DialogInterface
 
     private String getSimpleName(){
         return getClass().getSimpleName();
+    }
+
+    /**
+     * 由于将actionbar从sherlock迁移到官方的appcompat,
+     *     hack这个方法去减少其他文件的修改.
+     *
+     * @return
+     */
+    protected ActionBarActivity getSherlockActivity(){
+        return (ActionBarActivity)getActivity();
     }
 
 }

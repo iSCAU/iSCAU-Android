@@ -1,9 +1,13 @@
 package cn.scau.scautreasure.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Rect;
+import android.support.v7.internal.view.menu.MenuBuilder;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +16,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -58,7 +58,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     private AnimatorSet scaleDown_activity;
     private AnimatorSet scaleDown_shadow;
     /** the activity that view attach to */
-    private SherlockFragmentActivity activity;
+    private Activity activity;
     /** the decorview of the activity    */
     private ViewGroup view_decor;
     /** the viewgroup of the activity    */
@@ -67,10 +67,10 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     /** menu of current menu's parent    */
     private Menu                 current_menu_parent;
     /** the user current click item      */
-    private MenuItem             current_menu_item;
+    private MenuItem current_menu_item;
     private boolean              isMenuItemClick;
     /** the top level of the menu        */
-    private MenuBuilder          menu;
+    private MenuBuilder menu;
     /** the flag of menu open status     */
     private boolean              isOpened;
     /** the menu item id of the submenu back option */
@@ -90,13 +90,13 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      *
      * @param activity
      */
-    public void attachToActivity(SherlockFragmentActivity activity){
+    public void attachToActivity(Activity activity){
         initValue(activity);
         setShadowScaleXByOrientation();
         buildAnimationSet();
     }
 
-    private void initValue(SherlockFragmentActivity activity){
+    private void initValue(Activity activity){
         this.activity   = activity;
         stack_menu      = new Stack<Menu>();
         gestureDetector = new GestureDetector(this);
@@ -121,7 +121,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      * @param menu_id  the resource id of menu xml ( R.menu.xxx );
      */
     public void attachToMenu(int menu_id){
-        activity.getSupportMenuInflater().inflate(menu_id, menu);
+        activity.getMenuInflater().inflate(menu_id, menu);
         current_menu_parent = menu;
     }
 

@@ -5,13 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingLeftInAnimationAdapter;
 import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
@@ -192,7 +192,7 @@ public class UIHelper {
      * @param act
      * @param fragment
      */
-    public static void startFragment(SherlockFragmentActivity act, SherlockFragment fragment){
+    public static void startFragment(ActionBarActivity act, Fragment fragment){
 
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment,fragment);
@@ -205,7 +205,7 @@ public class UIHelper {
      * @param fragment
      * @param objects   the format such as "target"(key),"1"(value),"mode","all" ....
      */
-    public static void startFragment(SherlockFragmentActivity act, SherlockFragment fragment, Object... objects){
+    public static void startFragment(ActionBarActivity act, Fragment fragment, Object... objects){
         fragment.setArguments(buildBundle(objects));
         startFragment(act,fragment);
     }
@@ -216,7 +216,7 @@ public class UIHelper {
      * @param act
      * @param fragment
      */
-    public static void addFragment(SherlockFragmentActivity act, SherlockFragment fragment){
+    public static void addFragment(ActionBarActivity act, Fragment fragment){
 
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
         ft.add(R.id.main_fragment, fragment, "fragment");
@@ -232,7 +232,7 @@ public class UIHelper {
      * @param fragment
      * @param objects
      */
-    public static void addFragment(SherlockFragmentActivity act, SherlockFragment fragment, Object... objects){
+    public static void addFragment(ActionBarActivity act, Fragment fragment, Object... objects){
         // build bundle;
         fragment.setArguments(buildBundle(objects));
         addFragment(act,fragment);

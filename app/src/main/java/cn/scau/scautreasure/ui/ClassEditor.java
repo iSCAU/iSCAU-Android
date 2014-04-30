@@ -9,7 +9,6 @@ import cn.scau.scautreasure.helper.StringHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.devspark.appmsg.AppMsg;
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.res.StringArrayRes;
