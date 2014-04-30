@@ -23,7 +23,7 @@ iSCAU-Android
 本项目建议使用以下环境进行开发:
 
 * Android Studio 0.5.5 (不建议低于本版本，可能有BUG未修正)
-* Gradle 1.10 (不建议低于本版本，可能有BUG未修正)
+* Gradle 1.11 (不建议低于本版本，可能有BUG未修正)
 * Genymotion (非必要，但推荐用其代替官方的模拟器)
 * Android 4.4.2 SDK API 19 (在Android Studio的SDK Manager可下载)
 * Android SDK Build-tools version 19.0.1 (在Android Studio的SDK Manager可下载)
