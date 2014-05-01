@@ -493,10 +493,16 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
             case MotionEvent.ACTION_UP:
                 if (!canScale)
                     break;
-                if (currentActivityScaleX > 0.75f){
-                    closeMenu();
-                }else{
-                    openMenu(scaleDirection);
+                if (isOpened()){
+                    if (currentActivityScaleX > 0.55f)
+                        closeMenu();
+                    else
+                        openMenu(scaleDirection);
+                }else if (!isOpened()){
+                    if (currentActivityScaleX < 0.95f)
+                        openMenu(scaleDirection);
+                    else
+                        closeMenu();
                 }
                 break;
         }

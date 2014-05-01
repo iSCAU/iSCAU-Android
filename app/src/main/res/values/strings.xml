@@ -192,5 +192,8 @@
     <string name="btn_cancel">取消</string>
     <string name="listitem_label_ringerModeDuringClass">上课时情景模式</string>
     <string name="listitem_label_ringerModeAfterClass">下课后情景模式</string>
+    <string name="menu_home">功能菜单</string>
+    <string name="menu_profile">个人资料</string>
+    <string name="menu_settings">软件设置</string>
 
 </resources>

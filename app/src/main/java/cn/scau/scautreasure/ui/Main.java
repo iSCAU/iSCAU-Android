@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -28,6 +29,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.ResideMenu;
+import cn.scau.scautreasure.widget.ResideMenuItem;
 
 /**
  * 软件启动的首页, 就是目前的菜单页
@@ -38,13 +40,16 @@ import cn.scau.scautreasure.widget.ResideMenu;
  * Mail:  specialcyci@gmail.com
  */
 @EActivity(R.layout.menu)
-public class Main extends ActionBarActivity{
+public class Main extends ActionBarActivity implements View.OnClickListener{
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
     @App AppContext app;
     @Bean DateUtil dateUtil;
     private Context context;
     private ResideMenu resideMenu;
+    private ResideMenuItem resideMenuItemHome;
+    private ResideMenuItem resideMenuItemProfile;
+    private ResideMenuItem resideMenuItemSettings;
 
     @AfterViews
     void hideActionBar(){
@@ -71,6 +76,18 @@ public class Main extends ActionBarActivity{
         resideMenu.setBackground(R.drawable.menu_background);
         resideMenu.attachToActivity(this);
         resideMenu.setDirectionDisable(ResideMenu.DIRECTION_RIGHT);
+
+        resideMenuItemHome     = new ResideMenuItem(this, R.drawable.menu_icon_home, R.string.menu_home);
+        resideMenuItemProfile  = new ResideMenuItem(this, R.drawable.menu_icon_user, R.string.menu_profile);
+        resideMenuItemSettings = new ResideMenuItem(this, R.drawable.menu_icon_settings, R.string.menu_settings);
+        resideMenuItemHome.setOnClickListener(this);
+        resideMenuItemProfile.setOnClickListener(this);
+        resideMenuItemSettings.setOnClickListener(this);
+
+        resideMenu.addMenuItem(resideMenuItemHome, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(resideMenuItemProfile, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(resideMenuItemSettings, ResideMenu.DIRECTION_LEFT);
+
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
@@ -331,4 +348,10 @@ public class Main extends ActionBarActivity{
         System.exit(0);
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view == resideMenuItemHome){
+            Toast.makeText(this, "yes", Toast.LENGTH_LONG).show();
+        }
+    }
 }
