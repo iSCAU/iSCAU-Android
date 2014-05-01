@@ -46,6 +46,7 @@
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_classtable"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_class_table_selector"/>
                         <TextView
@@ -57,12 +58,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_classtable"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_goal"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_goal_selector"/>
                         <TextView
@@ -74,12 +75,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_goal"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_emptyClassRoom"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_emptyclassroom_selector"/>
                         <TextView
@@ -91,12 +92,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_pickCourseInfo"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_pickCourseInfo"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_current_pickcourse_selector"/>
                         <TextView
@@ -115,12 +116,12 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/menu_exam"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_exam"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_test_arrangement_selector"/>
                         <TextView
@@ -132,12 +133,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_course_comments"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_course_comments"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_course_comments_selector"/>
                         <TextView
@@ -184,12 +185,12 @@
                     android:layout_height="fill_parent">
 
                     <LinearLayout
-                        android:id="@+id/menu_searchBook"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_searchBook"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_search_book_selector"/>
                         <TextView
@@ -201,12 +202,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_nowBorrowedBook"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_nowBorrowedBook"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_now_borrow_selector"/>
                         <TextView
@@ -218,12 +219,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_pastBorrowedBook"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_pastBorrowedBook"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_borrow_history_selector"/>
                         <TextView
@@ -281,12 +282,12 @@
                     android:layout_height="fill_parent">
 
                     <LinearLayout
-                        android:id="@+id/menu_notice"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_notice"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_calendar_selector"/>
                         <TextView
@@ -298,12 +299,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_calendar"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_calendar"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_calendar_selector"/>
                         <TextView
@@ -315,12 +316,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_busandtelphone"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_busandtelphone"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_bus_selector"/>
                         <TextView
@@ -332,12 +333,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_lifeinformation"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_lifeinformation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_life_selector"/>
                         <TextView
@@ -358,12 +359,12 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/menu_studyinformation"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_studyinformation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_study_selector"/>
                         <TextView
@@ -375,12 +376,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_guardianserves"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_guardianserves"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_family_selector"/>
                         <TextView
@@ -392,12 +393,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/menu_communityinformation"
                         style="@style/menu_item"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
 
                         <ImageButton
+                            android:id="@+id/menu_communityinformation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_community_selector"/>
                         <TextView

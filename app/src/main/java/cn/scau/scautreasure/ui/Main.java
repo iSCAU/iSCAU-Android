@@ -243,80 +243,6 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
         return !config.trim().equals("0") && !config.trim().equals("");
     }
 
-    @OptionsItem
-    void menu_classtable(){
-        UIHelper.startFragment(this, ClassTable_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_goal(){
-        UIHelper.startFragment(this, Param_.builder().build(),"target","goal","targetFragment",Goal_.class.getName());
-    }
-
-    @OptionsItem
-    void menu_exam(){
-        UIHelper.startFragment(this, Exam_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_pickCourseInfo(){
-        UIHelper.startFragment(this, PickClassInfo_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_emptyClassRoom(){
-        UIHelper.startFragment(this, Param_.builder().build(),"target","emptyclassroom","targetFragment",EmptyClassRoom_.class.getName());
-    }
-
-    @OptionsItem
-    void menu_searchBook(){
-        UIHelper.startFragment(this, SearchBook_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_nowBorrowedBook(){
-        UIHelper.startFragment(this, BorrowedBook_.builder().build(),"target",UIHelper.TARGET_FOR_NOW_BORROW);
-    }
-
-    @OptionsItem
-    void menu_pastBorrowedBook(){
-        UIHelper.startFragment(this, BorrowedBook_.builder().build(),"target",UIHelper.TARGET_FOR_PAST_BORROW);
-    }
-
-    @OptionsItem
-    void menu_lifeinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","LifeInformation","title",R.string.menu_lifeinformation);
-    }
-
-    @OptionsItem
-    void menu_communityinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","CommunityInformation","title",R.string.menu_communityinformation);
-    }
-
-    @OptionsItem
-    void menu_guardianserves(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","GuardianServes","title",R.string.menu_guardianserves);
-    }
-
-    @OptionsItem
-    void menu_studyinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","StudyInformation","title",R.string.menu_studyinformation);
-    }
-
-    @OptionsItem
-    void menu_busandtelphone(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","Bus&Telphone","title",R.string.menu_busandtelphone);
-    }
-
-    @OptionsItem
-    void menu_calendar(){
-        UIHelper.startFragment(this, Calendar_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_notice(){
-        UIHelper.startFragment(this, Notice_.builder().build());
-    }
 
 
     @OptionsItem
@@ -351,7 +277,8 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if (view == resideMenuItemHome){
-            Toast.makeText(this, "yes", Toast.LENGTH_LONG).show();
+            UIHelper.startFragment(this, Menu_.builder().build());
         }
+        resideMenu.closeMenu();
     }
 }
