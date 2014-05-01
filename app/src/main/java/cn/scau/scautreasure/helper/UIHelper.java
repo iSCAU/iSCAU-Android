@@ -196,6 +196,7 @@ public class UIHelper {
 
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment,fragment);
+        ft.addToBackStack(null);
         ft.commit();
     }
 
