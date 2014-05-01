@@ -1,16 +1,419 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:background="@color/background_normal"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <FrameLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:id="@+id/main_fragment">
-    </FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--教务系统-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#a7a7a7"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/menu_title_label"
+                android:text="@string/menu_edusys"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#a7a7a7"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_class_table_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_classtable"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_classtable"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_goal_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_goal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_goal"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_emptyclassroom_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_emptyClassRoom"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_pickCourseInfo"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_current_pickcourse_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_pickCourseInfo"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/menu_exam"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_test_arrangement_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_exam"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_course_comments"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_course_comments_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_course_comments"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+
+
+
+
+
+            <!--图书馆-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#a7a7a7"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/menu_title_label"
+                android:text="@string/menu_lib"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#a7a7a7"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:id="@+id/menu_searchBook"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_search_book_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_searchBook"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_nowBorrowedBook"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_now_borrow_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_nowBorrowedBook"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_pastBorrowedBook"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_borrow_history_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_pastBorrowedBook"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </TableRow>
+
+
+            </TableLayout>
+
+
+
+            <!--应用汇-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#a7a7a7"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/menu_title_label"
+                android:text="@string/menu_other"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#a7a7a7"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:id="@+id/menu_notice"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_calendar_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_notice"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_calendar"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_calendar_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_calendar"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_busandtelphone"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_bus_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_bus"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_lifeinformation"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_life_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_lifeinformation"/>
+
+                    </LinearLayout>
+
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/menu_studyinformation"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_study_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_studyinformation"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_guardianserves"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_family_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_guardianserves"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/menu_communityinformation"
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_community_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_communityinformation"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

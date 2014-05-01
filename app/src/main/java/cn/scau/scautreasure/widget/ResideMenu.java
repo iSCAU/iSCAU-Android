@@ -45,7 +45,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     private ViewGroup view_decor;
     /** the viewgroup of the activity    */
     private ViewGroup view_activity;
-    /** the flag of menu open status     */
+    /** the flag of main open status     */
     private boolean              isOpened;
     private GestureDetector gestureDetector;
     private float shadow_AdjustScaleX;
@@ -111,7 +111,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * set the menu background picture;
+     * set the main background picture;
      *
      * @param imageResrouce
      */
@@ -132,7 +132,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * add a single items to left menu;
+     * add a single items to left main;
      *
      * @param menuItem
      */
@@ -159,7 +159,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * set the menu items by array list to left menu;
+     * set the main items by array list to left main;
      *
      * @param menuItems
      */
@@ -170,7 +170,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * set the menu items by array list;
+     * set the main items by array list;
      *
      * @param menuItems
      * @param direction
@@ -193,7 +193,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * get the left menu items;
+     * get the left main items;
      *
      * @return
      */
@@ -203,7 +203,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * get the menu items;
+     * get the main items;
      *
      * @return
      */
@@ -216,7 +216,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
     /**
      * if you need to do something on the action of closing or opening
-     * menu, set the listener here.
+     * main, set the listener here.
      *
      * @return
      */
@@ -230,7 +230,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * we need the call the method before the menu show, because the
+     * we need the call the method before the main show, because the
      * padding of activity can't get at the moment of onCreateView();
      */
     private void setViewPadding(){
@@ -241,11 +241,11 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * show the reside menu;
+     * show the reside main;
      */
     public void openMenu(int direction){
         if (isInDisableDirection(direction))
-            throw new IllegalArgumentException("You have set this direction disable, but now you want to open menu in this direction.");
+            throw new IllegalArgumentException("You have set this direction disable, but now you want to open main in this direction.");
         setScaleDirection(direction);
 
         isOpened = true;
@@ -259,7 +259,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * close the reslide menu;
+     * close the reslide main;
      */
     public void closeMenu(){
 
@@ -303,7 +303,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * return the flag of menu status;
+     * return the flag of main status;
      *
      * @return
      */
@@ -396,7 +396,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * if there ware some view you don't want reside menu
+     * if there ware some view you don't want reside main
      * to intercept their touch event,you can use the method
      * to set.
      *
@@ -553,12 +553,12 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     public interface OnMenuListener{
 
         /**
-         * the method will call on the finished time of opening menu's animation.
+         * the method will call on the finished time of opening main's animation.
          */
         public void openMenu();
 
         /**
-         * the method will call on the finished time of closing menu's animation  .
+         * the method will call on the finished time of closing main's animation  .
          */
         public void closeMenu();
     }

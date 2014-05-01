@@ -32,14 +32,14 @@ import cn.scau.scautreasure.widget.ResideMenu;
 import cn.scau.scautreasure.widget.ResideMenuItem;
 
 /**
- * 软件启动的首页, 就是目前的菜单页
+ * 整个软件主体的Activity
  *
  * User:  Special Leung
  * Date:  13-7-28
  * Time:  下午9:11
  * Mail:  specialcyci@gmail.com
  */
-@EActivity(R.layout.menu)
+@EActivity(R.layout.main)
 public class Main extends ActionBarActivity implements View.OnClickListener{
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
@@ -107,7 +107,7 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
         if (config.classTableAsFirstScreen().get()){
             UIHelper.startFragment(this, ClassTable_.builder().build());
         }else{
-            getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
+            UIHelper.startFragment(this, Menu_.builder().build());
         }
     }
 

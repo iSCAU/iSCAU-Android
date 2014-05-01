@@ -15,9 +15,9 @@ import cn.scau.scautreasure.R;
  */
 public class ResideMenuItem extends LinearLayout{
 
-    /** menu item  icon  */
+    /** main item  icon  */
     private ImageView iv_icon;
-    /** menu item  title */
+    /** main item  title */
     private TextView tv_title;
 
     public ResideMenuItem(Context context) {

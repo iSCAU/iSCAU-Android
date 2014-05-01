@@ -6,12 +6,12 @@
     <string name="hint_edusyspassword">请输入教务系统密码</string>
     <string name="hint_libpassword">请输入图书馆密码(默认为001)</string>
     <string name="hint_cardpassword">请输入校园卡查询密码(默认为校园卡卡号)</string>
-    <string name="btn_save">保&#160;&#160;&#160;存</string>
+    <string name="btn_save">保   存</string>
     <string name="save_input_tips_username">请输入用户名</string>
     <string name="save_input_tips_password">三个密码必须输入一个</string>
     <string name="menu_classtable">课程表</string>
     <string name="menu_goal">查询成绩</string>
-    <string name="menu_exam">考试情况</string>
+    <string name="menu_exam">考试安排</string>
     <string name="menu_pickCourseInfo">选课情况</string>
     <string name="btn_publicCourse">公共选修课查询</string>
     <string name="menu_emptyClassRoom">空余课室</string>
@@ -23,7 +23,7 @@
     <string name="tips">提示</string>
     <string name="tips_loading_classtable">正在加载课程表..</string>
     <string name="tips_loading_params">正在加载条件..第一次加载可能比较慢，请耐心等待.</string>
-    <string name="btn_continue">查&#160;&#160;&#160;询</string>
+    <string name="btn_continue">查   询</string>
     <string name="loading_goal">正在加载成绩..</string>
     <string name="tips_goal_null">没有找到你想要的成绩,,</string>
     <string name="tips_exam_null">找不到你的考试情况..</string>
@@ -173,7 +173,8 @@
     <string name="total_credit_point">学分绩点之和：</string>
     <string name="tips_main_edusyspassword_not_existed">抱歉，请先配置您的教务系统密码</string>
     <string name="tips_main_libpassword_not_existed">抱歉，图书馆密码尚未设置</string>
-    <string name="tips_main_cardpassword_not_existed">抱歉，校园卡密码尚未设置</string><string name="version">Version</string>
+    <string name="tips_main_cardpassword_not_existed">抱歉，校园卡密码尚未设置</string>
+    <string name="version">Version</string>
     <string name="menu_update">检查更新</string>
     <string name="tips_no_update">暂时没有更新.</string>
     <string name="btn_back">返回</string>
@@ -195,5 +196,7 @@
     <string name="menu_home">功能菜单</string>
     <string name="menu_profile">个人资料</string>
     <string name="menu_settings">软件设置</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_course_comments">选课评论</string>
 
 </resources>

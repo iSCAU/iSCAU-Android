@@ -82,7 +82,7 @@ public class Bus extends Common{
     }
 
     /**
-     * menu button of refresh
+     * main button of refresh
      */
     @OptionsItem
     void menu_refresh(){
@@ -90,7 +90,7 @@ public class Bus extends Common{
     }
 
     /**
-     * menu button of automate refresh;
+     * main button of automate refresh;
      */
     @OptionsItem
     void menu_automate_refresh(MenuItem item){

@@ -58,7 +58,7 @@ public class InjectedSherlockActivity extends ActionBarActivity implements Gestu
     }
 
     /**
-     * if there ware some view you don't want reside menu
+     * if there ware some view you don't want reside main
      * to intercept their touch event,you can user the method
      * to set.
      *
