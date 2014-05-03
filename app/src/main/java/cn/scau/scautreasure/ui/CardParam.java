@@ -46,10 +46,8 @@ public class CardParam extends Common{
     private EditText currentEditText;
     private CaldroidFragment dialogCaldroidFragment;
 
-    @Override
     @AfterViews
     void initActionBar(){
-        super.initActionBar();
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(R.string.title_params);
     }

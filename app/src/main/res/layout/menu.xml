@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <cn.scau.scautreasure.widget.ElasticScrollView_
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -415,6 +415,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </cn.scau.scautreasure.widget.ElasticScrollView_>
 
 </LinearLayout>

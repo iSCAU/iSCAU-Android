@@ -1,9 +1,11 @@
 package cn.scau.scautreasure.ui;
 
-import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -13,6 +15,7 @@ import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -20,6 +23,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.scau.scautreasure.AppContext;
@@ -38,23 +42,50 @@ import cn.scau.scautreasure.util.DateUtil;
 @EActivity(R.layout.main)
 public class Main extends ActionBarActivity{
 
-    @Pref cn.scau.scautreasure.AppConfig_ config;
-    @App AppContext app;
-    @Bean DateUtil dateUtil;
-    private Context context;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
+    @App
+    AppContext app;
+    @Bean
+    DateUtil dateUtil;
+    @ViewById
+    RadioGroup radioGroup;
+    @ViewById
+    RadioButton rd_classtable, rd_features, rd_settings;
+    private ActionBarActivity mContext;
+    Fragment fragmentMenu;
+    Fragment fragmentClassTable;
+    Fragment fragmentSettings;
 
-    @AfterViews
-    void hideActionBar(){
-        context = this;
-        getSupportActionBar().hide();
+    @AfterInject
+    void init(){
+        mContext = this;
     }
 
     @AfterViews
     void initView(){
+        setUpTab();
         initMobclickAgent();
         checkForUpdate();
-        showWelcome();
         showNotification();
+    }
+
+    private void setUpTab() {
+        fragmentMenu = Menu_.builder().build();
+        fragmentClassTable = ClassTable_.builder().build();
+        fragmentSettings = Configuration_.builder().build();
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == rd_features.getId())
+                    UIHelper.startFragment(mContext, fragmentMenu, "menu_");
+                else if( i == rd_classtable.getId())
+                    UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
+                else if( i == rd_settings.getId())
+                    UIHelper.startFragment(mContext, fragmentSettings, "settings_");
+            }
+        });
+        UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
     }
 
     private void initMobclickAgent(){
@@ -62,25 +93,11 @@ public class Main extends ActionBarActivity{
         MobclickAgent.openActivityDurationTrack(false);
     }
 
-    private void showWelcome(){
-        menu_about();
-        showMenu();
-    }
-
     private void checkForUpdate() {
         UmengUpdateAgent.setUpdateOnlyWifi(false);
         UmengUpdateAgent.update(this);
     }
 
-    @UiThread(delay = 2000)
-    void showMenu(){
-        // if user has set the class table as the first screen.
-        if (config.classTableAsFirstScreen().get()){
-            UIHelper.startFragment(this, ClassTable_.builder().build());
-        }else{
-            UIHelper.startFragment(this, Menu_.builder().build());
-        }
-    }
 
     @UiThread(delay = 4000)
     void showNotification(){
@@ -105,7 +122,6 @@ public class Main extends ActionBarActivity{
 
     @OptionsItem(android.R.id.home)
     public void home(){
-        getSupportFragmentManager().popBackStack();
     }
 
     private boolean isEmptyBackStackEntry(){
@@ -157,16 +173,16 @@ public class Main extends ActionBarActivity{
         public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
             switch (updateStatus) {
                 case UpdateStatus.Yes: // has update
-                    UmengUpdateAgent.showUpdateDialog(context, updateInfo);
+                    UmengUpdateAgent.showUpdateDialog(mContext, updateInfo);
                     break;
                 case UpdateStatus.No: // has no update
-                    Toast.makeText(context, "没有更新", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
                     break;
                 case UpdateStatus.NoneWifi: // none wifi
-                    Toast.makeText(context, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
                     break;
                 case UpdateStatus.Timeout: // time out
-                    Toast.makeText(context, "超时", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "超时", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -184,20 +200,9 @@ public class Main extends ActionBarActivity{
         MobclickAgent.onPause(this);
     }
 
-    /**
-     * check if the developer call to force update;
-     */
-//    private void checkForceUpdateConfig(){
-//        String enforceupdate = MobclickAgent.getConfigParams(this, "enforceupdate");
-//        if (isConfigAble(enforceupdate))
-//            Toast.makeText(this,R.string.tips_forceupdate,Toast.LENGTH_LONG).show();
-//    }
-
     private boolean isConfigAble(String config){
         return !config.trim().equals("0") && !config.trim().equals("");
     }
-
-
 
     @OptionsItem
     void menu_account(){
@@ -217,10 +222,6 @@ public class Main extends ActionBarActivity{
         UmengUpdateAgent.forceUpdate(this);
     }
 
-    @OptionsItem
-    void menu_about(){
-        UIHelper.startFragment(this,Welcome_.builder().build());
-    }
 
     @OptionsItem
     void menu_exit(){

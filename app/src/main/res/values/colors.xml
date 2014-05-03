@@ -4,7 +4,7 @@
     <color name="background_normal">#ffffff</color>
     <color name="login_lable_font_color">#7c8389</color>
     <color name="login_edittext_textcolor">#7c8389</color>
-    <color name="actionar_title_color">#d9322c</color>
+    <color name="actionar_title_color">#2c2b2b</color>
     <color name="param_lable_textcolor">#34495e</color>
     <color name="normal_item_passed_color">#70a8fb</color>
     <!-- 合格成绩课程名称背景颜色 -->

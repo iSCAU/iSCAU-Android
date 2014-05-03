@@ -6,7 +6,7 @@
     <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/ActionBarTitle</item>
         <item name="android:subtitleTextStyle">@style/ActionBarSubTitle</item>
-        <item name="android:background">@drawable/actionbar_background</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <!-- Theme -->

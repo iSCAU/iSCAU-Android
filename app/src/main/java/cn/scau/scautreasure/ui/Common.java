@@ -54,17 +54,6 @@ public abstract class Common extends Fragment implements DialogInterface.OnCance
         UIHelper.buildDialog(getActivity(), this);
     }
 
-    @AfterInject
-    void initActionBar(){
-        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(null);
-        actionBar.setSubtitle(null);
-        actionBar.show();
-    }
-
     protected Main_ parentActivity(){
         return (Main_) getActivity();
     }

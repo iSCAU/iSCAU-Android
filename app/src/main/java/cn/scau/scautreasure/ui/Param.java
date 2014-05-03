@@ -63,7 +63,6 @@ public class Param extends Common implements ServerOnChangeListener {
 
     @AfterViews
     void initActionBar(){
-        super.initActionBar();
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(R.string.title_params);
     }

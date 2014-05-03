@@ -6,16 +6,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.nhaarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingLeftInAnimationAdapter;
 import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
 
@@ -193,11 +198,38 @@ public class UIHelper {
      * @param fragment
      */
     public static void startFragment(ActionBarActivity act, Fragment fragment){
-
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_fragment,fragment);
-        ft.addToBackStack(null);
+        ft.add(R.id.main_fragment,fragment);
         ft.commit();
+    }
+
+    /**
+     * help to add fragment
+     * @param act
+     * @param fragment
+     */
+    public static void startFragment(ActionBarActivity act, Fragment fragment, String tag){
+        FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
+        Fragment _fragment = act.getSupportFragmentManager().findFragmentByTag(tag);
+        if (_fragment != null) {
+            deAttachAllFragments(act);
+            ft.show(_fragment);
+        }else {
+            ft.add(R.id.main_fragment, fragment, tag);
+        }
+        ft.commitAllowingStateLoss();
+        act.getSupportFragmentManager().executePendingTransactions();
+    }
+
+    private static void deAttachAllFragments(ActionBarActivity act){
+        FragmentManager fragmentManager = act.getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for(Fragment fragment : fragments){
+            if (fragment.isVisible())
+                ft.hide(fragment);
+        }
+        ft.commitAllowingStateLoss();
     }
 
     /**

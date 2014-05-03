@@ -36,7 +36,7 @@ public class Login extends Activity {
 
         // if user has input the username and any one password;
         if(hasSetAccount() && !isStartFormMenu){
-            Main_.intent(this).start();
+            Welcome_.intent(this).start();
             finish();
         }else{
             setUpViews();

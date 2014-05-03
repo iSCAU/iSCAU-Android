@@ -55,10 +55,8 @@ public class SearchBook extends Common {
     private SlideExpandableListAdapter exadapter;
 
 
-    @Override
     @AfterInject
     void initActionBar(){
-        super.initActionBar();
 
         LayoutInflater inflator = (LayoutInflater) getSherlockActivity() .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.searchbook_bar, null);
