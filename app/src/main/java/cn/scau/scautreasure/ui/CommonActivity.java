@@ -113,6 +113,7 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
     @UiThread
     void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener){
         if(ctx == null) return;
+        if(ctx.isFinishing() || ctx.isDestroyed()) return;
         UIHelper.getDialog().dismiss();
         String[] server = ctx.getResources().getStringArray(R.array.server);
         SpinnerDialog spinner = new SpinnerDialog(ctx, Arrays.asList(server));

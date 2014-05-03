@@ -46,23 +46,6 @@
                         android:layout_width="wrap_content">
 
                         <ImageButton
-                            android:id="@+id/menu_classtable"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_class_table_selector"/>
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_classtable"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
-
-                        <ImageButton
                             android:id="@+id/menu_goal"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_goal_selector"/>
@@ -108,12 +91,6 @@
 
                     </LinearLayout>
 
-                </TableRow>
-
-                <TableRow
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         style="@style/menu_item"
@@ -131,6 +108,13 @@
                             android:text="@string/menu_exam"/>
 
                     </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         style="@style/menu_item"
@@ -289,7 +273,7 @@
                         <ImageButton
                             android:id="@+id/menu_notice"
                             style="@style/menu_item_icon"
-                            android:src="@drawable/icon_calendar_selector"/>
+                            android:src="@drawable/icon_notice_selector"/>
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -328,7 +312,7 @@
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/menu_bus"/>
+                            android:text="@string/menu_busandtelphone"/>
 
                     </LinearLayout>
 
