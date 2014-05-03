@@ -130,6 +130,8 @@
     <string name="menu_about">关于</string>
     <string name="menu_back">返回</string>
     <string name="title_params">查询条件</string>
+    <string name="title_classtable">课程表</string>
+    <string name="title_menu">功能</string>
     <string name="listitem_lable_line">线路</string>
     <string name="listitem_lable_direction">方向</string>
     <string name="tips_bus_loading">正在加载新实时信息..</string>

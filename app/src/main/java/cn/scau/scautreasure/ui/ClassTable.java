@@ -2,7 +2,6 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AbsListView;
@@ -64,15 +63,6 @@ public class ClassTable extends Common implements ServerOnChangeListener{
     /** 课程表筛选显示模式  */
     public  static final int      MODE_ALL    = 0;
     public  static final int      MODE_PARAMS = 1;
-
-    @AfterViews
-    void setUpView(){
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setTitle(getTitle());
-        actionBar.setSubtitle(dateUtil.getCurrentMonthDate());
-    }
 
     private String getTitle(){
         StringBuilder builder = new StringBuilder();

@@ -32,7 +32,7 @@ import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.util.DateUtil;
 
 /**
- * 整个软件主体的Activity
+ * 主页面;
  *
  * User:  Special Leung
  * Date:  13-7-28
@@ -77,12 +77,16 @@ public class Main extends ActionBarActivity{
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if(i == rd_features.getId())
+                if (i == rd_features.getId()) {
                     UIHelper.startFragment(mContext, fragmentMenu, "menu_");
-                else if( i == rd_classtable.getId())
+                    getSupportActionBar().setTitle(R.string.title_menu);
+                }else if (i == rd_classtable.getId()) {
                     UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
-                else if( i == rd_settings.getId())
+                    getSupportActionBar().setTitle(R.string.title_classtable);
+                }else if (i == rd_settings.getId()) {
                     UIHelper.startFragment(mContext, fragmentSettings, "settings_");
+                    getSupportActionBar().setTitle(R.string.title_configuration);
+                }
             }
         });
         UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
@@ -108,35 +112,6 @@ public class Main extends ActionBarActivity{
                 UIHelper.startFragment(this, Notification_.builder().build(), "notification",notification);
         }
     }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(!isKeyBack(event))
-            return super.onKeyDown(keyCode,event);
-        if(isDialogShowing() || !isEmptyBackStackEntry())
-            return super.onKeyDown(keyCode,event);
-
-        menu_exit();
-        return true;
-    }
-
-    @OptionsItem(android.R.id.home)
-    public void home(){
-    }
-
-    private boolean isEmptyBackStackEntry(){
-        getSupportFragmentManager().executePendingTransactions();
-        return getSupportFragmentManager().getBackStackEntryCount() == 0;
-    }
-
-    private boolean isDialogShowing() {
-        return UIHelper.getDialog() != null && UIHelper.getDialog().isShowing();
-    }
-
-    private boolean isKeyBack(KeyEvent event){
-        return event.getKeyCode() == KeyEvent.KEYCODE_BACK;
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -222,11 +197,21 @@ public class Main extends ActionBarActivity{
         UmengUpdateAgent.forceUpdate(this);
     }
 
+    private long exitTime = 0;
 
-    @OptionsItem
-    void menu_exit(){
-        MobclickAgent.onKillProcess(this);
-        System.exit(0);
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            }
+            else{
+                MobclickAgent.onKillProcess(this);
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
-
 }

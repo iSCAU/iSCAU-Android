@@ -97,7 +97,6 @@ public class SearchBook extends Common {
         @Override
         public void onClick(View view) {
             Main_ parent = (Main_) getSherlockActivity();
-            parent.home();
         }
     };
 

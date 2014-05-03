@@ -3,12 +3,13 @@
 
     <!-- Action Bar title -->
     <style name="ActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/actionar_title_color</item>
     </style>
 
     <!-- Action Bar sub title -->
     <style name="ActionBarSubTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
-        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/actionar_title_color</item>
     </style>
 
