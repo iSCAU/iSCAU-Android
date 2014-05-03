@@ -23,8 +23,8 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time: 下午2:14
  * Mail: specialcyci@gmail.com
  */
-@EFragment ( R.layout.notice )
-public class Notice extends Common {
+@EActivity ( R.layout.notice )
+public class Notice extends CommonActivity {
 
     @RestService
     NoticeApi api;
@@ -43,7 +43,6 @@ public class Notice extends Common {
 
     @AfterViews
     void init(){
-        getSherlockActivity().getSupportActionBar().hide();
 
         View header = NoticeHeaderWidget_.build(getSherlockActivity());
 
@@ -54,12 +53,6 @@ public class Notice extends Common {
         page = 1;
         UIHelper.getDialog(R.string.tips_notice_loading).show();
         loadData();
-    }
-
-    @Override
-    public void onDestroyView() {
-        getSherlockActivity().getSupportActionBar().show();
-        super.onDestroyView();
     }
 
     /**

@@ -37,7 +37,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail: specialcyci@gmail.com
  */
 @EFragment( R.layout.card )
-public class Card extends Common {
+public class Card extends CommonFragment {
 
     @RestService CardApi api;
     @ViewById( R.id.listView )

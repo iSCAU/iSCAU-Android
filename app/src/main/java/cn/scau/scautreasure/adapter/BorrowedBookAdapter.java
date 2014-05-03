@@ -1,7 +1,7 @@
 package cn.scau.scautreasure.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.joanzapata.android.BaseAdapterHelper;
@@ -39,8 +39,8 @@ public class BorrowedBookAdapter extends QuickAdapter<BookModel> {
         super(context, R.layout.borrowedbook_listitem);
     }
 
-    public void setParent(Fragment fragment){
-        ctx = (BorrowedBook_) fragment;
+    public void setParent(Activity act){
+        ctx = (BorrowedBook_) act;
     }
 
     @Override

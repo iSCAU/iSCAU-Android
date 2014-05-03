@@ -29,8 +29,8 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time: 下午9:27
  * Mail: specialcyci@gmail.com
  */
-@EFragment( R.layout.searchbook )
-public class SearchBook extends Common {
+@EActivity( R.layout.searchbook )
+public class SearchBook extends CommonActivity {
 
     @RestService
     LibraryApi api;
@@ -55,7 +55,7 @@ public class SearchBook extends Common {
     private SlideExpandableListAdapter exadapter;
 
 
-    @AfterInject
+    @AfterViews
     void initActionBar(){
 
         LayoutInflater inflator = (LayoutInflater) getSherlockActivity() .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -36,7 +36,7 @@ import cn.scau.scautreasure.util.DateUtil;
  * Mail:  specialcyci@gmail.com
  */
 @EFragment(R.layout.card_param)
-public class CardParam extends Common{
+public class CardParam extends CommonFragment {
 
     @App  AppContext app;
     @Bean DateUtil dateUtil;

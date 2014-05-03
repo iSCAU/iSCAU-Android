@@ -36,7 +36,7 @@ import cn.scau.scautreasure.widget.SpinnerDialog;
  * Mail:  specialcyci@gmail.com
  */
 @EFragment
-public abstract class Common extends Fragment implements DialogInterface.OnCancelListener{
+public abstract class CommonFragment extends Fragment implements DialogInterface.OnCancelListener{
 
     @App
     protected AppContext   app;

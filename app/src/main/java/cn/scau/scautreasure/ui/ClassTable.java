@@ -50,7 +50,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EFragment( R.layout.classtable )
 @OptionsMenu ( R.menu.menu_classtable )
-public class ClassTable extends Common implements ServerOnChangeListener{
+public class ClassTable extends CommonFragment implements ServerOnChangeListener{
 
     @Pref        cn.scau.scautreasure.AppConfig_  config;
     @RestService EdusysApi   api;

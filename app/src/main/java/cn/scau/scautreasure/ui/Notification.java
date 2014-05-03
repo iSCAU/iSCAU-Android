@@ -21,7 +21,7 @@ import cn.scau.scautreasure.util.DateUtil;
  * Mail: specialcyci@gmail.com
  */
 @EFragment(R.layout.notification)
-public class Notification extends Common{
+public class Notification extends CommonFragment {
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
     @ViewById TextView tv_content;

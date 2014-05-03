@@ -28,7 +28,7 @@ import cn.scau.scautreasure.widget.ParamWidget;
  * Mail: specialcyci@gmail.com
  */
 @EFragment(R.layout.configuration)
-public class Configuration extends Common{
+public class Configuration extends CommonFragment {
 
     @Pref
     cn.scau.scautreasure.AppConfig_ config;

@@ -1,19 +1,21 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.AbsListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.PickClassAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
 
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
 /**
  * 选课情况;
@@ -22,13 +24,13 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time:  下午5:29
  * Mail:  specialcyci@gmail.com
  */
-@EFragment( R.layout.pickclassinfo )
-public class PickClassInfo extends Common implements ServerOnChangeListener{
+@EActivity( R.layout.pickclassinfo )
+public class PickClassInfo extends CommonActivity implements ServerOnChangeListener{
 
     @RestService
     EdusysApi api;
 
-    @AfterInject
+    @AfterViews
     void init(){
         setTitle(R.string.title_pickclassinfo);
         setDataEmptyTips(R.string.tips_pickclassinfo_null);

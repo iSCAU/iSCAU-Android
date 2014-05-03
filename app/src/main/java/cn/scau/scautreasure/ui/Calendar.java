@@ -1,7 +1,5 @@
 package cn.scau.scautreasure.ui;
 
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -12,7 +10,6 @@ import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.CalendarHelper;
 import cn.scau.scautreasure.util.DateUtil;
-import cn.scau.scautreasure.widget.ResideMenu;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -30,8 +27,8 @@ import java.util.Iterator;
  * Time: 下午4:57
  * Mail: specialcyci@gmail.com
  */
-@EFragment ( R.layout.calendar )
-public class Calendar extends Common {
+@EActivity ( R.layout.calendar )
+public class Calendar extends CommonActivity {
 
     @ViewById
     WheelHorizontalView      wheel;
@@ -53,7 +50,6 @@ public class Calendar extends Common {
 
     @AfterInject
     void init(){
-        getSherlockActivity().getSupportActionBar().hide();
         setUpCurrentYearMonth();
     }
 
@@ -61,17 +57,6 @@ public class Calendar extends Common {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         currentMonth =  cal.get(cal.MONTH);
         currentYear  =  cal.get(cal.YEAR);
-    }
-
-    @Click
-    void home(){
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        getSherlockActivity().getSupportActionBar().show();
-        super.onDestroyView();
     }
 
     @AfterViews

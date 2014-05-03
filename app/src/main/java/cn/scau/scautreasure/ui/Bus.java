@@ -45,7 +45,7 @@ import cn.scau.scautreasure.widget.ParamWidget_;
  */
 @EFragment  (R.layout.bus)
 @OptionsMenu(R.menu.menu_bus)
-public class Bus extends Common{
+public class Bus extends CommonFragment {
 
     @RestService BusApi api;
     @App         AppContext app;

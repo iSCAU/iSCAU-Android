@@ -1,16 +1,24 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.AbsListView;
+
+import com.devspark.appmsg.AppMsg;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BorrowedBookAdapter_;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import com.devspark.appmsg.AppMsg;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
 /**
  * 当前借阅书籍记录及过去借阅记录
@@ -19,25 +27,21 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time: 上午11:36
  * Mail: specialcyci@gmail.com
  */
-@EFragment ( R.layout.borrowedbook )
-public class BorrowedBook extends Common {
+@EActivity( R.layout.borrowedbook )
+public class BorrowedBook extends CommonActivity {
 
     @RestService
     LibraryApi api;
 
+    @Extra("target")
     int target;
 
-    @AfterInject
+    @AfterViews
     void init(){
         setTitle(R.string.title_borrowedbook);
         setDataEmptyTips(R.string.tips_borrowedbook_null);
-        getTarget();
         UIHelper.getDialog(R.string.loading_borrowedbook).show();
         loadData();
-    }
-
-    private void getTarget(){
-        target = getArguments().getInt("target");
     }
 
     @UiThread
@@ -75,6 +79,8 @@ public class BorrowedBook extends Common {
             showSuccessResult();
         }catch ( HttpStatusCodeException e ){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+        }catch ( Exception e){
+            e.printStackTrace();
         }
     }
 

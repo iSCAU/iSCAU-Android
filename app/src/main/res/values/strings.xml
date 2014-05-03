@@ -25,7 +25,7 @@
     <string name="tips_loading_params">正在加载条件..第一次加载可能比较慢，请耐心等待.</string>
     <string name="btn_continue">查   询</string>
     <string name="loading_goal">正在加载成绩..</string>
-    <string name="tips_goal_null">没有找到你想要的成绩,,</string>
+    <string name="tips_goal_null">没有找到你想要的成绩</string>
     <string name="tips_exam_null">找不到你的考试情况..</string>
     <string name="tips_pickclassinfo_null">找不到你的选课情况..</string>
     <string name="loading_pickclassinfo">正在加载选课信息..</string>

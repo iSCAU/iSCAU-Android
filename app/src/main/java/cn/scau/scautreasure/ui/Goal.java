@@ -1,6 +1,19 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.AbsListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.GoalAdapter;
@@ -8,13 +21,8 @@ import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.GoalModel;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
 /**
  * 成绩查询;
@@ -23,14 +31,15 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time:  下午2:23
  * Mail:  specialcyci@gmail.com
  */
-@EFragment(R.layout.goal)
-public class Goal extends Common implements ServerOnChangeListener{
+@EActivity(R.layout.goal)
+public class Goal extends CommonActivity implements ServerOnChangeListener {
 
     @RestService
     EdusysApi api;
-    private ArrayList<String> value;
+    @Extra("value")
+    ArrayList<String> value;
 
-    @AfterInject
+    @AfterViews
     void init(){
         setTitle(R.string.title_goal);
         tips_empty = R.string.tips_goal_null;
@@ -38,7 +47,6 @@ public class Goal extends Common implements ServerOnChangeListener{
 
     @AfterViews
     void initView(){
-        value = getArguments().getStringArrayList("value");
         UIHelper.getDialog(R.string.loading_default).show();
         loadData(value);
     }

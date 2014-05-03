@@ -2,19 +2,22 @@ package cn.scau.scautreasure.ui;
 
 import android.widget.AbsListView;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.rest.RestService;
 import org.springframework.web.client.HttpStatusCodeException;
+
 import java.util.ArrayList;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassRoomAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
+
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_SWING;
 
 /**
@@ -24,14 +27,15 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail:  specialcyci@gmail.com
  */
 
-@EFragment( R.layout.emptyclassroom )
-public class EmptyClassRoom extends Common implements ServerOnChangeListener{
+@EActivity( R.layout.emptyclassroom )
+public class EmptyClassRoom extends CommonActivity implements ServerOnChangeListener{
 
     @RestService
     EdusysApi api;
-    private ArrayList<String> value;
+    @Extra("value")
+    ArrayList<String> value;
 
-    @AfterInject
+    @AfterViews
     void init(){
         setTitle(R.string.title_emptyclassroom);
         setDataEmptyTips(R.string.tips_emptyclassroom_null);
@@ -39,7 +43,6 @@ public class EmptyClassRoom extends Common implements ServerOnChangeListener{
 
     @AfterViews
     void initView(){
-        value = getArguments().getStringArrayList("value");
         UIHelper.getDialog(R.string.loading_default).show();
         loadData(value);
     }
@@ -47,7 +50,6 @@ public class EmptyClassRoom extends Common implements ServerOnChangeListener{
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
         try{
-
             ArrayList<String> param = (ArrayList<String>)params[0];
             list = api.getEmptyClassRoom(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server,
                     param.get(0), param.get(1), param.get(2), param.get(3), param.get(4),
