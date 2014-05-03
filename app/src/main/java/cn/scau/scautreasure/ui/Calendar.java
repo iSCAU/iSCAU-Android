@@ -65,7 +65,7 @@ public class Calendar extends Common {
 
     @Click
     void home(){
-        getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
+
     }
 
     @Override
@@ -96,7 +96,6 @@ public class Calendar extends Common {
         setCalendarCurrentYearMonth();
         setCalendarFontAndListener();
         showCalendarInFragment();
-        addIgnoredView(layout_calendar);
     }
 
     private void setCalendarCurrentYearMonth(){

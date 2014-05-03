@@ -103,7 +103,6 @@ public class Param extends Common implements ServerOnChangeListener {
         for(ParamModel p : paramList){
             ParamWidget paramWidget = buildParamViews(p.getKey(),p.getValue());
             linear_parent.addView(paramWidget);
-            addIgnoredView(paramWidget);
         }
     }
 

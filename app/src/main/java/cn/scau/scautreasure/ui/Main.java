@@ -4,8 +4,6 @@ import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -28,8 +26,6 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.util.DateUtil;
-import cn.scau.scautreasure.widget.ResideMenu;
-import cn.scau.scautreasure.widget.ResideMenuItem;
 
 /**
  * 整个软件主体的Activity
@@ -40,16 +36,12 @@ import cn.scau.scautreasure.widget.ResideMenuItem;
  * Mail:  specialcyci@gmail.com
  */
 @EActivity(R.layout.main)
-public class Main extends ActionBarActivity implements View.OnClickListener{
+public class Main extends ActionBarActivity{
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
     @App AppContext app;
     @Bean DateUtil dateUtil;
     private Context context;
-    private ResideMenu resideMenu;
-    private ResideMenuItem resideMenuItemHome;
-    private ResideMenuItem resideMenuItemProfile;
-    private ResideMenuItem resideMenuItemSettings;
 
     @AfterViews
     void hideActionBar(){
@@ -60,7 +52,6 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
     @AfterViews
     void initView(){
         initMobclickAgent();
-        setUpMenu();
         checkForUpdate();
         showWelcome();
         showNotification();
@@ -69,26 +60,6 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
     private void initMobclickAgent(){
         MobclickAgent.updateOnlineConfig(this);
         MobclickAgent.openActivityDurationTrack(false);
-    }
-
-    private void setUpMenu(){
-        resideMenu = new ResideMenu(this);
-        resideMenu.setBackground(R.drawable.menu_background);
-        resideMenu.attachToActivity(this);
-        resideMenu.setDirectionDisable(ResideMenu.DIRECTION_RIGHT);
-
-        resideMenuItemHome     = new ResideMenuItem(this, R.drawable.menu_icon_home, R.string.menu_home);
-        resideMenuItemProfile  = new ResideMenuItem(this, R.drawable.menu_icon_user, R.string.menu_profile);
-        resideMenuItemSettings = new ResideMenuItem(this, R.drawable.menu_icon_settings, R.string.menu_settings);
-        resideMenuItemHome.setOnClickListener(this);
-        resideMenuItemProfile.setOnClickListener(this);
-        resideMenuItemSettings.setOnClickListener(this);
-
-        resideMenu.addMenuItem(resideMenuItemHome, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(resideMenuItemProfile, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(resideMenuItemSettings, ResideMenu.DIRECTION_LEFT);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     private void showWelcome(){
@@ -122,36 +93,19 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return resideMenu.onInterceptTouchEvent(ev) || super.dispatchTouchEvent(ev);
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(!isKeyBack(event))
             return super.onKeyDown(keyCode,event);
         if(isDialogShowing() || !isEmptyBackStackEntry())
             return super.onKeyDown(keyCode,event);
 
-        if(!resideMenu.isOpened()){
-            resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
-        }else{
-            menu_exit();
-        }
+        menu_exit();
         return true;
     }
 
     @OptionsItem(android.R.id.home)
     public void home(){
-        if(isEmptyBackStackEntry()){
-            resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
-        }else{
-            getSupportFragmentManager().popBackStack();
-        }
-    }
-
-    public ResideMenu getResideMenu() {
-        return resideMenu;
+        getSupportFragmentManager().popBackStack();
     }
 
     private boolean isEmptyBackStackEntry(){
@@ -195,7 +149,7 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
 
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT)
     void onEditAccountResult(){
-        getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
+
     }
 
     private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {
@@ -274,11 +228,4 @@ public class Main extends ActionBarActivity implements View.OnClickListener{
         System.exit(0);
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == resideMenuItemHome){
-            UIHelper.startFragment(this, Menu_.builder().build());
-        }
-        resideMenu.closeMenu();
-    }
 }

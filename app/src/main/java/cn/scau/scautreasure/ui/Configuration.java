@@ -1,19 +1,10 @@
 package cn.scau.scautreasure.ui;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
-import android.widget.TextView;
-import cn.scau.scautreasure.AppConfig_;
-import cn.scau.scautreasure.AppConstant;
-import cn.scau.scautreasure.AppContext;
-import cn.scau.scautreasure.R;
-import cn.scau.scautreasure.RingerMode;
-import cn.scau.scautreasure.util.ClassUtil;
-import cn.scau.scautreasure.widget.ParamWidget;
+
 import com.devspark.appmsg.AppMsg;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -21,6 +12,12 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
 import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import cn.scau.scautreasure.AppContext;
+import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.RingerMode;
+import cn.scau.scautreasure.util.ClassUtil;
+import cn.scau.scautreasure.widget.ParamWidget;
 
 /**
  * 软件公告通知.
@@ -70,10 +67,6 @@ public class Configuration extends Common{
             }
             i++;
         }
-        addIgnoredView(param_server);
-        addIgnoredView(param_classTableAsFirstScreen);
-        addIgnoredView(param_ringer_mode_during_class);
-        addIgnoredView(param_ringer_mode_after_class);
     }
 
     @Click

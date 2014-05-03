@@ -11,7 +11,6 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.util.DateUtil;
-import cn.scau.scautreasure.widget.ResideMenu;
 
 /**
  * 软件公告通知.
@@ -31,7 +30,6 @@ public class Notification extends Common{
 
     @AfterViews
     void initViews(){
-        closeMenu();
         setTitle(R.string.title_notification);
         getFragmentArguments();
         tv_content.setText(notification);
@@ -41,7 +39,6 @@ public class Notification extends Common{
     @Click
     void home(){
         getSherlockActivity().getSupportFragmentManager().popBackStack();
-        getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
     }
 
     private void getFragmentArguments(){

@@ -188,13 +188,6 @@ public class Bus extends Common{
         layout_parent.addView(wheel_line,0);
         layout_parent.addView(wheel_direction,1);
 
-        addIgnoredViewList();
-    }
-
-
-    private void addIgnoredViewList(){
-        addIgnoredView(wheel_line);
-        addIgnoredView(wheel_direction);
     }
 
 

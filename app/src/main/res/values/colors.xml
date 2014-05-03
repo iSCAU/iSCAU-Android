@@ -35,4 +35,8 @@
     <color name="bus_state_lable_textcolor">#908f8f</color>
     <color name="bus_state_time_lable_textcolor">#908f8f</color>
     <color name="textview_version_text_color">#499c8c</color>
+
+    <!--底部tab字的颜色-->
+    <color name="tab_item_text_color_on">#3c8cd7</color>
+    <color name="tab_item_text_color">#2c2b2b</color>
 </resources>

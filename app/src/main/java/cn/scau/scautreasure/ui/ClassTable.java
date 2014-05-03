@@ -72,7 +72,6 @@ public class ClassTable extends Common implements ServerOnChangeListener{
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setTitle(getTitle());
         actionBar.setSubtitle(dateUtil.getCurrentMonthDate());
-        addIgnoredView(pager);
     }
 
     private String getTitle(){

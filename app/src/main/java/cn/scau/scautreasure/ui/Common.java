@@ -71,7 +71,6 @@ public abstract class Common extends Fragment implements DialogInterface.OnCance
 
     @Override
     public void onDestroyView() {
-        parentActivity().getResideMenu().clearIgnoredViewList();
         super.onDestroyView();
     }
 
@@ -85,26 +84,6 @@ public abstract class Common extends Fragment implements DialogInterface.OnCance
 
     protected void setDataEmptyTips(int tipsResource){
         this.tips_empty = tipsResource;
-    }
-
-    protected ResideMenu getResideMenu(){
-        return parentActivity().getResideMenu();
-    }
-
-    protected void addIgnoredView(View v){
-        parentActivity().getResideMenu().addIgnoredView(v);
-    }
-
-    protected boolean isMenuOpen(){
-        return getResideMenu().isOpened();
-    }
-
-    protected void closeMenu(){
-        getResideMenu().closeMenu();
-    }
-
-    protected void openMenu(){
-        getResideMenu().openMenu(ResideMenu.DIRECTION_LEFT);
     }
 
     /**
