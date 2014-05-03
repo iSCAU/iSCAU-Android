@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.PackageHelper;
 
@@ -20,6 +22,9 @@ import cn.scau.scautreasure.helper.PackageHelper;
  */
 @EActivity(R.layout.welcome)
 public class Welcome extends Activity {
+
+    @App
+    AppContext app;
 
     @Bean
     PackageHelper packageHelper;
@@ -37,8 +42,16 @@ public class Welcome extends Activity {
 
     @UiThread(delay = 2000)
     void close(){
-        Main_.intent(this).start();
+        if(hasSetAccount()){
+            Main_.intent(this).start();
+        }else{
+            Login_.intent(this).start();
+        }
         finish();
     }
 
+    private boolean hasSetAccount(){
+        return app.userName != null &&
+                ( app.eduSysPassword != null || app.libPassword != null || app.cardPassword != null);
+    }
 }

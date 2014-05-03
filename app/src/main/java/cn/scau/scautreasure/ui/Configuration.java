@@ -46,7 +46,6 @@ public class Configuration extends Common{
 
     @AfterViews
     void initViews(){
-        setTitle(R.string.title_configuration);
         param_server.initView(listitem_lable_server, server, 0);
         param_server.getWheel().setCurrentItem(AppContext.server - 1);
         param_classTableAsFirstScreen.initViewWithYesOrNoOption(listitem_lable_classTableAsFirstScreen, 1);

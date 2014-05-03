@@ -209,10 +209,10 @@ public class UIHelper {
      * @param fragment
      */
     public static void startFragment(ActionBarActivity act, Fragment fragment, String tag){
+        deAttachAllFragments(act);
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
         Fragment _fragment = act.getSupportFragmentManager().findFragmentByTag(tag);
         if (_fragment != null) {
-            deAttachAllFragments(act);
             ft.show(_fragment);
         }else {
             ft.add(R.id.main_fragment, fragment, tag);
@@ -225,6 +225,7 @@ public class UIHelper {
         FragmentManager fragmentManager = act.getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments == null) return;
         for(Fragment fragment : fragments){
             if (fragment.isVisible())
                 ft.hide(fragment);
