@@ -39,4 +39,10 @@
     <!--底部tab字的颜色-->
     <color name="tab_item_text_color_on">#3c8cd7</color>
     <color name="tab_item_text_color">#2c2b2b</color>
+
+    <!--swipe refresh 的色彩-->
+    <color name="swipe_refresh_1">#EF597B</color>
+    <color name="swipe_refresh_2">#FF6D31</color>
+    <color name="swipe_refresh_3">#73B66B</color>
+    <color name="swipe_refresh_4">#29A2C6</color>
 </resources>

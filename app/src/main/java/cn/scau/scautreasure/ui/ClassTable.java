@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AbsListView;
@@ -56,6 +57,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @RestService EdusysApi   api;
     @ViewById    ViewPager   pager;
     @ViewById    cn.scau.scautreasure.widget.ClassTabWidget_ titles;
+    @ViewById    SwipeRefreshLayout swipe_refresh;
     @Bean        DateUtil    dateUtil;
     @Bean        ClassHelper classHelper;
     private ArrayList<View>       listViews;
@@ -86,6 +88,16 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         showClassTable();
         showTab();
+        setSwipeRefresh();
+    }
+
+    private void setSwipeRefresh() {
+        swipe_refresh.setEnabled(false);
+        // 顶部刷新的样式
+        swipe_refresh.setColorScheme(R.color.swipe_refresh_1,
+                R.color.swipe_refresh_2,
+                R.color.swipe_refresh_3,
+                R.color.swipe_refresh_4);
     }
 
     /**
@@ -102,7 +114,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @OptionsItem
     void menu_refresh_classtable(){
-        UIHelper.getDialog(R.string.tips_loading_classtable).show();
+        swipe_refresh.setRefreshing(true);
         loadData();
     }
 
@@ -211,12 +223,22 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @Override
     @UiThread
     void showErrorResult(ActionBarActivity ctx, int requestCode){
-        UIHelper.getDialog().dismiss();
+        swipe_refresh.setRefreshing(false);
         if(requestCode == 404){
             AppMsg.makeText(ctx, R.string.tips_classtable_null, AppMsg.STYLE_ALERT).show();
         }else{
             app.showError(requestCode,ctx);
         }
+    }
+
+    @UiThread
+    void showSuccess(){
+        AppMsg.makeText(getSherlockActivity(), "课表更新完成" , AppMsg.STYLE_INFO).show();
+    }
+
+    @UiThread
+    void closeSwipeRefresh(){
+        swipe_refresh.setRefreshing(false);
     }
 
     /**
@@ -272,11 +294,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             config.termStartDate().put(l.getTermStartDate());
             // save data in sqlite;
             classHelper.replaceAllLesson(l.getClasses());
+            showSuccess();
             showClassTable();
             showTab();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
         }
+        closeSwipeRefresh();
     }
 
     @Override
