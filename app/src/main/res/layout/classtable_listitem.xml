@@ -12,7 +12,8 @@
 
         <ImageView
                 android:id="@+id/class_iv"
-                android:layout_width="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:contentDescription=""/>
 
