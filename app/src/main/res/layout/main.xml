@@ -16,7 +16,7 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/tab_background"
@@ -28,7 +28,7 @@
         <RadioButton
             style="@style/tab_item_style"
             android:id="@+id/rd_classtable"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/icon_classtable_selector"
             android:checked="true"
@@ -36,14 +36,14 @@
         <RadioButton
             style="@style/tab_item_style"
             android:id="@+id/rd_features"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/icon_features_selector"
             android:text="@string/tab_features" />
         <RadioButton
             style="@style/tab_item_style"
             android:id="@+id/rd_settings"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/icon_settings_selector"
             android:text="@string/tab_settings" />
