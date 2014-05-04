@@ -309,4 +309,16 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onChangeServer() {
         menu_refresh_classtable();
     }
+
+    // 横竖屏切换到额时候，重新绘制课程表日期下划线.
+    @UiThread(delay = 300)
+    void updateTabOnOrientationChange(){
+        titles.changeWeekDay(pager.getCurrentItem());
+    }
+
+    @Override
+    public void onConfigurationChanged(android.content.res.Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        updateTabOnOrientationChange();
+    }
 }
