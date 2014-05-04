@@ -30,7 +30,7 @@ import cn.scau.scautreasure.widget.ParamWidget;
  */
 @EActivity(R.layout.widget_configuration)
 @OptionsMenu(R.menu.menu_widget_configuration)
-public class WidgetConfiguration extends InjectedSherlockActivity {
+public class WidgetConfiguration extends CommonActivity {
 
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
@@ -70,7 +70,6 @@ public class WidgetConfiguration extends InjectedSherlockActivity {
         getSupportActionBar().setTitle(R.string.title_colorpicker);
         initColorPicker();
         initParam();
-        addIgnoredViews();
     }
 
     private void initColorPicker(){
@@ -90,14 +89,6 @@ public class WidgetConfiguration extends InjectedSherlockActivity {
         param_background.getWheel().setCurrentItem(findMatchIndex(widget_background,background));
     }
 
-    private void addIgnoredViews(){
-        addIgnoredView(picker);
-        addIgnoredView(svbar);
-        addIgnoredView(saturationbar);
-        addIgnoredView(valuebar);
-        addIgnoredView(param_fontSize);
-        addIgnoredView(param_background);
-    }
     private int findMatchIndex(String[] stringArray, String want){
         for (int i = 0; i < stringArray.length ; i++)
             if (stringArray[i].equals(want))
