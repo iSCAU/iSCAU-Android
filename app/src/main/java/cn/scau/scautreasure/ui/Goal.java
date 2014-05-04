@@ -87,6 +87,8 @@ public class Goal extends CommonActivity implements ServerOnChangeListener {
             calculateGPA();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 

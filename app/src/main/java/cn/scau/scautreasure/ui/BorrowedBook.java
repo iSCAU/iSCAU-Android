@@ -80,7 +80,7 @@ public class BorrowedBook extends CommonActivity {
         }catch ( HttpStatusCodeException e ){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
         }catch ( Exception e){
-            e.printStackTrace();
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 

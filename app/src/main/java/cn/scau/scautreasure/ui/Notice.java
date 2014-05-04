@@ -121,6 +121,8 @@ public class Notice extends CommonActivity {
             showSuccessResult(l);
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
 
     }

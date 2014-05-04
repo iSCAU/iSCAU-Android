@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -112,9 +113,14 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
         }
     }
 
+    private boolean ensureActivityAvailable(Activity ctx){
+        return ctx != null && !ctx.isFinishing() && !ctx.isDestroyed();
+    }
+
     @UiThread
     void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener){
-        if(ctx == null) return;
+        if( !ensureActivityAvailable(ctx) )
+            return;
         UIHelper.getDialog().dismiss();
         String[] server = ctx.getResources().getStringArray(R.array.server);
         SpinnerDialog spinner = new SpinnerDialog(ctx, Arrays.asList(server));
@@ -128,6 +134,13 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
             }
         });
         spinner.createBuilder().create().show();
+    }
+
+    @UiThread
+    void handleNoNetWorkError(ActionBarActivity ctx){
+        if( !ensureActivityAvailable(ctx) )
+            return;
+        AppMsg.makeText(ctx, getString(R.string.tips_no_network), AppMsg.STYLE_ALERT).show();
     }
 
     /**

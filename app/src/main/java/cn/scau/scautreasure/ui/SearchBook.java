@@ -189,6 +189,8 @@ public class SearchBook extends CommonActivity {
 
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 

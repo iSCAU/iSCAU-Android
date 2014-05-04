@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.DialogInterface;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -12,7 +13,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.api.BackgroundExecutor;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -37,13 +37,12 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Mail: specialcyci@gmail.com
  */
 @EActivity( R.layout.bookdetail)
-public class BookDetail extends InjectedSherlockActivity implements DialogInterface.OnCancelListener{
+public class BookDetail extends CommonActivity implements DialogInterface.OnCancelListener{
 
     @App         AppContext app;
     @RestService LibraryApi api;
     @Extra       String bookName;
     @Extra       String url;
-    @ViewById    ListView listView;
     private BaseAdapter adapter;
     private List<BookDetailModel> list;
 
@@ -86,12 +85,14 @@ public class BookDetail extends InjectedSherlockActivity implements DialogInterf
             showSuccessResult();
         }catch (HttpStatusCodeException e){
             showErroResult(e.getStatusCode().value());
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 
     private void buildListViewAdapter(){
         BookDetailAdapter listadapter = new BookDetailAdapter(this, R.layout.bookdetail_listitem, list);
-        adapter     = UIHelper.buildEffectAdapter(listadapter,listView,ALPHA);
+        adapter     = UIHelper.buildEffectAdapter(listadapter,(AbsListView) listView,ALPHA);
     }
 
     @Override

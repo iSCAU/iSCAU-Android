@@ -1,7 +1,7 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -14,7 +14,6 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -94,6 +93,10 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
         return requestCode == 500;
     }
 
+    private boolean ensureActivityAvailable(Activity ctx){
+        return ctx != null && !ctx.isFinishing() && !ctx.isDestroyed();
+    }
+
     /**
      * 展示http请求异常结果
      *
@@ -101,7 +104,8 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
      */
     @UiThread
     void showErrorResult(ActionBarActivity ctx, int requestCode){
-        if(ctx == null) return;
+        if( !ensureActivityAvailable(ctx) )
+            return;
         UIHelper.getDialog().dismiss();
         if(requestCode == 404){
             AppMsg.makeText(ctx, tips_empty, AppMsg.STYLE_CONFIRM).show();
@@ -112,9 +116,8 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
 
     @UiThread
     void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener){
-        if(ctx == null) return;
-        if(ctx.isFinishing() || ctx.isDestroyed()) return;
-        UIHelper.getDialog().dismiss();
+        if( !ensureActivityAvailable(ctx) )
+            return;
         String[] server = ctx.getResources().getStringArray(R.array.server);
         SpinnerDialog spinner = new SpinnerDialog(ctx, Arrays.asList(server));
         spinner.setDefaultSelectPosition(AppContext.getServer() - 1);
@@ -127,6 +130,15 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
             }
         });
         spinner.createBuilder().create().show();
+    }
+
+
+    @UiThread
+    void handleNoNetWorkError(ActionBarActivity ctx){
+        if( !ensureActivityAvailable(ctx) )
+            return;
+        UIHelper.getDialog().dismiss();
+        AppMsg.makeText(ctx, getString(R.string.tips_no_network), AppMsg.STYLE_ALERT).show();
     }
 
     /**

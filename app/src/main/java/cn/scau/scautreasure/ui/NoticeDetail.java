@@ -29,7 +29,7 @@ import cn.scau.scautreasure.util.CryptUtil;
  * Mail: specialcyci@gmail.com
  */
 @EActivity( R.layout.notice_detail )
-public class NoticeDetail extends InjectedSherlockActivity {
+public class NoticeDetail extends CommonActivity {
 
     @App
     AppContext app;
@@ -85,6 +85,8 @@ public class NoticeDetail extends InjectedSherlockActivity {
             showSuccessResult(l.getContent());
         }catch (HttpStatusCodeException e){
             showErroResult(e.getStatusCode().value());
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 }

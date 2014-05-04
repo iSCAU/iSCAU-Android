@@ -203,5 +203,6 @@
     <string name="tab_classtable">课表</string>
     <string name="tab_features">功能</string>
     <string name="tab_settings">设置</string>
+    <string name="tips_no_network">未知错误，请检查您的网络状态</string>
 
 </resources>

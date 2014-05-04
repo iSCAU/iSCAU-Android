@@ -136,6 +136,8 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
             }catch (HttpStatusCodeException e){
                 showErrorResult(this, e.getStatusCode().value(), this);
                 return;
+            }catch (Exception e){
+                handleNoNetWorkError(getSherlockActivity());
             }
         }
         showParams();

@@ -46,6 +46,8 @@ public class Exam extends CommonActivity implements ServerOnChangeListener{
             showSuccessResult();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 

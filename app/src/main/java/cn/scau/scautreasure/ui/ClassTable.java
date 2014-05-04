@@ -299,6 +299,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             showTab();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
         closeSwipeRefresh();
     }

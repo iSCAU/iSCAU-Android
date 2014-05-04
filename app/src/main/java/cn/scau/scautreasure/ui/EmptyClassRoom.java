@@ -59,6 +59,8 @@ public class EmptyClassRoom extends CommonActivity implements ServerOnChangeList
 
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 
