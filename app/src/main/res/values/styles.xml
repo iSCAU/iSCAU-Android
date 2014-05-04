@@ -66,6 +66,20 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <!-- blue noraml button -->
+    <style name="blue_button" parent="noraml_button">
+        <item name="android:background">@drawable/blue_button_selector</item>
+    </style>
+
+    <!-- other settings button -->
+    <style name="settings_other_button" parent="android:Widget">
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/settings_other_button_selector</item>
+        <item name="android:textColor">@color/param_lable_textcolor</item>
+        <item name="android:textSize">@dimen/param_lable_textsize</item>
+    </style>
+
     <style name="normal_item_sub_title" parent="android:Widget">
         <item name="android:textSize">@dimen/listitem_goal_sub_title_size</item>
         <item name="android:textColor">@color/listitem_goal_sub_title_color</item>

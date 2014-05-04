@@ -6,7 +6,7 @@
     <string name="hint_edusyspassword">请输入教务系统密码</string>
     <string name="hint_libpassword">请输入图书馆密码(默认为001)</string>
     <string name="hint_cardpassword">请输入校园卡查询密码(默认为校园卡卡号)</string>
-    <string name="btn_save">保   存</string>
+    <string name="btn_save">保存设置</string>
     <string name="save_input_tips_username">请输入用户名</string>
     <string name="save_input_tips_password">三个密码必须输入一个</string>
     <string name="menu_classtable">课程表</string>
@@ -206,5 +206,10 @@
     <string name="tips_no_network">未知错误，请检查您的网络状态</string>
     <string name="settings_server">服务器选择</string>
     <string name="settings_ringer_model">自动静音</string>
+    <string name="settings_other">其它</string>
+    <string name="btn_update">检查更新</string>
+    <string name="btn_about">关于我们</string>
+    <string name="btn_change_account">更换账号</string>
+    <string name="tips_checking_for_update">正在检查更新..</string>
 
 </resources>

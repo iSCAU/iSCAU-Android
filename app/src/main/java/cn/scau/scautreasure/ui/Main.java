@@ -11,9 +11,6 @@ import android.widget.Toast;
 import com.devspark.appmsg.AppMsg;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -21,7 +18,6 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -143,25 +139,6 @@ public class Main extends ActionBarActivity{
 
     }
 
-    private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {
-        @Override
-        public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
-            switch (updateStatus) {
-                case UpdateStatus.Yes: // has update
-                    UmengUpdateAgent.showUpdateDialog(mContext, updateInfo);
-                    break;
-                case UpdateStatus.No: // has no update
-                    Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
-                    break;
-                case UpdateStatus.NoneWifi: // none wifi
-                    Toast.makeText(mContext, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
-                    break;
-                case UpdateStatus.Timeout: // time out
-                    Toast.makeText(mContext, "超时", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
 
     @Override
     public void onResume() {
@@ -177,24 +154,6 @@ public class Main extends ActionBarActivity{
 
     private boolean isConfigAble(String config){
         return !config.trim().equals("0") && !config.trim().equals("");
-    }
-
-    @OptionsItem
-    void menu_account(){
-        Login_.intent(this).isStartFormMenu(true).startForResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT);
-    }
-
-    @OptionsItem
-    void menu_configuration(){
-        UIHelper.startFragment(this, Configuration_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_update(){
-        Toast.makeText(this,R.string.loading_default,Toast.LENGTH_LONG).show();
-        UmengUpdateAgent.setUpdateAutoPopup(false);
-        UmengUpdateAgent.setUpdateListener(umengUpdateListener);
-        UmengUpdateAgent.forceUpdate(this);
     }
 
     private long exitTime = 0;
