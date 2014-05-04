@@ -51,6 +51,7 @@ public class Notice extends CommonActivity {
     private int count;
     private NoticeAdapter listAdapter;
     private final static String cacheKey = "notice_lastest_news";
+    private boolean isFromCache = true;
 
 
     @Override
@@ -70,9 +71,6 @@ public class Notice extends CommonActivity {
 
         setSwipeRefresh();
         loadCacheData();
-        // 置空adapter, 可以使得下面从网络加载数据后，自动清除
-        // 缓存的数据，置入从网络加载的数据；
-        listAdapter = null;
 
         swipe_refresh.setRefreshing(true);
         page = 1;
@@ -138,22 +136,25 @@ public class Notice extends CommonActivity {
 
             count = l.getCount();
             listAdapter = new NoticeAdapter(getSherlockActivity(), R.layout.notice_listitem,l.getNotice());
-
             ListView lv = _listView.getRefreshableView();
             adapter     = UIHelper.buildEffectAdapter(listAdapter, lv, ALPHA);
-
             _listView.setAdapter(listAdapter);
-
             swipe_refresh.setRefreshing(false);
+
+            if (isFromCache){
+                // 置空adapter, 可以使得下面从网络加载数据后，自动清除
+                // 缓存的数据，置入从网络加载的数据；
+                listAdapter = null;
+                isFromCache = false;
+            }
         }else{
             // next page;
             listAdapter.addAll(l.getNotice());
-            _listView.onRefreshComplete();
-
             listAdapter.notifyDataSetChanged();
             adapter.notifyDataSetChanged();
         }
 
+        _listView.onRefreshComplete();
     }
 
     @Background( id = UIHelper.CANCEL_FLAG )
@@ -174,6 +175,9 @@ public class Notice extends CommonActivity {
     // 缓存最新的通知信息;
     @Background
     void cacheLastestNotice(NoticeModel.NoticeList noticeList){
+        // 只缓存最新的通知
+        if(page != 1)
+            return;
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
         if(noticeList.getCount() != 0)
             cacheUtil.put(cacheKey, noticeList);

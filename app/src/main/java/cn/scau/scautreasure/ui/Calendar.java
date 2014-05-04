@@ -28,6 +28,7 @@ import java.util.Iterator;
  * Mail: specialcyci@gmail.com
  */
 @EActivity ( R.layout.calendar )
+@NoTitle
 public class Calendar extends CommonActivity {
 
     @ViewById
@@ -48,6 +49,12 @@ public class Calendar extends CommonActivity {
     private boolean scrolling = true;
     private HashMap<Date,CalendarHelper.Event> events;
 
+    @Override
+    void initActionBar(){
+        // 由于隐藏了标题栏，所以要覆盖初始化actionbar的函数
+        // 否则空指针
+    }
+
     @AfterInject
     void init(){
         setUpCurrentYearMonth();
@@ -64,6 +71,11 @@ public class Calendar extends CommonActivity {
         setUpWheels();
         setUpCalendar();
         loadData();
+    }
+
+    @Click(R.id.back)
+    void back(){
+        finish();
     }
 
     private void setUpWheels(){
