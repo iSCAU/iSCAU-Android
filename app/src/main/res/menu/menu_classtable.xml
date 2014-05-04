@@ -13,16 +13,17 @@
         android:title="从正方刷新课程表"
         android:icon="@drawable/icon_menu_refresh" />
     <item
+        android:id="@+id/menu_all"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_normal_holo_light"
+        app:showAsAction="always"
         android:title="更多">
-        <group>
+        <menu>
             <item
                     android:id="@+id/menu_load_classtable_with_params"
-                    android:title="@string/menu_load_classtable_with_params"
-                    app:showAsAction="never" />
+                    android:title="@string/menu_load_classtable_with_params"/>
             <item
                     android:id="@+id/menu_load_classtable_all"
-                    android:title="@string/menu_load_classtable_with_all"
-                    app:showAsAction="never" />
-        </group>
+                    android:title="@string/menu_load_classtable_with_all"/>
+        </menu>
     </item>
 </menu>
