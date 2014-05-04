@@ -15,19 +15,12 @@
             android:layout_height="match_parent">
 
             <!--教务系统-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#a7a7a7"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/menu_title_label"
                 android:text="@string/menu_edusys"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#a7a7a7"/>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -143,19 +136,11 @@
 
 
             <!--图书馆-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#a7a7a7"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/menu_title_label"
                 android:text="@string/menu_lib"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#a7a7a7"/>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -240,20 +225,11 @@
 
 
             <!--应用汇-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#a7a7a7"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/menu_title_label"
                 android:text="@string/menu_other"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#a7a7a7"/>
-
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

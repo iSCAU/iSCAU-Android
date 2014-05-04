@@ -142,6 +142,7 @@
     <style name="param_text_style" parent="android:Widget">
         <item name="android:textColor">@color/param_lable_textcolor</item>
         <item name="android:textSize">@dimen/param_lable_textsize</item>
+        <item name="android:paddingLeft">15dp</item>
     </style>
 
     <style name="class_modify_text_style" parent="param_text_style">
@@ -218,7 +219,7 @@
         <item name="android:textColor">#ff5a5a5b</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:background">#e9e6e6</item>
+        <item name="android:background">@drawable/menu_title_background</item>
     </style>
 
     <style name="menu_item">

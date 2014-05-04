@@ -34,6 +34,9 @@ public class ParamWidget extends LinearLayout{
     @ViewById
     WheelHorizontalView param_wheel;
 
+    @ViewById
+    ImageView separator;
+
     @StringArrayRes
     String[] yes_or_no;
 
@@ -63,7 +66,6 @@ public class ParamWidget extends LinearLayout{
     public void initView(String lableText,String[] paramList,int index){
 
         param_lable.setText(lableText);
-        param_iv.setImageDrawable(new ColorDrawable(AppConstant.IV_COLOR[ index % AppConstant.IV_COLOR.length ]));
 
         adapter = new ArrayWheelAdapter<String>(ctx, paramList);
         adapter.setItemResource(R.layout.param_wheel_text);
@@ -125,5 +127,9 @@ public class ParamWidget extends LinearLayout{
      */
     public boolean getYesOrNo(){
         return getWheel().getCurrentItem() == 0;
+    }
+
+    public void setSeparatorVisable(int visable){
+        separator.setVisibility(visable);
     }
 }
