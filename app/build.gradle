@@ -34,7 +34,7 @@ dependencies {
     compile project(':libraries:wheelspinner')
     compile project(':libraries:Android-PullToRefresh')
     compile project(':libraries:SlideExpandableListView')
-    compile files('libs/umeng_sdk.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.larswerkman:HoloColorPicker:1.3'
