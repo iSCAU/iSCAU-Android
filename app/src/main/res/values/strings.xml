@@ -211,5 +211,9 @@
     <string name="btn_about">关于我们</string>
     <string name="btn_change_account">更换账号</string>
     <string name="tips_checking_for_update">正在检查更新..</string>
+    <string name="title_activity_about">关于我们</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_advise">反馈建议</string>
 
 </resources>

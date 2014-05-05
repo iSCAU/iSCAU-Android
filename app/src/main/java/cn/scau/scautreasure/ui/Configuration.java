@@ -75,7 +75,7 @@ public class Configuration extends CommonFragment {
 
     @Click
     void btn_about(){
-
+        About_.intent(getSherlockActivity()).start();
     }
 
     @Click
