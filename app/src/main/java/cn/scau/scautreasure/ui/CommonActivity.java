@@ -19,8 +19,8 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.api.BackgroundExecutor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
@@ -41,7 +41,7 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
     protected AppContext   app;
     @ViewById
     protected View listView;
-    protected List list;
+    protected ArrayList list;
     protected BaseAdapter  adapter;
     /**
      * 当服务器返回404(查询结果为空)的提示语;
