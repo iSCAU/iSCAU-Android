@@ -16,7 +16,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassRoomAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
+import cn.scau.scautreasure.util.StringUtil;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_SWING;
 
@@ -28,7 +28,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 
 @EActivity( R.layout.emptyclassroom )
-public class EmptyClassRoom extends CommonActivity implements ServerOnChangeListener{
+public class EmptyClassRoom extends CommonQueryActivity{
 
     @RestService
     EdusysApi api;
@@ -39,39 +39,34 @@ public class EmptyClassRoom extends CommonActivity implements ServerOnChangeList
     void init(){
         setTitle(R.string.title_emptyclassroom);
         setDataEmptyTips(R.string.tips_emptyclassroom_null);
-    }
-
-    @AfterViews
-    void initView(){
-        UIHelper.getDialog(R.string.loading_default).show();
-        loadData(value);
+        setCacheKey("emptyClassRoom_" + StringUtil.join(value, "_"));
+        loadListFromCache();
+        buildAndShowListViewAdapter();
     }
 
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
+        beforeLoadData();
         try{
-            ArrayList<String> param = (ArrayList<String>)params[0];
+            ArrayList<String> param = value;
             list = api.getEmptyClassRoom(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server,
                     param.get(0), param.get(1), param.get(2), param.get(3), param.get(4),
                     param.get(5), param.get(6)).getClassRooms();
-            buildListViewAdapter();
-            showSuccessResult();
+            writeListToCache();
+            buildAndShowListViewAdapter();
 
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
         }catch (Exception e){
             handleNoNetWorkError(getSherlockActivity());
         }
+        afterLoadData();
     }
 
-    private void buildListViewAdapter(){
+    private void buildAndShowListViewAdapter(){
         ClassRoomAdapter cAdapter = new ClassRoomAdapter(getSherlockActivity(), R.layout.emptyclassroom_listitem, list);
         adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) listView,EXPANDABLE_SWING);
+        showSuccessResult();
     }
 
-    @Override
-    public void onChangeServer() {
-        UIHelper.getDialog(R.string.loading_default).show();
-        loadData(value);
-    }
 }

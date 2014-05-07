@@ -1,13 +1,10 @@
 package cn.scau.scautreasure.ui;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.AbsListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.rest.RestService;
 import org.springframework.web.client.HttpStatusCodeException;
 
@@ -16,8 +13,6 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.PickClassAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
-import cn.scau.scautreasure.widget.RefreshActionItem;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
@@ -29,13 +24,11 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail:  specialcyci@gmail.com
  */
 @EActivity( R.layout.pickclassinfo )
-public class PickClassInfo extends CommonActivity implements ServerOnChangeListener, RefreshActionItem.RefreshButtonListener {
+public class PickClassInfo extends CommonQueryActivity {
 
 
     @RestService
     EdusysApi api;
-
-    private RefreshActionItem mRefreshActionItem;
 
     @AfterViews
     void init(){
@@ -46,6 +39,7 @@ public class PickClassInfo extends CommonActivity implements ServerOnChangeListe
         buildAndShowAdapter();
     }
 
+    @Override
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
         beforeLoadData();
@@ -59,42 +53,6 @@ public class PickClassInfo extends CommonActivity implements ServerOnChangeListe
             handleNoNetWorkError(getSherlockActivity());
         }
         afterLoadData();
-    }
-
-    @UiThread
-    void beforeLoadData() {
-        mRefreshActionItem.startProgress();
-    }
-
-    @UiThread
-    void afterLoadData(){
-        mRefreshActionItem.stopProgress();
-    }
-
-    @Override
-    public void onChangeServer() {
-        loadData();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_pickcourseinfo, menu);
-        MenuItem item = menu.findItem(R.id.refresh_button);
-        mRefreshActionItem = (RefreshActionItem) item.getActionView();
-        mRefreshActionItem.setMenuItem(item);
-        mRefreshActionItem.setRefreshButtonListener(this);
-        loadData();
-        return true;
-    }
-
-    /**
-     * 点击 Action Bar 的刷新事件。
-     *
-     * @param refreshActionItem
-     */
-    @Override
-    public void onRefresh(RefreshActionItem refreshActionItem) {
-        loadData();
     }
 
     /**

@@ -13,7 +13,6 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ExamAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
@@ -25,7 +24,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Mail:  specialcyci@gmail.com
  */
 @EActivity( R.layout.exam )
-public class Exam extends CommonActivity implements ServerOnChangeListener{
+public class Exam extends CommonQueryActivity{
 
     @RestService
     EdusysApi api;
@@ -34,31 +33,30 @@ public class Exam extends CommonActivity implements ServerOnChangeListener{
     void init(){
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
-        UIHelper.getDialog(R.string.loading_exam).show();
-        loadData();
+        setCacheKey("exam_arrange");
+        loadListFromCache();
+        buildAndShowListViewAdapter();
     }
 
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
+        beforeLoadData();
         try{
             list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
-            buildListViewAdapter();
-            showSuccessResult();
+            writeListToCache();
+            buildAndShowListViewAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
         }catch (Exception e){
             handleNoNetWorkError(getSherlockActivity());
         }
+        afterLoadData();
     }
 
-    private void buildListViewAdapter(){
+    private void buildAndShowListViewAdapter(){
         ExamAdapter examadapter = new ExamAdapter(getSherlockActivity(), R.layout.exam_listitem, list);
         adapter  = UIHelper.buildEffectAdapter(examadapter, (AbsListView) listView,ALPHA);
+        showSuccessResult();
     }
 
-    @Override
-    public void onChangeServer() {
-        UIHelper.getDialog(R.string.loading_exam).show();
-        loadData();
-    }
 }

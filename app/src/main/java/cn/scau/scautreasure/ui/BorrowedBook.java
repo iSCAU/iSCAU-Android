@@ -28,7 +28,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Mail: specialcyci@gmail.com
  */
 @EActivity( R.layout.borrowedbook )
-public class BorrowedBook extends CommonActivity {
+public class BorrowedBook extends CommonQueryActivity {
 
     @RestService
     LibraryApi api;
@@ -40,8 +40,9 @@ public class BorrowedBook extends CommonActivity {
     void init(){
         setTitle(R.string.title_borrowedbook);
         setDataEmptyTips(R.string.tips_borrowedbook_null);
-        UIHelper.getDialog(R.string.loading_borrowedbook).show();
-        loadData();
+        setCacheKey("borrowedBook_" + target);
+        loadListFromCache();
+        buildAndShowListViewAdapter();
     }
 
     @UiThread
@@ -68,26 +69,30 @@ public class BorrowedBook extends CommonActivity {
 
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
-
+        beforeLoadData();
         try{
             if ( target == UIHelper.TARGET_FOR_NOW_BORROW ) {
                 list = api.getNowBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
             }else{
                 list = api.getHistoryBorrowedBooks(AppContext.userName,app.getEncodeLibPassword()).getBooks();
             }
-            buildListViewAdapter();
-            showSuccessResult();
+            writeListToCache();
+            buildAndShowListViewAdapter();
         }catch ( HttpStatusCodeException e ){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
         }catch ( Exception e){
             handleNoNetWorkError(getSherlockActivity());
         }
+        afterLoadData();
     }
 
-    private void buildListViewAdapter(){
+    private void buildAndShowListViewAdapter(){
+        if (list == null)
+            return;
         BorrowedBookAdapter_ bookadapter = BorrowedBookAdapter_.getInstance_(getSherlockActivity());
         bookadapter.setParent(this);
         bookadapter.addAll(list);
         adapter     = UIHelper.buildEffectAdapter(bookadapter, (AbsListView) listView,ALPHA);
+        showSuccessResult();
     }
 }
