@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.androidannotations.annotations.AfterInject;
@@ -91,6 +92,9 @@ public class Main extends ActionBarActivity{
     private void initMobclickAgent(){
         MobclickAgent.updateOnlineConfig(this);
         MobclickAgent.openActivityDurationTrack(false);
+        // 检查反馈消息;
+        FeedbackAgent agent = new FeedbackAgent(this);
+        agent.sync();
     }
 
     private void checkForUpdate() {
