@@ -8,7 +8,7 @@
     <string name="hint_cardpassword">请输入校园卡查询密码(默认为校园卡卡号)</string>
     <string name="btn_save">保存设置</string>
     <string name="save_input_tips_username">请输入用户名</string>
-    <string name="save_input_tips_password">三个密码必须输入一个</string>
+    <string name="save_input_tips_password">两个密码必须输入一个</string>
     <string name="menu_classtable">课程表</string>
     <string name="menu_goal">查询成绩</string>
     <string name="menu_exam">考试安排</string>
@@ -139,9 +139,9 @@
     <string name="menu_automate_refresh_close">关闭刷新</string>
     <string name="title_borrowedbook">借阅查询</string>
     <string name="title_bus">校巴实时查询</string>
-    <string name="title_emptyclassroom">空余课室查询</string>
+    <string name="title_emptyclassroom">空余教室</string>
     <string name="title_exam">考试安排查询</string>
-    <string name="title_goal">考试查询</string>
+    <string name="title_goal">查询成绩</string>
     <string name="title_pickclassinfo">已选选修查询</string>
     <string name="menu_exit">退出</string>
     <string name="widget_week_start">第</string>
@@ -218,5 +218,7 @@
     <string name="action_refresh">刷新</string>
     <string name="start_tips_edusys">请先设置教务系统账号</string>
     <string name="start_tips_library">请先设置图书馆账号</string>
+    <string name="title_search_book">搜索图书</string>
+    <string name="btn_add_class">添加</string>
 
 </resources>

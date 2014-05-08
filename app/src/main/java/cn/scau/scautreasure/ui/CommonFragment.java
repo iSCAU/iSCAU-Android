@@ -114,7 +114,7 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
     }
 
     private boolean ensureActivityAvailable(Activity ctx){
-        return ctx != null && !ctx.isFinishing() && !ctx.isDestroyed();
+        return ctx != null && !ctx.isFinishing();
     }
 
     @UiThread

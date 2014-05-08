@@ -68,7 +68,7 @@
                     android:textColor="#434242"
                     android:textSize="15sp"
                     android:autoLink="web"
-                    android:text="                   http://weibo.com/huanongbao"/>
+                    android:text="   http://weibo.com/huanongbao"/>
                 <TextView
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"

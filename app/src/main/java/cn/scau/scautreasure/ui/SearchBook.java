@@ -58,6 +58,8 @@ public class SearchBook extends CommonActivity {
     @AfterViews
     void initActionBar(){
 
+        setTitle(getString(R.string.title_search_book));
+
         LayoutInflater inflator = (LayoutInflater) getSherlockActivity() .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.searchbook_bar, null);
 
@@ -96,7 +98,7 @@ public class SearchBook extends CommonActivity {
     private View.OnClickListener ivBackOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Main_ parent = (Main_) getSherlockActivity();
+           getSherlockActivity().finish();
         }
     };
 

@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.support.v4.view.MenuItemCompat;
 import android.view.MenuItem;
 
 import org.androidannotations.annotations.AfterViews;
@@ -78,7 +79,7 @@ public class CommonQueryActivity extends CommonActivity implements ServerOnChang
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.menu_refresh_item, menu);
         MenuItem item = menu.findItem(R.id.refresh_button);
-        mRefreshActionItem = (RefreshActionItem) item.getActionView();
+        mRefreshActionItem = (RefreshActionItem) MenuItemCompat.getActionView(item);
         mRefreshActionItem.setMenuItem(item);
         mRefreshActionItem.setRefreshButtonListener(this);
         loadData();

@@ -63,6 +63,8 @@ public class Notice extends CommonActivity {
     @AfterViews
     void init(){
 
+        getSupportActionBar().hide();
+
         View header = NoticeHeaderWidget_.build(getSherlockActivity());
 
         _listView.setOnRefreshListener(onRefreshListener);

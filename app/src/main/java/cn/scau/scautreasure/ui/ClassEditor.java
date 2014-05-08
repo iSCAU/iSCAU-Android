@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.devspark.appmsg.AppMsg;
@@ -32,12 +33,15 @@ import cn.scau.scautreasure.util.DateUtil;
 public class ClassEditor extends CommonActivity{
 
     @Extra ClassModel   model;
+    @Extra boolean      isNewClass = false;
     @Extra int          position;
     @Bean  StringHelper stringHelper;
     @Bean  DateUtil     dateUtil;
     @ViewById EditText edt_classname,edt_teacher,edt_place;
     @ViewById WheelHorizontalView wheel_weekday,wheel_dsz,wheel_note_start;
     @ViewById WheelHorizontalView wheel_note_end,wheel_week_start,wheel_week_end;
+    @ViewById
+    Button btn_modify;
     @StringArrayRes String[] weekdays,notes,week,dsz;
 
     private ArrayWheelAdapter<String> adapter_weekday;
@@ -80,6 +84,10 @@ public class ClassEditor extends CommonActivity{
             setDSZRelativeView();
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+        if (isNewClass){
+            btn_modify.setText(getString(R.string.btn_add_class));
         }
     }
 

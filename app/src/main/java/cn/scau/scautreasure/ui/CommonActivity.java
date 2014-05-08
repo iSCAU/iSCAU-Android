@@ -120,7 +120,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      * @return
      */
     private boolean ensureActivityAvailable(Activity ctx){
-        return ctx != null && !ctx.isFinishing() && !ctx.isDestroyed();
+        return ctx != null && !ctx.isFinishing();
     }
 
     /**

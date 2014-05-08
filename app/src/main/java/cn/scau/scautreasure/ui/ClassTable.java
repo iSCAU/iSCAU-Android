@@ -69,7 +69,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     private String getTitle(){
         StringBuilder builder = new StringBuilder();
         builder.append(dateUtil.getWeekOfDate());
-        builder.append(" ");
+        return builder.toString();
+    }
+
+    private String getSubTitle(){
+        StringBuilder builder = new StringBuilder();
         builder.append(getString(R.string.widget_week_start));
         builder.append(classHelper.getSchoolWeek());
         builder.append(getString(R.string.widget_week_end));
@@ -106,6 +110,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @OptionsItem
     void menu_add_class(){
         startActivityForResult(ClassEditor_.intent(getSherlockActivity())
+                .isNewClass(true)
                 .model(new ClassModel()).get(), UIHelper.QUERY_FOR_EDIT_CLASS);
     }
 
@@ -115,7 +120,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @OptionsItem
     void menu_refresh_classtable(){
         swipe_refresh.setRefreshing(true);
-        loadData();
+        if (app.eduSysPassword == null || app.eduSysPassword.equals(""))
+            Login_.intent(this).startTips(getString(R.string.start_tips_edusys)).start();
+        else
+            loadData();
     }
 
     /**
@@ -270,6 +278,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         adapter.notifyDataSetChanged();
         pager.setCurrentItem(prevPosition);
         getSherlockActivity().getSupportActionBar().setTitle(getTitle());
+        getSherlockActivity().getSupportActionBar().setSubtitle(getSubTitle());
     }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList){
