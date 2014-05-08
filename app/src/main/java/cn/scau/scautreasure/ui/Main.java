@@ -109,7 +109,7 @@ public class Main extends ActionBarActivity{
         if(isConfigAble(notification)){
             // 今天显示过就不显示了
             if(!config.lastSeeNotificationDate().get().equals(dateUtil.getCurrentDateString()))
-                UIHelper.startFragment(this, Notification_.builder().build(), "notification",notification);
+                Notification_.intent(this).notification(notification).start();
         }
     }
 
