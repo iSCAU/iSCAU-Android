@@ -4,6 +4,7 @@ import android.widget.AbsListView;
 
 import com.devspark.appmsg.AppMsg;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
@@ -35,6 +36,11 @@ public class BorrowedBook extends CommonQueryActivity {
 
     @Extra("target")
     int target;
+
+    @AfterInject
+    void initAfterInject(){
+        setQueryTarget(QUERY_FOR_LIBRARY);
+    }
 
     @AfterViews
     void init(){

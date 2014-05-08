@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.devspark.appmsg.AppMsg;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -40,12 +42,19 @@ public class Login extends Activity {
     @Extra
     boolean    isStartFormMenu = false;
 
+    @Extra
+    String     startTips;
+
     @AfterViews
     void setUpViews(){
         edt_userName.setText(app.userName);
         edt_eduSysPassword.setText(app.eduSysPassword);
         edt_libPassword.setText(app.libPassword);
         edt_cardPassword.setText(app.cardPassword);
+
+        if (startTips != null){
+            AppMsg.makeText(this, startTips, AppMsg.STYLE_INFO).show();
+        }
     }
 
     @Click

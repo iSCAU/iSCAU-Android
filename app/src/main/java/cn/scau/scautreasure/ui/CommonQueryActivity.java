@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.view.MenuItem;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 
@@ -15,6 +16,9 @@ import cn.scau.scautreasure.widget.RefreshActionItem;
 @EActivity
 public class CommonQueryActivity extends CommonActivity implements ServerOnChangeListener, RefreshActionItem.RefreshButtonListener{
 
+    protected static final int QUERY_FOR_EDUSYS = 0;
+    protected static final int QUERY_FOR_LIBRARY = 1;
+    private int queryTarget = QUERY_FOR_EDUSYS;
     protected RefreshActionItem mRefreshActionItem;
 
     /**
@@ -22,6 +26,27 @@ public class CommonQueryActivity extends CommonActivity implements ServerOnChang
      */
     void loadData(Object... param){
 
+    }
+
+    /**
+     * 检查查询目标账号的可用性，主要是检查
+     *  有没有保存账号。
+     */
+    @AfterViews
+    void checkAccountAvailable(){
+        boolean startLoginActivity = false;
+        if (queryTarget == QUERY_FOR_EDUSYS){
+            startLoginActivity =  (app.eduSysPassword == null || app.eduSysPassword.equals(""));
+        }else if (queryTarget == QUERY_FOR_LIBRARY){
+            startLoginActivity =  (app.libPassword == null || app.libPassword.equals(""));
+        }
+
+        if (startLoginActivity) {
+            int startTips = queryTarget == QUERY_FOR_EDUSYS ?
+                    R.string.start_tips_edusys : R.string.start_tips_library;
+            Login_.intent(this).startTips(getString(startTips)).start();
+            this.finish();
+        }
     }
 
     @UiThread
@@ -58,6 +83,15 @@ public class CommonQueryActivity extends CommonActivity implements ServerOnChang
         mRefreshActionItem.setRefreshButtonListener(this);
         loadData();
         return true;
+    }
+
+    /**
+     * 设置需要查询的目标。
+     *
+     * @param target
+     */
+    protected void setQueryTarget(int target){
+        queryTarget = target;
     }
 
 }
