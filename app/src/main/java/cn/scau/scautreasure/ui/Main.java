@@ -26,6 +26,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.util.DateUtil;
 
 /**
@@ -76,13 +77,13 @@ public class Main extends ActionBarActivity{
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == rd_features.getId()) {
                     UIHelper.startFragment(mContext, fragmentMenu, "menu_");
-                    getSupportActionBar().setTitle(R.string.title_menu);
+                    ( (OnTabSelectListener) fragmentMenu).onTabSelect();
                 }else if (i == rd_classtable.getId()) {
                     UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
-                    getSupportActionBar().setTitle(R.string.title_classtable);
+                    ( (OnTabSelectListener) fragmentClassTable).onTabSelect();
                 }else if (i == rd_settings.getId()) {
                     UIHelper.startFragment(mContext, fragmentSettings, "settings_");
-                    getSupportActionBar().setTitle(R.string.title_configuration);
+                    ( (OnTabSelectListener) fragmentSettings).onTabSelect();
                 }
             }
         });

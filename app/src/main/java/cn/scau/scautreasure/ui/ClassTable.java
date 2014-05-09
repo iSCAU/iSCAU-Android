@@ -36,7 +36,7 @@ import cn.scau.scautreasure.adapter.ClassTableAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
@@ -53,7 +53,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EFragment( R.layout.classtable )
 @OptionsMenu ( R.menu.menu_classtable )
-public class ClassTable extends CommonFragment implements ServerOnChangeListener{
+public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener{
 
     @Pref        cn.scau.scautreasure.AppConfig_  config;
     @RestService EdusysApi   api;
@@ -86,9 +86,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @AfterViews
     void initView(){
 
-        week_classtable.getSettings().setJavaScriptEnabled(true);
-        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable), "Android");
+//        week_classtable.getSettings().setJavaScriptEnabled(true);
+//        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+//        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable), "Android");
 
         listViews = new ArrayList<View>();
         adapter   = new ClassTableAdapter();
@@ -285,8 +285,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         pager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         pager.setCurrentItem(prevPosition);
-        getSherlockActivity().getSupportActionBar().setTitle(getTitle());
-        getSherlockActivity().getSupportActionBar().setSubtitle(getSubTitle());
+        onTabSelect();
     }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList){
@@ -337,5 +336,14 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onConfigurationChanged(android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateTabOnOrientationChange();
+    }
+
+    /**
+     * Tab 切换到当前页。
+     */
+    @Override
+    public void onTabSelect() {
+        setTitle(getTitle());
+        setSubTitle(getSubTitle());
     }
 }

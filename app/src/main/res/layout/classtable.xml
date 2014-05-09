@@ -19,6 +19,7 @@
             <!-- 全周课表 -->
             <WebView
                 android:id="@+id/week_classtable"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></WebView>
 

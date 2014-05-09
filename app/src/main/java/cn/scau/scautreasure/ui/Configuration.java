@@ -21,6 +21,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.RingerMode;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 
@@ -33,7 +34,7 @@ import cn.scau.scautreasure.widget.ParamWidget;
  * Mail: specialcyci@gmail.com
  */
 @EFragment(R.layout.configuration)
-public class Configuration extends CommonFragment {
+public class Configuration extends CommonFragment implements OnTabSelectListener{
 
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
@@ -149,4 +150,9 @@ public class Configuration extends CommonFragment {
         }
     };
 
+    @Override
+    public void onTabSelect() {
+        setTitle(R.string.title_configuration);
+        setSubTitle(null);
+    }
 }
