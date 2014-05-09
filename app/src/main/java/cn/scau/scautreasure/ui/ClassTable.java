@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -35,6 +36,7 @@ import cn.scau.scautreasure.adapter.ClassTableAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
@@ -58,6 +60,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @ViewById    ViewPager   pager;
     @ViewById    cn.scau.scautreasure.widget.ClassTabWidget_ titles;
     @ViewById    SwipeRefreshLayout swipe_refresh;
+    @ViewById    WebView week_classtable;
     @Bean        DateUtil    dateUtil;
     @Bean        ClassHelper classHelper;
     private ArrayList<View>       listViews;
@@ -82,6 +85,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @AfterViews
     void initView(){
+
+        week_classtable.getSettings().setJavaScriptEnabled(true);
+        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable), "Android");
 
         listViews = new ArrayList<View>();
         adapter   = new ClassTableAdapter();

@@ -12,32 +12,45 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <cn.scau.scautreasure.widget.ClassTabWidget_
-                    android:id="@+id/titles"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="2dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                    style="@style/listitem_separator"
-                    android:layout_marginTop="2dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription=""/>
+            <!-- 全周课表 -->
+            <WebView
+                android:id="@+id/week_classtable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
 
-            <android.support.v4.view.ViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+            <!-- 单日课表 -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <cn.scau.scautreasure.widget.ClassTabWidget_
+                        android:id="@+id/titles"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="2dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent" />
+
+                <ImageView
+                        style="@style/listitem_separator"
+                        android:layout_marginTop="2dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription=""/>
+
+                <android.support.v4.view.ViewPager
+                        android:id="@+id/pager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+            </LinearLayout>
         </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
