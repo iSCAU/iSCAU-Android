@@ -118,12 +118,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 刷新课程菜单点击
      */
     @OptionsItem
-    void menu_refresh_classtable(){
-        swipe_refresh.setRefreshing(true);
-        if (app.eduSysPassword == null || app.eduSysPassword.equals(""))
+    void menu_refresh_classtable() {
+        if (app.eduSysPassword == null || app.eduSysPassword.equals("")){
             Login_.intent(this).startTips(getString(R.string.start_tips_edusys)).start();
-        else
+        } else {
+            swipe_refresh.setRefreshing(true);
             loadData();
+        }
     }
 
     /**
