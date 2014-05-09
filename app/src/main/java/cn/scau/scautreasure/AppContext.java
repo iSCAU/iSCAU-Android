@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.devspark.appmsg.AppMsg;
 
 import org.androidannotations.annotations.Background;
@@ -34,8 +35,14 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initAVOS();
         compatiable();
         getAccountSettings();
+    }
+
+    private void initAVOS(){
+        AVOSCloud.initialize(this, "2b2sixo06oursxuhoh9ujh1vovaz9gtndt03v1mwqot999zw",
+                                    "xgrma0g0qus5av7xgx3xp4rpfdx9htrxgk6a9m1lawcm840w");
     }
 
     private void compatiable(){

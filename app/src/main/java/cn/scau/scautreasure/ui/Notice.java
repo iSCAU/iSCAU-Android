@@ -32,7 +32,6 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Mail: specialcyci@gmail.com
  */
 @EActivity ( R.layout.notice )
-@NoTitle
 public class Notice extends CommonActivity {
 
     @RestService
