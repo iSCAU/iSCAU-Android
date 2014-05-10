@@ -220,5 +220,6 @@
     <string name="start_tips_library">请先设置图书馆账号</string>
     <string name="title_search_book">搜索图书</string>
     <string name="btn_add_class">添加</string>
+    <string name="action_search">搜索</string>
 
 </resources>

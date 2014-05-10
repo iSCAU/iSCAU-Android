@@ -69,7 +69,6 @@ public class ClassEditor extends CommonActivity{
         wheel_week_start.setViewAdapter(adapter_week_start);
 
         getSupportActionBar().setTitle(model.getClassname());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
     }
 
