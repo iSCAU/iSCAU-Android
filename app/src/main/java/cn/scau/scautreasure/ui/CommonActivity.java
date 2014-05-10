@@ -14,6 +14,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
@@ -59,7 +60,10 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
     @AfterViews
     void initActionBar(){
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.menu_icon_back);
     }
 
     protected void setTitle(String title){
@@ -246,6 +250,16 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
 
     @OptionsItem(android.R.id.home)
     void home(){
+        this.finish();
+    }
+
+    @Click(R.id.action_bar_title)
+    void action_bar_title(){
+        this.finish();
+    }
+
+    @OptionsItem(R.id.up)
+    void up(){
         this.finish();
     }
 }

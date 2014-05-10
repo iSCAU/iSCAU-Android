@@ -17,13 +17,14 @@
     <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="titleTextStyle">@style/ActionBarTitle</item>
         <item name="subtitleTextStyle">@style/ActionBarSubTitle</item>
-        <item name="background">@android:color/white</item>
+        <item name="background">@drawable/action_bar</item>
+        <item name="displayOptions">showTitle</item>
     </style>
 
     <!-- Theme -->
-    <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light">
+    <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/background_normal</item>
-        <item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+        <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle">@style/ActionBar</item>
     </style>
 
@@ -228,8 +229,8 @@
 
     <style name="menu_title_label">
         <item name="android:paddingLeft">28dp</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:textColor">#ff5a5a5b</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">13sp</item>

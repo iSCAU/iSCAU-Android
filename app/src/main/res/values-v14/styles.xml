@@ -6,13 +6,14 @@
     <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/ActionBarTitle</item>
         <item name="android:subtitleTextStyle">@style/ActionBarSubTitle</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@drawable/action_bar</item>
+        <item name="android:displayOptions">showTitle</item>
     </style>
 
     <!-- Theme -->
-    <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light">
+    <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/background_normal</item>
-        <item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+        <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
 

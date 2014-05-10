@@ -4,7 +4,7 @@
     <color name="background_normal">#ffffff</color>
     <color name="login_lable_font_color">#7c8389</color>
     <color name="login_edittext_textcolor">#7c8389</color>
-    <color name="actionar_title_color">#2c2b2b</color>
+    <color name="actionar_title_color">#ffffff</color>
     <color name="param_lable_textcolor">#484848</color>
     <color name="normal_item_passed_color">#70a8fb</color>
     <!-- 合格成绩课程名称背景颜色 -->
@@ -37,7 +37,7 @@
     <color name="textview_version_text_color">#499c8c</color>
 
     <!--底部tab字的颜色-->
-    <color name="tab_item_text_color_on">#3c8cd7</color>
+    <color name="tab_item_text_color_on">#20c2a9</color>
     <color name="tab_item_text_color">#2c2b2b</color>
 
     <!--swipe refresh 的色彩-->
