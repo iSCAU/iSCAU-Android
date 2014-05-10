@@ -221,5 +221,7 @@
     <string name="title_search_book">搜索图书</string>
     <string name="btn_add_class">添加</string>
     <string name="action_search">搜索</string>
+    <string name="title_activity_login">Login</string>
+    <string name="sns_no_login_tips">您尚未登陆，请使用一种方式登陆</string>
 
 </resources>

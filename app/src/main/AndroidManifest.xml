@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name="cn.scau.scautreasure.AppContext_"
@@ -93,13 +95,19 @@
             android:name="cn.scau.scautreasure.ui.About_"
             android:label="@string/title_activity_about" >
         </activity>
-        <activity android:name="com.umeng.fb.ConversationActivity"
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name="com.umeng.fb.ContactActivity"
-            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="com.umeng.fb.ContactActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="cn.scau.scautreasure.ui.sns.Login_"
+            android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name="cn.scau.scautreasure.ui.WidgetConfiguration_"

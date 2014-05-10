@@ -1,7 +1,7 @@
 package cn.scau.scautreasure.ui;
 
-import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
