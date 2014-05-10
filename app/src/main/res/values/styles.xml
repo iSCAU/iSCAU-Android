@@ -21,14 +21,19 @@
         <item name="displayOptions">showTitle</item>
     </style>
 
+    <!--ActionBarWidget Style-->
+    <style name="ActionBarWidget" parent="@style/Theme.AppCompat">
+        <item name="searchViewCloseIcon">@drawable/menu_icon_close</item>
+        <item name="searchViewGoIcon">@drawable/menu_icon_search</item>
+        <item name="searchViewSearchIcon">@drawable/menu_icon_search</item>
+    </style>
+
     <!-- Theme -->
     <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/background_normal</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle">@style/ActionBar</item>
-        <item name="searchViewCloseIcon">@drawable/menu_icon_close</item>
-        <item name="searchViewGoIcon">@drawable/menu_icon_search</item>
-        <item name="searchViewSearchIcon">@drawable/menu_icon_search</item>
+        <item name="actionBarWidgetTheme">@style/ActionBarWidget</item>
     </style>
 
     <!--login edittext-->

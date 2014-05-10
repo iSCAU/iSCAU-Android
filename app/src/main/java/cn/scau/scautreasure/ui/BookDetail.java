@@ -82,6 +82,7 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
         try{
             String url = CryptUtil.base64_url_safe((String) params[0]);
             list = api.getBookDetail(url).getDetails();
+            System.out.println("books: " + list.size());
             if (list == null)
                 list = new ArrayList<BookDetailModel>();
             buildListViewAdapter();
@@ -94,7 +95,6 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
     }
 
     private void buildListViewAdapter(){
-
         BookDetailAdapter listadapter = new BookDetailAdapter(getSherlockActivity(), R.layout.bookdetail_listitem, list);
         adapter     = UIHelper.buildEffectAdapter(listadapter,(AbsListView) listView,ALPHA);
     }
