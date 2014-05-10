@@ -28,7 +28,6 @@ import java.util.Iterator;
  * Mail: specialcyci@gmail.com
  */
 @EActivity ( R.layout.calendar )
-@NoTitle
 public class Calendar extends CommonActivity {
 
     @ViewById
