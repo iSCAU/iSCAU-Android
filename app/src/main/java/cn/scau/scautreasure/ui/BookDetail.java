@@ -17,15 +17,11 @@ import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.api.BackgroundExecutor;
 import org.springframework.web.client.HttpStatusCodeException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BookDetailAdapter;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.model.BookDetailModel;
 import cn.scau.scautreasure.util.CryptUtil;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
@@ -45,7 +41,6 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
     @Extra       String bookName;
     @Extra       String url;
     private BaseAdapter adapter;
-    private List<BookDetailModel> list;
 
     @AfterViews
     void init(){
@@ -82,9 +77,6 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
         try{
             String url = CryptUtil.base64_url_safe((String) params[0]);
             list = api.getBookDetail(url).getDetails();
-            System.out.println("books: " + list.size());
-            if (list == null)
-                list = new ArrayList<BookDetailModel>();
             buildListViewAdapter();
             showSuccessResult();
         }catch (HttpStatusCodeException e){
