@@ -122,7 +122,7 @@
 
     <style name="noraml_listview" parent="android:Widget">
         <item name="android:cacheColorHint">#00000000</item>
-        <item name="android:listSelector">@null</item>
+        <item name="android:listSelector">@drawable/settings_other_button_background_on</item>
         <item name="android:scrollbars">none</item>
         <item name="android:dividerHeight">@dimen/normal_listview_dividerHeight</item>
         <item name="android:divider">@null</item>

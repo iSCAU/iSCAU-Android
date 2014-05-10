@@ -6,9 +6,10 @@
     <color name="login_edittext_textcolor">#7c8389</color>
     <color name="actionar_title_color">#ffffff</color>
     <color name="param_lable_textcolor">#484848</color>
-    <color name="normal_item_passed_color">#70a8fb</color>
+    <color name="normal_item_passed_color">#f1f1f1</color>
+    <color name="normail_item_passed_text_color">#292929</color>
     <!-- 合格成绩课程名称背景颜色 -->
-    <color name="goal_item_passed_color">#70a8fb</color>
+    <color name="goal_item_passed_color">#f1f1f1</color>
     <!-- 不合格成绩课程名称背景颜色 -->
     <color name="goal_item_failed_color">#fa5050</color>
     <color name="listitem_goal_sub_title_color">#a09d9d</color>

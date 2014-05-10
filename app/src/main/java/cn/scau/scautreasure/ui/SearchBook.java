@@ -5,6 +5,7 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.devspark.appmsg.AppMsg;
@@ -148,6 +149,8 @@ public class SearchBook extends CommonActivity {
         searchView.setQueryHint(getString(R.string.hint_searchbook));
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(oQueryTextListener);
+        ImageView mSearchHintIcon = (ImageView) searchView.findViewById(R.id.search_mag_icon);
+        mSearchHintIcon.setVisibility(View.GONE);
         MenuItemCompat.expandActionView(menuItemSearch);
         return true;
     }
