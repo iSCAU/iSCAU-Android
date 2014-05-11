@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -99,6 +100,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         setSwipeRefresh();
 
         week_classtable.getSettings().setJavaScriptEnabled(true);
+        week_classtable.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
         week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
     }
@@ -264,6 +266,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @UiThread()
     void showClassTable(){
 
+        // 以下是刷新日课表;
         int prevPosition = pager.getCurrentItem();
 
         UIHelper.getDialog().dismiss();
@@ -287,6 +290,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         adapter.notifyDataSetChanged();
         pager.setCurrentItem(prevPosition);
         onTabSelect();
+
+        // 以下是刷新全周课表
+        week_classtable.reload();
     }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList){

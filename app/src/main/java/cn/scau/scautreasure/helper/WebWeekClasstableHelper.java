@@ -1,20 +1,14 @@
 package cn.scau.scautreasure.helper;
 
-import android.content.Context;
 import android.view.ViewTreeObserver;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.ui.ClassTable;
@@ -42,6 +36,7 @@ public class WebWeekClasstableHelper {
 
     @JavascriptInterface
     public String getDayLesson(int day) {
+
         List<ClassModel> dayClassList = null;
         String chineseDay = dateUtil.numDayToChinese(day);
         if(config.classTableShowMode().get() == ClassTable.MODE_ALL){
