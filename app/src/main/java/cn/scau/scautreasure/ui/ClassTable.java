@@ -36,6 +36,7 @@ import cn.scau.scautreasure.adapter.ClassTableAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
@@ -86,10 +87,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @AfterViews
     void initView(){
 
-//        week_classtable.getSettings().setJavaScriptEnabled(true);
-//        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-//        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable), "Android");
-
         listViews = new ArrayList<View>();
         adapter   = new ClassTableAdapter();
 
@@ -100,6 +97,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         showClassTable();
         showTab();
         setSwipeRefresh();
+
+        week_classtable.getSettings().setJavaScriptEnabled(true);
+        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
     }
 
     private void setSwipeRefresh() {
