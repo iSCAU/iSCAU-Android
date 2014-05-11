@@ -16,6 +16,13 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionBarStyle">@style/ActionBar</item>
         <item name="actionBarWidgetTheme">@style/ActionBarWidget</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabs</item>
+    </style>
+
+    <!-- ActionBar tabs styles -->
+    <style name="ActionBarTabs"
+        parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_special</item>
     </style>
 
 </resources>

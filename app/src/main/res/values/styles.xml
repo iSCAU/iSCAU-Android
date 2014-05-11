@@ -26,6 +26,7 @@
         <item name="searchViewCloseIcon">@drawable/menu_icon_close</item>
         <item name="searchViewGoIcon">@drawable/menu_icon_search</item>
         <item name="searchViewSearchIcon">@drawable/menu_icon_search</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabs</item>
     </style>
 
     <!-- Theme -->
@@ -34,6 +35,13 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle">@style/ActionBar</item>
         <item name="actionBarWidgetTheme">@style/ActionBarWidget</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabs</item>
+    </style>
+
+    <!-- ActionBar tabs styles -->
+    <style name="ActionBarTabs"
+        parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_special</item>
     </style>
 
     <!--login edittext-->

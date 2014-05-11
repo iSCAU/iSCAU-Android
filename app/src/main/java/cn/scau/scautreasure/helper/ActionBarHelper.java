@@ -27,7 +27,13 @@ public class ActionBarHelper {
      */
     public static void enableEmbeddedTabs(ActionBar actionBar){
         if (actionBar instanceof ActionBarImplJBMR2) {
-            enableEmbeddedTabs(actionBar);
+            try {
+                Field actionBarField = actionBar.getClass().getSuperclass().getSuperclass().getDeclaredField("mActionBar");
+                actionBarField.setAccessible(true);
+                enableEmbeddedTabs(actionBarField.get(actionBar));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (actionBar instanceof ActionBarImplJB) {
             try {
                 Field actionBarField = actionBar.getClass().getSuperclass().getDeclaredField("mActionBar");
@@ -36,7 +42,10 @@ public class ActionBarHelper {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            enableEmbeddedTabs((Object) actionBar);
         }
+
     }
 
     private static void enableEmbeddedTabs(Object actionBar) {

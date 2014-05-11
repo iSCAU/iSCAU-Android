@@ -92,6 +92,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @AfterViews
     void initActionBar(){
+
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         ActionBarHelper.enableEmbeddedTabs(actionBar);
@@ -360,13 +361,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @UiThread(delay = 300)
     void updateTabOnOrientationChange(){
         titles.changeWeekDay(pager.getCurrentItem());
+        ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
     }
 
     @Override
     public void onConfigurationChanged(android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateTabOnOrientationChange();
-        ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
     }
 
     /*
