@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <cn.scau.scautreasure.widget.ElasticScrollView_
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/logo"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="华农宝 v2.4.5"
+                android:textColor="#ff376b"
+                android:textSize="30sp"
+                android:id="@+id/textView_appName"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="华农学子 自己的 App!"
+                android:textColor="#969696"
+                android:textSize="15sp"
+                android:layout_gravity="center_vertical" />
+
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#434242"
+                    android:textSize="15sp"
+                    android:autoLink="web"
+                    android:text="官方网站: http://www.huanongbao.com"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#434242"
+                    android:textSize="15sp"
+                    android:autoLink="web"
+                    android:text="新浪微博: @华农宝工作室"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#434242"
+                    android:textSize="15sp"
+                    android:autoLink="web"
+                    android:text="   http://weibo.com/huanongbao"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#434242"
+                    android:textSize="15sp"
+                    android:text="微信公众号: 搜索 iSCAU "/>
+            </LinearLayout>
+
+            <Button
+                style="@style/blue_button"
+                android:id="@+id/btn_advise"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:text="@string/btn_advise"
+                android:layout_marginTop="30dp"/>
+
+        </LinearLayout>
+    </cn.scau.scautreasure.widget.ElasticScrollView_>
+</LinearLayout>

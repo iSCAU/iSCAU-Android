@@ -2,8 +2,13 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -16,6 +21,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.RingerMode;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 
@@ -28,7 +34,7 @@ import cn.scau.scautreasure.widget.ParamWidget;
  * Mail: specialcyci@gmail.com
  */
 @EFragment(R.layout.configuration)
-public class Configuration extends CommonFragment {
+public class Configuration extends CommonFragment implements OnTabSelectListener{
 
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
@@ -69,6 +75,26 @@ public class Configuration extends CommonFragment {
     }
 
     @Click
+    void btn_about(){
+        About_.intent(getSherlockActivity()).start();
+    }
+
+    @Click
+    void btn_update(){
+        AppMsg.makeText(getSherlockActivity(),
+                app.getString(R.string.tips_checking_for_update)
+                , AppMsg.STYLE_INFO).show();
+        UmengUpdateAgent.setUpdateAutoPopup(false);
+        UmengUpdateAgent.setUpdateListener(umengUpdateListener);
+        UmengUpdateAgent.forceUpdate(getSherlockActivity());
+    }
+
+    @Click
+    void btn_change_account(){
+        Login_.intent(this).start();
+    }
+
+    @Click
     void btn_save(){
         int server = Integer.valueOf(param_server.getSelectedParam());
         boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
@@ -104,4 +130,29 @@ public class Configuration extends CommonFragment {
     }
 
 
+    private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {
+        @Override
+        public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+            switch (updateStatus) {
+                case UpdateStatus.Yes: // has update
+                    UmengUpdateAgent.showUpdateDialog(getSherlockActivity(), updateInfo);
+                    break;
+                case UpdateStatus.No: // has no update
+                    Toast.makeText(getSherlockActivity(), "没有更新", Toast.LENGTH_SHORT).show();
+                    break;
+                case UpdateStatus.NoneWifi: // none wifi
+                    Toast.makeText(getSherlockActivity(), "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
+                    break;
+                case UpdateStatus.Timeout: // time out
+                    Toast.makeText(getSherlockActivity(), "超时", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public void onTabSelect() {
+        setTitle(R.string.title_configuration);
+        setSubTitle(null);
+    }
 }

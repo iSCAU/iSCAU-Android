@@ -45,7 +45,7 @@ public class Welcome extends Activity {
         if(hasSetAccount()){
             Main_.intent(this).start();
         }else{
-            Login_.intent(this).start();
+            Login_.intent(this).runMainActivity(true).start();
         }
         finish();
     }

@@ -72,6 +72,10 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(titleResource);
     }
 
+    protected void setSubTitle(String res){
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setSubtitle(res);
+    }
+
     protected void setDataEmptyTips(int tipsResource){
         this.tips_empty = tipsResource;
     }
@@ -114,7 +118,7 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
     }
 
     private boolean ensureActivityAvailable(Activity ctx){
-        return ctx != null && !ctx.isFinishing() && !ctx.isDestroyed();
+        return ctx != null && !ctx.isFinishing();
     }
 
     @UiThread

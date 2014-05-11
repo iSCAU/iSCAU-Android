@@ -32,7 +32,6 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Mail: specialcyci@gmail.com
  */
 @EActivity ( R.layout.notice )
-@NoTitle
 public class Notice extends CommonActivity {
 
     @RestService
@@ -63,6 +62,8 @@ public class Notice extends CommonActivity {
     @AfterViews
     void init(){
 
+        getSupportActionBar().hide();
+
         View header = NoticeHeaderWidget_.build(getSherlockActivity());
 
         _listView.setOnRefreshListener(onRefreshListener);
@@ -89,7 +90,7 @@ public class Notice extends CommonActivity {
     // 加载缓存的通知，并且载入时显示；
     void loadCacheData(){
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
-        NoticeModel.NoticeList l = (NoticeModel.NoticeList) cacheUtil.getAsObject(cacheKey);
+        NoticeModel.NoticeList l = (NoticeModel.NoticeList) cacheUtil.getAsObject(this.cacheKey);
         if(l != null)
             showSuccessResult(l);
     }
@@ -180,7 +181,7 @@ public class Notice extends CommonActivity {
             return;
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
         if(noticeList.getCount() != 0)
-            cacheUtil.put(cacheKey, noticeList);
+            cacheUtil.put(this.cacheKey, noticeList);
     }
 
 }

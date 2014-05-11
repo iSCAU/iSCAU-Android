@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 import com.devspark.appmsg.AppMsg;
 
-import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
@@ -17,14 +17,11 @@ import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.api.BackgroundExecutor;
 import org.springframework.web.client.HttpStatusCodeException;
 
-import java.util.List;
-
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BookDetailAdapter;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.model.BookDetailModel;
 import cn.scau.scautreasure.util.CryptUtil;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
@@ -44,9 +41,8 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
     @Extra       String bookName;
     @Extra       String url;
     private BaseAdapter adapter;
-    private List<BookDetailModel> list;
 
-    @AfterInject
+    @AfterViews
     void init(){
         getSupportActionBar().setTitle(bookName);
         UIHelper.getDialog(R.string.loading_bookdetail).show();
@@ -91,7 +87,7 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
     }
 
     private void buildListViewAdapter(){
-        BookDetailAdapter listadapter = new BookDetailAdapter(this, R.layout.bookdetail_listitem, list);
+        BookDetailAdapter listadapter = new BookDetailAdapter(getSherlockActivity(), R.layout.bookdetail_listitem, list);
         adapter     = UIHelper.buildEffectAdapter(listadapter,(AbsListView) listView,ALPHA);
     }
 

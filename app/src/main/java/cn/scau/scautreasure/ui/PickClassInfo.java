@@ -13,7 +13,6 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.PickClassAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
@@ -25,7 +24,8 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail:  specialcyci@gmail.com
  */
 @EActivity( R.layout.pickclassinfo )
-public class PickClassInfo extends CommonActivity implements ServerOnChangeListener{
+public class PickClassInfo extends CommonQueryActivity {
+
 
     @RestService
     EdusysApi api;
@@ -34,29 +34,38 @@ public class PickClassInfo extends CommonActivity implements ServerOnChangeListe
     void init(){
         setTitle(R.string.title_pickclassinfo);
         setDataEmptyTips(R.string.tips_pickclassinfo_null);
-
-        UIHelper.getDialog(R.string.loading_pickclassinfo).show();
-        loadData();
+        setCacheKey("pickClassInfo");
+        loadListFromCache();
+        buildAndShowAdapter();
     }
 
+    @Override
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
+        beforeLoadData();
         try{
             list = api.getPickClassInfo(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getPickclassinfos();
-            PickClassAdapter listadapter = new PickClassAdapter(getSherlockActivity(), R.layout.pickclassinfo_listitem, list);
-
-            adapter = UIHelper.buildEffectAdapter(listadapter, (AbsListView) listView,EXPANDABLE_ALPHA);
-            showSuccessResult();
+            writeListToCache();
+            buildAndShowAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
         }catch (Exception e){
             handleNoNetWorkError(getSherlockActivity());
         }
+        afterLoadData();
     }
 
-    @Override
-    public void onChangeServer() {
-        UIHelper.getDialog(R.string.loading_pickclassinfo).show();
-        loadData();
+    /**
+     * 构建 Adapter ， 并且刷新显示。
+     *
+     */
+    private void buildAndShowAdapter(){
+        PickClassAdapter listadapter = new PickClassAdapter(
+                getSherlockActivity(),
+                R.layout.pickclassinfo_listitem, list);
+        adapter = UIHelper.buildEffectAdapter(listadapter,
+                (AbsListView) listView,EXPANDABLE_ALPHA);
+        showSuccessResult();
     }
+
 }

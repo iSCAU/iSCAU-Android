@@ -36,7 +36,7 @@ import cn.scau.scautreasure.adapter.ClassTableAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
@@ -53,7 +53,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EFragment( R.layout.classtable )
 @OptionsMenu ( R.menu.menu_classtable )
-public class ClassTable extends CommonFragment implements ServerOnChangeListener{
+public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener{
 
     @Pref        cn.scau.scautreasure.AppConfig_  config;
     @RestService EdusysApi   api;
@@ -72,7 +72,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     private String getTitle(){
         StringBuilder builder = new StringBuilder();
         builder.append(dateUtil.getWeekOfDate());
-        builder.append(" ");
+        return builder.toString();
+    }
+
+    private String getSubTitle(){
+        StringBuilder builder = new StringBuilder();
         builder.append(getString(R.string.widget_week_start));
         builder.append(classHelper.getSchoolWeek());
         builder.append(getString(R.string.widget_week_end));
@@ -113,6 +117,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @OptionsItem
     void menu_add_class(){
         startActivityForResult(ClassEditor_.intent(getSherlockActivity())
+                .isNewClass(true)
                 .model(new ClassModel()).get(), UIHelper.QUERY_FOR_EDIT_CLASS);
     }
 
@@ -120,9 +125,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 刷新课程菜单点击
      */
     @OptionsItem
-    void menu_refresh_classtable(){
-        swipe_refresh.setRefreshing(true);
-        loadData();
+    void menu_refresh_classtable() {
+        if (app.eduSysPassword == null || app.eduSysPassword.equals("")){
+            Login_.intent(this).startTips(getString(R.string.start_tips_edusys)).start();
+        } else {
+            swipe_refresh.setRefreshing(true);
+            loadData();
+        }
     }
 
     /**
@@ -276,7 +285,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         pager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         pager.setCurrentItem(prevPosition);
-        getSherlockActivity().getSupportActionBar().setTitle(getTitle());
+        onTabSelect();
     }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList){
@@ -327,5 +336,14 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onConfigurationChanged(android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateTabOnOrientationChange();
+    }
+
+    /**
+     * Tab 切换到当前页。
+     */
+    @Override
+    public void onTabSelect() {
+        setTitle(getTitle());
+        setSubTitle(getSubTitle());
     }
 }

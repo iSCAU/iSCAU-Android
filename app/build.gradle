@@ -10,7 +10,7 @@ android {
         minSdkVersion 8
         targetSdkVersion 19
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
-        versionName "2.4.6"
+        versionName "2.4.7.8"
     }
     buildTypes {
         release {
@@ -21,6 +21,8 @@ android {
     packagingOptions {
         exclude "META-INF/license.txt"
         exclude "META-INF/notice.txt"
+        exclude "META-INF/LICENSE.txt"
+        exclude "META-INF/NOTICE.txt"
     }
     lintOptions {
         abortOnError false
@@ -34,7 +36,7 @@ dependencies {
     compile project(':libraries:wheelspinner')
     compile project(':libraries:Android-PullToRefresh')
     compile project(':libraries:SlideExpandableListView')
-    compile files('libs/umeng_sdk.jar')
+    compile fileTree(dir: 'libs', include: ['*.jar', '*/*.jar'])
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.larswerkman:HoloColorPicker:1.3'

@@ -1,6 +1,6 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 书籍详细;
@@ -86,13 +86,13 @@ public class BookDetailModel {
 
     public class DetailList{
 
-        private List<BookDetailModel> details;
+        private ArrayList<BookDetailModel> details;
 
-        public List<BookDetailModel> getDetails() {
+        public ArrayList<BookDetailModel> getDetails() {
             return details;
         }
 
-        public void setDetails(List<BookDetailModel> details) {
+        public void setDetails(ArrayList<BookDetailModel> details) {
             this.details = details;
         }
     }

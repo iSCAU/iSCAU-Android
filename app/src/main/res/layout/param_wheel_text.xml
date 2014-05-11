@@ -5,8 +5,8 @@
     <TextView android:id="@+id/text"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:lines="1"
-            android:textColor="#777"
+            android:textColor="#0d0d0d"
             android:gravity="center" />
 </FrameLayout>

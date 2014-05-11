@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * User:  Special Leung
@@ -15,7 +16,7 @@ import java.util.List;
 //        "考试形式" => "form",
 //        "座位号" => "seat_number",
 //        "校区" => "campus"
-public class ExamModel {
+public class ExamModel implements Serializable{
 
     private String name;
     private String name_student;
@@ -96,13 +97,13 @@ public class ExamModel {
 
     public class ExamList{
 
-        private List<ExamModel> exam;
+        private ArrayList<ExamModel> exam;
 
-        public List<ExamModel> getExam() {
+        public ArrayList<ExamModel> getExam() {
             return exam;
         }
 
-        public void setExam(List<ExamModel> exam) {
+        public void setExam(ArrayList<ExamModel> exam) {
             this.exam = exam;
         }
     }

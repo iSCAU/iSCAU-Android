@@ -6,9 +6,9 @@
     <string name="hint_edusyspassword">请输入教务系统密码</string>
     <string name="hint_libpassword">请输入图书馆密码(默认为001)</string>
     <string name="hint_cardpassword">请输入校园卡查询密码(默认为校园卡卡号)</string>
-    <string name="btn_save">保   存</string>
+    <string name="btn_save">保存设置</string>
     <string name="save_input_tips_username">请输入用户名</string>
-    <string name="save_input_tips_password">三个密码必须输入一个</string>
+    <string name="save_input_tips_password">两个密码必须输入一个</string>
     <string name="menu_classtable">课程表</string>
     <string name="menu_goal">查询成绩</string>
     <string name="menu_exam">考试安排</string>
@@ -139,9 +139,9 @@
     <string name="menu_automate_refresh_close">关闭刷新</string>
     <string name="title_borrowedbook">借阅查询</string>
     <string name="title_bus">校巴实时查询</string>
-    <string name="title_emptyclassroom">空余课室查询</string>
+    <string name="title_emptyclassroom">空余教室</string>
     <string name="title_exam">考试安排查询</string>
-    <string name="title_goal">考试查询</string>
+    <string name="title_goal">查询成绩</string>
     <string name="title_pickclassinfo">已选选修查询</string>
     <string name="menu_exit">退出</string>
     <string name="widget_week_start">第</string>
@@ -204,5 +204,24 @@
     <string name="tab_features">功能</string>
     <string name="tab_settings">设置</string>
     <string name="tips_no_network">未知错误，请检查您的网络状态</string>
+    <string name="settings_server">服务器选择</string>
+    <string name="settings_ringer_model">自动静音</string>
+    <string name="settings_other">其它</string>
+    <string name="btn_update">检查更新</string>
+    <string name="btn_about">关于我们</string>
+    <string name="btn_change_account">更换账号</string>
+    <string name="tips_checking_for_update">正在检查更新..</string>
+    <string name="title_activity_about">关于我们</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_advise">反馈建议</string>
+    <string name="action_refresh">刷新</string>
+    <string name="start_tips_edusys">请先设置教务系统账号</string>
+    <string name="start_tips_library">请先设置图书馆账号</string>
+    <string name="title_search_book">搜索图书</string>
+    <string name="btn_add_class">添加</string>
+    <string name="action_search">搜索</string>
+    <string name="title_activity_login">Login</string>
+    <string name="sns_no_login_tips">您尚未登陆，请使用一种方式登陆</string>
 
 </resources>

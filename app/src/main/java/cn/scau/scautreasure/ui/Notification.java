@@ -5,7 +5,8 @@ import android.widget.TextView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -20,29 +21,25 @@ import cn.scau.scautreasure.util.DateUtil;
  * Time: 下午1:36
  * Mail: specialcyci@gmail.com
  */
-@EFragment(R.layout.notification)
-public class Notification extends CommonFragment {
+@EActivity(R.layout.notification)
+public class Notification extends CommonActivity {
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
     @ViewById TextView tv_content;
     @Bean  DateUtil dateUtil;
-    private String notification;
+    @Extra
+    String notification;
 
     @AfterViews
     void initViews(){
         setTitle(R.string.title_notification);
-        getFragmentArguments();
         tv_content.setText(notification);
         config.lastSeeNotificationDate().put(dateUtil.getCurrentDateString());
     }
 
     @Click
-    void home(){
-        getSherlockActivity().getSupportFragmentManager().popBackStack();
-    }
-
-    private void getFragmentArguments(){
-        notification = getArguments().getString("notification");
+    void btn_back(){
+       this.finish();
     }
 
 }

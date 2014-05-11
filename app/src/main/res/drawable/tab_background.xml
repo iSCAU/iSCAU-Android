@@ -3,7 +3,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 实心 -->
-    <solid android:color="#e2e3e3"/>
+    <solid android:color="#f4f4f4"/>
     <!-- 描边 -->
     <stroke
         android:width="1px"

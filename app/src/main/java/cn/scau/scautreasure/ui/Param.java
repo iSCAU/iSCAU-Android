@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Context;
 import android.support.v7.app.ActionBar;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import org.androidannotations.annotations.AfterInject;
@@ -121,6 +122,7 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     private ParamWidget buildParamViews(String key,String[] values){
         ParamWidget paramWidget = ParamWidget_.build(getSherlockActivity());
         paramWidget.initView(key,values,wheelList.size());
+        paramWidget.setSeparatorVisable(View.VISIBLE);
         wheelList.add(paramWidget);
         return paramWidget;
     }

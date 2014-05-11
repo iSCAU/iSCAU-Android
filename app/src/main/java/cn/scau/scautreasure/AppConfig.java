@@ -54,6 +54,7 @@ public interface AppConfig {
     @DefaultString("无")
     String widgetBackground();
 
+    // 已过期 from v2.4.+ .
     @DefaultBoolean(false)
     boolean classTableAsFirstScreen();
 

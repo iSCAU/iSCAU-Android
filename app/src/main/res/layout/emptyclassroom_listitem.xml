@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_number"
             android:textSize="@dimen/listitem_textSize"
-            android:textColor="@android:color/white"
+            android:textColor="@color/normail_item_passed_text_color"
             android:background="@color/goal_item_passed_color"
             android:paddingLeft="@dimen/listitem_title_padding_left"/>
 

@@ -13,19 +13,22 @@ import com.umeng.analytics.MobclickAgent;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.api.BackgroundExecutor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
+import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.widget.SpinnerDialog;
 
 /**
@@ -35,18 +38,19 @@ import cn.scau.scautreasure.widget.SpinnerDialog;
  * Mail:  specialcyci@gmail.com
  */
 @EActivity
-public abstract class CommonActivity extends ActionBarActivity implements DialogInterface.OnCancelListener{
+public class CommonActivity extends ActionBarActivity implements DialogInterface.OnCancelListener{
 
     @App
     protected AppContext   app;
     @ViewById
     protected View listView;
-    protected List list;
+    protected ArrayList list;
     protected BaseAdapter  adapter;
     /**
      * 当服务器返回404(查询结果为空)的提示语;
      */
     protected int tips_empty = R.string.tips_default_null;
+    protected String cacheKey;
 
     @AfterInject
     void initDialog(){
@@ -56,7 +60,10 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
     @AfterViews
     void initActionBar(){
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.menu_icon_back);
     }
 
     protected void setTitle(String title){
@@ -68,6 +75,11 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
         getSupportActionBar().setTitle(titleResource);
     }
 
+    /**
+     * 设置当查询的数据集为空的时候的提示语。
+     *
+     * @param tipsResource
+     */
     protected void setDataEmptyTips(int tipsResource){
         this.tips_empty = tipsResource;
     }
@@ -81,6 +93,12 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
         ((ListView)listView).setAdapter(adapter);
     }
 
+    /**
+     * 处理各种请求失败问题， 例如：
+     *  查询的数据集为空，用户密码错误等等。
+     *
+     * 本函数还带有正方服务器变更的 Listener 。
+     */
     protected void showErrorResult(ActionBarActivity ctx, int requestCode, ServerOnChangeListener listener){
         if (isServerError(requestCode)){
             handleServerError(ctx,listener);
@@ -89,16 +107,29 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
         }
     }
 
+    /**
+     * 判断是否教务系统服务器错误;
+     *
+     * @param requestCode
+     * @return
+     */
     private boolean isServerError(int requestCode){
         return requestCode == 500;
     }
 
+    /**
+     * 确保要使用的上下文没有被销毁。
+     *
+     * @param ctx
+     * @return
+     */
     private boolean ensureActivityAvailable(Activity ctx){
-        return ctx != null && !ctx.isFinishing() && !ctx.isDestroyed();
+        return ctx != null && !ctx.isFinishing();
     }
 
     /**
-     * 展示http请求异常结果
+     * 处理各种请求失败问题， 例如：
+     *  查询的数据集为空，用户密码错误等等。
      *
      * @param requestCode
      */
@@ -114,6 +145,12 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
         }
     }
 
+    /**
+     * 处理服务器错误的情况。
+     *
+     * @param ctx
+     * @param listener
+     */
     @UiThread
     void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener){
         if( !ensureActivityAvailable(ctx) )
@@ -133,6 +170,11 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
     }
 
 
+    /**
+     * 处理没有网络连接的情况。
+     *
+     * @param ctx
+     */
     @UiThread
     void handleNoNetWorkError(ActionBarActivity ctx){
         if( !ensureActivityAvailable(ctx) )
@@ -142,7 +184,36 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
     }
 
     /**
-     * 在进行http请求时，处理用户取消请求
+     * 设置当前窗口的缓存键，自动加上当前用户的用户名，
+     *  以区分。
+     *
+     * @param cacheKey
+     */
+    protected void setCacheKey(String cacheKey){
+        this.cacheKey = app.userName + "_" + cacheKey;
+
+    }
+
+    /**
+     * 从硬盘加载缓存， 并赋值到 List 中。
+     */
+    protected void loadListFromCache(){
+        CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
+        list = ( ArrayList ) cacheUtil.getAsObject(cacheKey);
+    }
+
+    /**
+     * 将 List 中的数据固化写入到硬盘当中。
+     *
+     */
+    @Background
+    protected void writeListToCache(){
+        CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
+        cacheUtil.put(cacheKey, list);
+    }
+
+    /**
+     * 在进行http请求时，处理用户取消请求。
      *
      * @param dialog
      */
@@ -179,6 +250,16 @@ public abstract class CommonActivity extends ActionBarActivity implements Dialog
 
     @OptionsItem(android.R.id.home)
     void home(){
+        this.finish();
+    }
+
+    @Click(R.id.action_bar_title)
+    void action_bar_title(){
+        this.finish();
+    }
+
+    @OptionsItem(R.id.up)
+    void up(){
         this.finish();
     }
 }

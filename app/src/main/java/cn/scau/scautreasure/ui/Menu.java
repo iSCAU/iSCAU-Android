@@ -1,14 +1,15 @@
 package cn.scau.scautreasure.ui;
 
-import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 
 
 @EFragment(R.layout.menu)
-public class Menu extends CommonFragment {
+public class Menu extends CommonFragment implements OnTabSelectListener{
 
     @Click
     void menu_goal(){
@@ -103,5 +104,11 @@ public class Menu extends CommonFragment {
     @Click
     void menu_notice(){
         Notice_.intent(this).start();
+    }
+
+    @Override
+    public void onTabSelect() {
+        setTitle(R.string.title_menu);
+        setSubTitle(null);
     }
 }

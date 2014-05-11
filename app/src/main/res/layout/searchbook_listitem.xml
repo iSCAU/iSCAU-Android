@@ -12,7 +12,7 @@
             android:textSize="@dimen/listitem_textSize"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textColor="@android:color/white"
+            android:textColor="@color/normail_item_passed_text_color"
             android:background="@color/normal_item_passed_color"
             android:paddingLeft="@dimen/listitem_title_padding_left"/>
     <FrameLayout

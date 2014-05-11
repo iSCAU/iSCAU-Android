@@ -19,12 +19,14 @@
             <!-- 全周课表 -->
             <WebView
                 android:id="@+id/week_classtable"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></WebView>
 
             <!-- 单日课表 -->
             <LinearLayout
                 android:orientation="vertical"
+                android:background="#f7f7f7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <cn.scau.scautreasure.widget.ClassTabWidget_
