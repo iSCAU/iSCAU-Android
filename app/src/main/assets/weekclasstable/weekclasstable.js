@@ -54,7 +54,7 @@ $(document).ready(function(){
             $(".classtable_class").html($(".classtable_class").html() +
                 "<div id='"+obj.day_class[j].id+"' class='class_item' style='top: "+itemY+"px;"+
                 " left:"+itemX+"px; width: "+blockWidth+"px; height: "+blockHeight*nodes.length+"px;"+
-                " background-color: "+colors[parseInt(Math.random()*4)]+"; '>"+
+                " background-color: "+colors[parseInt(Math.random()*colors.length)]+"; '>"+
                 "<div id=item"+obj.day_class[j].id+">"+obj.day_class[j].classname+"</div></div>");
             var mt = ($("#"+obj.day_class[j].id).height() - $("#item"+obj.day_class[j].id).height() ) /2;
             $("#item"+obj.day_class[j].id).css("margin-top", mt);
