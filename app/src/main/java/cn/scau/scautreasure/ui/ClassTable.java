@@ -1,14 +1,17 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.devspark.appmsg.AppMsg;
@@ -35,6 +38,7 @@ import cn.scau.scautreasure.adapter.ClassAdapter;
 import cn.scau.scautreasure.adapter.ClassAdapter_;
 import cn.scau.scautreasure.adapter.ClassTableAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
+import cn.scau.scautreasure.helper.ActionBarHelper;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
@@ -55,7 +59,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EFragment( R.layout.classtable )
 @OptionsMenu ( R.menu.menu_classtable )
-public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener{
+public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener, ActionBar.TabListener {
 
     @Pref        cn.scau.scautreasure.AppConfig_  config;
     @RestService EdusysApi   api;
@@ -63,6 +67,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @ViewById    cn.scau.scautreasure.widget.ClassTabWidget_ titles;
     @ViewById    SwipeRefreshLayout swipe_refresh;
     @ViewById    WebView week_classtable;
+    @ViewById    LinearLayout day_classtable_container;
     @Bean        DateUtil    dateUtil;
     @Bean        ClassHelper classHelper;
     private ArrayList<View>       listViews;
@@ -84,6 +89,24 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         builder.append(getString(R.string.widget_week_end));
         return builder.toString();
     }
+
+    @AfterViews
+    void initActionBar(){
+        // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
+        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBarHelper.enableEmbeddedTabs(actionBar);
+        actionBar.addTab(actionBar.newTab()
+                          .setText(app.getString(R.string.actionbar_tab_day))
+                          .setTabListener(this)
+                          ,true);
+        actionBar.addTab(actionBar.newTab()
+                          .setText(app.getString(R.string.actionbar_tab_week))
+                          .setTabListener(this)
+                          ,false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
+
+
 
     @AfterViews
     void initView(){
@@ -343,14 +366,46 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onConfigurationChanged(android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateTabOnOrientationChange();
+        ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
     }
 
-    /**
-     * Tab 切换到当前页。
-     */
+    /*
+    * ---------------------------------------------------------
+    * 底部 Tab 选择切换区域;
+    * ---------------------------------------------------------
+    */
     @Override
     public void onTabSelect() {
         setTitle(getTitle());
         setSubTitle(getSubTitle());
+        getSherlockActivity().getSupportActionBar()
+                .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
+
+    /*
+     * ---------------------------------------------------------
+     * Action Bar Tab 选择切换区域;
+     * ---------------------------------------------------------
+     */
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        if ( tab.getPosition() == 0 ){
+            week_classtable.setVisibility(View.GONE);
+            day_classtable_container.setVisibility(View.VISIBLE);
+        } else if ( tab.getPosition() == 1 ) {
+            week_classtable.setVisibility(View.VISIBLE);
+            day_classtable_container.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+    }
+
 }

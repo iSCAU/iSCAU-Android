@@ -2,11 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-            app:showAsAction="always"
-            android:id="@+id/menu_add_class"
-            android:icon="@drawable/icon_menu_add_ios7"
-            android:title="添加自定义课程"/>
+
     <item
         android:id="@+id/menu_refresh_classtable"
         app:showAsAction="always"
@@ -18,6 +14,11 @@
         app:showAsAction="always"
         android:title="更多">
         <menu>
+            <item
+                app:showAsAction="always"
+                android:id="@+id/menu_add_class"
+                android:icon="@drawable/icon_menu_add_ios7"
+                android:title="添加自定义课程"/>
             <item
                     android:id="@+id/menu_load_classtable_with_params"
                     android:title="@string/menu_load_classtable_with_params"/>

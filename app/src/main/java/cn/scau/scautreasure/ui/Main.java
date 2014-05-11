@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -75,6 +76,8 @@ public class Main extends ActionBarActivity{
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
                 if (i == rd_features.getId()) {
                     UIHelper.startFragment(mContext, fragmentMenu, "menu_");
                     ( (OnTabSelectListener) fragmentMenu).onTabSelect();

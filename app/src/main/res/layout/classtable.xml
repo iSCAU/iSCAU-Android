@@ -24,6 +24,7 @@
 
             <!-- 单日课表 -->
             <LinearLayout
+                android:id="@+id/day_classtable_container"
                 android:orientation="vertical"
                 android:background="#f7f7f7"
                 android:layout_width="match_parent"
