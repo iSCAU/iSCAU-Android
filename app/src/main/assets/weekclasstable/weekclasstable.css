@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+hr.my {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 1px;
+  background-color: #E4E4E4;
+}
+.left_top_block, .right_top_block, .left_block, .right_block {
+  padding: 0 !important;
+}
+.day_block {
+  height: 100%;
+  float: left;
+  font-size: 0.6rem;
+}
+.day_block .eng {
+  color: #969696;
+  text-align: center;
+}
+.day_block .num {
+  color: #D2D2D2;
+  text-align: center;
+}
+.left_block {
+  text-align: center;
+  color: white;
+  font-size: 0.65rem;
+  background-color: #24A9FD;
+}
+.class_item {
+  position: absolute;
+  font-size: 0.62rem;
+  line-height: 0.7rem;
+  padding: 0.2rem;
+  text-align: center;
+  color: white;
+}

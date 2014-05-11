@@ -82,10 +82,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @AfterViews
     void initView(){
 
-        week_classtable.getSettings().setJavaScriptEnabled(true);
-        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable), "Android");
-
         listViews = new ArrayList<View>();
         adapter   = new ClassTableAdapter();
 
@@ -96,6 +92,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         showClassTable();
         showTab();
         setSwipeRefresh();
+
+        week_classtable.getSettings().setJavaScriptEnabled(true);
+        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
     }
 
     private void setSwipeRefresh() {
