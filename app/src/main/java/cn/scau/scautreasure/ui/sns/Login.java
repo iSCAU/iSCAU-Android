@@ -27,7 +27,7 @@ public class Login extends ActionBarActivity {
 
     private SNSCallback loginCallback = new SNSCallback() {
         @Override
-        public void done(SNSBase object, SNSException e) {
+        public void done(final SNSBase object, SNSException e) {
             if (e == null) {
                 SNS.loginWithAuthData(object.userInfo(), new LogInCallback() {
                     @Override

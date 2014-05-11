@@ -31,10 +31,11 @@ public class Menu extends CommonFragment implements OnTabSelectListener{
 
     @Click
     void menu_emptyClassRoom(){
-        Param_.intent(this)
-              .target("emptyClassRoom")
-              .targetActivity(EmptyClassRoom_.class.getName())
-              .start();
+        cn.scau.scautreasure.ui.sns.Login_.intent(this).start();
+//        Param_.intent(this)
+//              .target("emptyClassRoom")
+//              .targetActivity(EmptyClassRoom_.class.getName())
+//              .start();
     }
 
     @Click

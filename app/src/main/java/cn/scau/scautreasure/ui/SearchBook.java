@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,8 @@ public class SearchBook extends CommonActivity {
     @ViewById( R.id.listView )
     PullToRefreshListView pullListView;
 
+    @ViewById
+    SwipeRefreshLayout swipe_refresh;
     /**
      * 一共搜索到多少本书
      */
@@ -70,6 +73,16 @@ public class SearchBook extends CommonActivity {
         tips_empty = R.string.tips_searchbook_null;
         pullListView.setOnRefreshListener(onRefreshListener);
         pullListView.setOnItemClickListener(onListViewItemClicked);
+        setSwipeRefresh();
+    }
+
+    private void setSwipeRefresh() {
+        swipe_refresh.setEnabled(false);
+        // 顶部刷新的样式
+        swipe_refresh.setColorScheme(R.color.swipe_refresh_1,
+                R.color.swipe_refresh_2,
+                R.color.swipe_refresh_3,
+                R.color.swipe_refresh_4);
     }
 
     /**
@@ -107,6 +120,7 @@ public class SearchBook extends CommonActivity {
             count = l.getCount();
             setListViewAdapter(l.getBooks());
             String tips = getString(R.string.tips_searchbook_count) + count;
+            swipe_refresh.setRefreshing(false);
             AppMsg.makeText(getSherlockActivity(),tips,AppMsg.STYLE_INFO).show();
         }else{
             // next page;
@@ -164,8 +178,7 @@ public class SearchBook extends CommonActivity {
             searchKeyword = s.trim();
             searchView.clearFocus();
             MenuItemCompat.collapseActionView(menuItemSearch);
-
-            AppMsg.makeText(getSherlockActivity(), R.string.loading_seachbook, AppMsg.STYLE_INFO).show();
+            swipe_refresh.setRefreshing(true);
             loadData();
             return true;
         }
