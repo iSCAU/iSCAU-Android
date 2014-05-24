@@ -2,6 +2,7 @@ package cn.scau.scautreasure.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import com.joanzapata.android.BaseAdapterHelper;
@@ -16,6 +17,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.model.BookModel;
 import cn.scau.scautreasure.ui.BorrowedBook_;
+import android.util.Log;
 
 /**
  * 借阅的图书适配器;
@@ -53,9 +55,20 @@ public class BorrowedBookAdapter extends QuickAdapter<BookModel> {
         if(isHistoryBrrowedBook(model)){
             baseAdapterHelper.setText(R.id.tv_lable_return_date,ctx.getString(R.string.listitem_lable_return_date));
             baseAdapterHelper.setText(R.id.tv_return_date,model.getReturn_date());
+            Log.v("shit",model.getReturn_date());
         }else{
             baseAdapterHelper.setText(R.id.tv_lable_return_date,ctx.getString(R.string.listitem_lable_should_return_date));
             baseAdapterHelper.setText(R.id.tv_return_date,model.getShould_return_date());
+
+            SharedPreferences share=ctx.getSharedPreferences("no_book",Activity.MODE_PRIVATE);
+            int c=share.getInt("count",0);
+            SharedPreferences.Editor editor=share.edit();
+            editor.putString("time"+c,model.getShould_return_date());
+            c++;
+            editor.putInt("count",c);
+            editor.commit();
+
+            Log.v("write","succeed");
         }
 
         if(canRenew(model)){

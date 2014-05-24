@@ -92,6 +92,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name="cn.scau.scautreasure.ui.NotificationTiming_"
+            android:label="@string/title_notification_setting" />
+        <activity
             android:name="cn.scau.scautreasure.ui.About_"
             android:label="@string/title_activity_about" >
         </activity>
@@ -159,6 +162,8 @@
             android:name="com.umeng.common.net.DownloadingService"
             android:process=":DownloadingService" >
         </service>
+
+        <service android:name=".service.NotificationService"/>
 
         <meta-data
             android:name="UMENG_APPKEY"

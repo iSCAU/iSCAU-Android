@@ -66,6 +66,24 @@
 
             <Button
                 style="@style/settings_other_button"
+                android:id="@+id/btn_notification_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/btn_notification_setting"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                style="@style/listitem_separator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:contentDescription=""/>
+
+            <Button
+                style="@style/settings_other_button"
                 android:id="@+id/btn_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
