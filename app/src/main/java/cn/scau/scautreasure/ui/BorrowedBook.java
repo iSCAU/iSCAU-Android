@@ -92,12 +92,13 @@ public class BorrowedBook extends CommonQueryActivity {
         beforeLoadData();
         try{
             if ( target == UIHelper.TARGET_FOR_NOW_BORROW ) {
-
-//                SharedPreferences share=this.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
-//                SharedPreferences.Editor editor=share.edit();
-//                editor.clear();
-//                editor.commit();
                 list = api.getNowBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
+                if(list!=null){
+                    SharedPreferences share=this.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=share.edit();
+                    editor.clear();
+                    editor.commit();
+                }
             }else{
                 list = api.getHistoryBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
             }

@@ -43,23 +43,16 @@ public class NotificationTiming extends Activity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.notification_setting);
 
-//        SharedPreferences share=this.getSharedPreferences("no_book",Activity.MODE_PRIVATE);
-//        int c=share.getInt("count",0);
-//        SharedPreferences.Editor editor=share.edit();
-//        for(int i=0;i<c;i++){
-//            Log.v("time_xx"+i,share.getString("time"+i,""));
-//        }
-//        editor.commit();
-
-
         this.btn_time_setting=(Button)super.findViewById(R.id.btn_time_setting);
         this.btn_on_off=(ToggleButton)super.findViewById(R.id.btn_on_off);
 
         howlong=count();
 
-        if(howlong!=-1)
-            setNotification();
+        if(howlong!=-1) {
 
+            setNotification();
+            Log.v("set_succeed","heheh");
+        }
 
         this.btn_time_setting.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -144,10 +137,15 @@ public class NotificationTiming extends Activity {
     }
 
     public void setNotification(){
+
+
+
         am = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this,cn.scau.scautreasure.receiver.NotificationReceiver.class);
         pi = PendingIntent.getBroadcast(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + howlong, dailytime, pi);
+
+        Log.v("wait_succeed","heheh");
     }
     public String formate(int hour,int min){
         String sHour=hour+"";

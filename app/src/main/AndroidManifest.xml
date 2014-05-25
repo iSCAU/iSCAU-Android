@@ -157,6 +157,11 @@
                 <action android:name="cn.scau.scautreasure.DATE_CHANGED" />
             </intent-filter>
         </receiver>
+        <receiver android:name="cn.scau.scautreasure.receiver.NotificationReceiver" >
+            <intent-filter>
+                <action android:name="cn.scau.scautreasure.BOOK_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name="com.umeng.common.net.DownloadingService"

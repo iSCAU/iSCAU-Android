@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.ui.BorrowedBook_;
 
 /**由NotificationReceiver操作
  * 弹出Notification
@@ -33,7 +34,7 @@ public class NotificationService extends Service {
         try {
                         NotificationManager mNotificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
-                        int notificationIcon= R.drawable.ic_launcher;
+                        int notificationIcon= R.drawable.icon;
                         CharSequence notificationTitle="来自华农宝";
                         long when = System.currentTimeMillis();
 
@@ -42,7 +43,7 @@ public class NotificationService extends Service {
                         notification.defaults=Notification.DEFAULT_ALL;
                         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-                        Intent intentservice=new Intent(getApplicationContext(), cn.scau.scautreasure.ui.NotificationTiming.class);
+                        Intent intentservice=new Intent(getApplicationContext(), BorrowedBook_.class);
                         PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(), 0, intentservice, 0);
                         notification.setLatestEventInfo(getApplicationContext(),"借阅到期提示", "你有N本书即将满借阅",pendingIntent);
 

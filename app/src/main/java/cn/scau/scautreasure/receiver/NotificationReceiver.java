@@ -21,9 +21,11 @@ public class NotificationReceiver extends BroadcastReceiver
 //    int mon=5;
 //    int day=23;
     private String time[]=new String[10];
+    String now;
 
     public void onReceive(Context context, Intent intent) {
 
+        Log.v("receiver","heheheaaa");
         SharedPreferences share_date=context.getSharedPreferences("no_book",Activity.MODE_PRIVATE);
         int N=share_date.getInt("date",1);
 
@@ -40,15 +42,23 @@ public class NotificationReceiver extends BroadcastReceiver
         if(dy<10)
             sdy="0"+sdy;
 
-        String now=y+"-"+sm+"-"+sdy;
+       now=y+"-"+sm+"-"+sdy;
+
+
+        Log.v("receiver",now);
 
         SharedPreferences share=context.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
         int c=share.getInt("count",0);
         for(int i=0;i<c&&i!=9;i++){
-            time[i]=share.getString("time"+i,"0000-00-00");
 
-            if(time[i].equals(now))
-                context.startService(new Intent(context,cn.scau.scautreasure.service.NotificationService.class));
+            time[i]=share.getString("time"+i,"0000-00-00");
+            time[i]=time[i].trim();
+
+            if(time[i].equals(now)) {
+                Log.v("nimabi","你麻痹为什么false");
+                context.startService(new Intent(context, cn.scau.scautreasure.service.NotificationService.class));
+                break;
+            }
         }
 
     }
