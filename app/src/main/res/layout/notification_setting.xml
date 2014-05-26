@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        style="@style/listitem_separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:contentDescription=""/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+
+                style="@style/settings_other_button"
+                android:id="@+id/btn_time_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每日提醒  (前一天20:00  PS:点“日”字设置)"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1" />
+
+        <ToggleButton
+                android:layout_gravity="right"
+                style="@style/noraml_button"
+                android:id="@+id/btn_on_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:textOn="开启"
+                android:textOff="关闭"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+    <ImageView
+        style="@style/listitem_separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:contentDescription=""/>
+
+</LinearLayout>

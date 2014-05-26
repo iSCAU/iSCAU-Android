@@ -1,5 +1,8 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.AbsListView;
 
 import com.devspark.appmsg.AppMsg;
@@ -18,6 +21,10 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BorrowedBookAdapter_;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
+
+
+import cn.scau.scautreasure.model.BookModel;
+
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
@@ -46,6 +53,13 @@ public class BorrowedBook extends CommonQueryActivity {
     void init(){
         setTitle(R.string.title_borrowedbook);
         setDataEmptyTips(R.string.tips_borrowedbook_null);
+
+        SharedPreferences share=this.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=share.edit();
+        editor.clear();
+        editor.commit();
+        Log.v("shitclear","shit");
+
         setCacheKey("borrowedBook_" + target);
         loadListFromCache();
         buildAndShowListViewAdapter();
@@ -79,8 +93,14 @@ public class BorrowedBook extends CommonQueryActivity {
         try{
             if ( target == UIHelper.TARGET_FOR_NOW_BORROW ) {
                 list = api.getNowBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
+                if(list!=null){
+                    SharedPreferences share=this.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=share.edit();
+                    editor.clear();
+                    editor.commit();
+                }
             }else{
-                list = api.getHistoryBorrowedBooks(AppContext.userName,app.getEncodeLibPassword()).getBooks();
+                list = api.getHistoryBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
             }
             writeListToCache();
             buildAndShowListViewAdapter();

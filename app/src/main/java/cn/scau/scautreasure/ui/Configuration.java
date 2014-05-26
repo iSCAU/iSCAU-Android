@@ -1,7 +1,9 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -26,7 +28,7 @@ import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 
 /**
- * 软件公告通知.
+ * 设置界面吧.
  *
  * User: special
  * Date: 13-10-5
@@ -52,6 +54,7 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
 
     @AfterViews
     void initViews(){
+
         param_server.initView(listitem_lable_server, server, 0);
         param_server.getWheel().setCurrentItem(AppContext.server - 1);
         param_classTableAsFirstScreen.initViewWithYesOrNoOption(listitem_lable_classTableAsFirstScreen, 1);
@@ -72,6 +75,12 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
             }
             i++;
         }
+    }
+
+    @Click
+    void btn_notification_setting(){
+        Log.v("shti","shit");
+        NotificationTiming_.intent(getSherlockActivity()).start();
     }
 
     @Click

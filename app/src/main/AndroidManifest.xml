@@ -92,6 +92,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name="cn.scau.scautreasure.ui.NotificationTiming_"
+            android:label="@string/title_notification_setting" />
+        <activity
             android:name="cn.scau.scautreasure.ui.About_"
             android:label="@string/title_activity_about" >
         </activity>
@@ -154,11 +157,18 @@
                 <action android:name="cn.scau.scautreasure.DATE_CHANGED" />
             </intent-filter>
         </receiver>
+        <receiver android:name="cn.scau.scautreasure.receiver.NotificationReceiver" >
+            <intent-filter>
+                <action android:name="cn.scau.scautreasure.BOOK_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name="com.umeng.common.net.DownloadingService"
             android:process=":DownloadingService" >
         </service>
+
+        <service android:name=".service.NotificationService"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
