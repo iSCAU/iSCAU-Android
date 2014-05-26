@@ -58,6 +58,9 @@ public interface AppConfig {
     @DefaultBoolean(false)
     boolean classTableAsFirstScreen();
 
+    @DefaultInt(0)
+    int classTableSelectedTab(); // 记录用户当前选择的 Tab （单日 or 全周）;
+
     @DefaultInt(-1)
     int duringClassRingerMode();//上课时的情景模式，默认不设置
 

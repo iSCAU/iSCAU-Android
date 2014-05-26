@@ -17,7 +17,6 @@
             <item
                 app:showAsAction="always"
                 android:id="@+id/menu_add_class"
-                android:icon="@drawable/icon_menu_add_ios7"
                 android:title="添加自定义课程"/>
             <item
                     android:id="@+id/menu_load_classtable_with_params"

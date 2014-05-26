@@ -6,8 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -41,7 +41,6 @@ import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ActionBarHelper;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
@@ -90,22 +89,26 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         return builder.toString();
     }
 
-    @AfterViews
-    void initActionBar(){
-
-        // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        ActionBarHelper.enableEmbeddedTabs(actionBar);
-        actionBar.addTab(actionBar.newTab()
-                          .setText(app.getString(R.string.actionbar_tab_day))
-                          .setTabListener(this)
-                          ,true);
-        actionBar.addTab(actionBar.newTab()
-                          .setText(app.getString(R.string.actionbar_tab_week))
-                          .setTabListener(this)
-                          ,false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-    }
+    // 由于全周课表还没有搞好，先注释了
+    // @AfterViews
+//    void initActionBar(){
+//
+//        // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
+//        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+//        ActionBarHelper.enableEmbeddedTabs(actionBar);
+//
+//        boolean isSelectedDay = config.classTableSelectedTab().get() == 0;
+//        actionBar.addTab(actionBar.newTab()
+//                          .setText(app.getString(R.string.actionbar_tab_day))
+//                          .setTabListener(this),
+//                          isSelectedDay);
+//        actionBar.addTab(actionBar.newTab()
+//                        .setText(app.getString(R.string.actionbar_tab_week))
+//                        .setTabListener(this),
+//                !isSelectedDay
+//        );
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//    }
 
 
 
@@ -122,11 +125,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         showClassTable();
         showTab();
         setSwipeRefresh();
-
-        week_classtable.getSettings().setJavaScriptEnabled(true);
-        week_classtable.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
+//
+//        week_classtable.getSettings().setJavaScriptEnabled(true);
+//        week_classtable.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+//        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+//        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
     }
 
     private void setSwipeRefresh() {
@@ -174,7 +177,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 切换到智能加载课程模式;
      */
     @OptionsItem
-    void menu_load_classtable_with_params(){
+    void menu_load_classtable_with_params(MenuItem item){
         config.classTableShowMode().put(MODE_PARAMS);
         showClassTable();
     }
@@ -379,8 +382,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onTabSelect() {
         setTitle(getTitle());
         setSubTitle(getSubTitle());
-        getSherlockActivity().getSupportActionBar()
-                .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        // getSherlockActivity().getSupportActionBar()
+        //        .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
 
     /*
@@ -397,6 +400,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             week_classtable.setVisibility(View.VISIBLE);
             day_classtable_container.setVisibility(View.GONE);
         }
+        // 储存用户当前选择的 Tab ；
+        config.classTableSelectedTab().put(tab.getPosition());
     }
 
     @Override

@@ -20,7 +20,8 @@
             <WebView
                 android:id="@+id/week_classtable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></WebView>
+                android:visibility="gone"
+                android:layout_height="match_parent"/>
 
             <!-- 单日课表 -->
             <LinearLayout
