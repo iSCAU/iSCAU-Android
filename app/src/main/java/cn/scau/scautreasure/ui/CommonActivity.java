@@ -189,10 +189,15 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      *
      * @param cacheKey
      */
-    protected void setCacheKey(String cacheKey){
+    public void setCacheKey(String cacheKey){
         this.cacheKey = app.userName + "_" + cacheKey;
 
     }
+    
+    public String getCacheKey(){
+        return cacheKey;
+    }
+
 
     /**
      * 从硬盘加载缓存， 并赋值到 List 中。
@@ -244,7 +249,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      *
      * @return
      */
-    protected ActionBarActivity getSherlockActivity(){
+    public ActionBarActivity getSherlockActivity(){
         return this;
     }
 
