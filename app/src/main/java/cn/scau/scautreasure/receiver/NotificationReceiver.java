@@ -13,6 +13,7 @@ import java.util.Calendar;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.BookModel;
 import cn.scau.scautreasure.ui.CommonActivity;
+import cn.scau.scautreasure.util.BookListUtil;
 import cn.scau.scautreasure.util.CacheUtil;
 
 /**接收NotificationTiming广播后
@@ -56,10 +57,10 @@ public class NotificationReceiver extends BroadcastReceiver{
 
      public boolean matchRecode(String now){
         boolean flag=false;
-        CommonActivity commonActivity=new CommonActivity();
-        commonActivity.setCacheKey("borrowedBook_" + UIHelper.TARGET_FOR_NOW_BORROW);
-        CacheUtil cacheUtil = CacheUtil.get(commonActivity.getSherlockActivity());
-        ArrayList list = (ArrayList) cacheUtil.getAsObject(commonActivity.getCacheKey());
+         BookListUtil bookListUtil=new BookListUtil();
+         bookListUtil.setCacheKey("borrowedBook_" + UIHelper.TARGET_FOR_NOW_BORROW);
+        CacheUtil cacheUtil = CacheUtil.get(bookListUtil.getSherlockActivity());
+        ArrayList list = (ArrayList) cacheUtil.getAsObject(bookListUtil.getCacheKey());
         if(list!=null) {
           for (int i = list.size() - 1; i >= 0; i--) {
                Log.v("list",  ((BookModel)list.get(i)).getShould_return_date());
