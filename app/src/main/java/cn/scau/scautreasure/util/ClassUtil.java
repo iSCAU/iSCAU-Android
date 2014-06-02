@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.ClassHelper_;
 import cn.scau.scautreasure.model.ClassModel;
 

@@ -34,8 +34,8 @@ public class PickClassInfo extends CommonQueryActivity {
     void init(){
         setTitle(R.string.title_pickclassinfo);
         setDataEmptyTips(R.string.tips_pickclassinfo_null);
-        setCacheKey("pickClassInfo");
-        loadListFromCache();
+        cacheHelper.setCacheKey("pickClassInfo");
+        list = cacheHelper.loadListFromCache();
         buildAndShowAdapter();
     }
 
@@ -45,7 +45,7 @@ public class PickClassInfo extends CommonQueryActivity {
         beforeLoadData();
         try{
             list = api.getPickClassInfo(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getPickclassinfos();
-            writeListToCache();
+            cacheHelper.writeListToCache(list);
             buildAndShowAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);

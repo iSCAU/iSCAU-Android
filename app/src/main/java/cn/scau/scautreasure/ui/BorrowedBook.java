@@ -60,8 +60,8 @@ public class BorrowedBook extends CommonQueryActivity {
         editor.commit();
         Log.v("shitclear","shit");
 
-        setCacheKey("borrowedBook_" + target);
-        loadListFromCache();
+        cacheHelper.setCacheKey("borrowedBook_" + target);
+        list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }
 
@@ -102,7 +102,7 @@ public class BorrowedBook extends CommonQueryActivity {
             }else{
                 list = api.getHistoryBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
             }
-            writeListToCache();
+            cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         }catch ( HttpStatusCodeException e ){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());

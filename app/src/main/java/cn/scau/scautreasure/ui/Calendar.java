@@ -50,6 +50,8 @@ public class Calendar extends CommonActivity {
 
     @Override
     void initActionBar(){
+        // 由于隐藏了标题栏，所以要覆盖初始化actionbar的函数
+        // 否则空指针
         getSupportActionBar().hide();
     }
 

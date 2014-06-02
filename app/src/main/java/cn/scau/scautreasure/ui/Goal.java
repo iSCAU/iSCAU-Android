@@ -43,8 +43,8 @@ public class Goal extends CommonQueryActivity{
     void init(){
         setTitle(R.string.title_goal);
         tips_empty = R.string.tips_goal_null;
-        setCacheKey("goal_" + StringUtil.join(value, "_"));
-        loadListFromCache();
+        cacheHelper.setCacheKey("goal_" + StringUtil.join(value, "_"));
+        list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }
 
@@ -83,7 +83,7 @@ public class Goal extends CommonQueryActivity{
         try{
             ArrayList<String> param = value;
             list = api.getGoal(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, param.get(0), param.get(1)).getGoals();
-            writeListToCache();
+            cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);

@@ -26,6 +26,7 @@ import java.util.Arrays;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.helper.CacheHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.util.CacheUtil;
@@ -50,11 +51,12 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      * 当服务器返回404(查询结果为空)的提示语;
      */
     protected int tips_empty = R.string.tips_default_null;
-    protected String cacheKey;
+    protected CacheHelper cacheHelper;
 
     @AfterInject
     void initDialog(){
         UIHelper.buildDialog(this, this);
+        cacheHelper = new CacheHelper(this);
     }
 
     @AfterViews
@@ -181,35 +183,6 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
             return;
         UIHelper.getDialog().dismiss();
         AppMsg.makeText(ctx, getString(R.string.tips_no_network), AppMsg.STYLE_ALERT).show();
-    }
-
-    /**
-     * 设置当前窗口的缓存键，自动加上当前用户的用户名，
-     *  以区分。
-     *
-     * @param cacheKey
-     */
-    protected void setCacheKey(String cacheKey){
-        this.cacheKey = app.userName + "_" + cacheKey;
-
-    }
-
-    /**
-     * 从硬盘加载缓存， 并赋值到 List 中。
-     */
-    protected void loadListFromCache(){
-        CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
-        list = ( ArrayList ) cacheUtil.getAsObject(cacheKey);
-    }
-
-    /**
-     * 将 List 中的数据固化写入到硬盘当中。
-     *
-     */
-    @Background
-    protected void writeListToCache(){
-        CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
-        cacheUtil.put(cacheKey, list);
     }
 
     /**

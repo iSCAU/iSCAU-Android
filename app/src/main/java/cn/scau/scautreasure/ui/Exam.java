@@ -33,8 +33,8 @@ public class Exam extends CommonQueryActivity{
     void init(){
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
-        setCacheKey("exam_arrange");
-        loadListFromCache();
+        cacheHelper.setCacheKey("exam_arrange");
+        list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }
 
@@ -43,7 +43,7 @@ public class Exam extends CommonQueryActivity{
         beforeLoadData();
         try{
             list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
-            writeListToCache();
+            cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);

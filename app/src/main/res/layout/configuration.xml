@@ -89,8 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="@string/btn_update"
-                android:layout_marginTop="10dp"/>
+                android:text="@string/btn_update"/>
 
             <ImageView
                 style="@style/listitem_separator"

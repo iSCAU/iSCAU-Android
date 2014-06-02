@@ -10,11 +10,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import cn.scau.scautreasure.helper.CacheHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.BookModel;
-import cn.scau.scautreasure.ui.CommonActivity;
-import cn.scau.scautreasure.util.BookListUtil;
-import cn.scau.scautreasure.util.CacheUtil;
 
 /**接收NotificationTiming广播后
  * 打开NotificationService
@@ -22,19 +20,18 @@ import cn.scau.scautreasure.util.CacheUtil;
  * */
 public class NotificationReceiver extends BroadcastReceiver{
      public void onReceive(Context context, Intent intent) {
-        SharedPreferences share_date=context.getSharedPreferences("no_book",Activity.MODE_PRIVATE);
-        int N=share_date.getInt("date",1);
-
-        String str=getNowDate(N);
-        boolean flag=matchRecode(str);
-
+        SharedPreferences shareDate =
+                context.getSharedPreferences("no_book",Activity.MODE_PRIVATE);
+        int date = shareDate.getInt("date",1);
+        String str = getNowDate(context, date);
+        boolean flag = matchRecode(context, str);
         Log.v("test_dick",flag+"");
         if(flag){
           context.startService(new Intent(context, cn.scau.scautreasure.service.NotificationService.class));
         }
      }
 
-     public String getNowDate(int date){
+     public String getNowDate(Context context, int date){
         Calendar ca = Calendar.getInstance();
         int y = ca.get(Calendar.YEAR);//获取年份
         int m=ca.get(Calendar.MONTH)+1;//获取月份（android月份是从0开始的）
@@ -55,12 +52,11 @@ public class NotificationReceiver extends BroadcastReceiver{
      }
 
 
-     public boolean matchRecode(String now){
+     public boolean matchRecode(Context context, String now){
         boolean flag=false;
-         BookListUtil bookListUtil=new BookListUtil();
-         bookListUtil.setCacheKey("borrowedBook_" + UIHelper.TARGET_FOR_NOW_BORROW);
-        CacheUtil cacheUtil = CacheUtil.get(bookListUtil.getSherlockActivity());
-        ArrayList list = (ArrayList) cacheUtil.getAsObject(bookListUtil.getCacheKey());
+        CacheHelper cacheHelper = new CacheHelper(context);
+        cacheHelper.setCacheKey("borrowedBook_" + UIHelper.TARGET_FOR_NOW_BORROW);
+        ArrayList list = cacheHelper.loadListFromCache();
         if(list!=null) {
           for (int i = list.size() - 1; i >= 0; i--) {
                Log.v("list",  ((BookModel)list.get(i)).getShould_return_date());
@@ -73,7 +69,6 @@ public class NotificationReceiver extends BroadcastReceiver{
         }else{
           flag=false;
         }
-
         return flag;
      }
 }

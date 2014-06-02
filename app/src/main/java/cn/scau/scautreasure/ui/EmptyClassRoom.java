@@ -39,8 +39,8 @@ public class EmptyClassRoom extends CommonQueryActivity{
     void init(){
         setTitle(R.string.title_emptyclassroom);
         setDataEmptyTips(R.string.tips_emptyclassroom_null);
-        setCacheKey("emptyClassRoom_" + StringUtil.join(value, "_"));
-        loadListFromCache();
+        cacheHelper.setCacheKey("emptyClassRoom_" + StringUtil.join(value, "_"));
+        list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }
 
@@ -52,7 +52,7 @@ public class EmptyClassRoom extends CommonQueryActivity{
             list = api.getEmptyClassRoom(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server,
                     param.get(0), param.get(1), param.get(2), param.get(3), param.get(4),
                     param.get(5), param.get(6)).getClassRooms();
-            writeListToCache();
+            cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
 
         }catch (HttpStatusCodeException e){
