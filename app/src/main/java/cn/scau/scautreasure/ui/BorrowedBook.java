@@ -22,10 +22,6 @@ import cn.scau.scautreasure.adapter.BorrowedBookAdapter_;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
 
-
-import cn.scau.scautreasure.model.BookModel;
-
-
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
 /**
@@ -93,12 +89,12 @@ public class BorrowedBook extends CommonQueryActivity {
         try{
             if ( target == UIHelper.TARGET_FOR_NOW_BORROW ) {
                 list = api.getNowBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
-                if(list!=null){
-                    SharedPreferences share=this.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
-                    SharedPreferences.Editor editor=share.edit();
-                    editor.clear();
-                    editor.commit();
-                }
+//                if(list!=null){
+//                    SharedPreferences share=this.getSharedPreferences("no_book", Activity.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor=share.edit();
+//                    editor.clear();
+//                    editor.commit();
+//                }
             }else{
                 list = api.getHistoryBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
             }

@@ -75,7 +75,7 @@
                     android:layout_height="match_parent"
                     android:textColor="#434242"
                     android:textSize="15sp"
-                    android:text="微信公众号: 搜索 iSCAU "/>
+                    android:text="微信公众号: 搜索 华农宝 "/>
             </LinearLayout>
 
             <Button
