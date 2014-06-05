@@ -1,6 +1,8 @@
 package cn.scau.scautreasure.ui;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
@@ -55,6 +57,10 @@ public class Main extends ActionBarActivity{
     Fragment fragmentMenu;
     Fragment fragmentClassTable;
     Fragment fragmentSettings;
+    private int checkedId;
+    private static final String MENU_TAG = "menu_";
+    private static final String CLASSTABLE_TAG = "classtable_";
+    private static final String SETTINGS_TAG = "settings_";
 
     @AfterInject
     void init(){
@@ -70,27 +76,40 @@ public class Main extends ActionBarActivity{
     }
 
     private void setUpTab() {
-        fragmentMenu = Menu_.builder().build();
-        fragmentClassTable = ClassTable_.builder().build();
-        fragmentSettings = Configuration_.builder().build();
+        if(fragmentMenu == null){
+            fragmentMenu = Menu_.builder().build();
+        }
+        if(fragmentClassTable == null){
+            fragmentClassTable = ClassTable_.builder().build();
+        }
+        if(fragmentSettings == null){
+            fragmentSettings = Configuration_.builder().build();
+        }
+        if(checkedId != 0){
+            //恢复到Activity被杀前的选中状态
+            radioGroup.check(checkedId);
+        }
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
+                checkedId = i;
                 if (i == rd_features.getId()) {
-                    UIHelper.startFragment(mContext, fragmentMenu, "menu_");
+                    UIHelper.startFragment(mContext, fragmentMenu, MENU_TAG);
                     ( (OnTabSelectListener) fragmentMenu).onTabSelect();
                 }else if (i == rd_classtable.getId()) {
-                    UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
+                    UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
                     ( (OnTabSelectListener) fragmentClassTable).onTabSelect();
                 }else if (i == rd_settings.getId()) {
-                    UIHelper.startFragment(mContext, fragmentSettings, "settings_");
+                    UIHelper.startFragment(mContext, fragmentSettings, SETTINGS_TAG);
                     ( (OnTabSelectListener) fragmentSettings).onTabSelect();
                 }
             }
         });
-        UIHelper.startFragment(mContext, fragmentClassTable, "classtable_");
+        if(checkedId == 0){
+            UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
+        }
     }
 
     private void initMobclickAgent(){
@@ -147,6 +166,21 @@ public class Main extends ActionBarActivity{
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            checkedId = savedInstanceState.getInt("checkedId");
+            restoreFragments();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //保存当前选中的页面
+        outState.putInt("checkedId", checkedId);
+    }
 
     @Override
     public void onResume() {
@@ -180,5 +214,15 @@ public class Main extends ActionBarActivity{
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 尝试恢复程序在后台被杀前的fragments
+     */
+    private void restoreFragments(){
+        FragmentManager fm = getSupportFragmentManager();
+        fragmentMenu = fm.findFragmentByTag(MENU_TAG);
+        fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
+        fragmentSettings = fm.findFragmentByTag(SETTINGS_TAG);
     }
 }

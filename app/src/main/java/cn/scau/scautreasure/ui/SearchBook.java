@@ -132,6 +132,11 @@ public class SearchBook extends CommonActivity {
         }
     }
 
+    @UiThread
+    void onFailed(){
+        swipe_refresh.setRefreshing(false);
+    }
+
     private void setListViewAdapter(List<BookModel> books){
         bookadapter = new SearchBookAdapter(getSherlockActivity(), R.layout.searchbook_listitem,books);
         ListView lv = pullListView.getRefreshableView();
@@ -147,12 +152,13 @@ public class SearchBook extends CommonActivity {
             BookModel.BookList l = api.searchBook(serach_text, page);
 
             showSuccessResult(l);
-
+            return;
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
         }catch (Exception e){
             handleNoNetWorkError(getSherlockActivity());
         }
+        onFailed();
     }
 
     @Override
