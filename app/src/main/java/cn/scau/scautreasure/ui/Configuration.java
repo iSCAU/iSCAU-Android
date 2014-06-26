@@ -79,6 +79,7 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
 
     @Click
     void btn_notification_setting(){
+        Log.v("shti","shit");
         NotificationTiming_.intent(getSherlockActivity()).start();
     }
 

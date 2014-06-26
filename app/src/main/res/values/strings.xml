@@ -207,7 +207,7 @@
     <string name="settings_server">服务器选择</string>
     <string name="settings_ringer_model">自动静音</string>
     <string name="settings_other">其它</string>
-    <string name="btn_notification_setting">借书提醒</string>
+    <string name="btn_notification_setting">通知设置</string>
     <string name="btn_update">检查更新</string>
     <string name="btn_about">关于我们</string>
     <string name="btn_change_account">更换账号</string>
