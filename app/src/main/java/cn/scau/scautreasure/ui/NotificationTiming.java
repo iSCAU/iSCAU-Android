@@ -21,14 +21,16 @@ import org.androidannotations.annotations.EActivity;
 
 import java.util.Calendar;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.receiver.NotificationReceiver;
+import cn.scau.scautreasure.service.NotificationService;
 
 /**负责每天通知时间的设置
- * 通知时间写进@FILENAME="alarmtime"
+ * 通知时间写进@FILENAME="timing"
  * */
 @EActivity
 public class NotificationTiming extends Activity {
 
-    private static final String FILENAME="alarmtime";
+    private static final String FILENAME="timing";
     public static final long dailytime=24*60*60*1000;
     private long howlong=0;
     private int mHour=0;
@@ -49,9 +51,7 @@ public class NotificationTiming extends Activity {
         howlong=count();
 
         if(howlong!=-1) {
-
             setNotification();
-            Log.v("set_succeed","heheh");
         }
 
         this.btn_time_setting.setOnClickListener(new OnClickListener() {
@@ -62,7 +62,7 @@ public class NotificationTiming extends Activity {
                                     mHour = hourOfDay;
                                     mMin = minute;
 
-                                    btn_time_setting.setText("每日提醒（前一天" + formate(mHour, mMin) + ")");
+                                    btn_time_setting.setText("图书到期提醒（前一天" + formate(mHour, mMin) + ")");
                                     setShare(mHour, mMin);
                                     am.cancel(pi);
                                     howlong = count();
@@ -85,7 +85,7 @@ public class NotificationTiming extends Activity {
                     setShare(mHour,mMin);
                     am.cancel(pi);
 
-                    btn_time_setting.setText("每日提醒");
+                    btn_time_setting.setText("图书到期提醒(已关闭)");
                 }else{
                     mHour=20;
                     mMin=0;
@@ -94,7 +94,7 @@ public class NotificationTiming extends Activity {
                     howlong=count();
                     setNotification();
 
-                    btn_time_setting.setText("每日提醒（前一天" +formate(mHour,mMin)+")");
+                    btn_time_setting.setText("图书到期提醒（前一天" +formate(mHour,mMin)+")");
                 }
             }
         });
@@ -107,8 +107,6 @@ public class NotificationTiming extends Activity {
         editor.putInt("min",mMin);
         editor.putInt("date",1);//提前几天通知，留着这东西在，还没完善
         editor.commit();
-        Log.v("share","s");
-        Log.v("wtime",mHour+":"+mMin);
     }
 
     public long count(){
@@ -120,32 +118,24 @@ public class NotificationTiming extends Activity {
             return -1;
         }
 
-        btn_time_setting.setText("每日提醒（前一天" +formate(hour,min)+")");
+        btn_time_setting.setText("图书到期提醒（前一天" +formate(hour,min)+")");
 
         Calendar ca = Calendar.getInstance();
         int h=ca.get(Calendar.HOUR_OF_DAY);//24小时制小时
-        /*为何不是24进制啊*/
         int m=ca.get(Calendar.MINUTE);//分
 
         if((howlong=(hour-h)*60*60*1000+(min-m)*60*1000)<0)
             howlong+=dailytime;
 
-        Log.v("now",h+" "+m);
-        Log.v("count_succeed",howlong+"");
-
+        Log.v("howlong",howlong+"");
         return howlong;
     }
 
     public void setNotification(){
-
-
-
         am = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this,cn.scau.scautreasure.receiver.NotificationReceiver.class);
+        Intent intent = new Intent(this,NotificationReceiver.class);
         pi = PendingIntent.getBroadcast(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + howlong, dailytime, pi);
-
-        Log.v("wait_succeed","heheh");
     }
     public String formate(int hour,int min){
         String sHour=hour+"";
