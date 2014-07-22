@@ -19,10 +19,6 @@
     <string name="hint_searchcourse">请输入你要查看的课程名称</string>
     <string name="listitem_course_property">课程归属：</string>
     <string name="listitem_course_teacher">任课老师：</string>
-    <string name="course_teacher">老师</string>
-    <string name="course_class">教室</string>
-    <string name="course_day">星期</string>
-    <string name="course_week">周数</string>
     <string name="listitem_course_score">课程学分：</string>
     <string name="loading_seachcourse">正在加载课程..</string>
     <string name="comments_username">用户名：</string>
@@ -226,7 +222,5 @@
     <string name="listitem_lable_classTableAsFirstScreen">课程表设为启动界面</string>
     <string name="btn_retry">重试</string>
     <string name="btn_cancel">取消</string>
-    <string name="menu_whole_classtable">整周课程表</string>
-    <string name="whole_class_delete">删除该课程</string>
 
 </resources>

@@ -37,9 +37,6 @@
         <activity android:name=".ui.CourseComments_"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".ui.WClassTableActivity_"
-            android:windowSoftInputMode="adjustPan"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".ui.InjectedSherlockActivity_"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
