@@ -1,78 +1,76 @@
 package cn.scau.scautreasure.widget;
 
 import android.content.Context;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.scau.scautreasure.R;
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
-import com.actionbarsherlock.view.MenuItem;
 
 /**
  * User: special
- * Date: 13-9-2
- * Time: 上午10:11
+ * Date: 13-12-10
+ * Time: 下午11:05
  * Mail: specialcyci@gmail.com
  */
-@EViewGroup ( R.layout.residemenu_item )
 public class ResideMenuItem extends LinearLayout{
 
-    /** menu item  icon  */
-    @ViewById ImageView iv_icon;
-
-    /** menu item  title */
-    @ViewById TextView  tv_title;
-
-    private MenuItem menu;
+    /** main item  icon  */
+    private ImageView iv_icon;
+    /** main item  title */
+    private TextView tv_title;
 
     public ResideMenuItem(Context context) {
         super(context);
+        initViews(context);
     }
 
-    /**
-     * set up the menu item which this need to show;
-     * @param menu
-     */
-    public void setMenu(MenuItem menu){
-        this.menu = menu;
-        tv_title.setText(menu.getTitle());
-        if(menu.getIcon() != null)
-            iv_icon.setImageDrawable(menu.getIcon());
+    public ResideMenuItem(Context context, int icon, int title) {
+        super(context);
+        initViews(context);
+        iv_icon.setImageResource(icon);
+        tv_title.setText(title);
     }
 
-    /**
-     * return the menu item;
-     * @return
-     */
-    public MenuItem getMenu() {
-        return menu;
+    public ResideMenuItem(Context context, int icon, String title) {
+        super(context);
+        initViews(context);
+        iv_icon.setImageResource(icon);
+        tv_title.setText(title);
     }
 
-    /**
-     * return the lable's textView;
-     * @return
-     */
-    public TextView getTv_title() {
-        return tv_title;
-    }
-
-    /**
-     * return the icon's imageView;
-     * @return
-     */
-    public ImageView getIv_icon() {
-        return iv_icon;
+    private void initViews(Context context){
+        LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.residemenu_item, this);
+        iv_icon = (ImageView) findViewById(R.id.iv_icon);
+        tv_title = (TextView) findViewById(R.id.tv_title);
     }
 
     /**
      * set the icon color;
-     * @param color
+     *
+     * @param icon
      */
-    public void setIconColor(int color){
-        iv_icon.setBackgroundColor(color);
+    public void setIcon(int icon){
+        iv_icon.setImageResource(icon);
     }
 
+    /**
+     * set the title with resource
+     * ;
+     * @param title
+     */
+    public void setTitle(int title){
+        tv_title.setText(title);
+    }
+
+    /**
+     * set the title with string;
+     *
+     * @param title
+     */
+    public void setTitle(String title){
+        tv_title.setText(title);
+    }
 }
+

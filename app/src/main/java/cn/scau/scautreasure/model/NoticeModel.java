@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 校园公告的MODEL;
@@ -9,7 +10,7 @@ import java.util.List;
  * Time: 下午2:01
  * Mail: specialcyci@gmail.com
  */
-public class NoticeModel {
+public class NoticeModel implements Serializable {
 
     private String title;
     private String content;
@@ -58,10 +59,10 @@ public class NoticeModel {
                 '}';
     }
 
-    public class NoticeList{
+    public class NoticeList implements Serializable{
 
         private int count;
-        private List<NoticeModel> notice;
+        private ArrayList<NoticeModel> notice;
 
         public int getCount() {
             return count;
@@ -71,11 +72,11 @@ public class NoticeModel {
             this.count = count;
         }
 
-        public List<NoticeModel> getNotice() {
+        public ArrayList<NoticeModel> getNotice() {
             return notice;
         }
 
-        public void setNotice(List<NoticeModel> notice) {
+        public void setNotice(ArrayList<NoticeModel> notice) {
             this.notice = notice;
         }
     }

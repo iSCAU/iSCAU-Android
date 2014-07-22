@@ -1,6 +1,26 @@
 package cn.scau.scautreasure.ui;
 
+import android.content.Context;
+import android.support.v7.app.ActionBar;
+import android.view.View;
 import android.widget.LinearLayout;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.scau.scautreasure.AppConstant;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
@@ -11,14 +31,6 @@ import cn.scau.scautreasure.model.ParamModel;
 import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 import cn.scau.scautreasure.widget.ParamWidget_;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 条件选择
@@ -27,15 +39,17 @@ import java.util.List;
  * Time:  下午4:13
  * Mail:  specialcyci@gmail.com
  */
-@EFragment(R.layout.param)
-public class Param extends Common implements ServerOnChangeListener {
+@EActivity(R.layout.param)
+public class Param extends CommonActivity implements ServerOnChangeListener {
 
     @App  AppContext app;
     @RestService EdusysApi api;
     @ViewById LinearLayout linear_parent;
 
-    private String target;
-    private String targetFragment;
+    @Extra("target")
+    String target;
+    @Extra("targetActivity")
+    String targetActivity;
     private List<ParamWidget> wheelList;
     private ArrayList<ParamModel> paramList;
 
@@ -43,19 +57,14 @@ public class Param extends Common implements ServerOnChangeListener {
     void init(){
         wheelList = new ArrayList<ParamWidget>();
         UIHelper.getDialog(R.string.tips_loading_params).show();
-        getFragmentArguments();
         loadData();
     }
 
-    private void getFragmentArguments(){
-        target         = getArguments().getString("target");
-        targetFragment = getArguments().getString("targetFragment");
-    }
-
+    @Override
     @AfterViews
     void initActionBar(){
         super.initActionBar();
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.title_params);
     }
 
@@ -65,16 +74,29 @@ public class Param extends Common implements ServerOnChangeListener {
     @Click
     void btn_continue(){
         try {
-            startDetailFragment();
+            startNextActivity();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void startDetailFragment() throws Exception {
-        Class cls =  Class.forName(targetFragment);
-        SherlockFragment fragment = (SherlockFragment) cls.newInstance();
-        UIHelper.addFragment(getSherlockActivity(),fragment,"value", buildParamsValue());
+    /**
+     * 通过函数反射手段实例出目标的Activity并且传递参数，
+     *  最后运行之
+     *
+     * @throws Exception
+     */
+    private void startNextActivity() throws Exception {
+        Class cls =  Class.forName(targetActivity);
+
+        Method buildMethod = cls.getMethod("intent", Context.class);
+        Object obj = buildMethod.invoke(cls, this);
+
+        Method putMethod   = obj.getClass().getMethod("value", ArrayList.class);
+        obj = putMethod.invoke(obj, buildParamsValue());
+
+        Method startMethod = obj.getClass().getMethod("start");
+        startMethod.invoke(obj);
     }
 
     private ArrayList<String> buildParamsValue(){
@@ -94,13 +116,13 @@ public class Param extends Common implements ServerOnChangeListener {
         for(ParamModel p : paramList){
             ParamWidget paramWidget = buildParamViews(p.getKey(),p.getValue());
             linear_parent.addView(paramWidget);
-            addIgnoredView(paramWidget);
         }
     }
 
     private ParamWidget buildParamViews(String key,String[] values){
         ParamWidget paramWidget = ParamWidget_.build(getSherlockActivity());
         paramWidget.initView(key,values,wheelList.size());
+        paramWidget.setSeparatorVisable(View.VISIBLE);
         wheelList.add(paramWidget);
         return paramWidget;
     }
@@ -114,8 +136,10 @@ public class Param extends Common implements ServerOnChangeListener {
                 paramList = api.getParams(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, target).getParams();
                 saveCacheParamsList(paramList);
             }catch (HttpStatusCodeException e){
-                showErrorResult(parentActivity(), e.getStatusCode().value(), this);
+                showErrorResult(this, e.getStatusCode().value(), this);
                 return;
+            }catch (Exception e){
+                handleNoNetWorkError(getSherlockActivity());
             }
         }
         showParams();

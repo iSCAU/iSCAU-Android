@@ -11,14 +11,13 @@
     <dimen name="login_lable_padding_top">10dp</dimen>
     <dimen name="login_lable_padding_bottom">5dp</dimen>
     <dimen name="login_lable_textsize">15sp</dimen>
-    <dimen name="param_lable_textsize">15sp</dimen>
+    <dimen name="param_lable_textsize">12sp</dimen>
     <dimen name="listitem_separator_margin_right">10dp</dimen>
     <dimen name="listitem_title_padding_left">16dp</dimen>
-    <dimen name="normal_listview_padding">6dp</dimen>
+    <dimen name="normal_listview_padding">1dp</dimen>
     <dimen name="listitem_goal_title_padding_right">4dp</dimen>
     <dimen name="normal_listview_dividerHeight">3dp</dimen>
     <dimen name="listitem_goal_sub_title_size">12sp</dimen>
-    <dimen name="comment_text_size">15sp</dimen>
     <dimen name="pull_to_refresh_header_textsize">12sp</dimen>
     <dimen name="intro_lable_textsize">16sp</dimen>
     <dimen name="intro_content_textsize">16sp</dimen>
@@ -36,4 +35,7 @@
     <dimen name="widget_tab_textSize">14sp</dimen>
     <dimen name="widget_title_textSize">20sp</dimen>
     <dimen name="widget_item_textSize">16sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
 </resources>

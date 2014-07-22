@@ -1,18 +1,20 @@
 package cn.scau.scautreasure.ui;
 
-import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.devspark.appmsg.AppMsg;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -20,65 +22,102 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.util.DateUtil;
-import cn.scau.scautreasure.widget.ResideMenu;
-import cn.scau.scautreasure.widget.ResideMenu_;
 
 /**
- * 软件启动的首页, 就是目前的菜单页
+ * 主页面;
  *
  * User:  Special Leung
  * Date:  13-7-28
  * Time:  下午9:11
  * Mail:  specialcyci@gmail.com
  */
-@EActivity(R.layout.menu)
-public class Main extends SherlockFragmentActivity{
+@EActivity(R.layout.main)
+public class Main extends ActionBarActivity{
 
-    @Pref cn.scau.scautreasure.AppConfig_ config;
-    @App AppContext app;
-    @Bean DateUtil dateUtil;
-    private Context context;
-    private ResideMenu resideMenu;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
+    @App
+    AppContext app;
+    @Bean
+    DateUtil dateUtil;
+    @ViewById
+    RadioGroup radioGroup;
+    @ViewById
+    RadioButton rd_classtable, rd_features, rd_settings;
+    private ActionBarActivity mContext;
+    Fragment fragmentMenu;
+    Fragment fragmentClassTable;
+    Fragment fragmentSettings;
+    private int checkedId;
+    private static final String MENU_TAG = "menu_";
+    private static final String CLASSTABLE_TAG = "classtable_";
+    private static final String SETTINGS_TAG = "settings_";
 
     @AfterInject
-    void hideActionBar(){
-        context = this;
-        getSupportActionBar().hide();
+    void init(){
+        mContext = this;
     }
 
     @AfterViews
     void initView(){
+        setUpTab();
         initMobclickAgent();
-        setUpMenu();
         checkForUpdate();
-        showWelcome();
         showNotification();
+    }
+
+    private void setUpTab() {
+        if(fragmentMenu == null){
+            fragmentMenu = Menu_.builder().build();
+        }
+        if(fragmentClassTable == null){
+            fragmentClassTable = ClassTable_.builder().build();
+        }
+        if(fragmentSettings == null){
+            fragmentSettings = Configuration_.builder().build();
+        }
+        if(checkedId != 0){
+            //恢复到Activity被杀前的选中状态
+            radioGroup.check(checkedId);
+        }
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+                checkedId = i;
+                if (i == rd_features.getId()) {
+                    UIHelper.startFragment(mContext, fragmentMenu, MENU_TAG);
+                    ( (OnTabSelectListener) fragmentMenu).onTabSelect();
+                }else if (i == rd_classtable.getId()) {
+                    UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
+                    ( (OnTabSelectListener) fragmentClassTable).onTabSelect();
+                }else if (i == rd_settings.getId()) {
+                    UIHelper.startFragment(mContext, fragmentSettings, SETTINGS_TAG);
+                    ( (OnTabSelectListener) fragmentSettings).onTabSelect();
+                }
+            }
+        });
+        if(checkedId == 0){
+            UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
+        }
     }
 
     private void initMobclickAgent(){
         MobclickAgent.updateOnlineConfig(this);
         MobclickAgent.openActivityDurationTrack(false);
-    }
-
-    private void setUpMenu(){
-        resideMenu = ResideMenu_.build(this);
-        resideMenu.attachToActivity(this);
-        resideMenu.attachToMenu(R.menu.menu_main);
-        resideMenu.setBackMenuItemId(R.id.menu_back);
-        getSupportActionBar().setHomeButtonEnabled(true);
-    }
-
-    private void showWelcome(){
-        menu_about();
-        showMenu();
+        // 检查反馈消息;
+        FeedbackAgent agent = new FeedbackAgent(this);
+        agent.sync();
     }
 
     private void checkForUpdate() {
@@ -86,15 +125,6 @@ public class Main extends SherlockFragmentActivity{
         UmengUpdateAgent.update(this);
     }
 
-    @UiThread(delay = 2000)
-    void showMenu(){
-        // if user has set the class table as the first screen.
-        if (config.classTableAsFirstScreen().get()){
-            UIHelper.startFragment(this, ClassTable_.builder().build());
-        }else{
-            getResideMenu().openMenu();
-        }
-    }
 
     @UiThread(delay = 4000)
     void showNotification(){
@@ -102,60 +132,8 @@ public class Main extends SherlockFragmentActivity{
         if(isConfigAble(notification)){
             // 今天显示过就不显示了
             if(!config.lastSeeNotificationDate().get().equals(dateUtil.getCurrentDateString()))
-                UIHelper.startFragment(this, Notification_.builder().build(), "notification",notification);
+                Notification_.intent(this).notification(notification).start();
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return resideMenu.onInterceptTouchEvent(ev) || super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(!isKeyBack(event))
-            return super.onKeyDown(keyCode,event);
-        if(isDialogShowing() || !isEmptyBackStackEntry())
-            return super.onKeyDown(keyCode,event);
-
-        if(isNotInTopMenu()){
-            resideMenu.popBackMenu();
-        }else if(!resideMenu.isOpened()){
-            resideMenu.openMenu();
-        }else{
-            menu_exit();
-        }
-        return true;
-    }
-
-    @OptionsItem
-    public void home(){
-        if(isEmptyBackStackEntry()){
-            resideMenu.openMenu();
-        }else{
-            getSupportFragmentManager().popBackStack();
-        }
-    }
-
-    public ResideMenu getResideMenu() {
-        return resideMenu;
-    }
-
-    private boolean isEmptyBackStackEntry(){
-        getSupportFragmentManager().executePendingTransactions();
-        return getSupportFragmentManager().getBackStackEntryCount() == 0;
-    }
-
-    private boolean isDialogShowing() {
-        return UIHelper.getDialog() != null && UIHelper.getDialog().isShowing();
-    }
-
-    private boolean isKeyBack(KeyEvent event){
-        return event.getKeyCode() == KeyEvent.KEYCODE_BACK;
-    }
-
-    private boolean isNotInTopMenu(){
-        return resideMenu.isOpened() && !resideMenu.isTopMenu();
     }
 
     @Override
@@ -185,28 +163,24 @@ public class Main extends SherlockFragmentActivity{
 
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT)
     void onEditAccountResult(){
-        getResideMenu().openMenu();
+
     }
 
-    private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {
-        @Override
-        public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
-            switch (updateStatus) {
-                case UpdateStatus.Yes: // has update
-                    UmengUpdateAgent.showUpdateDialog(context, updateInfo);
-                    break;
-                case UpdateStatus.No: // has no update
-                    Toast.makeText(context, "没有更新", Toast.LENGTH_SHORT).show();
-                    break;
-                case UpdateStatus.NoneWifi: // none wifi
-                    Toast.makeText(context, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT).show();
-                    break;
-                case UpdateStatus.Timeout: // time out
-                    Toast.makeText(context, "超时", Toast.LENGTH_SHORT).show();
-                    break;
-            }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            checkedId = savedInstanceState.getInt("checkedId");
+            restoreFragments();
         }
-    };
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //保存当前选中的页面
+        outState.putInt("checkedId", checkedId);
+    }
 
     @Override
     public void onResume() {
@@ -220,127 +194,35 @@ public class Main extends SherlockFragmentActivity{
         MobclickAgent.onPause(this);
     }
 
-    /**
-     * check if the developer call to force update;
-     */
-//    private void checkForceUpdateConfig(){
-//        String enforceupdate = MobclickAgent.getConfigParams(this, "enforceupdate");
-//        if (isConfigAble(enforceupdate))
-//            Toast.makeText(this,R.string.tips_forceupdate,Toast.LENGTH_LONG).show();
-//    }
-
     private boolean isConfigAble(String config){
         return !config.trim().equals("0") && !config.trim().equals("");
     }
 
-    @OptionsItem
-    void menu_classtable(){
-        UIHelper.startFragment(this, ClassTable_.builder().build());
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            }
+            else{
+                MobclickAgent.onKillProcess(this);
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
-    @OptionsItem
-    void menu_goal(){
-        UIHelper.startFragment(this, Param_.builder().build(),"target","goal","targetFragment",Goal_.class.getName());
+    /**
+     * 尝试恢复程序在后台被杀前的fragments
+     */
+    private void restoreFragments(){
+        FragmentManager fm = getSupportFragmentManager();
+        fragmentMenu = fm.findFragmentByTag(MENU_TAG);
+        fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
+        fragmentSettings = fm.findFragmentByTag(SETTINGS_TAG);
     }
-
-    @OptionsItem
-    void menu_exam(){
-        UIHelper.startFragment(this, Exam_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_pickCourseInfo(){
-        UIHelper.startFragment(this, PickClassInfo_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_emptyClassRoom(){
-        UIHelper.startFragment(this, Param_.builder().build(),"target","emptyclassroom","targetFragment",EmptyClassRoom_.class.getName());
-    }
-
-    @OptionsItem
-    void menu_courseInfo(){
-        UIHelper.startFragment(this,SearchCourse_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_searchBook(){
-        UIHelper.startFragment(this, SearchBook_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_nowBorrowedBook(){
-        UIHelper.startFragment(this, BorrowedBook_.builder().build(),"target",UIHelper.TARGET_FOR_NOW_BORROW);
-    }
-
-    @OptionsItem
-    void menu_pastBorrowedBook(){
-        UIHelper.startFragment(this, BorrowedBook_.builder().build(),"target",UIHelper.TARGET_FOR_PAST_BORROW);
-    }
-
-    @OptionsItem
-    void menu_lifeinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","LifeInformation","title",R.string.menu_lifeinformation);
-    }
-
-    @OptionsItem
-    void menu_communityinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","CommunityInformation","title",R.string.menu_communityinformation);
-    }
-
-    @OptionsItem
-    void menu_guardianserves(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","GuardianServes","title",R.string.menu_guardianserves);
-    }
-
-    @OptionsItem
-    void menu_studyinformation(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","StudyInformation","title",R.string.menu_studyinformation);
-    }
-
-    @OptionsItem
-    void menu_busandtelphone(){
-        UIHelper.startFragment(this, Introduction_.builder().build(),"target","Bus&Telphone","title",R.string.menu_busandtelphone);
-    }
-
-    @OptionsItem
-    void menu_calendar(){
-        UIHelper.startFragment(this, Calendar_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_notice(){
-        UIHelper.startFragment(this, Notice_.builder().build());
-    }
-
-
-    @OptionsItem
-    void menu_account(){
-        Login_.intent(this).isStartFormMenu(true).startForResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT);
-    }
-
-    @OptionsItem
-    void menu_configuration(){
-        UIHelper.startFragment(this, Configuration_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_update(){
-        Toast.makeText(this,R.string.loading_default,Toast.LENGTH_LONG).show();
-        UmengUpdateAgent.setUpdateAutoPopup(false);
-        UmengUpdateAgent.setUpdateListener(umengUpdateListener);
-        UmengUpdateAgent.forceUpdate(this);
-    }
-
-    @OptionsItem
-    void menu_about(){
-        UIHelper.startFragment(this,Welcome_.builder().build());
-    }
-
-    @OptionsItem
-    void menu_exit(){
-        MobclickAgent.onKillProcess(this);
-        System.exit(0);
-    }
-
 }

@@ -1,19 +1,20 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.AbsListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ExamAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
 
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
 /**
  * 考试情况查询
@@ -22,39 +23,40 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time:  下午2:54
  * Mail:  specialcyci@gmail.com
  */
-@EFragment( R.layout.exam )
-public class Exam extends Common implements ServerOnChangeListener{
+@EActivity( R.layout.exam )
+public class Exam extends CommonQueryActivity{
 
     @RestService
     EdusysApi api;
 
-    @AfterInject
+    @AfterViews
     void init(){
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
-        UIHelper.getDialog(R.string.loading_exam).show();
-        loadData();
+        cacheHelper.setCacheKey("exam_arrange");
+        list = cacheHelper.loadListFromCache();
+        buildAndShowListViewAdapter();
     }
 
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
+        beforeLoadData();
         try{
             list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
-            buildListViewAdapter();
-            showSuccessResult();
+            cacheHelper.writeListToCache(list);
+            buildAndShowListViewAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
+        afterLoadData();
     }
 
-    private void buildListViewAdapter(){
+    private void buildAndShowListViewAdapter(){
         ExamAdapter examadapter = new ExamAdapter(getSherlockActivity(), R.layout.exam_listitem, list);
         adapter  = UIHelper.buildEffectAdapter(examadapter, (AbsListView) listView,ALPHA);
+        showSuccessResult();
     }
 
-    @Override
-    public void onChangeServer() {
-        UIHelper.getDialog(R.string.loading_exam).show();
-        loadData();
-    }
 }

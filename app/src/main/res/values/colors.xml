@@ -4,11 +4,12 @@
     <color name="background_normal">#ffffff</color>
     <color name="login_lable_font_color">#7c8389</color>
     <color name="login_edittext_textcolor">#7c8389</color>
-    <color name="actionar_title_color">#d9322c</color>
-    <color name="param_lable_textcolor">#34495e</color>
-    <color name="normal_item_passed_color">#70a8fb</color>
+    <color name="actionar_title_color">#ffffff</color>
+    <color name="param_lable_textcolor">#484848</color>
+    <color name="normal_item_passed_color">#f1f1f1</color>
+    <color name="normail_item_passed_text_color">#292929</color>
     <!-- 合格成绩课程名称背景颜色 -->
-    <color name="goal_item_passed_color">#70a8fb</color>
+    <color name="goal_item_passed_color">#f1f1f1</color>
     <!-- 不合格成绩课程名称背景颜色 -->
     <color name="goal_item_failed_color">#fa5050</color>
     <color name="listitem_goal_sub_title_color">#a09d9d</color>
@@ -35,4 +36,14 @@
     <color name="bus_state_lable_textcolor">#908f8f</color>
     <color name="bus_state_time_lable_textcolor">#908f8f</color>
     <color name="textview_version_text_color">#499c8c</color>
+
+    <!--底部tab字的颜色-->
+    <color name="tab_item_text_color_on">#20c2a9</color>
+    <color name="tab_item_text_color">#2c2b2b</color>
+
+    <!--swipe refresh 的色彩-->
+    <color name="swipe_refresh_1">#EF597B</color>
+    <color name="swipe_refresh_2">#FF6D31</color>
+    <color name="swipe_refresh_3">#73B66B</color>
+    <color name="swipe_refresh_4">#29A2C6</color>
 </resources>

@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * User:  Special Leung
@@ -14,7 +15,7 @@ import java.util.List;
 //        "考试座位数" => "seat_exam",
 //        "建筑面积" => "area",
 //        "预约情况" => "has_book"
-public class ClassRoomModel {
+public class ClassRoomModel implements Serializable{
 
     private String type;
     private String number;
@@ -95,13 +96,13 @@ public class ClassRoomModel {
 
     public class ClassRoomList{
 
-        private List<ClassRoomModel> classRooms;
+        private ArrayList<ClassRoomModel> classRooms;
 
-        public List<ClassRoomModel> getClassRooms() {
+        public ArrayList<ClassRoomModel> getClassRooms() {
             return classRooms;
         }
 
-        public void setClassRooms(List<ClassRoomModel> classRooms) {
+        public void setClassRooms(ArrayList<ClassRoomModel> classRooms) {
             this.classRooms = classRooms;
         }
     }

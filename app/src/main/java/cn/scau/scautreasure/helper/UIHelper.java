@@ -1,31 +1,25 @@
 package cn.scau.scautreasure.helper;
 
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingLeftInAnimationAdapter;
 import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
@@ -67,40 +61,6 @@ public class UIHelper {
             dialog.setCancelable(true);
             dialog.setOnCancelListener(listener);
         }
-    }
-
-    /**
-     * @param msgResourceId it can be 0.
-     * @param listener it can be null.
-     */
-    public static Dialog buildLoadingDialog(Context context, int msgResourceId,
-                                            DialogInterface.OnCancelListener listener) {
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.loading_dialog, null);
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);
-
-        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);
-        TextView tip = (TextView) v.findViewById(R.id.tip);
-
-        Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(
-                context, R.anim.loading_animation);
-
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-        if (msgResourceId != 0) tip.setText(msgResourceId);
-
-        Dialog dialog = new Dialog(context, R.style.loading_dialog);
-
-        if( listener != null){
-            dialog.setCancelable(true);
-            dialog.setOnCancelListener(listener);
-        }
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-        return dialog;
-
     }
 
     public static void buildDialog(Context ctx){
@@ -214,8 +174,7 @@ public class UIHelper {
      * @param objects
      * @return
      */
-    private static Bundle
-    buildBundle(Object... objects){
+    private static Bundle buildBundle(Object... objects){
         Bundle bundle = new Bundle();
         for (int index = 0; index < objects.length; index = index + 2){
             String key   = (String) objects[index];
@@ -238,11 +197,40 @@ public class UIHelper {
      * @param act
      * @param fragment
      */
-    public static void startFragment(SherlockFragmentActivity act, SherlockFragment fragment){
-
+    public static void startFragment(ActionBarActivity act, Fragment fragment){
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_fragment,fragment);
+        ft.add(R.id.main_fragment,fragment);
         ft.commit();
+    }
+
+    /**
+     * help to add fragment
+     * @param act
+     * @param fragment
+     */
+    public static void startFragment(ActionBarActivity act, Fragment fragment, String tag){
+        deAttachAllFragments(act);
+        FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
+        Fragment _fragment = act.getSupportFragmentManager().findFragmentByTag(tag);
+        if (_fragment != null) {
+            ft.show(_fragment);
+        }else {
+            ft.add(R.id.main_fragment, fragment, tag);
+        }
+        ft.commitAllowingStateLoss();
+        act.getSupportFragmentManager().executePendingTransactions();
+    }
+
+    private static void deAttachAllFragments(ActionBarActivity act){
+        FragmentManager fragmentManager = act.getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments == null) return;
+        for(Fragment fragment : fragments){
+            if (fragment.isVisible())
+                ft.hide(fragment);
+        }
+        ft.commitAllowingStateLoss();
     }
 
     /**
@@ -251,7 +239,7 @@ public class UIHelper {
      * @param fragment
      * @param objects   the format such as "target"(key),"1"(value),"mode","all" ....
      */
-    public static void startFragment(SherlockFragmentActivity act, SherlockFragment fragment, Object... objects){
+    public static void startFragment(ActionBarActivity act, Fragment fragment, Object... objects){
         fragment.setArguments(buildBundle(objects));
         startFragment(act,fragment);
     }
@@ -262,7 +250,7 @@ public class UIHelper {
      * @param act
      * @param fragment
      */
-    public static void addFragment(SherlockFragmentActivity act, SherlockFragment fragment){
+    public static void addFragment(ActionBarActivity act, Fragment fragment){
 
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
         ft.add(R.id.main_fragment, fragment, "fragment");
@@ -278,7 +266,7 @@ public class UIHelper {
      * @param fragment
      * @param objects
      */
-    public static void addFragment(SherlockFragmentActivity act, SherlockFragment fragment, Object... objects){
+    public static void addFragment(ActionBarActivity act, Fragment fragment, Object... objects){
         // build bundle;
         fragment.setArguments(buildBundle(objects));
         addFragment(act,fragment);

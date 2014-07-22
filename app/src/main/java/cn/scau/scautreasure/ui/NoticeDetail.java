@@ -1,19 +1,25 @@
 package cn.scau.scautreasure.ui;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.widget.TextView;
+
+import com.devspark.appmsg.AppMsg;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.NoticeApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.NoticeModel;
 import cn.scau.scautreasure.util.CryptUtil;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.devspark.appmsg.AppMsg;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
 
 /**
  * 校园通知详细阅读页面：
@@ -23,7 +29,7 @@ import org.springframework.web.client.HttpStatusCodeException;
  * Mail: specialcyci@gmail.com
  */
 @EActivity( R.layout.notice_detail )
-public class NoticeDetail extends InjectedSherlockActivity {
+public class NoticeDetail extends CommonActivity {
 
     @App
     AppContext app;
@@ -79,6 +85,8 @@ public class NoticeDetail extends InjectedSherlockActivity {
             showSuccessResult(l.getContent());
         }catch (HttpStatusCodeException e){
             showErroResult(e.getStatusCode().value());
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
     }
 }

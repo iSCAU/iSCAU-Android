@@ -113,4 +113,12 @@
         <item>是</item>
         <item>否</item>
     </string-array>
+
+    <!-- 情景模式，顺序请于RingerMode保持一致 -->
+    <string-array name="ringer_mode">
+        <item>未设置</item>
+        <item>正常</item>
+        <item>震动</item>
+        <item>静音</item>
+    </string-array>
 </resources>

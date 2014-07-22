@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * User:  Special Leung
@@ -22,7 +23,7 @@ import java.util.List;
 //        "重修成绩" => "goal_restudy",
 //        "开课学院" => "college_hold",
 //        "重修标记" => "flag_restudy"
-public class GoalModel {
+public class GoalModel implements Serializable{
     private String year;
     private String team;
     private String code;
@@ -162,13 +163,13 @@ public class GoalModel {
 
     public class GoalList{
 
-        private List<GoalModel> goals;
+        private ArrayList<GoalModel> goals;
 
-        public List<GoalModel> getGoals() {
+        public ArrayList<GoalModel> getGoals() {
             return goals;
         }
 
-        public void setGoals(List<GoalModel> goals) {
+        public void setGoals(ArrayList<GoalModel> goals) {
             this.goals = goals;
         }
     }

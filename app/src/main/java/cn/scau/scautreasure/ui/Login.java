@@ -3,10 +3,21 @@ package cn.scau.scautreasure.ui;
 import android.app.Activity;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.devspark.appmsg.AppMsg;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.NoTitle;
+import org.androidannotations.annotations.ViewById;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.util.CryptUtil;
-import org.androidannotations.annotations.*;
 
 /**
  * 登陆窗口(仅仅用于保存帐号密码)
@@ -29,31 +40,21 @@ public class Login extends Activity {
     EditText   edt_userName,edt_eduSysPassword,edt_libPassword,edt_cardPassword;
 
     @Extra
-    boolean    isStartFormMenu = false;
+    String     startTips;
+
+    @Extra
+    boolean    runMainActivity = false;
 
     @AfterViews
-    void init(){
-
-        // if user has input the username and any one password;
-        if(hasSetAccount() && !isStartFormMenu){
-            Main_.intent(this).start();
-            finish();
-        }else{
-            setUpViews();
-        }
-
-    }
-
-    private boolean hasSetAccount(){
-        return app.userName != null &&
-                ( app.eduSysPassword != null || app.libPassword != null || app.cardPassword != null);
-    }
-
-    private void setUpViews(){
+    void setUpViews(){
         edt_userName.setText(app.userName);
         edt_eduSysPassword.setText(app.eduSysPassword);
         edt_libPassword.setText(app.libPassword);
         edt_cardPassword.setText(app.cardPassword);
+
+        if (startTips != null){
+            AppMsg.makeText(this, startTips, AppMsg.STYLE_INFO).show();
+        }
     }
 
     @Click
@@ -103,7 +104,7 @@ public class Login extends Activity {
         app.config.libPassword().put(libPassword);
         app.config.cardPassword().put(cardPassword);
 
-        if(!isStartFormMenu)
+        if(runMainActivity)
             Main_.intent(this).start();
         finish();
     }

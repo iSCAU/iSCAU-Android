@@ -1,7 +1,19 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.EditText;
+
+import com.devspark.appmsg.AppMsg;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+
 import antistatic.spinnerwheel.WheelHorizontalView;
 import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
@@ -9,10 +21,6 @@ import cn.scau.scautreasure.helper.StringHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.devspark.appmsg.AppMsg;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.res.StringArrayRes;
 
 /**
  * 课程表修改;
@@ -22,15 +30,18 @@ import org.androidannotations.annotations.res.StringArrayRes;
  * Mail: specialcyci@gmail.com
  */
 @EActivity ( R.layout.classtable_editor)
-public class ClassEditor extends InjectedSherlockActivity{
+public class ClassEditor extends CommonActivity{
 
     @Extra ClassModel   model;
+    @Extra boolean      isNewClass = false;
     @Extra int          position;
     @Bean  StringHelper stringHelper;
     @Bean  DateUtil     dateUtil;
     @ViewById EditText edt_classname,edt_teacher,edt_place;
     @ViewById WheelHorizontalView wheel_weekday,wheel_dsz,wheel_note_start;
     @ViewById WheelHorizontalView wheel_note_end,wheel_week_start,wheel_week_end;
+    @ViewById
+    Button btn_modify;
     @StringArrayRes String[] weekdays,notes,week,dsz;
 
     private ArrayWheelAdapter<String> adapter_weekday;
@@ -58,18 +69,7 @@ public class ClassEditor extends InjectedSherlockActivity{
         wheel_week_start.setViewAdapter(adapter_week_start);
 
         getSupportActionBar().setTitle(model.getClassname());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
-        addIngoredLists();
-    }
-
-    private void addIngoredLists(){
-        addIgnoredView(wheel_dsz);
-        addIgnoredView(wheel_weekday);
-        addIgnoredView(wheel_note_end);
-        addIgnoredView(wheel_week_end);
-        addIgnoredView(wheel_note_start);
-        addIgnoredView(wheel_week_start);
     }
 
     void initView(){
@@ -83,6 +83,10 @@ public class ClassEditor extends InjectedSherlockActivity{
             setDSZRelativeView();
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+        if (isNewClass){
+            btn_modify.setText(getString(R.string.btn_add_class));
         }
     }
 

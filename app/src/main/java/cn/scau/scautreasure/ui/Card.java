@@ -1,24 +1,32 @@
 package cn.scau.scautreasure.ui;
 
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.ListView;
+
+import com.devspark.appmsg.AppMsg;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.CardRecordAdapter;
 import cn.scau.scautreasure.api.CardApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.CardRecordModel;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.devspark.appmsg.AppMsg;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_SWING;
 
@@ -29,7 +37,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail: specialcyci@gmail.com
  */
 @EFragment( R.layout.card )
-public class Card extends Common {
+public class Card extends CommonFragment {
 
     @RestService CardApi api;
     @ViewById( R.id.listView )
@@ -39,7 +47,7 @@ public class Card extends Common {
     private int page;
     private int count;
     private ArrayList<String> startAndEndDate;
-    private SherlockFragmentActivity ctx;
+    private ActionBarActivity ctx;
 
     @AfterInject
     void init(){

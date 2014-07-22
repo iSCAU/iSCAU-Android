@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 当前借阅，历史借阅的model;
@@ -21,7 +22,7 @@ import java.util.List;
 //        "索书号" => "serial_number",
 //        "文献类型" => "document_type",
 //        "条码号" => "barcode_number",
-public class BookModel {
+public class BookModel implements Serializable{
 
     private String title;
     private String author;
@@ -164,7 +165,7 @@ public class BookModel {
 
         private int count;
 
-        private List<BookModel> books;
+        private ArrayList<BookModel> books;
 
         public int getCount() {
             return count;
@@ -174,11 +175,11 @@ public class BookModel {
             this.count = count;
         }
 
-        public List<BookModel> getBooks() {
+        public ArrayList<BookModel> getBooks() {
             return books;
         }
 
-        public void setBooks(List<BookModel> books) {
+        public void setBooks(ArrayList<BookModel> books) {
             this.books = books;
         }
     }

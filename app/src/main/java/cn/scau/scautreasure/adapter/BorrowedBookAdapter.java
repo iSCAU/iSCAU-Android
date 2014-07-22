@@ -1,17 +1,21 @@
 package cn.scau.scautreasure.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+
+import com.joanzapata.android.BaseAdapterHelper;
+import com.joanzapata.android.QuickAdapter;
+
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.rest.RestService;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.model.BookModel;
 import cn.scau.scautreasure.ui.BorrowedBook_;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.joanzapata.android.BaseAdapterHelper;
-import com.joanzapata.android.QuickAdapter;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
 
 /**
  * 借阅的图书适配器;
@@ -35,8 +39,8 @@ public class BorrowedBookAdapter extends QuickAdapter<BookModel> {
         super(context, R.layout.borrowedbook_listitem);
     }
 
-    public void setParent(SherlockFragment fragment){
-        ctx = (BorrowedBook_) fragment;
+    public void setParent(Activity act){
+        ctx = (BorrowedBook_) act;
     }
 
     @Override

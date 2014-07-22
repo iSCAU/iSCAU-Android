@@ -1,20 +1,28 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.AbsListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.GoalAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.GoalModel;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+import cn.scau.scautreasure.util.StringUtil;
+
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
 /**
  * 成绩查询;
@@ -23,35 +31,35 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time:  下午2:23
  * Mail:  specialcyci@gmail.com
  */
-@EFragment(R.layout.goal)
-public class Goal extends Common implements ServerOnChangeListener{
+@EActivity(R.layout.goal)
+public class Goal extends CommonQueryActivity{
 
     @RestService
     EdusysApi api;
-    private ArrayList<String> value;
+    @Extra("value")
+    ArrayList<String> value;
 
-    @AfterInject
+    @AfterViews
     void init(){
         setTitle(R.string.title_goal);
         tips_empty = R.string.tips_goal_null;
-    }
-
-    @AfterViews
-    void initView(){
-        value = getArguments().getStringArrayList("value");
-        UIHelper.getDialog(R.string.loading_default).show();
-        loadData(value);
+        cacheHelper.setCacheKey("goal_" + StringUtil.join(value, "_"));
+        list = cacheHelper.loadListFromCache();
+        buildAndShowListViewAdapter();
     }
 
     void calculateGPA(){
+        if ( list == null )
+            return;
+
         double total_credit_point = 0;
         double total_credit       = 0;
 
-        for(GoalModel g : (List <GoalModel>)list){
-            double credit      = Double.parseDouble(g.getCredit());
+        for (GoalModel g : (List<GoalModel>) list) {
+            double credit = Double.parseDouble(g.getCredit());
             double grade_point = Double.parseDouble(g.getGrade_point());
-            total_credit       +=  credit;
-            total_credit_point +=  (double)credit * grade_point;
+            total_credit += credit;
+            total_credit_point += (double) credit * grade_point;
         }
 
         // 一学期（学年）的平均绩点＝该学期（学年）全部学分绩点之和÷该学期（学年）所修学分之和
@@ -71,25 +79,25 @@ public class Goal extends Common implements ServerOnChangeListener{
 
     @Background( id = UIHelper.CANCEL_FLAG )
     void loadData(Object... params) {
+        beforeLoadData();
         try{
-            ArrayList<String> param = (ArrayList<String>)params[0];
+            ArrayList<String> param = value;
             list = api.getGoal(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, param.get(0), param.get(1)).getGoals();
-            buildListViewAdapter();
-            showSuccessResult();
-            calculateGPA();
+            cacheHelper.writeListToCache(list);
+            buildAndShowListViewAdapter();
         }catch (HttpStatusCodeException e){
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
+        }catch (Exception e){
+            handleNoNetWorkError(getSherlockActivity());
         }
+        afterLoadData();
     }
 
-    private void buildListViewAdapter(){
+    private void buildAndShowListViewAdapter(){
         GoalAdapter listadapter = new GoalAdapter(getSherlockActivity(), R.layout.goal_listitem, list);
         adapter = UIHelper.buildEffectAdapter(listadapter, (AbsListView) listView,EXPANDABLE_ALPHA);
+        showSuccessResult();
+        calculateGPA();
     }
 
-    @Override
-    public void onChangeServer() {
-        UIHelper.getDialog(R.string.loading_default).show();
-        loadData(value);
-    }
 }

@@ -1,88 +1,80 @@
 package cn.scau.scautreasure.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Rect;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.DisplayMetrics;
+import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.widget.ScrollView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
-
-import cn.scau.scautreasure.AppConstant;
-import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
-import cn.scau.scautreasure.util.MetricsUtil;
+
 
 /**
- * Special reslide menu;
- *
  * User: special
- * Date: 13-9-1
- * Time: 下午11:10
+ * Date: 13-12-10
+ * Time: 下午10:44
  * Mail: specialcyci@gmail.com
  */
-@EViewGroup ( R.layout.residemenu )
 public class ResideMenu extends FrameLayout implements GestureDetector.OnGestureListener{
 
-    @ViewById ImageView    iv_shadow;
-    @ViewById LinearLayout layout_menu;
-    @ViewById cn.scau.scautreasure.widget.ElasticScrollView_ sv_menu;
-    @Bean     MetricsUtil  metricsUtil;
-    @App      AppContext   app;
+    public static final int DIRECTION_LEFT  = 0;
+    public static final int DIRECTION_RIGHT = 1;
 
-    private AnimatorSet scaleUp_shadow;
-    private AnimatorSet scaleUp_activity;
-    private AnimatorSet scaleDown_activity;
-    private AnimatorSet scaleDown_shadow;
+    private ImageView iv_shadow;
+    private ImageView iv_background;
+    private LinearLayout layout_left_menu;
+    private LinearLayout layout_right_menu;
+    private ScrollView sv_left_menu;
+    private ScrollView sv_right_menu;
+    private ScrollView sv_menu;
     /** the activity that view attach to */
-    private SherlockFragmentActivity activity;
+    private Activity activity;
     /** the decorview of the activity    */
     private ViewGroup view_decor;
     /** the viewgroup of the activity    */
     private ViewGroup view_activity;
-    private Stack<Menu>          stack_menu;
-    /** menu of current menu's parent    */
-    private Menu                 current_menu_parent;
-    /** the user current click item      */
-    private MenuItem             current_menu_item;
-    private boolean              isMenuItemClick;
-    /** the top level of the menu        */
-    private MenuBuilder          menu;
-    /** the flag of menu open status     */
+    /** the flag of main open status     */
     private boolean              isOpened;
-    /** the menu item id of the submenu back option */
-    private int                  menuBackId;
     private GestureDetector gestureDetector;
-    private float shadow_ScaleX;
+    private float shadow_AdjustScaleX;
+    private float shadow_AdjustScaleY;
     /** the view which don't want to intercept touch event */
     private List<View> ignoredViews;
+    private List<ResideMenuItem> leftMenuItems;
+    private List<ResideMenuItem> rightMenuItems;
+    private DisplayMetrics displayMetrics = new DisplayMetrics();
+    private OnMenuListener menuListener;
+    private float lastRawX;
+    private boolean canScale = false;
+    private int scaleDirection = DIRECTION_LEFT;
+    private List<Integer> disabledDirection = new ArrayList<Integer>();
 
     public ResideMenu(Context context) {
         super(context);
+        initViews(context);
+    }
 
+    private void initViews(Context context){
+        LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.residemenu, this);
+        sv_left_menu = (ScrollView) findViewById(R.id.sv_left_menu);
+        sv_right_menu = (ScrollView) findViewById(R.id.sv_right_menu);
+        iv_shadow = (ImageView) findViewById(R.id.iv_shadow);
+        layout_left_menu = (LinearLayout) findViewById(R.id.layout_left_menu);
+        layout_right_menu = (LinearLayout) findViewById(R.id.layout_right_menu);
+        iv_background = (ImageView) findViewById(R.id.iv_background);
     }
 
     /**
@@ -90,96 +82,228 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      *
      * @param activity
      */
-    public void attachToActivity(SherlockFragmentActivity activity){
+    public void attachToActivity(Activity activity){
         initValue(activity);
-        setShadowScaleXByOrientation();
-        buildAnimationSet();
+        setShadowAdjustScaleXByOrientation();
+        view_decor.addView(this, 0);
+        setViewPadding();
     }
 
-    private void initValue(SherlockFragmentActivity activity){
+    private void initValue(Activity activity){
         this.activity   = activity;
-        stack_menu      = new Stack<Menu>();
+        leftMenuItems   = new ArrayList<ResideMenuItem>();
+        rightMenuItems  = new ArrayList<ResideMenuItem>();
         gestureDetector = new GestureDetector(this);
         ignoredViews    = new ArrayList<View>();
-        menu            = new MenuBuilder(activity);
-        view_decor      = (ViewGroup)activity.getWindow().getDecorView();
+        view_decor      = (ViewGroup) activity.getWindow().getDecorView();
         view_activity   = (ViewGroup) view_decor.getChildAt(0);
     }
 
-    private void setShadowScaleXByOrientation(){
+    private void setShadowAdjustScaleXByOrientation(){
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            shadow_ScaleX = 0.5335f;
+            shadow_AdjustScaleX = 0.034f;
+            shadow_AdjustScaleY = 0.12f;
         } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            shadow_ScaleX = 0.56f;
+            shadow_AdjustScaleX = 0.06f;
+            shadow_AdjustScaleY = 0.07f;
         }
     }
 
     /**
-     * set the menu from menu's xml ( R.menu.xxx );
+     * set the main background picture;
      *
-     * @param menu_id  the resource id of menu xml ( R.menu.xxx );
+     * @param imageResrouce
      */
-    public void attachToMenu(int menu_id){
-        activity.getSupportMenuInflater().inflate(menu_id, menu);
-        current_menu_parent = menu;
+    public void setBackground(int imageResrouce){
+        iv_background.setImageResource(imageResrouce);
     }
 
     /**
-     * set the menu item id of which could be return the upper stage
+     * the visiblity of shadow under the activity view;
      *
-     * @param menuBackId
+     * @param isVisible
      */
-    public void setBackMenuItemId(int menuBackId) {
-        this.menuBackId = menuBackId;
+    public void setShadowVisible(boolean isVisible){
+        if (isVisible)
+            iv_shadow.setImageResource(R.drawable.shadow);
+        else
+            iv_shadow.setImageBitmap(null);
     }
 
     /**
-     * return back the menu to upper stage
+     * add a single items to left main;
+     *
+     * @param menuItem
      */
-    public void popBackMenu(){
-        if (!stack_menu.empty())
-            showMenuItem(stack_menu.pop());
+    @Deprecated
+    public void addMenuItem(ResideMenuItem menuItem){
+        this.leftMenuItems.add(menuItem);
+        layout_left_menu.addView(menuItem);
     }
 
     /**
-     * we need the call the method before the menu show,beacuse the
+     * add a single items;
+     *
+     * @param menuItem
+     * @param direction
+     */
+    public void addMenuItem(ResideMenuItem menuItem, int direction){
+        if (direction == DIRECTION_LEFT){
+            this.leftMenuItems.add(menuItem);
+            layout_left_menu.addView(menuItem);
+        }else{
+            this.rightMenuItems.add(menuItem);
+            layout_right_menu.addView(menuItem);
+        }
+    }
+
+    /**
+     * set the main items by array list to left main;
+     *
+     * @param menuItems
+     */
+    @Deprecated
+    public void setMenuItems(List<ResideMenuItem> menuItems){
+        this.leftMenuItems = menuItems;
+        rebuildMenu();
+    }
+
+    /**
+     * set the main items by array list;
+     *
+     * @param menuItems
+     * @param direction
+     */
+    public void setMenuItems(List<ResideMenuItem> menuItems, int direction){
+        if (direction == DIRECTION_LEFT)
+            this.leftMenuItems = menuItems;
+        else
+            this.rightMenuItems = menuItems;
+        rebuildMenu();
+    }
+
+    private void rebuildMenu(){
+        layout_left_menu.removeAllViews();
+        layout_right_menu.removeAllViews();
+        for(int i = 0; i < leftMenuItems.size() ; i ++)
+            layout_left_menu.addView(leftMenuItems.get(i), i);
+        for(int i = 0; i < rightMenuItems.size() ; i ++)
+            layout_right_menu.addView(rightMenuItems.get(i), i);
+    }
+
+    /**
+     * get the left main items;
+     *
+     * @return
+     */
+    @Deprecated
+    public List<ResideMenuItem> getMenuItems() {
+        return leftMenuItems;
+    }
+
+    /**
+     * get the main items;
+     *
+     * @return
+     */
+    public List<ResideMenuItem> getMenuItems(int direction) {
+        if ( direction == DIRECTION_LEFT)
+            return leftMenuItems;
+        else
+            return rightMenuItems;
+    }
+
+    /**
+     * if you need to do something on the action of closing or opening
+     * main, set the listener here.
+     *
+     * @return
+     */
+    public void setMenuListener(OnMenuListener menuListener) {
+        this.menuListener = menuListener;
+    }
+
+
+    public OnMenuListener getMenuListener() {
+        return menuListener;
+    }
+
+    /**
+     * we need the call the method before the main show, because the
      * padding of activity can't get at the moment of onCreateView();
      */
     private void setViewPadding(){
         this.setPadding(view_activity.getPaddingLeft(),
-                        view_activity.getPaddingTop(),
-                        view_activity.getPaddingRight(),
-                        view_activity.getPaddingBottom());
+                view_activity.getPaddingTop(),
+                view_activity.getPaddingRight(),
+                view_activity.getPaddingBottom());
     }
 
     /**
-     * show the reside menu;
+     * show the reside main;
      */
-    public void openMenu(){
-        if(!isOpened){
-            isOpened = true;
-            showOpenMenuRelative();
-        }
-    }
+    public void openMenu(int direction){
+        if (isInDisableDirection(direction))
+            throw new IllegalArgumentException("You have set this direction disable, but now you want to open main in this direction.");
+        setScaleDirection(direction);
 
-    private void removeMenuLayout(){
-        ViewGroup parent = ((ViewGroup) sv_menu.getParent());
-        parent.removeView(sv_menu);
+        isOpened = true;
+        AnimatorSet scaleDown_activity = buildScaleDownAnimation(view_activity, 0.5f, 0.5f);
+        AnimatorSet scaleDown_shadow = buildScaleDownAnimation(iv_shadow, 0.5f + shadow_AdjustScaleX, 0.5f + shadow_AdjustScaleY);
+        AnimatorSet alpha_menu = buildMenuAnimation(sv_menu, 1.0f);
+        scaleDown_shadow.addListener(animationListener);
+        scaleDown_activity.playTogether(scaleDown_shadow);
+        scaleDown_activity.playTogether(alpha_menu);
+        scaleDown_activity.start();
     }
 
     /**
-     * close the reslide menu;
+     * close the reslide main;
      */
     public void closeMenu(){
-        if(isOpened){
-            isOpened = false;
-            scaleUp_activity.start();
+
+        isOpened = false;
+        AnimatorSet scaleUp_activity = buildScaleUpAnimation(view_activity, 1.0f, 1.0f);
+        AnimatorSet scaleUp_shadow = buildScaleUpAnimation(iv_shadow, 1.0f, 1.0f);
+        AnimatorSet alpha_menu = buildMenuAnimation(sv_menu, 0.0f);
+        scaleUp_activity.addListener(animationListener);
+        scaleUp_activity.playTogether(scaleUp_shadow);
+        scaleUp_activity.playTogether(alpha_menu);
+        scaleUp_activity.start();
+    }
+
+    public void setDirectionDisable(int direction){
+        disabledDirection.add(direction);
+    }
+
+    private boolean isInDisableDirection(int direction){
+        return disabledDirection.contains(direction);
+    }
+
+    private void setScaleDirection(int direction){
+
+        int screenWidth = getScreenWidth();
+        float pivotX;
+        float pivotY = getScreenHeight() * 0.5f;
+
+        if (direction == DIRECTION_LEFT){
+            sv_menu = sv_left_menu;
+            pivotX  = screenWidth * 1.5f;
+        }else{
+            sv_menu = sv_right_menu;
+            pivotX  = screenWidth * -0.5f;
         }
+
+        ViewHelper.setPivotX(view_activity, pivotX);
+        ViewHelper.setPivotY(view_activity, pivotY);
+        ViewHelper.setPivotX(iv_shadow, pivotX);
+        ViewHelper.setPivotY(iv_shadow, pivotY);
+        scaleDirection = direction;
     }
 
     /**
-     * return the flag of menu status;
+     * return the flag of main status;
      *
      * @return
      */
@@ -187,36 +311,13 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         return isOpened;
     }
 
-    /**
-     * if current menu was the top level menu , return true;
-     * @return
-     */
-    public boolean isTopMenu(){
-        return stack_menu.empty();
-    }
-
-    /**
-     *  call the method relative to open menu;
-     */
-    private void showOpenMenuRelative(){
-        setViewPadding();
-        scaleDown_activity.start();
-        // remove self if has not remove
-        if (getParent() != null) view_decor.removeView(this);
-        if (sv_menu.getParent() != null) removeMenuLayout();
-        view_decor.addView(this, 0);
-        view_decor.addView(sv_menu);
-    }
-
-    /**
-     * the animation listener of the iv_screenshot;
-     */
     private Animator.AnimatorListener animationListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
             if (isOpened){
-                layout_menu.removeAllViews();
-                showCurrentMenuDelay();
+                sv_menu.setVisibility(VISIBLE);
+                if (menuListener != null)
+                    menuListener.openMenu();
             }
         }
 
@@ -224,8 +325,9 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         public void onAnimationEnd(Animator animation) {
             // reset the view;
             if(!isOpened){
-                view_decor.removeView(ResideMenu.this);
-                view_decor.removeView(sv_menu);
+                sv_menu.setVisibility(GONE);
+                if (menuListener != null)
+                    menuListener.closeMenu();
             }
         }
 
@@ -239,121 +341,6 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
         }
     };
-
-
-    /**
-     * the animation listener of closing the menu
-     */
-    private Animator.AnimatorListener closeListener = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animation) {
-
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            if(isMenuItemClick && current_menu_item != null){
-                activity.onOptionsItemSelected(current_menu_item);
-            }
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-
-        }
-    };
-
-    @UiThread
-    void showCurrentMenuDelay(){
-        showMenuItem(current_menu_parent);
-    }
-
-    /**
-     * show the menu item on the UI;
-     *
-     * @param menu
-     */
-    private void showMenuItem(Menu menu){
-
-        current_menu_parent = menu;
-        layout_menu.removeAllViews();
-        for(int i = 0; i < menu.size() ; i ++)
-            createMenuItem(menu.getItem(i) ,i);
-    }
-
-    /**
-     * the listener of menu item's click event;
-     */
-    private OnClickListener onMenuClickListener =  new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            MenuItem menuItem = ((ResideMenuItem)view).getMenu();
-            if(menuItem.hasSubMenu()){
-                stack_menu.push(current_menu_parent);
-                showMenuItem(menuItem.getSubMenu());
-            }else{
-                isMenuItemClick = true;
-                current_menu_item = menuItem;
-                if ( menuItem.getItemId() == menuBackId) {
-                    popBackMenu();
-                }else{
-                    closeMenu();
-                }
-            }
-
-        }
-    };
-
-    /**
-     * create the view ResideMenuItem and add it to layout_menu;
-     *
-     * @param menu
-     * @param menu_index the position of the menu;
-     * @return
-     */
-    private ResideMenuItem createMenuItem(MenuItem menu,int menu_index){
-
-        ResideMenuItem menuItem = ResideMenuItem_.build(activity);
-        layout_menu.addView(menuItem);
-
-        ViewHelper.setAlpha(menuItem, 0);
-        menuItem.setMenu(menu);
-        menuItem.setOnClickListener(onMenuClickListener);
-        menuItem.setIconColor(AppConstant.IV_COLOR[ menu_index % AppConstant.IV_COLOR.length ]);
-
-        AnimatorSet scaleUp = new AnimatorSet();
-        scaleUp.playTogether(
-                ObjectAnimator.ofFloat(menuItem, "translationX", -100.f, 0.0f),
-                ObjectAnimator.ofFloat(menuItem, "alpha", 0.0f, 1.0f)
-        );
-
-        scaleUp.setInterpolator(AnimationUtils.loadInterpolator(activity,
-                android.R.anim.anticipate_overshoot_interpolator));
-        // with animation;
-        scaleUp.setStartDelay(50 * menu_index);
-        scaleUp.setDuration(400).start();
-
-        return menuItem;
-    }
-
-
-    private void buildAnimationSet(){
-        scaleUp_activity   = buildScaleUpAnimation(view_activity,1.0f,1.0f);
-        scaleUp_shadow     = buildScaleUpAnimation(iv_shadow,1.0f,1.0f);
-        scaleDown_activity = buildScaleDownAnimation(view_activity,0.5f,0.5f);
-        scaleDown_shadow   = buildScaleDownAnimation(iv_shadow,shadow_ScaleX,0.59f);
-        scaleUp_activity.addListener(animationListener);
-        scaleUp_activity.addListener(closeListener);
-        scaleUp_activity.playTogether(scaleUp_shadow);
-        scaleDown_shadow.addListener(animationListener);
-        scaleDown_activity.playTogether(scaleDown_shadow);
-    }
 
     /**
      * a helper method to build scale down animation;
@@ -365,12 +352,6 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      */
     private AnimatorSet buildScaleDownAnimation(View target,float targetScaleX,float targetScaleY){
 
-        // set the pivotX and pivotY to scale;
-        int pivotX = (int) (metricsUtil.getScreenWidth(activity)  * 1.5);
-        int pivotY = (int) (metricsUtil.getScreenHeight(activity) * 0.5);
-
-        ViewHelper.setPivotX(target, pivotX);
-        ViewHelper.setPivotY(target, pivotY);
         AnimatorSet scaleDown = new AnimatorSet();
         scaleDown.playTogether(
                 ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
@@ -403,9 +384,20 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         return scaleUp;
     }
 
+    private AnimatorSet buildMenuAnimation(View target, float alpha){
+
+        AnimatorSet alphaAnimation = new AnimatorSet();
+        alphaAnimation.playTogether(
+                ObjectAnimator.ofFloat(target, "alpha", alpha)
+        );
+
+        alphaAnimation.setDuration(250);
+        return alphaAnimation;
+    }
+
     /**
-     * if there ware some view you don't want reside menu
-     * to intercept their touch event,you can user the method
+     * if there ware some view you don't want reside main
+     * to intercept their touch event,you can use the method
      * to set.
      *
      * @param v
@@ -451,15 +443,70 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     //  GestureListener
     //
     //--------------------------------------------------------------------------
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
     }
 
+    private void setScaleDirectionByRawX(float currentRawX){
+        if (currentRawX < lastRawX)
+            setScaleDirection(DIRECTION_RIGHT);
+        else
+            setScaleDirection(DIRECTION_LEFT);
+    }
+
+    private float getTargetScale(float currentRawX){
+        float scaleFloatX = ((currentRawX - lastRawX) / getScreenWidth()) * 0.75f;
+        scaleFloatX = scaleDirection == DIRECTION_RIGHT ? - scaleFloatX : scaleFloatX;
+
+        float targetScale = ViewHelper.getScaleX(view_activity) - scaleFloatX;
+        targetScale = targetScale > 1.0f ? 1.0f : targetScale;
+        targetScale = targetScale < 0.5f ? 0.5f : targetScale;
+        return targetScale;
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        gestureDetector.onTouchEvent(ev);
+        float currentActivityScaleX = ViewHelper.getScaleX(view_activity);
+        if (currentActivityScaleX == 1.0f)
+            setScaleDirectionByRawX(ev.getRawX());
+
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                canScale = !isInIgnoredView(ev);
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                if (!canScale || isInDisableDirection(scaleDirection))
+                    break;
+                if (currentActivityScaleX < 0.95)
+                    sv_menu.setVisibility(VISIBLE);
+
+                float targetScale = getTargetScale(ev.getRawX());
+                ViewHelper.setScaleX(view_activity, targetScale);
+                ViewHelper.setScaleY(view_activity, targetScale);
+                ViewHelper.setScaleX(iv_shadow, targetScale + shadow_AdjustScaleX);
+                ViewHelper.setScaleY(iv_shadow, targetScale + shadow_AdjustScaleY);
+                ViewHelper.setAlpha(sv_menu, (1 - targetScale) * 2.0f);
+                break;
+
+            case MotionEvent.ACTION_UP:
+                if (!canScale)
+                    break;
+                if (isOpened()){
+                    if (currentActivityScaleX > 0.55f)
+                        closeMenu();
+                    else
+                        openMenu(scaleDirection);
+                }else if (!isOpened()){
+                    if (currentActivityScaleX < 0.95f)
+                        openMenu(scaleDirection);
+                    else
+                        closeMenu();
+                }
+                break;
+        }
+        lastRawX = ev.getRawX();
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -480,7 +527,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
-        return false;
+        return true;
     }
 
     @Override
@@ -490,28 +537,30 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
-
-        if(isInIgnoredView(motionEvent) || isInIgnoredView(motionEvent2))
-            return false;
-
-        int distanceX    = (int) (motionEvent2.getX() - motionEvent.getX());
-        int distanceY    = (int) (motionEvent2.getY() - motionEvent.getY());
-        int screenWidth  = (int) metricsUtil.getScreenWidth(activity);
-
-        if(Math.abs(distanceY) > screenWidth * 0.3)
-            return false;
-
-        if(Math.abs(distanceX) > screenWidth * 0.3){
-            if(distanceX > 0 && !isOpened ){
-                // from left to right;
-                openMenu();
-            }else if(distanceX < 0 && isOpened){
-                // from right th left;
-                closeMenu();
-            }
-        }
-
         return false;
+    }
+
+    public int getScreenHeight(){
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
+    }
+
+    public int getScreenWidth(){
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
+
+    public interface OnMenuListener{
+
+        /**
+         * the method will call on the finished time of opening main's animation.
+         */
+        public void openMenu();
+
+        /**
+         * the method will call on the finished time of closing main's animation  .
+         */
+        public void closeMenu();
     }
 
 }

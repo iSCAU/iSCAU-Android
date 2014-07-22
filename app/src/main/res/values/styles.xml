@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!-- Action Bar title -->
-    <style name="ActionBarTitle" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
-        <item name="android:layout_centerHorizontal">true</item>
+    <style name="ActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/actionar_title_color</item>
     </style>
 
     <!-- Action Bar sub title -->
-    <style name="ActionBarSubTitle" parent="TextAppearance.Sherlock.Widget.ActionBar.Subtitle">
-        <item name="android:layout_centerHorizontal">true</item>
+    <style name="ActionBarSubTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/actionar_title_color</item>
     </style>
 
     <!-- ActionBar Style -->
-    <style name="ActionBar" parent="Widget.Sherlock.ActionBar">
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="titleTextStyle">@style/ActionBarTitle</item>
         <item name="subtitleTextStyle">@style/ActionBarSubTitle</item>
-        <item name="background">@drawable/actionbar_background</item>
+        <item name="background">@drawable/action_bar</item>
+        <item name="displayOptions">showTitle</item>
+    </style>
+
+    <!--ActionBarWidget Style-->
+    <style name="ActionBarWidget" parent="@style/Theme.AppCompat">
+        <item name="searchViewCloseIcon">@drawable/menu_icon_close</item>
+        <item name="searchViewGoIcon">@drawable/menu_icon_search</item>
+        <item name="searchViewSearchIcon">@drawable/menu_icon_search</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabs</item>
     </style>
 
     <!-- Theme -->
-    <style name="Theme.SpecialWhite" parent="Theme.Sherlock.Light">
+    <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/background_normal</item>
-        <item name="windowContentOverlay">@drawable/actionbar_shadow</item>
+        <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="actionBarWidgetTheme">@style/ActionBarWidget</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabs</item>
     </style>
 
-    <!-- comment -->
-    <style name="comment_item_sub_title" parent="Widget">
-        <item name="android:textSize">@dimen/comment_text_size</item>
-        <item name="android:textColor">@color/listitem_goal_sub_title_color</item>
+    <!-- ActionBar tabs styles -->
+    <style name="ActionBarTabs"
+        parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_special</item>
     </style>
 
     <!--login edittext-->
-    <style name="login_edittext" parent="Widget">
+    <style name="login_edittext" parent="android:Widget">
         <item name="android:background">@drawable/login_edittext</item>
         <item name="android:textSize">@dimen/normal_edittext_textsize</item>
         <item name="android:padding">@dimen/login_edittext_padding</item>
@@ -49,7 +59,7 @@
     </style>
 
     <!--login lable-->
-    <style name="login_lable" parent="Widget">
+    <style name="login_lable" parent="android:Widget">
         <item name="android:layout_gravity">left|center_vertical</item>
         <item name="android:textColor">@color/login_lable_font_color</item>
         <item name="android:paddingTop">@dimen/login_lable_padding_top</item>
@@ -58,30 +68,36 @@
     </style>
 
     <!-- login button -->
-    <style name="login_button" parent="Widget">
+    <style name="login_button" parent="android:Widget">
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/login_button_selector</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <!-- loading dialog -->
-    <style name="loading_dialog" parent="android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
     <!-- noraml button -->
-    <style name="noraml_button" parent="Widget">
+    <style name="noraml_button" parent="android:Widget">
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/param_button_selector</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="normal_item_sub_title" parent="Widget">
+    <!-- blue noraml button -->
+    <style name="blue_button" parent="noraml_button">
+        <item name="android:background">@drawable/blue_button_selector</item>
+    </style>
+
+    <!-- other settings button -->
+    <style name="settings_other_button" parent="android:Widget">
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/settings_other_button_selector</item>
+        <item name="android:textColor">@color/param_lable_textcolor</item>
+        <item name="android:textSize">@dimen/param_lable_textsize</item>
+    </style>
+
+    <style name="normal_item_sub_title" parent="android:Widget">
         <item name="android:textSize">@dimen/listitem_goal_sub_title_size</item>
         <item name="android:textColor">@color/listitem_goal_sub_title_color</item>
     </style>
@@ -114,7 +130,7 @@
 
     <style name="noraml_listview" parent="android:Widget">
         <item name="android:cacheColorHint">#00000000</item>
-        <item name="android:listSelector">@null</item>
+        <item name="android:listSelector">@drawable/settings_other_button_background_on</item>
         <item name="android:scrollbars">none</item>
         <item name="android:dividerHeight">@dimen/normal_listview_dividerHeight</item>
         <item name="android:divider">@null</item>
@@ -123,14 +139,14 @@
         <item name="android:paddingTop">@dimen/normal_listview_padding</item>
     </style>
 
-    <style name="listitem_separator" parent="Widget">
+    <style name="listitem_separator" parent="android:Widget">
         <item name="android:background">@drawable/listitem_separator</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:layout_marginBottom">5dp</item>
     </style>
 
     <!-- search button -->
-    <style name="search_button" parent="Widget">
+    <style name="search_button" parent="android:Widget">
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/search_button_selector</item>
         <item name="android:textSize">16sp</item>
@@ -138,7 +154,7 @@
     </style>
 
     <!--search edittext-->
-    <style name="search_edittext" parent="Widget">
+    <style name="search_edittext" parent="android:Widget">
         <item name="android:singleLine">true</item>
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:textSize">15sp</item>
@@ -148,15 +164,16 @@
     </style>
 
     <!-- pull to refresh list view header text -->
-    <style name="ptrHeader_text" parent="Widget">
+    <style name="ptrHeader_text" parent="android:Widget">
         <item name="android:textSize">@dimen/pull_to_refresh_header_textsize</item>
         <item name="android:textColor">@color/pull_to_refresh_lable_textcolor</item>
     </style>
 
     <!-- the lable text style of param activity and classtable modify activity -->
-    <style name="param_text_style" parent="Widget">
+    <style name="param_text_style" parent="android:Widget">
         <item name="android:textColor">@color/param_lable_textcolor</item>
         <item name="android:textSize">@dimen/param_lable_textsize</item>
+        <item name="android:paddingLeft">15dp</item>
     </style>
 
     <style name="class_modify_text_style" parent="param_text_style">
@@ -190,21 +207,21 @@
         <item name="android:textSize">@dimen/menu_lable_textsize</item>
     </style>
 
-    <style name="bus_station_text_style" parent="Widget">
+    <style name="bus_station_text_style" parent="android:Widget">
         <item name="android:layout_gravity">center_vertical|right</item>
         <item name="android:layout_marginLeft">2dp</item>
         <item name="android:textColor">@color/param_lable_textcolor</item>
         <item name="android:textSize">@dimen/param_lable_textsize</item>
     </style>
 
-    <style name="bus_state_text_style" parent="Widget">
+    <style name="bus_state_text_style" parent="android:Widget">
         <item name="android:layout_gravity">center_vertical|left</item>
         <item name="android:layout_marginLeft">4dp</item>
         <item name="android:textColor">@color/bus_state_lable_textcolor</item>
         <item name="android:textSize">@dimen/bus_state_lable_textsize</item>
     </style>
 
-    <style name="bus_state_time_text_style" parent="Widget">
+    <style name="bus_state_time_text_style" parent="android:Widget">
         <item name="android:layout_gravity">center_vertical|left</item>
         <item name="android:layout_marginLeft">2dp</item>
         <item name="android:textColor">@color/bus_state_time_lable_textcolor</item>
@@ -224,5 +241,41 @@
         <item name="android:textSize">15sp</item>
         <item name="android:hint">@string/hint_card_date</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="menu_title_label">
+        <item name="android:paddingLeft">28dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">#ff5a5a5b</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:background">@drawable/menu_title_background</item>
+    </style>
+
+    <style name="menu_item">
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="menu_item_icon">
+        <item name="android:layout_width">65dp</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="menu_item_label">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#2c2b2b</item>
+    </style>
+
+    <style name="tab_item_style">
+        <item name="android:button">@null</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/tab_textcolor_selector</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:layout_weight">1.0</item>
     </style>
 </resources>

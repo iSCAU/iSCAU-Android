@@ -1,12 +1,17 @@
 package cn.scau.scautreasure.ui;
 
 import android.widget.TextView;
-import cn.scau.scautreasure.AppConfig_;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.util.DateUtil;
-import cn.scau.scautreasure.widget.ResideMenu;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 /**
  * 软件公告通知.
@@ -16,31 +21,25 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  * Time: 下午1:36
  * Mail: specialcyci@gmail.com
  */
-@EFragment(R.layout.notification)
-public class Notification extends Common{
+@EActivity(R.layout.notification)
+public class Notification extends CommonActivity {
 
     @Pref cn.scau.scautreasure.AppConfig_ config;
     @ViewById TextView tv_content;
     @Bean  DateUtil dateUtil;
-    private String notification;
+    @Extra
+    String notification;
 
     @AfterViews
     void initViews(){
-        closeMenu();
         setTitle(R.string.title_notification);
-        getFragmentArguments();
         tv_content.setText(notification);
         config.lastSeeNotificationDate().put(dateUtil.getCurrentDateString());
     }
 
     @Click
-    void abs__home(){
-        getSherlockActivity().getSupportFragmentManager().popBackStack();
-        getResideMenu().openMenu();
-    }
-
-    private void getFragmentArguments(){
-        notification = getArguments().getString("notification");
+    void btn_back(){
+       this.finish();
     }
 
 }

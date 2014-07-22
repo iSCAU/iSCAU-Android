@@ -54,11 +54,18 @@ public interface AppConfig {
     @DefaultString("无")
     String widgetBackground();
 
+    // 已过期 from v2.4.+ .
     @DefaultBoolean(false)
     boolean classTableAsFirstScreen();
 
-    @DefaultString("")
-    String courseComment();
+    @DefaultInt(0)
+    int classTableSelectedTab(); // 记录用户当前选择的 Tab （单日 or 全周）;
+
+    @DefaultInt(-1)
+    int duringClassRingerMode();//上课时的情景模式，默认不设置
+
+    @DefaultInt(-1)
+    int afterClassRingerMode(); //下课后的情景模式，默认不设置
 
     long lastUpdated();
 }

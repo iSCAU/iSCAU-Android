@@ -22,7 +22,7 @@
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:text="@string/btn_i_know"
-            android:id="@id/abs__home"
+            android:id="@+id/btn_back"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/login_lable_padding_bottom"

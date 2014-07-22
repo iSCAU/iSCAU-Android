@@ -1,7 +1,5 @@
 package cn.scau.scautreasure.ui;
 
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -12,7 +10,7 @@ import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.CalendarHelper;
 import cn.scau.scautreasure.util.DateUtil;
-import com.actionbarsherlock.app.SherlockFragment;
+
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.roomorama.caldroid.WeekdayArrayAdapter;
@@ -29,8 +27,8 @@ import java.util.Iterator;
  * Time: 下午4:57
  * Mail: specialcyci@gmail.com
  */
-@EFragment ( R.layout.calendar )
-public class Calendar extends Common {
+@EActivity ( R.layout.calendar )
+public class Calendar extends CommonActivity {
 
     @ViewById
     WheelHorizontalView      wheel;
@@ -50,9 +48,15 @@ public class Calendar extends Common {
     private boolean scrolling = true;
     private HashMap<Date,CalendarHelper.Event> events;
 
+    @Override
+    void initActionBar(){
+        // 由于隐藏了标题栏，所以要覆盖初始化actionbar的函数
+        // 否则空指针
+        getSupportActionBar().hide();
+    }
+
     @AfterInject
     void init(){
-        getSherlockActivity().getSupportActionBar().hide();
         setUpCurrentYearMonth();
     }
 
@@ -62,22 +66,16 @@ public class Calendar extends Common {
         currentYear  =  cal.get(cal.YEAR);
     }
 
-    @Click
-    void abs__home(){
-        getResideMenu().openMenu();
-    }
-
-    @Override
-    public void onDestroyView() {
-        getSherlockActivity().getSupportActionBar().show();
-        super.onDestroyView();
-    }
-
     @AfterViews
     void initCanlendar(){
         setUpWheels();
         setUpCalendar();
         loadData();
+    }
+
+    @Click(R.id.back)
+    void back(){
+        finish();
     }
 
     private void setUpWheels(){
@@ -95,7 +93,6 @@ public class Calendar extends Common {
         setCalendarCurrentYearMonth();
         setCalendarFontAndListener();
         showCalendarInFragment();
-        addIgnoredView(layout_calendar);
     }
 
     private void setCalendarCurrentYearMonth(){

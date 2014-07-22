@@ -2,20 +2,18 @@ package cn.scau.scautreasure.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.scau.scautreasure.R;
+
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+
+import cn.scau.scautreasure.R;
 
 /**
  * User: special
@@ -71,7 +69,6 @@ public class ClassTabWidget extends LinearLayout{
 
         float offset = (float) (getWidth() - getPaddingLeft() - getPaddingRight()) / 7;
 
-        System.out.println("offset : " + offset);
         LinearLayout.LayoutParams params = (LayoutParams) iv_underline.getLayoutParams();
         params.width = (int) offset;
         iv_underline.setLayoutParams(params);

@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * User:  Special Leung
@@ -13,7 +14,7 @@ import java.util.List;
 //        "起始结束周" => "week_range",
 //        "上课时间" => "time",
 //        "教材" => "teaching_material"
-public class PickClassModel {
+public class PickClassModel implements Serializable{
     private String name;
     private String name_teacher;
     private String credit;
@@ -133,13 +134,13 @@ public class PickClassModel {
 
     public class PickClassList{
 
-        private List<PickClassModel> pickclassinfos;
+        private ArrayList<PickClassModel> pickclassinfos;
 
-        public List<PickClassModel> getPickclassinfos() {
+        public ArrayList<PickClassModel> getPickclassinfos() {
             return pickclassinfos;
         }
 
-        public void setPickclassinfos(List<PickClassModel> pickclassinfos) {
+        public void setPickclassinfos(ArrayList<PickClassModel> pickclassinfos) {
             this.pickclassinfos = pickclassinfos;
         }
     }

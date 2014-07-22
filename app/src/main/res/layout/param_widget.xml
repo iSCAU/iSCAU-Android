@@ -11,7 +11,8 @@
                 android:layout_height="wrap_content">
             <ImageView
                     android:id="@+id/param_iv"
-                    android:layout_width="4dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="2dp"
                     android:layout_height="match_parent"
                     android:contentDescription=""/>
 
@@ -39,6 +40,8 @@
         </LinearLayout>
 
         <ImageView
+                android:id="@+id/separator"
+                android:visibility="gone"
                 style="@style/listitem_separator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
