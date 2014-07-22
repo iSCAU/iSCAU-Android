@@ -1,21 +1,14 @@
 package cn.scau.scautreasure.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TabHost;
-import android.widget.TextView;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.devspark.appmsg.AppMsg;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -28,10 +21,8 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassAdapter;
@@ -44,7 +35,6 @@ import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.ClassTabWidget;
-
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_ALPHA;
 
 /**
@@ -62,9 +52,6 @@ public class ClassTable extends Common implements ServerOnChangeListener{
     @RestService EdusysApi   api;
     @ViewById    ViewPager   pager;
     @ViewById    cn.scau.scautreasure.widget.ClassTabWidget_ titles;
-    @ViewById TabHost tabHost;
-    @ViewById LinearLayout class_day;
-    @ViewById LinearLayout class_week;
     @Bean        DateUtil    dateUtil;
     @Bean        ClassHelper classHelper;
     private ArrayList<View>       listViews;
@@ -72,10 +59,6 @@ public class ClassTable extends Common implements ServerOnChangeListener{
     /** 课程表筛选显示模式  */
     public  static final int      MODE_ALL    = 0;
     public  static final int      MODE_PARAMS = 1;
-
-    //private LocalActivityManager manager = null;
-    private Activity mActivity;
-    //private TabHost tabHost;
 
     @AfterViews
     void setUpView(){
@@ -85,26 +68,6 @@ public class ClassTable extends Common implements ServerOnChangeListener{
         actionBar.setTitle(getTitle());
         actionBar.setSubtitle(dateUtil.getCurrentMonthDate());
         addIgnoredView(pager);
-
-        mActivity = getActivity();
-        TextView tabTextView = new TextView(mActivity);
-        tabHost.setup();
-        tabTextView.setText("class_day");
-        tabTextView.setGravity(Gravity.CENTER);
-        tabTextView.setPadding(0, 20, 0, 20);
-        tabTextView.setTextSize(20);
-        tabTextView.setBackgroundResource(R.drawable.class_tab_background);
-        //tabTextView.setOnFocusChangeListener(tabHostFocusChangeListener);
-        tabHost.addTab(tabHost.newTabSpec("class_day").setIndicator(tabTextView).setContent(R.id.class_day));
-        tabTextView = new TextView(mActivity);
-        tabTextView.setGravity(Gravity.CENTER);
-        tabTextView.setPadding(0, 20, 0, 20);
-        tabTextView.setTextSize(20);
-        tabTextView.setBackgroundResource(R.drawable.class_tab_background);
-        tabTextView.setText("class_week");
-        //tabTextView.setOnFocusChangeListener(tabHostFocusChangeListener);
-        tabHost.addTab(tabHost.newTabSpec("class_week").setIndicator(tabTextView).setContent(R.id.class_week));
-        //tabHost.setBackgroundColor(Color.WHITE);
     }
 
     private String getTitle(){
