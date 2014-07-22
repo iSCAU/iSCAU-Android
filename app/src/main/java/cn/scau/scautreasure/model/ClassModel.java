@@ -44,6 +44,9 @@ public class ClassModel implements Serializable {
     @DatabaseField
     private String location;
 
+    @DatabaseField
+    private int color;
+
     public ClassModel(){}
 
     public int getId() {
@@ -116,6 +119,14 @@ public class ClassModel implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setColor(int color){
+        this.color = color;
+    }
+
+    public int getColor(){
+        return color;
     }
 
     @Override

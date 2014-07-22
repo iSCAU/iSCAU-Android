@@ -239,6 +239,16 @@ public class Main extends SherlockFragmentActivity{
     }
 
     @OptionsItem
+    void menu_wclasstable(){
+        //WClassTable_.intent(this);
+        /*
+        Intent v = new Intent();
+        v.setClass(this,WClassTableActivity_.class);
+        startActivity(v);*/
+        UIHelper.startFragment(this,WClassTableActivity_.builder().build());
+    }
+
+    @OptionsItem
     void menu_goal(){
         UIHelper.startFragment(this, Param_.builder().build(),"target","goal","targetFragment",Goal_.class.getName());
     }
