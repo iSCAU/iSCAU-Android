@@ -1,6 +1,8 @@
 package cn.scau.scautreasure.ui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -13,6 +15,8 @@ import org.androidannotations.annotations.ViewById;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.PackageHelper;
+import cn.scau.scautreasure.helper.SplashHelper;
+import cn.scau.scautreasure.model.SplashModel;
 
 /**
  * User: special
@@ -32,8 +36,27 @@ public class Welcome extends Activity {
     @ViewById
     TextView tv_version;
 
+    boolean wantToExit = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SplashHelper splashHelper = new SplashHelper(getApplicationContext());
+        SplashModel splashModel = splashHelper.getSuitableSplash();
+        if(splashModel!=null){
+            Intent splash = new Intent(this,Splash_.class);
+            splash.putExtra("title",splashModel.getTitle());
+            startActivity(splash);
+            wantToExit = true;
+            finish();
+        }else{
+            splashHelper.loadData();
+        }
+    }
+
     @AfterViews
     void init() {
+        if(wantToExit) return;
         String originText  = tv_version.getText().toString();
         String versionName = packageHelper.getAppVersionName();
         tv_version.setText(originText + " " + versionName);
@@ -41,7 +64,7 @@ public class Welcome extends Activity {
     }
 
     @UiThread(delay = 2000)
-    void close(){
+    protected void close(){
         if(hasSetAccount()){
             Main_.intent(this).start();
         }else{

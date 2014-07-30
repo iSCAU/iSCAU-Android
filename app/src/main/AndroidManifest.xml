@@ -28,6 +28,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="cn.scau.scautreasure.ui.Splash_"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name="cn.scau.scautreasure.ui.Login_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
@@ -169,6 +172,8 @@
         </service>
 
         <service android:name=".service.NotificationService"/>
+
+        <service android:name=".service.SplashDownloadService"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
