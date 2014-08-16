@@ -120,6 +120,7 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     }
 
     private ParamWidget buildParamViews(String key,String[] values){
+        if(values==null) values = new String[]{"NULL"};
         ParamWidget paramWidget = ParamWidget_.build(getSherlockActivity());
         paramWidget.initView(key,values,wheelList.size());
         paramWidget.setSeparatorVisable(View.VISIBLE);

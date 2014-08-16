@@ -208,7 +208,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
     }
 
     private String getSimpleName(){
-        return getClass().getSimpleName();
+        return ((Object)this).getClass().getSimpleName();
     }
 
     /**

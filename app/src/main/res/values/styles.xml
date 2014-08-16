@@ -201,6 +201,16 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <style name="schoolActivityTab_click">
+        <item name="android:textColor">#484747</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="schoolActivityTab_normal">
+        <item name="android:textColor">#969696</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
     <style name="menu_lable_style">
         <item name="android:paddingLeft">5dp</item>
         <item name="android:textColor">@color/menu_textview</item>

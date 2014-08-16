@@ -370,6 +370,23 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        style="@style/menu_item"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/menu_activityinfomation"
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_activity_selector"/>
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_activityinfomation"/>
+
+                    </LinearLayout>
+
                 </TableRow>
 
             </TableLayout>

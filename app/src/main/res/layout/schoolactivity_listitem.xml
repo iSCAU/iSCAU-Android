@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="#22000000">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/schoolactivity_listitem_background">
+
+        <LinearLayout
+            android:id="@+id/expandable_toggle_button"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:id="@+id/imageView4"
+                    android:src="@drawable/icon_locate"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="21dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  第三教学楼"
+                    android:textSize="15sp"
+                    android:id="@+id/place" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:src="@android:color/black"
+                android:id="@+id/imageView"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_margin="12dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffffff"
+                    android:src="@drawable/logotest"
+                    android:layout_centerVertical="true" />
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true">
+
+                    <TableRow
+                        android:layout_weight="1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical|right">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="活动："
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="学生会招新"
+                            android:textSize="15sp"
+                            android:id="@+id/title" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_weight="1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="right">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="机构："
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="校学生会"
+                            android:textSize="15sp"
+                            android:id="@+id/association" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_weight="1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="right"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="时间："
+                            android:textColor="#66000000"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2014-08-27 00:00:00"
+                            android:textColor="#66000000"
+                            android:textSize="15sp"
+                            android:id="@+id/time" />
+                    </TableRow>
+                </TableLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/icon_new"
+            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:src="@drawable/icon_word_new"
+            />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/expandable"
+        android:layout_marginBottom="4dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="5dp">
+
+            <ImageView
+                android:layout_marginLeft="16dp"
+                android:src="#000000"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView2" />
+
+            <ImageView
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
+                android:src="#000000"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView3" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="2dp"
+            android:background="@drawable/schoolactivity_listitem_background">
+
+            <cn.scau.scautreasure.widget.SchoolActivityContentWebView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/content"
+                android:scrollbars="none" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
