@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.scau.scautreasure" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +16,8 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.SpecialWhite" >
+        android:theme="@style/Theme.SpecialWhite"
+        tools:replace="android:theme,android:icon,android:label">
 >
         <activity
             android:name="cn.scau.scautreasure.ui.Welcome_"
@@ -80,6 +82,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="cn.scau.scautreasure.ui.Introduction_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="cn.scau.scautreasure.ui.SchoolActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity

@@ -23,6 +23,7 @@
     <string name="tips">提示</string>
     <string name="tips_loading_classtable">正在加载课程表..</string>
     <string name="tips_loading_params">正在加载条件..第一次加载可能比较慢，请耐心等待.</string>
+    <string name="tips_no_allow_so_frequently">亲,刷新太频繁了,休息一会喝杯茶吧.</string>
     <string name="btn_continue">查   询</string>
     <string name="loading_goal">正在加载成绩..</string>
     <string name="tips_goal_null">没有找到你想要的成绩</string>
@@ -97,6 +98,7 @@
     <string name="listitem_lable_class_place">上课地点：</string>
     <string name="listitem_lable_teaching_material">教材：</string>
     <string name="menu_communityinformation">社区资讯</string>
+    <string name="menu_activityinfomation">校园活动</string>
     <string name="menu_guardianserves">家长服务</string>
     <string name="menu_studyinformation">学习资讯</string>
     <string name="menu_busandtelphone">校巴与常用电话</string>

@@ -48,7 +48,7 @@ public class SplashHelper {
 
     public static long getLastUpdate(Context ctx) {
         SharedPreferences sp = ctx.getSharedPreferences("splash", Context.MODE_PRIVATE);
-        return sp.getInt("lastUpdate", 0);
+        return sp.getLong("lastUpdate", 0);
     }
 
     public void setLastUpdate(long lastUpdate) {
@@ -79,7 +79,7 @@ public class SplashHelper {
 
     void loadData_() {
         try {
-            mSplashList = api.getSplash(0);
+            mSplashList = api.getSplash(getLastUpdate());
             setLastUpdate(System.currentTimeMillis()/1000);
         } catch (Exception e) {
             e.printStackTrace();
