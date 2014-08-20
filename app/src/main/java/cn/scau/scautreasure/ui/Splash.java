@@ -84,7 +84,7 @@ public class Splash extends Activity {
         close();
     }
 
-    @UiThread(delay = 2000)
+    @UiThread(delay = 3000)
     void close(){
         if(hasSetAccount()){
             Main_.intent(this).start();

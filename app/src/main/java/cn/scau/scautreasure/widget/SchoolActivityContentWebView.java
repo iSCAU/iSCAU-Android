@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -108,11 +109,11 @@ public class SchoolActivityContentWebView extends WebView {
                         "var _width = iwant._getWidth();\n" +
                         "var _margin = 12;\n" +
                         "document.body.style.padding= _margin;\n" +
-                        "for(var i=0;i<_img.length;i++){\n" +
+                        /*"for(var i=0;i<_img.length;i++){\n" +
                         "\t_img[i].style.marginTop= _margin;\n" +
                         "\t_img[i].style.marginBottom= _margin;\n" +
                         "\t_img[i].width = _width - _margin*2;\n" +
-                        "}\n" +
+                        "}\n" +*/
                         "document.body.style.display=\"\";\n" +
                         "}\n" +
                         "})();");
@@ -136,9 +137,9 @@ public class SchoolActivityContentWebView extends WebView {
         //String html = "<a href=\":::::mailto:www.baidu.com\">英国政府于2006年推出一项国家儿童测量计划（NCMP），是一项针对在校儿童少年身体健康检测战略，分别在4岁至5岁10岁到和11岁测定并记录孩子们的身高和体重，并以现公认的BMI标准来划定健康、超重和肥胖标准。</a>" +
         //       "<img src=\"http://www.iconpng.com/png/social_media_ifa/qq.png\" />";
         String html = content;
-        html = "<body style=\"display: none;\">" + html + "</body>";
+        html = "<body>" + html + "</body>";
         html = "<head><meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">" +
-                "<meta name=\"viewport\" content=\"width=200\" /></head>"
+                "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\" /></head>"
                 + html;
         try {
             FileInputStream fis = mContext.openFileInput(filename);
@@ -155,7 +156,7 @@ public class SchoolActivityContentWebView extends WebView {
             }
             e.printStackTrace();
         }
-
+        Log.d("============html===========",html);
         loadUrl("file://" + mContext.getFilesDir() + "/" + filename);
     }
 }
