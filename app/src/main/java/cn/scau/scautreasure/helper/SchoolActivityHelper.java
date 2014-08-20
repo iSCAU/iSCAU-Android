@@ -152,6 +152,13 @@ public class SchoolActivityHelper {
         if (lists != null && lists.size() != 0) {
             List<SchoolActivityModel> content = activities.getContent();
             try {
+                for(int i=content.size()-1;i>=0;i--){
+                    for(int j=lists.size()-1;j>=0;j--)
+                        if(content.get(i).getId()==lists.get(j).getId()){
+                            content.remove(i);
+                            break;
+                        }
+                }
                 content.addAll(0, lists);
                 //activities.setContent(content);
                 CacheUtil.get(mContext).put(cacheKey, activities);
