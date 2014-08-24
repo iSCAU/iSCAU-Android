@@ -110,7 +110,7 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
         if (model.getContent() == null || "".equals(model.getContent()))
             model.setContent("没有详细的说明哦！");
         final SchoolActivityContentWebView content = baseAdapterHelper.getView(R.id.content);
-        content.setContent(model.getContent() + "网易娱乐8月24日报道 据台湾媒体报道，艺人柯震东在北京涉毒被捕，所属经纪公司老板柴智屏23日说，柯震东获释后将一起返台，并举行道歉记者会。　　柯震东日前在北京涉嫌毒品案被捕，被处行政拘留14天，最快",
+        content.setContent(model.getContent(),
                 helper.getContentCacheName(model.getContent(), model.getT()));
 
         if (model.getIsNewOne())
