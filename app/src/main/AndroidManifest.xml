@@ -108,6 +108,14 @@
             android:label="@string/title_activity_about" >
         </activity>
         <activity
+            android:name="cn.scau.scautreasure.ui.CommonActivity_"
+            android:label="不想它报来自AA的error" >
+        </activity>
+        <activity
+            android:name="cn.scau.scautreasure.ui.CommonQueryActivity_"
+            android:label="不想它报来自AA的error" >
+        </activity>
+        <activity
             android:name="com.umeng.fb.ConversationActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity

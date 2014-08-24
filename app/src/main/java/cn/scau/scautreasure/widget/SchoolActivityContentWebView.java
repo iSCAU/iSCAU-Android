@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.regex.Matcher;
@@ -26,6 +29,7 @@ import cn.scau.scautreasure.R;
 
 /**
  * Created by stcdasqy on 2014-08-16.
+ * 这里添加了webView对自己高度的测量
  */
 public class SchoolActivityContentWebView extends WebView {
     private Context mContext;
@@ -45,7 +49,6 @@ public class SchoolActivityContentWebView extends WebView {
 
     void init() {
         getSettings().setAllowFileAccess(true);
-        //wv.getSettings().setAppCachePath(getFilesDir()+"/appCache");
         setWebViewClient(new WebViewClient() {
 
             @Override
@@ -68,7 +71,7 @@ public class SchoolActivityContentWebView extends WebView {
                         try {
                             mContext.startActivity(intent);
                         } catch (Exception e1) {
-			        		 /*
+                             /*
 			        		  * Something unexpected happened!
 			        		  */
                             Toast.makeText(mContext, url, Toast.LENGTH_LONG).show();
@@ -137,7 +140,7 @@ public class SchoolActivityContentWebView extends WebView {
         //String html = "<a href=\":::::mailto:www.baidu.com\">英国政府于2006年推出一项国家儿童测量计划（NCMP），是一项针对在校儿童少年身体健康检测战略，分别在4岁至5岁10岁到和11岁测定并记录孩子们的身高和体重，并以现公认的BMI标准来划定健康、超重和肥胖标准。</a>" +
         //       "<img src=\"http://www.iconpng.com/png/social_media_ifa/qq.png\" />";
         String html = content;
-        html = "<body>" + html + "</body>";
+        html = "<body style=\"background: rgb(250, 250, 250);\">" + html + "</body>";
         html = "<head><meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">" +
                 "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\" /></head>"
                 + html;
@@ -151,12 +154,31 @@ public class SchoolActivityContentWebView extends WebView {
                 fos.flush();
                 fos.close();
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             e.printStackTrace();
         }
-        Log.d("============html===========",html);
+        Log.d("============html===========", html);
         loadUrl("file://" + mContext.getFilesDir() + "/" + filename);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int mode = MeasureSpec.getMode(widthMeasureSpec);
+        //Log.e("webwidth","webwidth="+width);
+        if (width < 10) {
+            //this is unfair,I need more room.
+            WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+            DisplayMetrics dm = new DisplayMetrics();
+            wm.getDefaultDisplay().getMetrics(dm);
+            int screenWidth = dm.widthPixels;
+            if (screenWidth > width) width = screenWidth;
+        }
+        //widthMeasureSpec = MeasureSpec.makeMeasureSpec(width,MeasureSpec.EXACTLY);
+        //heightMeasureSpec = MeasureSpec.makeMeasureSpec(10000,MeasureSpec.AT_MOST);
+        // heightMeasureSpec must be 0,cause the webView is in the listView.
+        super.onMeasure(widthMeasureSpec, 0);
+        Log.e("measureWebView", "w=" + getMeasuredWidth() + ",h=" + getMeasuredHeight());
     }
 }

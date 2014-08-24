@@ -49,6 +49,7 @@ public class SchoolActivity extends CommonActivity {
     private SchoolActivityHelper helper;
     private SchoolActivityPullToRefresh today, tomorrow, later;
     private boolean alreadyInLoadData = false;
+    private boolean isFirstTimeOpenActivity = true;
 
     @AfterViews
     void initView() {
@@ -78,6 +79,11 @@ public class SchoolActivity extends CommonActivity {
         //loadData();
     }
 
+    @Click
+    void iv_back(){
+        finish();
+    }
+
     /*
      * 这里因为种种原因要这么做，getWidth=0是没办法避免的事情，只好等待
      * 另外在titles成功changeTab到 <今天> 这个标签栏之后，再设置相应的listener。
@@ -103,8 +109,7 @@ public class SchoolActivity extends CommonActivity {
 
     @Override
     void initActionBar() {
-        // 由于隐藏了标题栏，所以要覆盖初始化actionbar的函数
-        // 否则空指针
+        //留空
     }
 
     void initPullToRefreshListView(PullToRefreshListView view) {
@@ -206,7 +211,7 @@ public class SchoolActivity extends CommonActivity {
     void loadData(Object... params) {
         if (alreadyInLoadData) return;
         long lastUpdate = helper.getLastUpdate();
-        if (System.currentTimeMillis() / 1000 - lastUpdate < 10) {
+        if (!isFirstTimeOpenActivity && System.currentTimeMillis() / 1000 - lastUpdate < 10) {
             Log.e("frequently", "lastUpdate=" + lastUpdate + ",current=" + System.currentTimeMillis() / 1000);
             tips_no_allow_so_frequently();
             stopPullToRefreshListView();
@@ -230,6 +235,7 @@ public class SchoolActivity extends CommonActivity {
             e.printStackTrace();
             handleNoNetWorkError(getSherlockActivity());
         } finally {
+            if(isFirstTimeOpenActivity) isFirstTimeOpenActivity = false;
             alreadyInLoadData = false;
             stopPullToRefreshListView();
         }

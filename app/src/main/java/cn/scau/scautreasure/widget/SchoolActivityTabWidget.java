@@ -18,8 +18,8 @@ import cn.scau.scautreasure.R;
 /**
  * copy from ClassTableTabWidget,服务于SchoolActivity
  */
-@EViewGroup(R.layout.schoolactivity_tab )
-public class SchoolActivityTabWidget extends LinearLayout{
+@EViewGroup(R.layout.schoolactivity_tab)
+public class SchoolActivityTabWidget extends LinearLayout {
 
     @ViewById
     ImageView iv_underline;
@@ -27,6 +27,9 @@ public class SchoolActivityTabWidget extends LinearLayout{
     @ViewById
     LinearLayout linear_tab;
 
+    /*这里用Activity的context是因为在ADT的预览当中，它可以先阻拦这个Widget的初始化工作
+     *ADT的预览在加载TextAppearance的资源中总有问题，期待ADT的更新。
+     */
     private Activity ctx;
 
     private int currentPosition = 0;
@@ -35,14 +38,14 @@ public class SchoolActivityTabWidget extends LinearLayout{
 
     public SchoolActivityTabWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.ctx          = (Activity) context;
+        this.ctx = (Activity) context;
     }
 
     @AfterViews
-    void initView(){
+    void initView() {
         int count = linear_tab.getChildCount();
-        for(int i = 0; i < count ;i ++) setTabTextStyle(i,false);
-        for(int j = 0; j < count ;j ++) {
+        for (int i = 0; i < count; i++) setTabTextStyle(i, false);
+        for (int j = 0; j < count; j++) {
             View v = linear_tab.getChildAt(j);
             v.setOnClickListener(onTabClick);
             v.setTag(j);
@@ -60,9 +63,10 @@ public class SchoolActivityTabWidget extends LinearLayout{
 
     /**
      * true the underline control to the click position
+     *
      * @param position
      */
-    public void changeTab(int position){
+    public void changeTab(int position) {
 
         float offset = (float) (getWidth() - getPaddingLeft() - getPaddingRight()) / 3;
 
@@ -71,35 +75,32 @@ public class SchoolActivityTabWidget extends LinearLayout{
         iv_underline.setLayoutParams(params);
 
         TranslateAnimation animation = new TranslateAnimation(
-                offset * currentPosition ,position * offset,0,0);
+                offset * currentPosition, position * offset, 0, 0);
 
         animation.setFillAfter(true);
         animation.setFillEnabled(true);
         animation.setDuration(300);
         iv_underline.startAnimation(animation);
 
-        setTabTextStyle(currentPosition,false);
-        setTabTextStyle(position,true);
+        setTabTextStyle(currentPosition, false);
+        setTabTextStyle(position, true);
         currentPosition = position;
     }
 
     /**
      * set the tab text style according to if is clicked;
+     *
      * @param position
      * @param isClicked
      */
-    public void setTabTextStyle(int position,boolean isClicked){
+    public void setTabTextStyle(int position, boolean isClicked) {
 
         LinearLayout parent = (LinearLayout) linear_tab.getChildAt(position);
-        TextView     tv_eng = (TextView)     parent.getChildAt(0);
-        //TextView     tv_num = (TextView)     parent.getChildAt(1);
-
-        if(isClicked){
-            tv_eng.setTextAppearance(ctx,R.style.schoolActivityTab_click);
-            //tv_num.setTextAppearance(ctx,R.style.classTab_click_numtext);
-        }else{
-            tv_eng.setTextAppearance(ctx,R.style.schoolActivityTab_normal);
-            //tv_num.setTextAppearance(ctx,R.style.classTab_normal_numtext);
+        TextView tv_eng = (TextView) parent.getChildAt(0);
+        if (isClicked) {
+            tv_eng.setTextAppearance(ctx, R.style.schoolActivityTab_click);
+        } else {
+            tv_eng.setTextAppearance(ctx, R.style.schoolActivityTab_normal);
         }
 
     }
@@ -112,7 +113,7 @@ public class SchoolActivityTabWidget extends LinearLayout{
         this.listener = listener;
     }
 
-    public interface onTabChangeListener{
+    public interface onTabChangeListener {
         void change(int posistion);
     }
 }

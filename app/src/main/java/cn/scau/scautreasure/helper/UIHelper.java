@@ -23,6 +23,7 @@ import java.util.List;
 
 import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.adapter.SchoolActivityExpandableListAdapter;
 
 /**
  * User:  Special Leung
@@ -40,7 +41,7 @@ public class UIHelper {
     private static ProgressDialog dialog;
     public static enum LISTVIEW_EFFECT_MODE{
         EXPANDABLE, ALPHA, SWING,
-        EXPANDABLE_ALPHA,EXPANDABLE_SWING
+        EXPANDABLE_ALPHA,EXPANDABLE_SWING,WEBVIEW_EXPANDABLE
     }
 
     /**
@@ -132,6 +133,13 @@ public class UIHelper {
                 exAdapter = new SlideExpandableListAdapter(originAdapter,R.id.expandable_toggle_button,R.id.expandable);
                 returnAdapter     = new SwingLeftInAnimationAdapter(exAdapter);
                 ((SwingLeftInAnimationAdapter)returnAdapter).setAbsListView(listView);
+                break;
+
+            case WEBVIEW_EXPANDABLE:
+                returnAdapter = new SchoolActivityExpandableListAdapter(
+                        originAdapter,
+                        R.id.expandable_toggle_button,
+                        R.id.expandable);
                 break;
 
         }
