@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:paddingTop="12dp"
-              android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="12dp">
 
     <ImageView
         android:layout_width="match_parent"
@@ -17,43 +17,45 @@
 
         <cn.scau.scautreasure.widget.SchoolActivityToggle
             android:id="@+id/expandable_toggle_button"
-            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:background="@android:color/white"
-                android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/logo"
-                    android:layout_margin="24dp"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:background="#ffffffff"
-                    android:src="@drawable/logotest"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="24dp"
                     android:layout_weight="1"
-                    android:adjustViewBounds="false"
-                    android:layout_gravity="center_vertical" />
+                    android:adjustViewBounds="true"
+                    android:background="#ffffffff"
+                    android:src="@drawable/logotest" />
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="12dp"
-                    android:layout_weight="2.5">
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2.5"
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
                     <TextView
+                        android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
                         android:text="学生会招新"
-                        android:textSize="20sp"
-                        android:id="@+id/title"
-                        android:layout_marginBottom="12dp" />
+                        android:textSize="20sp" />
 
                     <TableLayout
                         android:layout_width="wrap_content"
@@ -62,72 +64,72 @@
                         android:layout_centerVertical="true">
 
                         <TableRow
-                            android:layout_weight="1"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:gravity="right"
-                            android:layout_margin="2dp">
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
+                            android:gravity="right">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/icon_green_association"
-                                android:layout_marginRight="6dp" />
+                                android:layout_marginRight="6dp"
+                                android:src="@drawable/icon_green_association" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="校学生会"
-                                android:textSize="12sp"
                                 android:id="@+id/association"
-                                android:layout_gravity="center_vertical" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:text="校学生会"
+                                android:textSize="12sp" />
                         </TableRow>
 
                         <TableRow
-                            android:layout_weight="1"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
                             android:gravity="right"
-                            android:orientation="vertical"
-                            android:layout_margin="2dp">
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/icon_green_time"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginRight="6dp" />
+                                android:layout_marginRight="6dp"
+                                android:src="@drawable/icon_green_time" />
 
                             <TextView
+                                android:id="@+id/time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
                                 android:text="2014年8月27日  00:00"
-                                android:textSize="12sp"
-                                android:id="@+id/time"
-                                android:layout_gravity="center_vertical" />
+                                android:textSize="12sp" />
                         </TableRow>
 
                         <TableRow
-                            android:layout_weight="1"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:gravity="center_vertical|right"
-                            android:layout_margin="2dp">
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|right">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/icon_locate"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginRight="6dp" />
+                                android:layout_marginRight="6dp"
+                                android:src="@drawable/icon_locate" />
 
                             <TextView
+                                android:id="@+id/place"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
                                 android:text="第三教学楼"
-                                android:textSize="12sp"
-                                android:id="@+id/place"
-                                android:layout_gravity="center_vertical" />
+                                android:textSize="12sp" />
                         </TableRow>
 
                     </TableLayout>
@@ -138,74 +140,73 @@
 
         <ImageView
             android:id="@+id/icon_new"
-            android:layout_gravity="right"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:visibility="gone"
+            android:layout_gravity="right"
             android:src="@drawable/icon_word_new"
-            />
+            android:visibility="gone" />
 
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/fake_toggle_triangle"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/fake_toggle_triangle"
         android:visibility="gone">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:src="#cef1f4"
-            android:layout_gravity="top" />
+            android:layout_gravity="top"
+            android:src="#cef1f4" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_green_triangle"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_green_triangle" />
     </FrameLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/expandable"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/expandable">
+        android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/cut_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:id="@+id/cut_line"
             android:src="#22000000" />
 
         <cn.scau.scautreasure.widget.SchoolActivityContentWebView
-            android:hardwareAccelerated="false"
-            android:layerType="software"
-            android:layout_below="@id/cut_line"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/content"
+            android:layout_below="@id/cut_line"
+            android:hardwareAccelerated="false"
+            android:layerType="software"
             android:scrollbars="none" />
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/toggle_triangle"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/toggle_triangle">
+        android:layout_height="fill_parent">
 
         <ImageView
+            android:id="@+id/cross_bar"
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:src="#cef1f4"
             android:layout_gravity="top"
-            android:id="@+id/cross_bar" />
+            android:src="#cef1f4" />
 
         <ImageView
+            android:id="@+id/triangle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_green_triangle"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/triangle" />
+            android:src="@drawable/icon_green_triangle" />
     </FrameLayout>
 
 </LinearLayout>
