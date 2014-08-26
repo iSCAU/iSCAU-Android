@@ -30,8 +30,9 @@
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_margin="24dp"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitCenter"
                     android:background="#ffffffff"
                     android:src="@drawable/logotest"
                     android:layout_centerVertical="true"
