@@ -18,7 +18,8 @@ import cn.scau.scautreasure.R;
  * webView的高度
  */
 public class SchoolActivityToggle extends LinearLayout {
-    private ArrayList<OnClickListener> mOnClickListener = new ArrayList<OnClickListener>();
+    private OnClickListener expandableOnClickListener = null;
+    private OnClickListener extraOnClickListener = null;
     private View mWebView_parent;
     private View cut_line;
     private View fake_toggle_triangle;
@@ -47,9 +48,7 @@ public class SchoolActivityToggle extends LinearLayout {
                             lp.height = LayoutParams.WRAP_CONTENT;
                             mWebView_parent.setLayoutParams(lp);
                             mWebView_parent.setVisibility(GONE);
-                            for (int i = 0; i < mOnClickListener.size(); i++) {
-                                mOnClickListener.get(i).onClick(SchoolActivityToggle.this);
-                            }
+                            SchoolActivityToggle.this.onClick();
                         }
                     }, 150);
                     mWebView_parent.postDelayed(new Runnable() {
@@ -59,9 +58,7 @@ public class SchoolActivityToggle extends LinearLayout {
                         }
                     }, 330 + 150);
                 } else {
-                    for (int i = 0; i < mOnClickListener.size(); i++) {
-                        mOnClickListener.get(i).onClick(SchoolActivityToggle.this);
-                    }
+                    SchoolActivityToggle.this.onClick();
                     mWebView_parent.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -81,6 +78,17 @@ public class SchoolActivityToggle extends LinearLayout {
     }
 
     public void setOnClickListener(OnClickListener l) {
-        mOnClickListener.add(l);
+        expandableOnClickListener = l;
+    }
+
+    public void setOnClickListener2(OnClickListener l) {
+        extraOnClickListener = l;
+    }
+
+    void onClick() {
+        if (expandableOnClickListener != null)
+            expandableOnClickListener.onClick(this);
+        if (extraOnClickListener != null)
+            extraOnClickListener.onClick(this);
     }
 }

@@ -81,7 +81,7 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
                 toggle_button.performClick();
             }
         });
-        toggle_button.setOnClickListener(new View.OnClickListener() {
+        toggle_button.setOnClickListener2(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final FrameLayout.LayoutParams flp = (FrameLayout.LayoutParams) cross_bar.getLayoutParams();
