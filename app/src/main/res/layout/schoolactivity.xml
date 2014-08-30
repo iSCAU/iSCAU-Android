@@ -1,59 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/background_normal"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_normal"
+    android:orientation="vertical">
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/schoolactivity_bar"
+        />
 
-    <LinearLayout
+    <cn.scau.scautreasure.widget.SchoolActivityTabWidget_
+        android:id="@+id/titles"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#9AD9EA"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_revert"
-                android:focusable="false"
-                android:text="@string/menu_activityinfomation"
-                android:textColor="@android:color/white"
-                android:textSize="30sp"/>
-        </LinearLayout>
-
-        <cn.scau.scautreasure.widget.SchoolActivityTabWidget_
-            android:id="@+id/titles"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="3dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"/>
-    </LinearLayout>
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <ImageView
         style="@style/listitem_separator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:contentDescription=""
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <android.support.v4.view.ViewPager
+        android:background="#f2f2f2"
         android:id="@+id/pager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 
 </LinearLayout>

@@ -15,7 +15,7 @@ public class SchoolActivityPagerAdapter extends PagerAdapter {
 
     private ArrayList<View> classListViews = new ArrayList<View>();
 
-    public void setViewList(ArrayList<View> viewList) {
+    public void setViewList(ArrayList<View> viewList){
         this.classListViews.clear();
         this.classListViews.addAll(viewList);
     }
