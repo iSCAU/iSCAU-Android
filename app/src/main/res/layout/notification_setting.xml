@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <ImageView
         style="@style/listitem_separator"
@@ -14,36 +14,36 @@
         android:contentDescription=""/>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <Button
 
-                style="@style/settings_other_button"
-                android:id="@+id/btn_time_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="每日提醒  (前一天20:00  PS:点“日”字设置)"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1" />
+            android:id="@+id/btn_time_setting"
+            style="@style/settings_other_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="每日提醒  (前一天20:00  PS:点“日”字设置)"/>
 
         <ToggleButton
-                android:layout_gravity="right"
-                style="@style/noraml_button"
-                android:id="@+id/btn_on_off"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:textSize="12sp"
-                android:textOn="开启"
-                android:textOff="关闭"
-                android:layout_weight="1"
-                />
+            android:id="@+id/btn_on_off"
+            style="@style/noraml_button"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:textOff="关闭"
+            android:textOn="开启"
+            android:textSize="12sp"
+            />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <ImageView
         style="@style/listitem_separator"

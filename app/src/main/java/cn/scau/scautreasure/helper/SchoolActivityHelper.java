@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import java.io.File;
@@ -19,19 +18,19 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.util.CryptUtil;
-import cn.scau.scautreasure.util.FormatUtil;
 
 /**
  * Created by stcdasqy on 2014-08-11.
  */
 public class SchoolActivityHelper {
 
+    private final static String cacheKey = "school_activity";
+    private final static String SP_Name = cacheKey;
     private Context mContext;
     private long todayTime;
     private long tomorrowTime;
@@ -43,9 +42,6 @@ public class SchoolActivityHelper {
     private List<SchoolActivityModel> today = new ArrayList<SchoolActivityModel>();
     private List<SchoolActivityModel> tomorrow = new ArrayList<SchoolActivityModel>();
     private List<SchoolActivityModel> later = new ArrayList<SchoolActivityModel>();
-
-    private final static String cacheKey = "school_activity";
-    private final static String SP_Name = cacheKey;
 
     public SchoolActivityHelper(Context ctx) {
         mContext = ctx;
@@ -107,6 +103,7 @@ public class SchoolActivityHelper {
                     }
 
                     if (d.before(todayDate)) {
+                        DateFormat df;
                         content.remove(i);
                         deleteLogoCache(act.getLogoUrl(), act.getT());
                         deleteContentCache(act.getContent(), act.getT());
@@ -154,9 +151,6 @@ public class SchoolActivityHelper {
                 for (int i = content.size() - 1; i >= 0; i--) {
                     for (int j = lists.size() - 1; j >= 0; j--)
                         if (content.get(i).getId() == lists.get(j).getId()) {
-                            SchoolActivityModel act = content.get(i);
-                            deleteLogoCache(act.getLogoUrl(), act.getT());
-                            deleteContentCache(act.getContent(), act.getT());
                             content.remove(i);
                             break;
                         }
@@ -212,6 +206,22 @@ public class SchoolActivityHelper {
                 .start();
     }
 
+    public long getLastUpdate() {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_Name, Context.MODE_PRIVATE);
+        return sp.getLong("lastUpdate", 0);
+    }
+
+    public void setLastUpdate(long lastUpdate) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_Name, Context.MODE_PRIVATE);
+        sp.edit().putLong("lastUpdate", lastUpdate).commit();
+    }
+
+    public interface OnDownloadStateChanged {
+        void onDownloadFinished(Bitmap bitmap);
+
+        void onDownloadFailure();
+    }
+
     class DownloadImageThread extends Thread {
         String ImageUrl, filename;
         OnDownloadStateChanged mOnDownloadStateChanged;
@@ -248,22 +258,6 @@ public class SchoolActivityHelper {
                     mOnDownloadStateChanged.onDownloadFailure();
             }
         }
-    }
-
-    public long getLastUpdate() {
-        SharedPreferences sp = mContext.getSharedPreferences(SP_Name, Context.MODE_PRIVATE);
-        return sp.getLong("lastUpdate", 0);
-    }
-
-    public void setLastUpdate(long lastUpdate) {
-        SharedPreferences sp = mContext.getSharedPreferences(SP_Name, Context.MODE_PRIVATE);
-        sp.edit().putLong("lastUpdate", lastUpdate).commit();
-    }
-
-    public interface OnDownloadStateChanged {
-        void onDownloadFinished(Bitmap bitmap);
-
-        void onDownloadFailure();
     }
 
 }

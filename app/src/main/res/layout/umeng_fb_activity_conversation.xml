@@ -1,16 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context=".ConversationActivity" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                tools:context=".ConversationActivity">
 
     <RelativeLayout
         android:id="@+id/umeng_fb_conversation_header"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
-        android:background="#000000" >
+        android:background="#000000">
 
         <Button
             android:id="@+id/umeng_fb_back"
@@ -25,16 +25,16 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:text="@string/umeng_fb_back"
-            android:textColor="#ffffff" 
-            android:visibility="invisible" />        
-        
+            android:textColor="#ffffff"
+            android:visibility="invisible"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/umeng_fb_title"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="25sp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,7 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:layout_below="@id/umeng_fb_conversation_header"
-        android:background="@color/umeng_fb_color_btn_pressed" >
+        android:background="@color/umeng_fb_color_btn_pressed">
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:paddingLeft="5dp"
             android:text="@string/umeng_fb_contact_info"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <ImageView
             android:layout_width="20dp"
@@ -60,7 +60,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:src="@drawable/umeng_fb_arrow_right" />
+            android:src="@drawable/umeng_fb_arrow_right"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -68,7 +68,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/umeng_fb_conversation_contact_entry"
-        android:background="@drawable/umeng_fb_conversation_bg" >
+        android:background="@drawable/umeng_fb_conversation_bg">
 
         <ListView
             android:id="@+id/umeng_fb_reply_list"
@@ -83,7 +83,7 @@
             android:divider="@null"
             android:headerDividersEnabled="false"
             android:listSelector="@android:color/transparent"
-            android:transcriptMode="alwaysScroll" >
+            android:transcriptMode="alwaysScroll">
         </ListView>
 
         <RelativeLayout
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#000000"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/umeng_fb_send"
@@ -106,7 +106,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="@string/umeng_fb_send"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"/>
 
             <EditText
                 android:id="@+id/umeng_fb_reply_content"
@@ -119,7 +119,7 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="5dp"/>
         </RelativeLayout>
     </RelativeLayout>
 

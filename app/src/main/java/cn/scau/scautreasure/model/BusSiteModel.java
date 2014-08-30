@@ -2,11 +2,10 @@ package cn.scau.scautreasure.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 校巴站点信息模型;
- *
+ * <p/>
  * User: special
  * Date: 13-9-8
  * Time: 下午1:15
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public class BusSiteModel implements Serializable {
 
-    private int    id;
+    private int id;
     private String site;
     private String direction;
     private double longitude;
@@ -32,17 +31,16 @@ public class BusSiteModel implements Serializable {
         return site;
     }
 
+    public void setSite(String site) {
+        this.site = site;
+    }
+
     public String getDirection() {
         return direction;
     }
 
     public void setDirection(String direction) {
         this.direction = direction;
-    }
-
-
-    public void setSite(String site) {
-        this.site = site;
     }
 
     public double getLongitude() {
@@ -72,7 +70,7 @@ public class BusSiteModel implements Serializable {
                 '}';
     }
 
-    public class SiteList{
+    public class SiteList {
 
         private ArrayList<BusSiteModel> sites;
 

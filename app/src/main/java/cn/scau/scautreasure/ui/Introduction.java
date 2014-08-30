@@ -30,7 +30,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Time: 下午11:35
  * Mail: specialcyci@gmail.com
  */
-@EActivity( R.layout.introduction )
+@EActivity(R.layout.introduction)
 public class Introduction extends CommonActivity {
 
     @Bean
@@ -40,34 +40,34 @@ public class Introduction extends CommonActivity {
     View listView;
 
     @Extra("target")
-    String   target;
+    String target;
     @Extra("title")
-    int      title;
+    int title;
     private BaseAdapter adapter;
 
     @AfterViews
-    void init(){
+    void init() {
         loadData();
         setTitle(title);
     }
 
     @UiThread
-    void showContent(){
-        ((ListView)listView).setAdapter(adapter);
+    void showContent() {
+        ((ListView) listView).setAdapter(adapter);
     }
 
     @Background
     void loadData(Object... params) {
         String fileName = "introduction/" + target + ".json";
-        String context  = textUtil.getFromAssets(fileName);
+        String context = textUtil.getFromAssets(fileName);
         List<IntroductionModel> introList = IntroductionModel.parse(context);
         buildListViewAdapter(introList);
         showContent();
 
     }
 
-    private void buildListViewAdapter(List<IntroductionModel> introList){
-        IntroductionAdapter introAdapter  = new IntroductionAdapter(getSherlockActivity(), R.layout.introduction_listitem, introList);
-        adapter  = UIHelper.buildEffectAdapter(introAdapter, (AbsListView) listView,EXPANDABLE_ALPHA);
+    private void buildListViewAdapter(List<IntroductionModel> introList) {
+        IntroductionAdapter introAdapter = new IntroductionAdapter(getSherlockActivity(), R.layout.introduction_listitem, introList);
+        adapter = UIHelper.buildEffectAdapter(introAdapter, (AbsListView) listView, EXPANDABLE_ALPHA);
     }
 }

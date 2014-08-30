@@ -19,6 +19,27 @@ public class IntroductionModel {
     private String title;
     private String content;
 
+    public static List<IntroductionModel> parse(String str) {
+
+        List<IntroductionModel> tList = new ArrayList<IntroductionModel>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(str);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = (JSONObject) jsonArray.get(i);
+                IntroductionModel model = new IntroductionModel();
+                model.setTitle(object.getString("title"));
+                model.setContent(object.getString("content"));
+                tList.add(model);
+            }
+
+        } catch (JSONException e) {
+        }
+
+        return tList;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -33,27 +54,5 @@ public class IntroductionModel {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-
-    public  static List<IntroductionModel> parse(String str){
-
-        List<IntroductionModel> tList = new ArrayList<IntroductionModel>();
-
-        try {
-            JSONArray jsonArray = new JSONArray(str);
-
-            for ( int i = 0; i < jsonArray.length() ; i ++ ){
-                JSONObject        object = (JSONObject) jsonArray.get(i);
-                IntroductionModel model  = new IntroductionModel();
-                model.setTitle(object.getString("title"));
-                model.setContent(object.getString("content"));
-                tList.add(model);
-            }
-
-        } catch (JSONException e) {
-        }
-
-        return tList;
     }
 }

@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_normal"
+                android:orientation="vertical">
+
     <TextView
-            android:id="@+id/tv_content"
-            android:padding="5dp"
-            android:autoLink="all"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/notice_content_textcolor"
-            android:textSize="@dimen/notice_content_textsize"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginTop="7dp"
-            android:text="@string/tips_notice_detail_loading"/>
+        android:id="@+id/tv_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginTop="7dp"
+        android:autoLink="all"
+        android:padding="5dp"
+        android:text="@string/tips_notice_detail_loading"
+        android:textColor="@color/notice_content_textcolor"
+        android:textSize="@dimen/notice_content_textsize"/>
 
     <Button
-            style="@style/noraml_button"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:text="@string/btn_i_know"
-            android:id="@+id/btn_back"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/login_lable_padding_bottom"
-            android:layout_marginBottom="20dp"/>
+        android:id="@+id/btn_back"
+        style="@style/noraml_button"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="@dimen/login_lable_padding_bottom"
+        android:text="@string/btn_i_know"/>
 
 </RelativeLayout>

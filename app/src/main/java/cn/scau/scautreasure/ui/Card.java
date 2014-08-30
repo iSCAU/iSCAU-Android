@@ -36,28 +36,44 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Time: 下午3:55
  * Mail: specialcyci@gmail.com
  */
-@EFragment( R.layout.card )
+@EFragment(R.layout.card)
 public class Card extends CommonFragment {
 
-    @RestService CardApi api;
-    @ViewById( R.id.listView )
+    @RestService
+    CardApi api;
+    @ViewById(R.id.listView)
     PullToRefreshListView pullListView;
     private CardRecordAdapter cardadapter;
     private SlideExpandableListAdapter exadapter;
     private int page;
     private int count;
     private ArrayList<String> startAndEndDate;
+    /**
+     * listView下拉刷新;
+     */
+    private PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
+        @Override
+        public void onRefresh(PullToRefreshBase refreshView) {
+            if (page < Math.ceil(count / 10)) {
+                page++;
+                loadData(startAndEndDate);
+            } else {
+                AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
+                refreshView.setRefreshing(false);
+            }
+        }
+    };
     private ActionBarActivity ctx;
 
     @AfterInject
-    void init(){
+    void init() {
         ctx = getSherlockActivity();
         setTitle(R.string.title_card);
         tips_empty = R.string.tips_card_null;
     }
 
     @AfterViews
-    void initView(){
+    void initView() {
         getSherlockActivity().getSupportActionBar().show();
         pullListView.setOnRefreshListener(onRefreshListener);
         startAndEndDate = getArguments().getStringArrayList("startAndEndDate");
@@ -65,33 +81,17 @@ public class Card extends CommonFragment {
         loadData(startAndEndDate);
     }
 
-    /**
-     * listView下拉刷新;
-     */
-    private PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
-        @Override
-        public void onRefresh(PullToRefreshBase refreshView) {
-            if(page < Math.ceil(count/10)){
-                page++;
-                loadData(startAndEndDate);
-            }else{
-                AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
-                refreshView.setRefreshing(false);
-            }
-        }
-    };
-
     @UiThread
-    void showSuccessResult(CardRecordModel.RecordList l){
+    void showSuccessResult(CardRecordModel.RecordList l) {
 
         // new search
-        if(cardadapter == null){
+        if (cardadapter == null) {
             count = l.getCount();
             setListViewAdapter(l.getRecords());
             String tips = getString(R.string.tips_card_record_count) + count;
-            AppMsg.makeText(getSherlockActivity(),tips,AppMsg.STYLE_INFO).show();
+            AppMsg.makeText(getSherlockActivity(), tips, AppMsg.STYLE_INFO).show();
             UIHelper.getDialog().dismiss();
-        }else{
+        } else {
             // next page;
             cardadapter.addAll(l.getRecords());
             pullListView.onRefreshComplete();
@@ -104,28 +104,28 @@ public class Card extends CommonFragment {
         actionBar.setSubtitle(getString(R.string.title_sub_card) + l.getAmount());
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-        try{
+        try {
 
-            ArrayList<String> param = (ArrayList<String>)params[0];
+            ArrayList<String> param = (ArrayList<String>) params[0];
             CardRecordModel.RecordList records;
-            if( param == null){
+            if (param == null) {
                 records = api.getToday(AppContext.userName, app.getEncodeCardPassword());
-            }else{
+            } else {
                 records = api.getHistory(AppContext.userName, app.getEncodeCardPassword(), param.get(0), param.get(1), page);
             }
             showSuccessResult(records);
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(ctx, e.getStatusCode().value());
         }
     }
 
 
-    private void setListViewAdapter(List<CardRecordModel> cards){
-        cardadapter = new CardRecordAdapter(getSherlockActivity(), R.layout.card_listitem,cards);
+    private void setListViewAdapter(List<CardRecordModel> cards) {
+        cardadapter = new CardRecordAdapter(getSherlockActivity(), R.layout.card_listitem, cards);
         ListView lv = pullListView.getRefreshableView();
-        adapter     = UIHelper.buildEffectAdapter(cardadapter, lv, EXPANDABLE_SWING);
+        adapter = UIHelper.buildEffectAdapter(cardadapter, lv, EXPANDABLE_SWING);
         pullListView.setAdapter(adapter);
     }
 

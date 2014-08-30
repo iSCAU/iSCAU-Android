@@ -28,7 +28,7 @@ import cn.scau.scautreasure.util.CryptUtil;
  * Time: 下午3:12
  * Mail: specialcyci@gmail.com
  */
-@EActivity( R.layout.notice_detail )
+@EActivity(R.layout.notice_detail)
 public class NoticeDetail extends CommonActivity {
 
     @App
@@ -47,10 +47,10 @@ public class NoticeDetail extends CommonActivity {
     String time;
 
     @ViewById
-    TextView tv_title,tv_content,tv_time;
+    TextView tv_title, tv_content, tv_time;
 
     @AfterViews
-    void init(){
+    void init() {
         getSupportActionBar().hide();
 
         tv_title.setText(title);
@@ -59,33 +59,34 @@ public class NoticeDetail extends CommonActivity {
     }
 
     @UiThread
-    void showSuccessResult(String content){
+    void showSuccessResult(String content) {
         tv_content.setText(content);
     }
 
 
     /**
      * 展示http请求异常结果
+     *
      * @param requestCode
      */
     @UiThread
-    void showErroResult(int requestCode){
-        if(requestCode == 404){
+    void showErroResult(int requestCode) {
+        if (requestCode == 404) {
             AppMsg.makeText(this, getString(R.string.tips_default_null), AppMsg.STYLE_CONFIRM).show();
-        }else{
-            app.showError(requestCode,this);
+        } else {
+            app.showError(requestCode, this);
         }
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-        try{
+        try {
             url = CryptUtil.base64_url_safe(url);
             NoticeModel l = api.getContent(url);
             showSuccessResult(l.getContent());
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErroResult(e.getStatusCode().value());
-        }catch (Exception e){
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
     }

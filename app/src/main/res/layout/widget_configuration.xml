@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
+
     <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
         <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <com.larswerkman.holocolorpicker.ColorPicker
-                    android:id="@+id/picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.larswerkman.holocolorpicker.SVBar
-                    android:id="@+id/svbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/svbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.larswerkman.holocolorpicker.SaturationBar
-                    android:id="@+id/saturationbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/saturationbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.larswerkman.holocolorpicker.ValueBar
-                    android:id="@+id/valuebar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/valuebar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <cn.scau.scautreasure.widget.ParamWidget_
-                    android:id="@+id/param_fontSize"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/param_fontSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <cn.scau.scautreasure.widget.ParamWidget_
                 android:id="@+id/param_background"
                 android:layout_width="match_parent"

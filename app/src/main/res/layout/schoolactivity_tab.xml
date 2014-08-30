@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linear_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="6dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -24,8 +22,8 @@
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:text="今天"
-                android:textColor="#1fc1a8"
-                android:textSize="20sp" />
+                android:textColor="#484747"
+                android:textSize="25sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -40,8 +38,7 @@
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:text="明天"
-                android:textColor="#6d6d6d"
-                android:textSize="20sp" />
+                android:textSize="25sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -56,8 +53,7 @@
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:text="未来"
-                android:textColor="#6d6d6d"
-                android:textSize="20sp" />
+                android:textSize="25sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -70,10 +66,10 @@
         <ImageView
             android:id="@+id/iv_underline"
             android:layout_width="0dp"
-            android:layout_height="3dp"
+            android:layout_height="5dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:src="#1fc1a8" />
+            android:src="#C2FECC"/>
 
     </LinearLayout>
 

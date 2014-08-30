@@ -46,4 +46,6 @@
     <color name="swipe_refresh_2">#FF6D31</color>
     <color name="swipe_refresh_3">#73B66B</color>
     <color name="swipe_refresh_4">#29A2C6</color>
+
+    <color name="money_color">#f7882d</color>
 </resources>

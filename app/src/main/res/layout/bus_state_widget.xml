@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
     <TextView
-            style="@style/bus_station_text_style"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"/>
+        style="@style/bus_station_text_style"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"/>
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_state"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_state"/>
 
     <TextView
-            android:id="@+id/tv_bus_state"
-            android:paddingTop="1dp"
-            style="@style/bus_state_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/tv_bus_state"
+        style="@style/bus_state_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="1dp"/>
 
     <TextView
-            android:id="@+id/tv_bus_time"
-            android:paddingTop="2dp"
-            style="@style/bus_state_time_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/tv_bus_time"
+        style="@style/bus_state_time_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"/>
 
 </TableRow>

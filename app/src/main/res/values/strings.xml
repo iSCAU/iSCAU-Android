@@ -204,6 +204,7 @@
     <string name="menu_course_comments">选课评论</string>
     <string name="tab_classtable">课表</string>
     <string name="tab_features">功能</string>
+    <string name="tab_food">外卖</string>
     <string name="tab_settings">设置</string>
     <string name="tips_no_network">未知错误，请检查您的网络状态</string>
     <string name="settings_server">服务器选择</string>

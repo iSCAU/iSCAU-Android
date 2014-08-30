@@ -22,7 +22,13 @@ public class CourseCommentsAdapter extends QuickAdapter<CourseCommentModel> {
     private static int perPicX = 100;
     private static int perPicY = 100;
 
-    private void initUserImg(Context ctx){
+    public CourseCommentsAdapter(Context context, int layoutResId, List<CourseCommentModel> data) {
+        super(context, layoutResId, data);
+        if (userImg == null) initUserImg(context);
+
+    }
+
+    private void initUserImg(Context ctx) {
         Bitmap allCommentsFace = decodeResource(ctx.getResources(),
                 R.drawable.comments_face);
         int pWidth = allCommentsFace.getWidth();
@@ -32,16 +38,11 @@ public class CourseCommentsAdapter extends QuickAdapter<CourseCommentModel> {
         Log.e("pHeight", String.valueOf(pHeight));
         userImg = new Bitmap[pNumber];
         int k = 0;
-        for(int i=0; i < pWidth; i+=perPicX)
-            for(int j=0; j < pHeight; j+=perPicY) {
+        for (int i = 0; i < pWidth; i += perPicX)
+            for (int j = 0; j < pHeight; j += perPicY) {
                 userImg[k] = Bitmap.createBitmap(allCommentsFace, i, j, perPicX, perPicY);
                 k++;
             }
-    }
-    public CourseCommentsAdapter(Context context, int layoutResId, List<CourseCommentModel> data) {
-        super(context, layoutResId, data);
-        if(userImg == null) initUserImg(context);
-
     }
 
     protected void convert(BaseAdapterHelper baseAdapterHelper, CourseCommentModel model) {
@@ -57,32 +58,36 @@ public class CourseCommentsAdapter extends QuickAdapter<CourseCommentModel> {
         setUserImg(baseAdapterHelper);
     }
 
-    private String getDate(String orl){
-        int p=orl.indexOf(' ');
-        if(p > 0)
+    private String getDate(String orl) {
+        int p = orl.indexOf(' ');
+        if (p > 0)
             return orl.substring(0, p);
         else
             return orl;
     }
+
     @Deprecated
     private String getExtra(CourseCommentModel m) {
         return (m.getHasHomework() ? "有" : "无") + "作业、" +
                 (m.getIsCheck() ? "有" : "不") + "点名、" +
                 "考试情况：\"" + m.getExam() + "\"";
     }
+
     private void setExtraBackground(BaseAdapterHelper baseAdapterHelper, int ViewId,
-                                    boolean IsYes){
+                                    boolean IsYes) {
         View v = baseAdapterHelper.getView(ViewId);
-        if(IsYes)
+        if (IsYes)
             v.setBackgroundResource(R.drawable.radius_background_yes);
         else
             v.setBackgroundResource(R.drawable.radius_background_no);
     }
-    private void setUserImg(BaseAdapterHelper baseAdapterHelper){
+
+    private void setUserImg(BaseAdapterHelper baseAdapterHelper) {
         ImageView v = baseAdapterHelper.getView(R.id.userImg);
         Bitmap bitmap = userImg[(int) (userImg.length * Math.random())];
         v.setImageBitmap(bitmap);
     }
+
     /*
         No Scale Decode
      */

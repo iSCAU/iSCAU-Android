@@ -13,12 +13,12 @@ import cn.scau.scautreasure.model.CourseModel;
  */
 
 //MyStringHttpMessageConverter.class
-@Rest(rootUrl = "http://76.191.112.146/course_comments/index.php?s=Api/", converters = { GsonHttpMessageConverter.class } )
-public interface CourseApi{
+@Rest(rootUrl = "http://76.191.112.146/course_comments/index.php?s=Api/", converters = {GsonHttpMessageConverter.class})
+public interface CourseApi {
     //    BookModel.BookList searchBook(String title,int page);
     @Get("search/keyword/{course}")
     CourseModel.CourseList searchCourse(String course) throws RestClientException;
 
     @Get("comment/courseId/{courseId}/page/{page}")
-    CourseCommentModel.CourseCommentList getComments(int courseId,int page) throws RestClientException;
+    CourseCommentModel.CourseCommentList getComments(int courseId, int page) throws RestClientException;
 }

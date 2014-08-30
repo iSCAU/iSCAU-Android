@@ -3,7 +3,6 @@ package cn.scau.scautreasure.ui;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -26,7 +25,6 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
-import cn.scau.scautreasure.widget.ResideMenu;
 import cn.scau.scautreasure.widget.SpinnerDialog;
 
 /**
@@ -37,25 +35,25 @@ import cn.scau.scautreasure.widget.SpinnerDialog;
  * Mail:  specialcyci@gmail.com
  */
 @EFragment
-public abstract class CommonFragment extends Fragment implements DialogInterface.OnCancelListener{
+public abstract class CommonFragment extends Fragment implements DialogInterface.OnCancelListener {
 
     @App
-    protected AppContext   app;
+    protected AppContext app;
     @ViewById
     protected View listView;
     protected List list;
-    protected BaseAdapter  adapter;
+    protected BaseAdapter adapter;
     /**
      * 当服务器返回404(查询结果为空)的提示语;
      */
     protected int tips_empty = R.string.tips_default_null;
 
     @AfterInject
-    void initDialog(){
+    void initDialog() {
         UIHelper.buildDialog(getActivity(), this);
     }
 
-    protected Main_ parentActivity(){
+    protected Main_ parentActivity() {
         return (Main_) getActivity();
     }
 
@@ -64,19 +62,19 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
         super.onDestroyView();
     }
 
-    protected void setTitle(String title){
+    protected void setTitle(String title) {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(title);
     }
 
-    protected void setTitle(int titleResource){
+    protected void setTitle(int titleResource) {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(titleResource);
     }
 
-    protected void setSubTitle(String res){
+    protected void setSubTitle(String res) {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setSubtitle(res);
     }
 
-    protected void setDataEmptyTips(int tipsResource){
+    protected void setDataEmptyTips(int tipsResource) {
         this.tips_empty = tipsResource;
     }
 
@@ -84,20 +82,20 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
      * 展示查询结果;
      */
     @UiThread
-    void showSuccessResult(){
+    void showSuccessResult() {
         UIHelper.getDialog().dismiss();
-        ((ListView)listView).setAdapter(adapter);
+        ((ListView) listView).setAdapter(adapter);
     }
 
-    protected void showErrorResult(ActionBarActivity ctx, int requestCode, ServerOnChangeListener listener){
-        if (isServerError(requestCode)){
-            handleServerError(ctx,listener);
-        }else{
+    protected void showErrorResult(ActionBarActivity ctx, int requestCode, ServerOnChangeListener listener) {
+        if (isServerError(requestCode)) {
+            handleServerError(ctx, listener);
+        } else {
             showErrorResult(ctx, requestCode);
         }
     }
 
-    private boolean isServerError(int requestCode){
+    private boolean isServerError(int requestCode) {
         return requestCode == 500;
     }
 
@@ -107,23 +105,23 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
      * @param requestCode
      */
     @UiThread
-    void showErrorResult(ActionBarActivity ctx, int requestCode){
-        if(ctx == null) return;
+    void showErrorResult(ActionBarActivity ctx, int requestCode) {
+        if (ctx == null) return;
         UIHelper.getDialog().dismiss();
-        if(requestCode == 404){
+        if (requestCode == 404) {
             AppMsg.makeText(ctx, tips_empty, AppMsg.STYLE_CONFIRM).show();
-        }else{
-            AppContext.showError(requestCode,ctx);
+        } else {
+            AppContext.showError(requestCode, ctx);
         }
     }
 
-    private boolean ensureActivityAvailable(Activity ctx){
+    private boolean ensureActivityAvailable(Activity ctx) {
         return ctx != null && !ctx.isFinishing();
     }
 
     @UiThread
-    void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener){
-        if( !ensureActivityAvailable(ctx) )
+    void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener) {
+        if (!ensureActivityAvailable(ctx))
             return;
         UIHelper.getDialog().dismiss();
         String[] server = ctx.getResources().getStringArray(R.array.server);
@@ -141,8 +139,8 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
     }
 
     @UiThread
-    void handleNoNetWorkError(ActionBarActivity ctx){
-        if( !ensureActivityAvailable(ctx) )
+    void handleNoNetWorkError(ActionBarActivity ctx) {
+        if (!ensureActivityAvailable(ctx))
             return;
         AppMsg.makeText(ctx, getString(R.string.tips_no_network), AppMsg.STYLE_ALERT).show();
     }
@@ -169,18 +167,18 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
         MobclickAgent.onPageEnd(getSimpleName());
     }
 
-    private String getSimpleName(){
+    private String getSimpleName() {
         return getClass().getSimpleName();
     }
 
     /**
      * 由于将actionbar从sherlock迁移到官方的appcompat,
-     *     hack这个方法去减少其他文件的修改.
+     * hack这个方法去减少其他文件的修改.
      *
      * @return
      */
-    protected ActionBarActivity getSherlockActivity(){
-        return (ActionBarActivity)getActivity();
+    protected ActionBarActivity getSherlockActivity() {
+        return (ActionBarActivity) getActivity();
     }
 
 }

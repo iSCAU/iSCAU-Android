@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/background_normal"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
     <cn.scau.scautreasure.widget.ElasticScrollView_
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <!--教务系统-->
 
             <TextView
+                style="@style/menu_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/menu_title_label"
                 android:text="@string/menu_edusys"/>
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:stretchColumns="*">
 
                 <TableRow
@@ -35,13 +35,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_goal"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_goal_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -52,13 +53,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_emptyClassRoom"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_emptyclassroom_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -69,13 +71,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_pickCourseInfo"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_current_pickcourse_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -87,13 +90,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_exam"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_test_arrangement_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -105,20 +109,21 @@
                 </TableRow>
 
                 <TableRow
-                    android:visibility="gone"
-                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:visibility="gone">
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_course_comments"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_course_comments_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -132,22 +137,18 @@
             </TableLayout>
 
 
-
-
-
-
             <!--图书馆-->
             <TextView
+                style="@style/menu_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/menu_title_label"
                 android:text="@string/menu_lib"/>
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:stretchColumns="*">
 
                 <TableRow
@@ -156,13 +157,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_searchBook"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_search_book_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -173,13 +175,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_nowBorrowedBook"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_now_borrow_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -190,13 +193,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_pastBorrowedBook"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_borrow_history_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -207,11 +211,12 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             style="@style/menu_item_icon"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -224,18 +229,18 @@
             </TableLayout>
 
 
-
             <!--应用汇-->
             <TextView
+                style="@style/menu_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/menu_title_label"
                 android:text="@string/menu_other"/>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:stretchColumns="*">
 
                 <TableRow
@@ -244,13 +249,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_notice"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_notice_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -261,13 +267,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_calendar"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_calendar_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -278,13 +285,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_busandtelphone"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_bus_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -295,13 +303,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_lifeinformation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_life_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -311,23 +320,23 @@
                     </LinearLayout>
 
 
-
                 </TableRow>
 
                 <TableRow
-                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_studyinformation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_study_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -338,13 +347,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_guardianserves"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_family_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -355,13 +365,14 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_communityinformation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_community_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
@@ -372,18 +383,40 @@
 
                     <LinearLayout
                         style="@style/menu_item"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageButton
                             android:id="@+id/menu_activityinfomation"
                             style="@style/menu_item_icon"
                             android:src="@drawable/icon_activity_selector"/>
+
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/menu_activityinfomation"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        style="@style/menu_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/menu_map"
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_study_selector"/>
+
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="校内地图"/>
 
                     </LinearLayout>
 

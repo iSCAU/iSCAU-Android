@@ -15,31 +15,31 @@ import cn.scau.scautreasure.widget.RefreshActionItem;
  * 可查询 Activity 的共享上层。
  */
 @EActivity
-public class CommonQueryActivity extends CommonActivity implements ServerOnChangeListener, RefreshActionItem.RefreshButtonListener{
+public class CommonQueryActivity extends CommonActivity implements ServerOnChangeListener, RefreshActionItem.RefreshButtonListener {
 
     protected static final int QUERY_FOR_EDUSYS = 0;
-    protected static final int QUERY_FOR_LIBRARY = 1;
     private int queryTarget = QUERY_FOR_EDUSYS;
+    protected static final int QUERY_FOR_LIBRARY = 1;
     protected RefreshActionItem mRefreshActionItem;
 
     /**
      * 建立这个加载虚函数，具体由下层实现。
      */
-    void loadData(Object... param){
+    void loadData(Object... param) {
 
     }
 
     /**
      * 检查查询目标账号的可用性，主要是检查
-     *  有没有保存账号。
+     * 有没有保存账号。
      */
     @AfterViews
-    void checkAccountAvailable(){
+    void checkAccountAvailable() {
         boolean startLoginActivity = false;
-        if (queryTarget == QUERY_FOR_EDUSYS){
-            startLoginActivity =  (app.eduSysPassword == null || app.eduSysPassword.equals(""));
-        }else if (queryTarget == QUERY_FOR_LIBRARY){
-            startLoginActivity =  (app.libPassword == null || app.libPassword.equals(""));
+        if (queryTarget == QUERY_FOR_EDUSYS) {
+            startLoginActivity = (app.eduSysPassword == null || app.eduSysPassword.equals(""));
+        } else if (queryTarget == QUERY_FOR_LIBRARY) {
+            startLoginActivity = (app.libPassword == null || app.libPassword.equals(""));
         }
 
         if (startLoginActivity) {
@@ -56,7 +56,7 @@ public class CommonQueryActivity extends CommonActivity implements ServerOnChang
     }
 
     @UiThread
-    void afterLoadData(){
+    void afterLoadData() {
         mRefreshActionItem.stopProgress();
     }
 
@@ -91,7 +91,7 @@ public class CommonQueryActivity extends CommonActivity implements ServerOnChang
      *
      * @param target
      */
-    protected void setQueryTarget(int target){
+    protected void setQueryTarget(int target) {
         queryTarget = target;
     }
 

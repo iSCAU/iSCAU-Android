@@ -2,33 +2,36 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-              android:background="@color/background_normal"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
     <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
         <LinearLayout
-                android:id="@+id/layout_parent"
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            android:id="@+id/layout_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <ImageView
-                    style="@style/listitem_separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="@dimen/listitem_separator_margin_right"
-                    android:layout_marginRight="@dimen/listitem_separator_margin_right"
-                    android:contentDescription=""/>
+                style="@style/listitem_separator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="@dimen/listitem_separator_margin_right"
+                android:layout_marginRight="@dimen/listitem_separator_margin_right"
+                android:layout_marginTop="0dp"
+                android:contentDescription=""/>
+
             <cn.scau.scautreasure.widget.BusWidget_
                 android:id="@+id/busWidget"
-                android:layout_marginLeft="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"/>
         </LinearLayout>
 
     </ScrollView>

@@ -1,73 +1,73 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
-                android:id="@+id/notice_iv"
-                android:layout_marginLeft="2dp"
-                android:layout_width="2dp"
-                android:paddingTop="1dp"
-                android:layout_height="match_parent"
-                android:contentDescription=""/>
+            android:id="@+id/notice_iv"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:contentDescription=""
+            android:paddingTop="1dp"/>
 
         <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
 
             <TextView
-                    android:id="@+id/notice_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|bottom"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textColor="@color/notice_lable_textcolor"
-                    android:textSize="@dimen/notice_lable_textsize"
-                    android:text=""/>
+                android:id="@+id/notice_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text=""
+                android:textColor="@color/notice_lable_textcolor"
+                android:textSize="@dimen/notice_lable_textsize"/>
 
             <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/icon_time"
-                        android:scaleType="fitXY"
-                        android:contentDescription=""/>
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:contentDescription=""
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_time"/>
 
                 <TextView
-                        android:id="@+id/notice_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/notice_lable_time_textcolor"
-                        android:textSize="@dimen/notice_lable_time_textsize"
-                        android:paddingLeft="8dp"
-                        android:text="08-10"/>
+                    android:id="@+id/notice_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:text="08-10"
+                    android:textColor="@color/notice_lable_time_textcolor"
+                    android:textSize="@dimen/notice_lable_time_textsize"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
     <ImageView
-            style="@style/listitem_separator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/listitem_separator_margin_right"
-            android:contentDescription=""/>
+        style="@style/listitem_separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/listitem_separator_margin_right"
+        android:contentDescription=""/>
 
 </LinearLayout>

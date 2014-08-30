@@ -1,4 +1,5 @@
 package cn.scau.scautreasure.ui;
+
 import android.widget.AbsListView;
 
 import com.devspark.appmsg.AppMsg;
@@ -27,7 +28,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Time: 上午11:36
  * Mail: specialcyci@gmail.com
  */
-@EActivity( R.layout.borrowedbook )
+@EActivity(R.layout.borrowedbook)
 public class BorrowedBook extends CommonQueryActivity {
 
     @RestService
@@ -37,12 +38,12 @@ public class BorrowedBook extends CommonQueryActivity {
     int target;
 
     @AfterInject
-    void initAfterInject(){
+    void initAfterInject() {
         setQueryTarget(QUERY_FOR_LIBRARY);
     }
 
     @AfterViews
-    void init(){
+    void init() {
         setTitle(R.string.title_borrowedbook);
         setDataEmptyTips(R.string.tips_borrowedbook_null);
 
@@ -52,53 +53,54 @@ public class BorrowedBook extends CommonQueryActivity {
     }
 
     @UiThread
-    void showReNewResult(){
+    void showReNewResult() {
         AppMsg.makeText(getSherlockActivity(), R.string.tips_renew_success, AppMsg.STYLE_INFO).show();
     }
 
     /**
      * 续借网络请求;
+     *
      * @param barCode
      * @param checkCode
      */
     @Background
-    public void reNew(String barCode,String checkCode){
+    public void reNew(String barCode, String checkCode) {
 
-        try{
-            api.reNewBook( app.userName, app.getEncodeLibPassword(), barCode, checkCode );
+        try {
+            api.reNewBook(app.userName, app.getEncodeLibPassword(), barCode, checkCode);
             showReNewResult();
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
         }
 
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
         beforeLoadData();
-        try{
-            if ( target == UIHelper.TARGET_FOR_PAST_BORROW ) {
+        try {
+            if (target == UIHelper.TARGET_FOR_PAST_BORROW) {
                 list = api.getHistoryBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
-            }else{
+            } else {
                 list = api.getNowBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
             }
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
-        }catch ( HttpStatusCodeException e ){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
-        }catch ( Exception e){
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
         afterLoadData();
     }
 
-    private void buildAndShowListViewAdapter(){
+    private void buildAndShowListViewAdapter() {
         if (list == null)
             return;
         BorrowedBookAdapter_ bookadapter = BorrowedBookAdapter_.getInstance_(getSherlockActivity());
         bookadapter.setParent(this);
         bookadapter.addAll(list);
-        adapter     = UIHelper.buildEffectAdapter(bookadapter, (AbsListView) listView,ALPHA);
+        adapter = UIHelper.buildEffectAdapter(bookadapter, (AbsListView) listView, ALPHA);
         showSuccessResult();
     }
 }

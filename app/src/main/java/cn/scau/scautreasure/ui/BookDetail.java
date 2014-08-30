@@ -33,17 +33,21 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Time: 下午10:42
  * Mail: specialcyci@gmail.com
  */
-@EActivity( R.layout.bookdetail)
-public class BookDetail extends CommonActivity implements DialogInterface.OnCancelListener{
+@EActivity(R.layout.bookdetail)
+public class BookDetail extends CommonActivity implements DialogInterface.OnCancelListener {
 
-    @App         AppContext app;
-    @RestService LibraryApi api;
-    @Extra       String bookName;
-    @Extra       String url;
+    @App
+    AppContext app;
+    @RestService
+    LibraryApi api;
+    @Extra
+    String bookName;
+    @Extra
+    String url;
     private BaseAdapter adapter;
 
     @AfterViews
-    void init(){
+    void init() {
         getSupportActionBar().setTitle(bookName);
         UIHelper.getDialog(R.string.loading_bookdetail).show();
         loadData(url);
@@ -53,42 +57,43 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
      * 展示查询结果;
      */
     @UiThread
-    void showSuccessResult(){
+    void showSuccessResult() {
         UIHelper.getDialog().dismiss();
-        ((ListView)listView).setAdapter(adapter);
+        ((ListView) listView).setAdapter(adapter);
     }
 
     /**
      * 展示http请求异常结果
+     *
      * @param requestCode
      */
     @UiThread
-    void showErroResult(int requestCode){
+    void showErroResult(int requestCode) {
         UIHelper.getDialog().dismiss();
-        if(requestCode == 404){
+        if (requestCode == 404) {
             AppMsg.makeText(this, getString(R.string.tips_bookdetail_null), AppMsg.STYLE_CONFIRM).show();
-        }else{
-            app.showError(requestCode,this);
+        } else {
+            app.showError(requestCode, this);
         }
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-        try{
+        try {
             String url = CryptUtil.base64_url_safe((String) params[0]);
             list = api.getBookDetail(url).getDetails();
             buildListViewAdapter();
             showSuccessResult();
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErroResult(e.getStatusCode().value());
-        }catch (Exception e){
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
     }
 
-    private void buildListViewAdapter(){
+    private void buildListViewAdapter() {
         BookDetailAdapter listadapter = new BookDetailAdapter(getSherlockActivity(), R.layout.bookdetail_listitem, list);
-        adapter     = UIHelper.buildEffectAdapter(listadapter,(AbsListView) listView,ALPHA);
+        adapter = UIHelper.buildEffectAdapter(listadapter, (AbsListView) listView, ALPHA);
     }
 
     @Override

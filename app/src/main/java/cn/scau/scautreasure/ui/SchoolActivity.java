@@ -49,7 +49,35 @@ public class SchoolActivity extends CommonActivity {
     private SchoolActivityHelper helper;
     private SchoolActivityPullToRefresh today, tomorrow, later;
     private boolean alreadyInLoadData = false;
-    private boolean isFirstTimeOpenActivity = true;
+    /**
+     * 标签的点击,同时viewPager设置到相应位置；
+     */
+    private SchoolActivityTabWidget.onTabChangeListener onTabChangeListener = new SchoolActivityTabWidget.onTabChangeListener() {
+        @Override
+        public void change(int posistion) {
+            pager.setCurrentItem(posistion);
+        }
+    };
+    /**
+     * viewPager滑动监听,同时同步上方的tab位置;
+     */
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
+
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            titles.changeTab(i);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
 
     @AfterViews
     void initView() {
@@ -79,11 +107,6 @@ public class SchoolActivity extends CommonActivity {
         //loadData();
     }
 
-    @Click
-    void iv_back(){
-        finish();
-    }
-
     /*
      * 这里因为种种原因要这么做，getWidth=0是没办法避免的事情，只好等待
      * 另外在titles成功changeTab到 <今天> 这个标签栏之后，再设置相应的listener。
@@ -109,7 +132,8 @@ public class SchoolActivity extends CommonActivity {
 
     @Override
     void initActionBar() {
-        //留空
+        // 由于隐藏了标题栏，所以要覆盖初始化actionbar的函数
+        // 否则空指针
     }
 
     void initPullToRefreshListView(PullToRefreshListView view) {
@@ -127,38 +151,6 @@ public class SchoolActivity extends CommonActivity {
         });
         listViews.add(view);
     }
-
-
-    /**
-     * 标签的点击,同时viewPager设置到相应位置；
-     */
-    private SchoolActivityTabWidget.onTabChangeListener onTabChangeListener = new SchoolActivityTabWidget.onTabChangeListener() {
-        @Override
-        public void change(int posistion) {
-            pager.setCurrentItem(posistion);
-        }
-    };
-
-    /**
-     * viewPager滑动监听,同时同步上方的tab位置;
-     */
-    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageScrolled(int i, float v, int i2) {
-
-        }
-
-        @Override
-        public void onPageSelected(int i) {
-            titles.changeTab(i);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int i) {
-
-        }
-    };
 
     /**
      * 展示网络加载异常结果
@@ -211,7 +203,7 @@ public class SchoolActivity extends CommonActivity {
     void loadData(Object... params) {
         if (alreadyInLoadData) return;
         long lastUpdate = helper.getLastUpdate();
-        if (!isFirstTimeOpenActivity && System.currentTimeMillis() / 1000 - lastUpdate < 10) {
+        if (System.currentTimeMillis() / 1000 - lastUpdate < 10) {
             Log.e("frequently", "lastUpdate=" + lastUpdate + ",current=" + System.currentTimeMillis() / 1000);
             tips_no_allow_so_frequently();
             stopPullToRefreshListView();
@@ -235,7 +227,6 @@ public class SchoolActivity extends CommonActivity {
             e.printStackTrace();
             handleNoNetWorkError(getSherlockActivity());
         } finally {
-            if(isFirstTimeOpenActivity) isFirstTimeOpenActivity = false;
             alreadyInLoadData = false;
             stopPullToRefreshListView();
         }

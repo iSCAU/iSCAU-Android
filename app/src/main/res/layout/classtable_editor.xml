@@ -1,150 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/background_normal"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_normal"
+    android:orientation="vertical">
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp">
 
         <LinearLayout
-             android:orientation="vertical"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_class_name"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_class_name"/>
 
-                <EditText
-                        style="@style/modify_edittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edt_classname"/>
+            <EditText
+                android:id="@+id/edt_classname"
+                style="@style/modify_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_name_teacher"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_name_teacher"/>
 
-                <EditText
-                        style="@style/modify_edittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edt_teacher"/>
+            <EditText
+                android:id="@+id/edt_teacher"
+                style="@style/modify_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_class_place"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_class_place"/>
 
-                <EditText
-                        style="@style/modify_edittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edt_place"/>
+            <EditText
+                android:id="@+id/edt_place"
+                style="@style/modify_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_weekday"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_weekday"/>
 
-                <antistatic.spinnerwheel.WheelHorizontalView
-                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
-                        android:id="@+id/wheel_weekday"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+            <antistatic.spinnerwheel.WheelHorizontalView
+                android:id="@+id/wheel_weekday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_dsz"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_dsz"/>
 
-                <antistatic.spinnerwheel.WheelHorizontalView
-                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
-                        android:id="@+id/wheel_dsz"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+            <antistatic.spinnerwheel.WheelHorizontalView
+                android:id="@+id/wheel_dsz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_note_start"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_note_start"/>
 
-                <antistatic.spinnerwheel.WheelHorizontalView
-                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
-                        android:id="@+id/wheel_note_start"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+            <antistatic.spinnerwheel.WheelHorizontalView
+                android:id="@+id/wheel_note_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_note_end"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_note_end"/>
 
-                <antistatic.spinnerwheel.WheelHorizontalView
-                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
-                        android:id="@+id/wheel_note_end"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+            <antistatic.spinnerwheel.WheelHorizontalView
+                android:id="@+id/wheel_note_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_week_start"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_week_start"/>
 
-                <antistatic.spinnerwheel.WheelHorizontalView
-                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
-                        android:id="@+id/wheel_week_start"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+            <antistatic.spinnerwheel.WheelHorizontalView
+                android:id="@+id/wheel_week_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
 
-                <TextView
-                        style="@style/class_modify_text_style"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_week_end"/>
+            <TextView
+                style="@style/class_modify_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_week_end"/>
 
-                <antistatic.spinnerwheel.WheelHorizontalView
-                        xmlns:app="http://schemas.android.com/apk/res/cn.scau.scautreasure"
-                        android:id="@+id/wheel_week_end"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+            <antistatic.spinnerwheel.WheelHorizontalView
+                android:id="@+id/wheel_week_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="6">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:gravity="center">
 
         <Button
-                style="@style/noraml_button"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:text="@string/btn_modify"
-                android:id="@+id/btn_modify"/>
+            android:id="@+id/btn_modify"
+            style="@style/noraml_button"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:text="@string/btn_modify"/>
     </LinearLayout>
 
 </LinearLayout>

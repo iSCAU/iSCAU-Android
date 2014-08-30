@@ -20,19 +20,19 @@ public class BootReceiver extends BroadcastReceiver {
         config = new cn.scau.scautreasure.AppConfig_(context);
         RingerMode duringMode = RingerMode.getModeByValue(config.duringClassRingerMode().get());
         RingerMode afterMode = RingerMode.getModeByValue(config.afterClassRingerMode().get());
-        if(!RingerMode.isSet(duringMode.getValue()) && !RingerMode.isSet(afterMode.getValue())){
+        if (!RingerMode.isSet(duringMode.getValue()) && !RingerMode.isSet(afterMode.getValue())) {
             return;
         }
         RingerMode.duringClassOn(context, duringMode, -1);
         RingerMode.afterClassOn(context, afterMode, 1);
         RingerMode.setDateChangedAlarm(context);
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if(ClassUtil.isDuringClassNow(context)){
-            if(RingerMode.isSet(duringMode.getValue())){
+        if (ClassUtil.isDuringClassNow(context)) {
+            if (RingerMode.isSet(duringMode.getValue())) {
                 audioManager.setRingerMode(duringMode.getValue());
             }
         } else {
-            if(RingerMode.isSet(afterMode.getValue())){
+            if (RingerMode.isSet(afterMode.getValue())) {
                 audioManager.setRingerMode(afterMode.getValue());
             }
         }

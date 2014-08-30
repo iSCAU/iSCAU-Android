@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <ImageButton
+        android:id="@+id/removeOne"
+        android:layout_width="45dp"
+        android:background="#0000"
+        android:layout_height="45dp"
+        android:src="@drawable/remove_one"/>
+    <LinearLayout android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+
+            android:id="@+id/foodName"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:text="麻辣鸡扒饭"
+            android:textSize="8pt"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/money_color"
+            android:id="@+id/foodMoney"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:text="$23"
+
+            android:layout_height="match_parent" />
+        </LinearLayout>
+
+    <TextView
+    android:textSize="8pt"
+        android:textColor="@color/money_color"
+        style="@style/login_edittext"
+        android:id="@+id/foodCount"
+        android:padding="5dp"
+        android:text="0"
+        android:gravity="center"
+        android:layout_width="35dp"
+
+
+        android:layout_height="35dp" />
+    <ImageButton
+        android:id="@+id/addOne"
+        android:background="#0000"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/add_one"/>
+</LinearLayout>

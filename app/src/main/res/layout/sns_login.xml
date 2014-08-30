@@ -1,49 +1,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
     <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center|bottom"
-        android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
 
         <ImageButton
-            android:layout_marginRight="10dp"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="fitCenter"
             android:id="@+id/sns_login_sina"
-            android:src="@drawable/sns_login_sina"
-            android:background="@drawable/btn_sns_login_selector"/>
-        <ImageButton
-            android:layout_marginLeft="10dp"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_sns_login_selector"
             android:scaleType="fitCenter"
+            android:src="@drawable/sns_login_sina"/>
+
+        <ImageButton
             android:id="@+id/sns_login_qq"
-            android:src="@drawable/sns_login_qq"
-            android:background="@drawable/btn_sns_login_selector"/>
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_sns_login_selector"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sns_login_qq"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center|top"
-        android:layout_weight="1"
-        android:paddingTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|top"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/sns_no_login_tips"
             android:textColor="#cdcdcd"
-            android:textSize="15sp"
-            android:text="@string/sns_no_login_tips"/>
+            android:textSize="15sp"/>
 
     </LinearLayout>
 

@@ -91,19 +91,19 @@ public class SchoolActivityModel implements Serializable {
         this.t = t;
     }
 
-    public boolean getIsNewOne(){
+    public boolean getIsNewOne() {
         return isNewOne;
     }
 
-    public void setIsNewOne(boolean isNewOne){
+    public void setIsNewOne(boolean isNewOne) {
         this.isNewOne = isNewOne;
     }
 
-    public String getContent(){
+    public String getContent() {
         return content;
     }
 
-    public void setContent(String content){
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -123,7 +123,7 @@ public class SchoolActivityModel implements Serializable {
     }
 
 
-    public class ActivityList implements Serializable{
+    public class ActivityList implements Serializable {
         private int count;
         private List<SchoolActivityModel> content;
 

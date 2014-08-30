@@ -23,7 +23,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Time:  下午5:29
  * Mail:  specialcyci@gmail.com
  */
-@EActivity( R.layout.pickclassinfo )
+@EActivity(R.layout.pickclassinfo)
 public class PickClassInfo extends CommonQueryActivity {
 
 
@@ -31,7 +31,7 @@ public class PickClassInfo extends CommonQueryActivity {
     EdusysApi api;
 
     @AfterViews
-    void init(){
+    void init() {
         setTitle(R.string.title_pickclassinfo);
         setDataEmptyTips(R.string.tips_pickclassinfo_null);
         cacheHelper.setCacheKey("pickClassInfo");
@@ -40,16 +40,16 @@ public class PickClassInfo extends CommonQueryActivity {
     }
 
     @Override
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
         beforeLoadData();
-        try{
+        try {
             list = api.getPickClassInfo(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getPickclassinfos();
             cacheHelper.writeListToCache(list);
             buildAndShowAdapter();
-        }catch (HttpStatusCodeException e){
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
-        }catch (Exception e){
+        } catch (HttpStatusCodeException e) {
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
         afterLoadData();
@@ -57,14 +57,13 @@ public class PickClassInfo extends CommonQueryActivity {
 
     /**
      * 构建 Adapter ， 并且刷新显示。
-     *
      */
-    private void buildAndShowAdapter(){
+    private void buildAndShowAdapter() {
         PickClassAdapter listadapter = new PickClassAdapter(
                 getSherlockActivity(),
                 R.layout.pickclassinfo_listitem, list);
         adapter = UIHelper.buildEffectAdapter(listadapter,
-                (AbsListView) listView,EXPANDABLE_ALPHA);
+                (AbsListView) listView, EXPANDABLE_ALPHA);
         showSuccessResult();
     }
 

@@ -21,8 +21,8 @@ import cn.scau.scautreasure.R;
  * Time: 下午1:28
  * Mail: specialcyci@gmail.com
  */
-@EViewGroup(R.layout.classtable_tab )
-public class ClassTabWidget extends LinearLayout{
+@EViewGroup(R.layout.classtable_tab)
+public class ClassTabWidget extends LinearLayout {
 
     @ViewById
     ImageView iv_underline;
@@ -35,23 +35,6 @@ public class ClassTabWidget extends LinearLayout{
     private int currentPosition = 0;
 
     private onTabChangeListener listener;
-
-    public ClassTabWidget(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.ctx          = (Activity) context;
-    }
-
-    @AfterViews
-    void initView(){
-        int count = linear_tab.getChildCount();
-        for(int i = 0; i < count ;i ++) setTabTextStyle(i,false);
-        for(int j = 0; j < count ;j ++) {
-            View v = linear_tab.getChildAt(j);
-            v.setOnClickListener(onTabClick);
-            v.setTag(j);
-        }
-    }
-
     private OnClickListener onTabClick = new OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -61,11 +44,28 @@ public class ClassTabWidget extends LinearLayout{
         }
     };
 
+    public ClassTabWidget(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.ctx = (Activity) context;
+    }
+
+    @AfterViews
+    void initView() {
+        int count = linear_tab.getChildCount();
+        for (int i = 0; i < count; i++) setTabTextStyle(i, false);
+        for (int j = 0; j < count; j++) {
+            View v = linear_tab.getChildAt(j);
+            v.setOnClickListener(onTabClick);
+            v.setTag(j);
+        }
+    }
+
     /**
      * true the underline control to the click position
+     *
      * @param position
      */
-    public void changeWeekDay(int position){
+    public void changeWeekDay(int position) {
 
         float offset = (float) (getWidth() - getPaddingLeft() - getPaddingRight()) / 7;
 
@@ -74,35 +74,36 @@ public class ClassTabWidget extends LinearLayout{
         iv_underline.setLayoutParams(params);
 
         TranslateAnimation animation = new TranslateAnimation(
-                offset * currentPosition ,position * offset,0,0);
+                offset * currentPosition, position * offset, 0, 0);
 
         animation.setFillAfter(true);
         animation.setFillEnabled(true);
         animation.setDuration(300);
         iv_underline.startAnimation(animation);
 
-        setTabTextStyle(currentPosition,false);
-        setTabTextStyle(position,true);
+        setTabTextStyle(currentPosition, false);
+        setTabTextStyle(position, true);
         currentPosition = position;
     }
 
     /**
      * set the tab text style according to if is clicked;
+     *
      * @param position
      * @param isClicked
      */
-    public void setTabTextStyle(int position,boolean isClicked){
+    public void setTabTextStyle(int position, boolean isClicked) {
 
         LinearLayout parent = (LinearLayout) linear_tab.getChildAt(position);
-        TextView     tv_eng = (TextView)     parent.getChildAt(0);
-        TextView     tv_num = (TextView)     parent.getChildAt(1);
+        TextView tv_eng = (TextView) parent.getChildAt(0);
+        TextView tv_num = (TextView) parent.getChildAt(1);
 
-        if(isClicked){
-            tv_eng.setTextAppearance(ctx,R.style.classTab_click_engtext);
-            tv_num.setTextAppearance(ctx,R.style.classTab_click_numtext);
-        }else{
-            tv_eng.setTextAppearance(ctx,R.style.classTab_normal_engtext);
-            tv_num.setTextAppearance(ctx,R.style.classTab_normal_numtext);
+        if (isClicked) {
+            tv_eng.setTextAppearance(ctx, R.style.classTab_click_engtext);
+            tv_num.setTextAppearance(ctx, R.style.classTab_click_numtext);
+        } else {
+            tv_eng.setTextAppearance(ctx, R.style.classTab_normal_engtext);
+            tv_num.setTextAppearance(ctx, R.style.classTab_normal_numtext);
         }
 
     }
@@ -115,7 +116,7 @@ public class ClassTabWidget extends LinearLayout{
         this.listener = listener;
     }
 
-    public interface onTabChangeListener{
+    public interface onTabChangeListener {
         void change(int posistion);
     }
 }

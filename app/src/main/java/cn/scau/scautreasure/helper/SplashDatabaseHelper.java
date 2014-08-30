@@ -27,10 +27,21 @@ public class SplashDatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    public static ContentValues toContentValues(SplashModel splashModel) {
+        ContentValues cv = new ContentValues();
+        cv.put(FIELD_ID, splashModel.getId());
+        cv.put(FIELD_TITLE, splashModel.getTitle());
+        cv.put(FIELD_URL, splashModel.getUrl());
+        cv.put(FIELD_START_TIME, splashModel.getStart_time());
+        cv.put(FIELD_END_TIME, splashModel.getEdit_time());
+        cv.put(FIELD_EDIT_TIME, splashModel.getEdit_time());
+        return cv;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "Create table %s (%s integer primary key unique,%s text,%s text,%s integer,%s integer,%s integer);";
-        sql = String.format(sql, TABLE_NAME, FIELD_ID, FIELD_TITLE,FIELD_URL,FIELD_START_TIME,FIELD_END_TIME,FIELD_EDIT_TIME);
+        sql = String.format(sql, TABLE_NAME, FIELD_ID, FIELD_TITLE, FIELD_URL, FIELD_START_TIME, FIELD_END_TIME, FIELD_EDIT_TIME);
         db.execSQL(sql);
     }
 
@@ -48,10 +59,10 @@ public class SplashDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public ArrayList<SplashModel> getSplashList(){
+    public ArrayList<SplashModel> getSplashList() {
         ArrayList<SplashModel> spm = new ArrayList<SplashModel>();
         Cursor cursor = select();
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             SplashModel sm = new SplashModel();
             sm.setId(cursor.getInt(0));
             sm.setTitle(cursor.getString(1));
@@ -65,69 +76,57 @@ public class SplashDatabaseHelper extends SQLiteOpenHelper {
         return spm;
     }
 
-    private void insert(int id,String title,String url,int start_time,int end_time,int edit_time) {
+    private void insert(int id, String title, String url, int start_time, int end_time, int edit_time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(FIELD_ID, id);
-        cv.put(FIELD_TITLE,title);
-        cv.put(FIELD_URL,url);
-        cv.put(FIELD_START_TIME,start_time);
-        cv.put(FIELD_END_TIME,end_time);
-        cv.put(FIELD_EDIT_TIME,edit_time);
+        cv.put(FIELD_TITLE, title);
+        cv.put(FIELD_URL, url);
+        cv.put(FIELD_START_TIME, start_time);
+        cv.put(FIELD_END_TIME, end_time);
+        cv.put(FIELD_EDIT_TIME, edit_time);
         db.insert(TABLE_NAME, null, cv);
     }
 
-    private void insert(SplashModel splashModel){
+    private void insert(SplashModel splashModel) {
         int id;
-        if((id=query(splashModel))!=-1){
-            update(id,splashModel);
-        }else{
-            insert(splashModel.getId(),splashModel.getTitle(),splashModel.getUrl(),
-                    splashModel.getStart_time(),splashModel.getEnd_time(),splashModel.getEdit_time());
+        if ((id = query(splashModel)) != -1) {
+            update(id, splashModel);
+        } else {
+            insert(splashModel.getId(), splashModel.getTitle(), splashModel.getUrl(),
+                    splashModel.getStart_time(), splashModel.getEnd_time(), splashModel.getEdit_time());
         }
     }
 
-    public void insert(SplashModel.SplashList splist){
+    public void insert(SplashModel.SplashList splist) {
         ArrayList<SplashModel> list = splist.getCourses();
-        if(list!=null) for(int i=0;i<list.size();i++) insert(list.get(i));
+        if (list != null) for (int i = 0; i < list.size(); i++) insert(list.get(i));
     }
 
-    public int query(SplashModel splashModel){
+    public int query(SplashModel splashModel) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME,null,FIELD_ID+"=?",new String[]{Integer.toString(splashModel.getId())},
-                null,null,null,null);
+        Cursor cursor = db.query(TABLE_NAME, null, FIELD_ID + "=?", new String[]{Integer.toString(splashModel.getId())},
+                null, null, null, null);
         int ret = -1;
-        if(cursor.moveToNext()){
+        if (cursor.moveToNext()) {
             ret = cursor.getInt(cursor.getColumnIndex(FIELD_ID));
         }
         cursor.close();
         return ret;
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String where  = FIELD_ID + "= ?";
+        String where = FIELD_ID + "= ?";
         String[] value = {Integer.toString(id)};
         db.delete(TABLE_NAME, where, value);
     }
 
-    private void update(int id,SplashModel splashModel)
-    {
+    private void update(int id, SplashModel splashModel) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String where  = FIELD_ID + "= ?";
+        String where = FIELD_ID + "= ?";
         String[] value = {Integer.toString(id)};
         ContentValues cv = toContentValues(splashModel);
         db.update(TABLE_NAME, cv, where, value);
-    }
-
-    public static ContentValues toContentValues(SplashModel splashModel){
-        ContentValues cv = new ContentValues();
-        cv.put(FIELD_ID, splashModel.getId());
-        cv.put(FIELD_TITLE, splashModel.getTitle());
-        cv.put(FIELD_URL,splashModel.getUrl());
-        cv.put(FIELD_START_TIME,splashModel.getStart_time());
-        cv.put(FIELD_END_TIME,splashModel.getEdit_time());
-        cv.put(FIELD_EDIT_TIME,splashModel.getEdit_time());
-        return cv;
     }
 }

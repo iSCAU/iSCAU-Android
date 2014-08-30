@@ -22,7 +22,7 @@ import java.util.ArrayList;
 //        "索书号" => "serial_number",
 //        "文献类型" => "document_type",
 //        "条码号" => "barcode_number",
-public class BookModel implements Serializable{
+public class BookModel implements Serializable {
 
     private String title;
     private String author;
@@ -30,7 +30,7 @@ public class BookModel implements Serializable{
     private String borrow_date;
     private String return_date;
     private String should_return_date;
-    private int    renew_time;
+    private int renew_time;
     private String collection_place;
     private String barcode_number;
     private String serial_number;
@@ -161,7 +161,7 @@ public class BookModel implements Serializable{
                 '}';
     }
 
-    public class BookList{
+    public class BookList {
 
         private int count;
 

@@ -27,14 +27,19 @@ public class SchoolActivityTabWidget extends LinearLayout {
     @ViewById
     LinearLayout linear_tab;
 
-    /*这里用Activity的context是因为在ADT的预览当中，它可以先阻拦这个Widget的初始化工作
-     *ADT的预览在加载TextAppearance的资源中总有问题，期待ADT的更新。
-     */
     private Activity ctx;
 
     private int currentPosition = 0;
 
     private onTabChangeListener listener;
+    private OnClickListener onTabClick = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = (Integer) view.getTag();
+            changeTab(position);
+            listener.change(position);
+        }
+    };
 
     public SchoolActivityTabWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,15 +56,6 @@ public class SchoolActivityTabWidget extends LinearLayout {
             v.setTag(j);
         }
     }
-
-    private OnClickListener onTabClick = new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = (Integer) view.getTag();
-            changeTab(position);
-            listener.change(position);
-        }
-    };
 
     /**
      * true the underline control to the click position
@@ -97,10 +93,14 @@ public class SchoolActivityTabWidget extends LinearLayout {
 
         LinearLayout parent = (LinearLayout) linear_tab.getChildAt(position);
         TextView tv_eng = (TextView) parent.getChildAt(0);
+        //TextView     tv_num = (TextView)     parent.getChildAt(1);
+
         if (isClicked) {
             tv_eng.setTextAppearance(ctx, R.style.schoolActivityTab_click);
+            //tv_num.setTextAppearance(ctx,R.style.classTab_click_numtext);
         } else {
             tv_eng.setTextAppearance(ctx, R.style.schoolActivityTab_normal);
+            //tv_num.setTextAppearance(ctx,R.style.classTab_normal_numtext);
         }
 
     }

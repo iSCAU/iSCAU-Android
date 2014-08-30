@@ -14,7 +14,7 @@ import java.util.ArrayList;
 //        "起始结束周" => "week_range",
 //        "上课时间" => "time",
 //        "教材" => "teaching_material"
-public class PickClassModel implements Serializable{
+public class PickClassModel implements Serializable {
     private String name;
     private String name_teacher;
     private String credit;
@@ -132,7 +132,7 @@ public class PickClassModel implements Serializable{
                 '}';
     }
 
-    public class PickClassList{
+    public class PickClassList {
 
         private ArrayList<PickClassModel> pickclassinfos;
 

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <ImageView
-            android:id="@+id/notice_iv"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/notice_list_background"
-            android:scaleType="fitXY"
-            android:contentDescription=""/>
+        android:id="@+id/notice_iv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription=""
+        android:scaleType="fitXY"
+        android:src="@drawable/notice_list_background"/>
 
 </LinearLayout>

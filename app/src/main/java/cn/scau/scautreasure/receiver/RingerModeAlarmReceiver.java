@@ -20,12 +20,12 @@ public class RingerModeAlarmReceiver extends BroadcastReceiver {
         config = new cn.scau.scautreasure.AppConfig_(context);
         String action = intent.getAction();
         int mode;
-        if(AppConstant.ACTION_RINGER_MODE_ALARM_DURING.equals(action)){
+        if (AppConstant.ACTION_RINGER_MODE_ALARM_DURING.equals(action)) {
             mode = config.duringClassRingerMode().get();
-        } else{
+        } else {
             mode = config.afterClassRingerMode().get();
         }
-        if(!RingerMode.isSet(mode)){
+        if (!RingerMode.isSet(mode)) {
             return;
         }
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

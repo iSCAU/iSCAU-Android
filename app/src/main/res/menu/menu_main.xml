@@ -6,19 +6,25 @@
         android:title="@string/menu_edusys">
         <menu>
             <group
-                    android:id="@+id/group_edusys">
-                <item android:id="@+id/menu_classtable"
-                      android:title="@string/menu_classtable"/>
-                <item android:id="@+id/menu_goal"
-                      android:title="@string/menu_goal"/>
-                <item android:id="@+id/menu_exam"
-                      android:title="@string/menu_exam"/>
-                <item android:id="@+id/menu_pickCourseInfo"
-                      android:title="@string/menu_pickCourseInfo"/>
-                <item android:id="@+id/menu_emptyClassRoom"
-                      android:title="@string/menu_emptyClassRoom"/>
-                <item android:id="@+id/menu_back"
-                      android:title="@string/menu_back"/>
+                android:id="@+id/group_edusys">
+                <item
+                    android:id="@+id/menu_classtable"
+                    android:title="@string/menu_classtable"/>
+                <item
+                    android:id="@+id/menu_goal"
+                    android:title="@string/menu_goal"/>
+                <item
+                    android:id="@+id/menu_exam"
+                    android:title="@string/menu_exam"/>
+                <item
+                    android:id="@+id/menu_pickCourseInfo"
+                    android:title="@string/menu_pickCourseInfo"/>
+                <item
+                    android:id="@+id/menu_emptyClassRoom"
+                    android:title="@string/menu_emptyClassRoom"/>
+                <item
+                    android:id="@+id/menu_back"
+                    android:title="@string/menu_back"/>
             </group>
         </menu>
     </item>
@@ -28,57 +34,69 @@
         android:title="@string/menu_lib">
         <menu>
             <group
-                    android:id="@+id/group_lib">
-                <item android:id="@+id/menu_searchBook"
-                      android:title="@string/menu_searchBook"/>
-                <item android:id="@+id/menu_nowBorrowedBook"
-                      android:title="@string/menu_nowBorrowedBook"/>
-                <item android:id="@+id/menu_pastBorrowedBook"
-                      android:title="@string/menu_pastBorrowedBook"/>
-                <item android:id="@id/menu_back"
-                      android:title="@string/menu_back"/>
+                android:id="@+id/group_lib">
+                <item
+                    android:id="@+id/menu_searchBook"
+                    android:title="@string/menu_searchBook"/>
+                <item
+                    android:id="@+id/menu_nowBorrowedBook"
+                    android:title="@string/menu_nowBorrowedBook"/>
+                <item
+                    android:id="@+id/menu_pastBorrowedBook"
+                    android:title="@string/menu_pastBorrowedBook"/>
+                <item
+                    android:id="@id/menu_back"
+                    android:title="@string/menu_back"/>
             </group>
         </menu>
     </item>
 
-    <item android:id="@+id/menu_notice"
-          android:title="@string/menu_notice"/>
+    <item
+        android:id="@+id/menu_notice"
+        android:title="@string/menu_notice"/>
 
     <item
         android:title="@string/menu_other">
         <menu>
             <group>
-                <item android:id="@+id/menu_lifeinformation"
-                      android:title="@string/menu_lifeinformation"/>
-                <item android:id="@+id/menu_communityinformation"
-                      android:title="@string/menu_communityinformation"/>
-                <item android:id="@+id/menu_guardianserves"
-                      android:title="@string/menu_guardianserves"/>
-                <item android:id="@+id/menu_studyinformation"
-                      android:title="@string/menu_studyinformation"/>
-                <item android:id="@+id/menu_busandtelphone"
-                      android:title="@string/menu_busandtelphone"/>
-                <item android:id="@+id/menu_calendar"
-                      android:title="@string/menu_calendar"/>
-                <item android:id="@id/menu_back"
-                      android:title="@string/menu_back"/>
+                <item
+                    android:id="@+id/menu_lifeinformation"
+                    android:title="@string/menu_lifeinformation"/>
+                <item
+                    android:id="@+id/menu_communityinformation"
+                    android:title="@string/menu_communityinformation"/>
+                <item
+                    android:id="@+id/menu_guardianserves"
+                    android:title="@string/menu_guardianserves"/>
+                <item
+                    android:id="@+id/menu_studyinformation"
+                    android:title="@string/menu_studyinformation"/>
+                <item
+                    android:id="@+id/menu_busandtelphone"
+                    android:title="@string/menu_busandtelphone"/>
+                <item
+                    android:id="@+id/menu_calendar"
+                    android:title="@string/menu_calendar"/>
+                <item
+                    android:id="@id/menu_back"
+                    android:title="@string/menu_back"/>
             </group>
         </menu>
     </item>
 
     <item
-            android:id="@+id/menu_account"
-            android:title="@string/menu_account">
+        android:id="@+id/menu_account"
+        android:title="@string/menu_account">
     </item>
 
     <item
-            android:id="@+id/menu_configuration"
-            android:title="@string/menu_configuration">
+        android:id="@+id/menu_configuration"
+        android:title="@string/menu_configuration">
     </item>
 
     <item
-            android:id="@+id/menu_update"
-            android:title="@string/menu_update">
+        android:id="@+id/menu_update"
+        android:title="@string/menu_update">
     </item>
 
     <item

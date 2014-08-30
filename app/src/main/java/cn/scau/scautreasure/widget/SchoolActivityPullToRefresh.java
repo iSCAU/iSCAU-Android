@@ -14,9 +14,8 @@ import cn.scau.scautreasure.adapter.SchoolActivityListAdapter;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
-import cn.scau.scautreasure.widget.SchoolActivityHeaderWidget_;
+
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDABLE_SWING;
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.SWING;
 
 /**
  * Created by stcdasqy on 2014-08-12.
@@ -57,7 +56,7 @@ public class SchoolActivityPullToRefresh extends PullToRefreshListView {
         ListView _listView = getRefreshableView();
         SchoolActivityListAdapter listAdapter = new SchoolActivityListAdapter(mContext, helper);
         listAdapter.addAll(lists);
-        BaseAdapter _adapter = UIHelper.buildEffectAdapter(listAdapter, _listView, UIHelper.LISTVIEW_EFFECT_MODE.WEBVIEW_EXPANDABLE);
+        BaseAdapter _adapter = UIHelper.buildEffectAdapter(listAdapter, _listView, EXPANDABLE_SWING);
         setAdapter(_adapter);
     }
 }

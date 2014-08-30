@@ -1,9 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -29,14 +27,14 @@ import cn.scau.scautreasure.widget.ParamWidget;
 
 /**
  * 设置界面吧.
- *
+ * <p/>
  * User: special
  * Date: 13-10-5
  * Time: 下午1:36
  * Mail: specialcyci@gmail.com
  */
 @EFragment(R.layout.configuration)
-public class Configuration extends CommonFragment implements OnTabSelectListener{
+public class Configuration extends CommonFragment implements OnTabSelectListener {
 
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
@@ -51,96 +49,9 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
     @StringRes
     String listitem_lable_server, listitem_lable_classTableAsFirstScreen,
             listitem_label_ringerModeDuringClass, listitem_label_ringerModeAfterClass;
-
-    @AfterViews
-    void initViews(){
-
-        param_server.initView(listitem_lable_server, server, 0);
-        param_server.getWheel().setCurrentItem(AppContext.server - 1);
-        param_classTableAsFirstScreen.initViewWithYesOrNoOption(listitem_lable_classTableAsFirstScreen, 1);
-        param_classTableAsFirstScreen.setYesOrNo(config.classTableAsFirstScreen().get());
-        param_ringer_mode_during_class.initView(listitem_label_ringerModeDuringClass, ringer_mode, 2);
-        int i = 0;
-        for(RingerMode mode : RingerMode.values()){
-            if(mode.getValue() == config.duringClassRingerMode().get()){
-                param_ringer_mode_during_class.getWheel().setCurrentItem(i);
-            }
-            i++;
-        }
-        param_ringer_mode_after_class.initView(listitem_label_ringerModeAfterClass, ringer_mode, 3);
-        i = 0;
-        for(RingerMode mode : RingerMode.values()){
-            if(mode.getValue() == config.afterClassRingerMode().get()){
-                param_ringer_mode_after_class.getWheel().setCurrentItem(i);
-            }
-            i++;
-        }
-    }
-
-    @Click
-    void btn_notification_setting(){
-        NotificationTiming_.intent(getSherlockActivity()).start();
-    }
-
-    @Click
-    void btn_about(){
-        About_.intent(getSherlockActivity()).start();
-    }
-
-    @Click
-    void btn_update(){
-        AppMsg.makeText(getSherlockActivity(),
-                app.getString(R.string.tips_checking_for_update)
-                , AppMsg.STYLE_INFO).show();
-        UmengUpdateAgent.setUpdateAutoPopup(false);
-        UmengUpdateAgent.setUpdateListener(umengUpdateListener);
-        UmengUpdateAgent.forceUpdate(getSherlockActivity());
-    }
-
-    @Click
-    void btn_change_account(){
-        Login_.intent(this).start();
-    }
-
-    @Click
-    void btn_save(){
-        int server = Integer.valueOf(param_server.getSelectedParam());
-        boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
-        AppContext.server = server;
-        config.eduServer().put(server);
-        config.classTableAsFirstScreen().put(isFirstScreen);
-        RingerMode[] modes = RingerMode.values();
-        RingerMode duringMode = modes[param_ringer_mode_during_class.getWheel().getCurrentItem()];
-        RingerMode afterMode = modes[param_ringer_mode_after_class.getWheel().getCurrentItem()];
-        boolean needUpdateAlarm = false;
-        if(RingerMode.isSet(config.duringClassRingerMode().get()) != RingerMode.isSet(duringMode.getValue())
-                || RingerMode.isSet(config.afterClassRingerMode().get()) != RingerMode.isSet(afterMode.getValue())){
-            needUpdateAlarm = true;
-        }
-        config.duringClassRingerMode().put(duringMode.getValue());
-        config.afterClassRingerMode().put(afterMode.getValue());
-        if(needUpdateAlarm){
-            RingerMode.duringClassOn(getActivity(), duringMode, -1);
-            RingerMode.afterClassOn(getActivity(), afterMode, 1);
-        }
-        if(RingerMode.isSet(duringMode.getValue()) || RingerMode.isSet(afterMode.getValue())){
-            RingerMode.setDateChangedAlarm(getActivity());
-        } else {
-            RingerMode.cancelDateChangedAlarm(getActivity());
-        }
-        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-        if(ClassUtil.isDuringClassNow(getActivity())){
-            audioManager.setRingerMode(duringMode.getValue());
-        } else {
-            audioManager.setRingerMode(afterMode.getValue());
-        }
-        AppMsg.makeText(parentActivity(),R.string.tips_save_successfully,AppMsg.STYLE_INFO).show();
-    }
-
-
     private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {
         @Override
-        public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+        public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
             switch (updateStatus) {
                 case UpdateStatus.Yes: // has update
                     UmengUpdateAgent.showUpdateDialog(getSherlockActivity(), updateInfo);
@@ -157,6 +68,91 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
             }
         }
     };
+
+    @AfterViews
+    void initViews() {
+
+        param_server.initView(listitem_lable_server, server, 0);
+        param_server.getWheel().setCurrentItem(AppContext.server - 1);
+        param_classTableAsFirstScreen.initViewWithYesOrNoOption(listitem_lable_classTableAsFirstScreen, 1);
+        param_classTableAsFirstScreen.setYesOrNo(config.classTableAsFirstScreen().get());
+        param_ringer_mode_during_class.initView(listitem_label_ringerModeDuringClass, ringer_mode, 2);
+        int i = 0;
+        for (RingerMode mode : RingerMode.values()) {
+            if (mode.getValue() == config.duringClassRingerMode().get()) {
+                param_ringer_mode_during_class.getWheel().setCurrentItem(i);
+            }
+            i++;
+        }
+        param_ringer_mode_after_class.initView(listitem_label_ringerModeAfterClass, ringer_mode, 3);
+        i = 0;
+        for (RingerMode mode : RingerMode.values()) {
+            if (mode.getValue() == config.afterClassRingerMode().get()) {
+                param_ringer_mode_after_class.getWheel().setCurrentItem(i);
+            }
+            i++;
+        }
+    }
+
+    @Click
+    void btn_notification_setting() {
+        NotificationTiming_.intent(getSherlockActivity()).start();
+    }
+
+    @Click
+    void btn_about() {
+        About_.intent(getSherlockActivity()).start();
+    }
+
+    @Click
+    void btn_update() {
+        AppMsg.makeText(getSherlockActivity(),
+                app.getString(R.string.tips_checking_for_update)
+                , AppMsg.STYLE_INFO).show();
+        UmengUpdateAgent.setUpdateAutoPopup(false);
+        UmengUpdateAgent.setUpdateListener(umengUpdateListener);
+        UmengUpdateAgent.forceUpdate(getSherlockActivity());
+    }
+
+    @Click
+    void btn_change_account() {
+        Login_.intent(this).start();
+    }
+
+    @Click
+    void btn_save() {
+        int server = Integer.valueOf(param_server.getSelectedParam());
+        boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
+        AppContext.server = server;
+        config.eduServer().put(server);
+        config.classTableAsFirstScreen().put(isFirstScreen);
+        RingerMode[] modes = RingerMode.values();
+        RingerMode duringMode = modes[param_ringer_mode_during_class.getWheel().getCurrentItem()];
+        RingerMode afterMode = modes[param_ringer_mode_after_class.getWheel().getCurrentItem()];
+        boolean needUpdateAlarm = false;
+        if (RingerMode.isSet(config.duringClassRingerMode().get()) != RingerMode.isSet(duringMode.getValue())
+                || RingerMode.isSet(config.afterClassRingerMode().get()) != RingerMode.isSet(afterMode.getValue())) {
+            needUpdateAlarm = true;
+        }
+        config.duringClassRingerMode().put(duringMode.getValue());
+        config.afterClassRingerMode().put(afterMode.getValue());
+        if (needUpdateAlarm) {
+            RingerMode.duringClassOn(getActivity(), duringMode, -1);
+            RingerMode.afterClassOn(getActivity(), afterMode, 1);
+        }
+        if (RingerMode.isSet(duringMode.getValue()) || RingerMode.isSet(afterMode.getValue())) {
+            RingerMode.setDateChangedAlarm(getActivity());
+        } else {
+            RingerMode.cancelDateChangedAlarm(getActivity());
+        }
+        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        if (ClassUtil.isDuringClassNow(getActivity())) {
+            audioManager.setRingerMode(duringMode.getValue());
+        } else {
+            audioManager.setRingerMode(afterMode.getValue());
+        }
+        AppMsg.makeText(parentActivity(), R.string.tips_save_successfully, AppMsg.STYLE_INFO).show();
+    }
 
     @Override
     public void onTabSelect() {

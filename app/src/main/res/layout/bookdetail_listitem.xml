@@ -1,108 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_serial_number"
-            android:textSize="@dimen/listitem_textSize"
-            android:textColor="@color/normail_item_passed_text_color"
-            android:background="@color/normal_item_passed_color"
-            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+        android:id="@+id/tv_serial_number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/normal_item_passed_color"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:textColor="@color/normail_item_passed_text_color"
+        android:textSize="@dimen/listitem_textSize"/>
 
-        <TableLayout
-                android:layout_width="fill_parent"
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/listitem_padding"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_title_padding_left"
+        android:paddingTop="@dimen/listitem_padding">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/listitem_padding"
-                android:paddingBottom="@dimen/listitem_padding"
-                android:paddingLeft="@dimen/listitem_title_padding_left"
-                android:paddingRight="@dimen/listitem_title_padding_left">
+                android:text="@string/listitem_lable_book_status"/>
 
-            <TableRow>
+            <!-- 书刊状态 -->
+            <TextView
+                android:id="@+id/tv_book_status"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_book_status"
-                        android:id="@+id/textView"/>
+        </TableRow>
 
-                <!-- 书刊状态 -->
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_book_status"/>
+        <TableRow>
 
-            </TableRow>
+            <TextView
+                android:id="@+id/textView"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_collection_place"/>
 
-            <TableRow>
+            <!-- 校区—馆藏地 -->
+            <TextView
+                android:id="@+id/tv_collection_place"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_collection_place"
-                        android:id="@+id/textView"/>
+        </TableRow>
 
-                <!-- 校区—馆藏地 -->
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_collection_place"/>
+        <TableRow
+            android:layout_width="wrap_content">
 
-            </TableRow>
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_barcode_number"/>
 
-            <TableRow
-                    android:layout_width="wrap_content">
+            <!-- 条码号 -->
+            <TextView
+                android:id="@+id/tv_barcode_number"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_barcode_number"/>
-
-                <!-- 条码号 -->
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_barcode_number" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
+        </TableRow>
 
-            </TableRow>
+        <TableRow
+            android:layout_width="wrap_content">
 
-            <TableRow
-                    android:layout_width="wrap_content">
+            <TextView
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_year_title"/>
 
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_year_title"/>
+            <!-- 年卷期 -->
+            <TextView
+                android:id="@+id/tv_year_title"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <!-- 年卷期 -->
-                <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_year_title" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-            </TableRow>
-        </TableLayout>
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

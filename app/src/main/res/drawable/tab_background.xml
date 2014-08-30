@@ -7,5 +7,5 @@
     <!-- 描边 -->
     <stroke
         android:width="1px"
-        android:color="#a3a3a3" />
+        android:color="#a3a3a3"/>
 </shape>

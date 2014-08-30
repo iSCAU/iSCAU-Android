@@ -39,21 +39,17 @@ public enum RingerMode {
 
     private final int value;
 
-    private RingerMode(int value){
+    private RingerMode(int value) {
         this.value = value;
     }
 
-    public int getValue(){
-        return value;
-    }
-
-    public static final boolean isSet(int value){
+    public static final boolean isSet(int value) {
         return value != -1;
     }
 
-    public static RingerMode getModeByValue(int value){
-        for(RingerMode mode : RingerMode.values()){
-            if(mode.getValue() == value){
+    public static RingerMode getModeByValue(int value) {
+        for (RingerMode mode : RingerMode.values()) {
+            if (mode.getValue() == value) {
                 return mode;
             }
         }
@@ -62,11 +58,12 @@ public enum RingerMode {
 
     /**
      * 设置上课时的情景模式
+     *
      * @param context
      * @param mode
-     * @param  offsetMinute 上课前触发的时间
+     * @param offsetMinute 上课前触发的时间
      */
-    public static final void duringClassOn(Context context, RingerMode mode, int offsetMinute){
+    public static final void duringClassOn(Context context, RingerMode mode, int offsetMinute) {
         int value = mode.getValue();
         ClassHelper_ helper = ClassHelper_.getInstance_(context);
         List<ClassModel> klasses = helper.getDayLessonWithParams(new DateUtil().getDayOfWeek());
@@ -75,11 +72,11 @@ public enum RingerMode {
         PendingIntent pendIntent;
         Calendar c = Calendar.getInstance();
         int node;
-        for(ClassModel classModel : klasses){
+        for (ClassModel classModel : klasses) {
             node = Integer.parseInt(classModel.getNode().split(",")[0]);
             pendIntent = PendingIntent.getBroadcast(context,
                     node, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            if(isSet(value)){
+            if (isSet(value)) {
                 ClassUtil.genClassBeginTime(c, node);
                 c.add(Calendar.MINUTE, offsetMinute);
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendIntent);
@@ -91,11 +88,12 @@ public enum RingerMode {
 
     /**
      * 设置下课后的情景模式
+     *
      * @param context
      * @param mode
      * @param offsetMinute 下课后触发的时间
      */
-    public static final void afterClassOn(Context context, RingerMode mode, int offsetMinute){
+    public static final void afterClassOn(Context context, RingerMode mode, int offsetMinute) {
         int value = mode.getValue();
         ClassHelper_ helper = ClassHelper_.getInstance_(context);
         List<ClassModel> klasses = helper.getDayLessonWithParams(new DateUtil().getDayOfWeek());
@@ -105,13 +103,13 @@ public enum RingerMode {
         Calendar c = Calendar.getInstance();
         int node;
         String[] nodes;
-        for(ClassModel classModel : klasses){
+        for (ClassModel classModel : klasses) {
             nodes = classModel.getNode().split(",");
             node = Integer.parseInt(nodes[nodes.length - 1]);
             //节次作为reqCode
             pendIntent = PendingIntent.getBroadcast(context,
                     node, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            if(isSet(value)){
+            if (isSet(value)) {
                 ClassUtil.genClassOverTime(c, node);
                 c.add(Calendar.MINUTE, offsetMinute);
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendIntent);
@@ -124,7 +122,7 @@ public enum RingerMode {
     /**
      * 设置每天0:00触发的闹钟
      */
-    public static void setDateChangedAlarm(Context context){
+    public static void setDateChangedAlarm(Context context) {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(AppConstant.ACTION_DATE_CHANGED);
         PendingIntent pendIntent = PendingIntent.getBroadcast(context,
@@ -138,13 +136,18 @@ public enum RingerMode {
 
     /**
      * 取消每天0:00触发的闹钟
+     *
      * @param context
      */
-    public static void cancelDateChangedAlarm(Context context){
+    public static void cancelDateChangedAlarm(Context context) {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(AppConstant.ACTION_DATE_CHANGED);
         PendingIntent pendIntent = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmMgr.cancel(pendIntent);
+    }
+
+    public int getValue() {
+        return value;
     }
 }

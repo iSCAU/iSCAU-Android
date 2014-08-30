@@ -4,19 +4,18 @@ import android.R;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
+
 import org.androidannotations.annotations.EView;
-import org.androidannotations.annotations.RootContext;
 
 /**
  * 仿ios弹性 scrollView;
- *
+ * <p/>
  * User: special
  * Date: 13-9-3
  * Time: 下午9:30

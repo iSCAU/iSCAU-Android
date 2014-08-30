@@ -1,13 +1,14 @@
 package cn.scau.scautreasure.adapter;
 
 import android.content.Context;
-import cn.scau.scautreasure.R;
-import cn.scau.scautreasure.model.ExamModel;
-import cn.scau.scautreasure.model.GoalModel;
+
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
 
 import java.util.List;
+
+import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.model.ExamModel;
 
 /**
  * User:  Special Leung
@@ -24,11 +25,11 @@ public class ExamAdapter extends QuickAdapter<ExamModel> {
 
     @Override
     protected void convert(BaseAdapterHelper baseAdapterHelper, ExamModel examModel) {
-        baseAdapterHelper.setText(R.id.tv_classname,examModel.getName())
-                         .setText(R.id.tv_place, examModel.getPlace())
-                         .setText(R.id.tv_time, examModel.getTime())
-                         .setText(R.id.tv_seat_number, examModel.getSeat_number())
-                         .setText(R.id.tv_campus, examModel.getCampus())
-                         .setText(R.id.tv_form, examModel.getForm());
+        baseAdapterHelper.setText(R.id.tv_classname, examModel.getName())
+                .setText(R.id.tv_place, examModel.getPlace())
+                .setText(R.id.tv_time, examModel.getTime())
+                .setText(R.id.tv_seat_number, examModel.getSeat_number())
+                .setText(R.id.tv_campus, examModel.getCampus())
+                .setText(R.id.tv_form, examModel.getForm());
     }
 }

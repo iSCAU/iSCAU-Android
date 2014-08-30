@@ -14,18 +14,17 @@ public class ActionBarHelper {
 
 
     /**
-     *
      * 本方法用于强制把 Action Bar Tab 强制放在 Action Bar。
-     *
-     *   原理：通过 Java 反射功能调用私有函数 setHasEmbeddedTabs
-     *        实现。具体可以参考源代码 ->
-     *        https://github.com/android/platform_frameworks_support/tree/81b3862db1f0e0c24f0991e212ba43a74cf25fc2/v7/appcompat/src/android/support/v7/app
-     *
-     *   支持版本： AppCompat-v7:19.+
+     * <p/>
+     * 原理：通过 Java 反射功能调用私有函数 setHasEmbeddedTabs
+     * 实现。具体可以参考源代码 ->
+     * https://github.com/android/platform_frameworks_support/tree/81b3862db1f0e0c24f0991e212ba43a74cf25fc2/v7/appcompat/src/android/support/v7/app
+     * <p/>
+     * 支持版本： AppCompat-v7:19.+
      *
      * @param actionBar
      */
-    public static void enableEmbeddedTabs(ActionBar actionBar){
+    public static void enableEmbeddedTabs(ActionBar actionBar) {
         if (actionBar instanceof ActionBarImplJBMR2) {
             try {
                 Field actionBarField = actionBar.getClass().getSuperclass().getSuperclass().getDeclaredField("mActionBar");

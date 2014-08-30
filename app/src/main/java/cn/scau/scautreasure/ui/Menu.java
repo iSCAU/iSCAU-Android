@@ -9,108 +9,113 @@ import cn.scau.scautreasure.impl.OnTabSelectListener;
 
 
 @EFragment(R.layout.menu)
-public class Menu extends CommonFragment implements OnTabSelectListener{
+public class Menu extends CommonFragment implements OnTabSelectListener {
 
     @Click
-    void menu_goal(){
+    void menu_goal() {
         Param_.intent(this)
-              .target("goal")
-              .targetActivity(Goal_.class.getName())
-              .start();
+                .target("goal")
+                .targetActivity(Goal_.class.getName())
+                .start();
     }
 
     @Click
-    void menu_exam(){
-       Exam_.intent(this).start();
+    void menu_exam() {
+        Exam_.intent(this).start();
     }
 
     @Click
-    void menu_pickCourseInfo(){
+    void menu_pickCourseInfo() {
         PickClassInfo_.intent(this).start();
     }
 
     @Click
-    void menu_emptyClassRoom(){
+    void menu_emptyClassRoom() {
         Param_.intent(this)
-              .target("emptyClassRoom")
-              .targetActivity(EmptyClassRoom_.class.getName())
-              .start();
+                .target("emptyClassRoom")
+                .targetActivity(EmptyClassRoom_.class.getName())
+                .start();
     }
 
     @Click
-    void menu_searchBook(){
+    void menu_searchBook() {
         SearchBook_.intent(this).start();
     }
 
     @Click
-    void menu_nowBorrowedBook(){
+    void menu_nowBorrowedBook() {
         BorrowedBook_.intent(this)
-                     .target(UIHelper.TARGET_FOR_NOW_BORROW)
-                     .start();
+                .target(UIHelper.TARGET_FOR_NOW_BORROW)
+                .start();
     }
 
     @Click
-    void menu_pastBorrowedBook(){
+    void menu_pastBorrowedBook() {
         BorrowedBook_.intent(this)
-             .target(UIHelper.TARGET_FOR_PAST_BORROW)
-             .start();
+                .target(UIHelper.TARGET_FOR_PAST_BORROW)
+                .start();
     }
 
     @Click
-    void menu_lifeinformation(){
+    void menu_lifeinformation() {
         Introduction_.intent(this)
-                     .target("LifeInformation")
-                     .title(R.string.menu_lifeinformation)
-                     .start();
+                .target("LifeInformation")
+                .title(R.string.menu_lifeinformation)
+                .start();
     }
 
     @Click
-    void menu_communityinformation(){
+    void menu_communityinformation() {
         Introduction_.intent(this)
-                    .target("CommunityInformation")
-                    .title(R.string.menu_communityinformation)
-                    .start();
+                .target("CommunityInformation")
+                .title(R.string.menu_communityinformation)
+                .start();
     }
 
     @Click
-    void menu_guardianserves(){
+    void menu_guardianserves() {
         Introduction_.intent(this)
-                    .target("GuardianServes")
-                    .title(R.string.menu_guardianserves)
-                    .start();
+                .target("GuardianServes")
+                .title(R.string.menu_guardianserves)
+                .start();
     }
 
     @Click
-    void menu_studyinformation(){
+    void menu_studyinformation() {
         Introduction_.intent(this)
-                    .target("StudyInformation")
-                    .title(R.string.menu_studyinformation)
-                    .start();
+                .target("StudyInformation")
+                .title(R.string.menu_studyinformation)
+                .start();
     }
 
     @Click
-    void menu_busandtelphone(){
+    void menu_busandtelphone() {
         Introduction_.intent(this)
-                    .target("Bus&Telphone")
-                    .title(R.string.menu_busandtelphone)
-                    .start();
+                .target("Bus&Telphone")
+                .title(R.string.menu_busandtelphone)
+                .start();
     }
 
     @Click
-    void menu_activityinfomation(){
+    void menu_activityinfomation() {
         SchoolActivity_.intent(this).start();
     }
 
     @Click
-    void menu_calendar(){
+    void menu_calendar() {
         Calendar_.intent(this).start();
     }
 
     @Click
-    void menu_notice(){
+    void menu_notice() {
         Notice_.intent(this).start();
     }
 
+
+    @Click
+    void menu_map(){
+        Map_.intent(this).start();
+    }
     @Override
     public void onTabSelect() {
         setTitle(R.string.title_menu);

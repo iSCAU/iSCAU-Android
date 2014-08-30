@@ -42,9 +42,12 @@ import cn.scau.scautreasure.widget.ParamWidget_;
 @EActivity(R.layout.param)
 public class Param extends CommonActivity implements ServerOnChangeListener {
 
-    @App  AppContext app;
-    @RestService EdusysApi api;
-    @ViewById LinearLayout linear_parent;
+    @App
+    AppContext app;
+    @RestService
+    EdusysApi api;
+    @ViewById
+    LinearLayout linear_parent;
 
     @Extra("target")
     String target;
@@ -54,7 +57,7 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     private ArrayList<ParamModel> paramList;
 
     @AfterInject
-    void init(){
+    void init() {
         wheelList = new ArrayList<ParamWidget>();
         UIHelper.getDialog(R.string.tips_loading_params).show();
         loadData();
@@ -62,7 +65,7 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
 
     @Override
     @AfterViews
-    void initActionBar(){
+    void initActionBar() {
         super.initActionBar();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.title_params);
@@ -72,7 +75,7 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
      * 继续查询按钮点击事件;
      */
     @Click
-    void btn_continue(){
+    void btn_continue() {
         try {
             startNextActivity();
         } catch (Exception e) {
@@ -82,26 +85,26 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
 
     /**
      * 通过函数反射手段实例出目标的Activity并且传递参数，
-     *  最后运行之
+     * 最后运行之
      *
      * @throws Exception
      */
     private void startNextActivity() throws Exception {
-        Class cls =  Class.forName(targetActivity);
+        Class cls = Class.forName(targetActivity);
 
         Method buildMethod = cls.getMethod("intent", Context.class);
         Object obj = buildMethod.invoke(cls, this);
 
-        Method putMethod   = obj.getClass().getMethod("value", ArrayList.class);
+        Method putMethod = obj.getClass().getMethod("value", ArrayList.class);
         obj = putMethod.invoke(obj, buildParamsValue());
 
         Method startMethod = obj.getClass().getMethod("start");
         startMethod.invoke(obj);
     }
 
-    private ArrayList<String> buildParamsValue(){
+    private ArrayList<String> buildParamsValue() {
         ArrayList<String> value = new ArrayList<String>();
-        for(int i = 0 ; i < wheelList.size(); i++)
+        for (int i = 0; i < wheelList.size(); i++)
             value.add(wheelList.get(i).getSelectedParam());
         return value;
     }
@@ -110,55 +113,55 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
      * 动态生成参数选择wheel控件;
      */
     @UiThread
-    void showParams(){
+    void showParams() {
         UIHelper.getDialog().dismiss();
         wheelList.clear();
-        for(ParamModel p : paramList){
-            ParamWidget paramWidget = buildParamViews(p.getKey(),p.getValue());
+        for (ParamModel p : paramList) {
+            ParamWidget paramWidget = buildParamViews(p.getKey(), p.getValue());
             linear_parent.addView(paramWidget);
         }
     }
 
-    private ParamWidget buildParamViews(String key,String[] values){
-        if(values==null) values = new String[]{"NULL"};
+    private ParamWidget buildParamViews(String key, String[] values) {
+        if (values == null) values = new String[]{"NULL"};
         ParamWidget paramWidget = ParamWidget_.build(getSherlockActivity());
-        paramWidget.initView(key,values,wheelList.size());
+        paramWidget.initView(key, values, wheelList.size());
         paramWidget.setSeparatorVisable(View.VISIBLE);
         wheelList.add(paramWidget);
         return paramWidget;
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
         paramList = getCacheParamsList();
         // load param from cache, load from network if not existed
-        if(paramList == null){
-            try{
+        if (paramList == null) {
+            try {
                 paramList = api.getParams(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, target).getParams();
                 saveCacheParamsList(paramList);
-            }catch (HttpStatusCodeException e){
+            } catch (HttpStatusCodeException e) {
                 showErrorResult(this, e.getStatusCode().value(), this);
                 return;
-            }catch (Exception e){
+            } catch (Exception e) {
                 handleNoNetWorkError(getSherlockActivity());
             }
         }
         showParams();
     }
 
-    private ArrayList<ParamModel> getCacheParamsList(){
+    private ArrayList<ParamModel> getCacheParamsList() {
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
         String cacheKey = getCacheKey();
         return (ArrayList<ParamModel>) cacheUtil.getAsObject(cacheKey);
     }
 
-    private void saveCacheParamsList(ArrayList<ParamModel> paramList){
+    private void saveCacheParamsList(ArrayList<ParamModel> paramList) {
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
-        if(paramList.size() != 0)
-            cacheUtil.put(getCacheKey(),paramList, AppConstant.PARAMS_CACHE_TIME);
+        if (paramList.size() != 0)
+            cacheUtil.put(getCacheKey(), paramList, AppConstant.PARAMS_CACHE_TIME);
     }
 
-    private String getCacheKey(){
+    private String getCacheKey() {
         return "param_" + target;
     }
 

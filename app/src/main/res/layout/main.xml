@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/main_fragment"
-        android:layout_weight="1.0">
+        android:layout_weight="1.0"
+        android:orientation="vertical">
     </FrameLayout>
 
     <RadioGroup
@@ -21,32 +21,42 @@
         android:layout_gravity="bottom"
         android:background="@drawable/tab_background"
         android:gravity="center_vertical"
-        android:paddingTop="10dp"
+        android:orientation="horizontal"
         android:paddingBottom="8dp"
-        android:orientation="horizontal" >
+        android:paddingTop="10dp">
 
         <RadioButton
-            style="@style/tab_item_style"
             android:id="@+id/rd_classtable"
+            style="@style/tab_item_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:drawableTop="@drawable/icon_classtable_selector"
-            android:checked="true"
-            android:text="@string/tab_classtable" />
+            android:text="@string/tab_classtable"/>
+
         <RadioButton
-            style="@style/tab_item_style"
             android:id="@+id/rd_features"
+            style="@style/tab_item_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/icon_features_selector"
-            android:text="@string/tab_features" />
+            android:text="@string/tab_features"/>
+
         <RadioButton
+            android:id="@+id/rd_food"
             style="@style/tab_item_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/icon_features_selector"
+            android:text="@string/tab_food"/>
+
+        <RadioButton
             android:id="@+id/rd_settings"
+            style="@style/tab_item_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/icon_settings_selector"
-            android:text="@string/tab_settings" />
+            android:text="@string/tab_settings"/>
 
     </RadioGroup>
 </LinearLayout>

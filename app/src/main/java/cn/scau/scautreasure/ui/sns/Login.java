@@ -17,12 +17,12 @@ import org.androidannotations.annotations.EActivity;
 
 import cn.scau.scautreasure.R;
 
-@EActivity ( R.layout.sns_login )
+@EActivity(R.layout.sns_login)
 public class Login extends ActionBarActivity {
 
     private final static String SINA_APP_ID = "1058353952";
-    private final static String SINA_APP_KEY= "f9b42c8a19457c25d61d75d45c0e7663";
-    private final static String SINA_APP_CALLBACK= "http://www.huanongbao.com";
+    private final static String SINA_APP_KEY = "f9b42c8a19457c25d61d75d45c0e7663";
+    private final static String SINA_APP_CALLBACK = "http://www.huanongbao.com";
     private SNSType loginType;
 
     private SNSCallback loginCallback = new SNSCallback() {
@@ -39,8 +39,8 @@ public class Login extends ActionBarActivity {
     };
 
     @Click
-    void sns_login_sina(){
-        loginType =  SNSType.AVOSCloudSNSSinaWeibo;
+    void sns_login_sina() {
+        loginType = SNSType.AVOSCloudSNSSinaWeibo;
         try {
             SNS.setupPlatform(SNSType.AVOSCloudSNSSinaWeibo, SINA_APP_ID, SINA_APP_KEY, SINA_APP_CALLBACK);
             SNS.loginWithCallback(this, SNSType.AVOSCloudSNSSinaWeibo, loginCallback);

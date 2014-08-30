@@ -1,113 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <!-- 课程名称 -->
     <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="classname"
-            android:id="@+id/tv_classname"
-            android:textSize="@dimen/listitem_textSize"
-            android:textColor="@color/normail_item_passed_text_color"
-            android:background="@color/goal_item_passed_color"
-            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+        android:id="@+id/tv_classname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/goal_item_passed_color"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:text="classname"
+        android:textColor="@color/normail_item_passed_text_color"
+        android:textSize="@dimen/listitem_textSize"/>
 
     <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/listitem_padding"
-            android:paddingBottom="@dimen/listitem_padding"
-            android:paddingLeft="@dimen/listitem_title_padding_left"
-            android:paddingRight="@dimen/listitem_title_padding_left">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/listitem_padding"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_title_padding_left"
+        android:paddingTop="@dimen/listitem_padding">
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_time"
-                    android:id="@+id/textView"/>
+                android:id="@+id/textView"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_time"/>
 
             <!-- 考试时间 -->
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_time"/>
+                android:id="@+id/tv_time"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_place"
-                    android:id="@+id/tv_lable_goal"/>
+                android:id="@+id/tv_lable_goal"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_place"/>
 
             <!-- 考试地点 -->
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_place" />
+                android:id="@+id/tv_place"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_seat_number"/>
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_seat_number"/>
 
             <!-- 座位号 -->
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_seat_number" />
+                android:id="@+id/tv_seat_number"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_campus"/>
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_campus"/>
 
             <!-- 校区 -->
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_campus" />
+                android:id="@+id/tv_campus"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_form"
-                    android:id="@+id/tv_lable_goal"/>
+                android:id="@+id/tv_lable_goal"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_form"/>
 
             <!-- 考试形式 -->
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_form" />
+                android:id="@+id/tv_form"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
@@ -115,10 +115,10 @@
     </TableLayout>
 
     <ImageView
-            style="@style/listitem_separator"
-            android:layout_marginTop="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription=""/>
+        style="@style/listitem_separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:contentDescription=""/>
 
 </LinearLayout>

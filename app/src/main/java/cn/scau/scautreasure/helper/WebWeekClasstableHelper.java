@@ -22,7 +22,7 @@ public class WebWeekClasstableHelper {
 
     private WebView webView;
     private ViewTreeObserver vto;
-    private cn.scau.scautreasure.AppConfig_  config;
+    private cn.scau.scautreasure.AppConfig_ config;
     private DateUtil dateUtil;
     private ClassHelper classHelper;
 
@@ -39,9 +39,9 @@ public class WebWeekClasstableHelper {
 
         List<ClassModel> dayClassList = null;
         String chineseDay = dateUtil.numDayToChinese(day);
-        if(config.classTableShowMode().get() == ClassTable.MODE_ALL){
+        if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
             dayClassList = classHelper.getDayLesson(chineseDay);
-        }else{
+        } else {
             dayClassList = classHelper.getDayLessonWithParams(chineseDay);
         }
 

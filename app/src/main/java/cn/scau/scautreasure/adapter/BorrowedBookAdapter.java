@@ -39,26 +39,26 @@ public class BorrowedBookAdapter extends QuickAdapter<BookModel> {
         super(context, R.layout.borrowedbook_listitem);
     }
 
-    public void setParent(Activity act){
+    public void setParent(Activity act) {
         ctx = (BorrowedBook_) act;
     }
 
     @Override
     protected void convert(BaseAdapterHelper baseAdapterHelper, final BookModel model) {
-        baseAdapterHelper.setText(R.id.tv_bookname,model.getTitle())
-                         .setText(R.id.tv_borrow_date, model.getBorrow_date())
-                         .setText(R.id.tv_barcode_number,model.getBarcode_number())
-                         .setText(R.id.tv_collection_place,model.getCollection_place());
+        baseAdapterHelper.setText(R.id.tv_bookname, model.getTitle())
+                .setText(R.id.tv_borrow_date, model.getBorrow_date())
+                .setText(R.id.tv_barcode_number, model.getBarcode_number())
+                .setText(R.id.tv_collection_place, model.getCollection_place());
 
-        if(isHistoryBrrowedBook(model)){
-            baseAdapterHelper.setText(R.id.tv_lable_return_date,ctx.getString(R.string.listitem_lable_return_date));
-            baseAdapterHelper.setText(R.id.tv_return_date,model.getReturn_date());
-        }else{
-            baseAdapterHelper.setText(R.id.tv_lable_return_date,ctx.getString(R.string.listitem_lable_should_return_date));
-            baseAdapterHelper.setText(R.id.tv_return_date,model.getShould_return_date());
+        if (isHistoryBrrowedBook(model)) {
+            baseAdapterHelper.setText(R.id.tv_lable_return_date, ctx.getString(R.string.listitem_lable_return_date));
+            baseAdapterHelper.setText(R.id.tv_return_date, model.getReturn_date());
+        } else {
+            baseAdapterHelper.setText(R.id.tv_lable_return_date, ctx.getString(R.string.listitem_lable_should_return_date));
+            baseAdapterHelper.setText(R.id.tv_return_date, model.getShould_return_date());
         }
 
-        if(canRenew(model)){
+        if (canRenew(model)) {
             baseAdapterHelper.getView(R.id.btn_renew).setVisibility(View.VISIBLE);
             baseAdapterHelper.getView(R.id.btn_renew).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,16 +66,16 @@ public class BorrowedBookAdapter extends QuickAdapter<BookModel> {
                     ctx.reNew(model.getBarcode_number(), model.getCheck_code());
                 }
             });
-        }else{
+        } else {
             baseAdapterHelper.getView(R.id.btn_renew).setVisibility(View.GONE);
         }
     }
 
-    private boolean isHistoryBrrowedBook(BookModel model){
+    private boolean isHistoryBrrowedBook(BookModel model) {
         return model.getShould_return_date() == null;
     }
 
-    private boolean canRenew(BookModel model){
+    private boolean canRenew(BookModel model) {
         return model.getRenew_time() == 0 && model.getCheck_code() != null;
     }
 }

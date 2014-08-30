@@ -1,12 +1,12 @@
 package cn.scau.scautreasure.helper;
 
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
-import cn.scau.scautreasure.AppContext;
+
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EBean;
+
+import cn.scau.scautreasure.AppContext;
 
 /**
  * User: special

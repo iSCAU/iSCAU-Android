@@ -23,14 +23,14 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Time:  下午2:54
  * Mail:  specialcyci@gmail.com
  */
-@EActivity( R.layout.exam )
-public class Exam extends CommonQueryActivity{
+@EActivity(R.layout.exam)
+public class Exam extends CommonQueryActivity {
 
     @RestService
     EdusysApi api;
 
     @AfterViews
-    void init(){
+    void init() {
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
         cacheHelper.setCacheKey("exam_arrange");
@@ -38,24 +38,24 @@ public class Exam extends CommonQueryActivity{
         buildAndShowListViewAdapter();
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
         beforeLoadData();
-        try{
+        try {
             list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
-        }catch (HttpStatusCodeException e){
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value(),this);
-        }catch (Exception e){
+        } catch (HttpStatusCodeException e) {
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
         afterLoadData();
     }
 
-    private void buildAndShowListViewAdapter(){
+    private void buildAndShowListViewAdapter() {
         ExamAdapter examadapter = new ExamAdapter(getSherlockActivity(), R.layout.exam_listitem, list);
-        adapter  = UIHelper.buildEffectAdapter(examadapter, (AbsListView) listView,ALPHA);
+        adapter = UIHelper.buildEffectAdapter(examadapter, (AbsListView) listView, ALPHA);
         showSuccessResult();
     }
 

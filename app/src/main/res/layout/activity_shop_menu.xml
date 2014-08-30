@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/foodMenu"></ListView>
+    <LinearLayout
+        android:clickable="true"
+        android:background="@drawable/blue_button_selector"
+        android:descendantFocusability="blocksDescendants"
+        android:id="@+id/order"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal" android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/shopbox"/>
+        <TextView
+            android:textColor="@color/actionar_title_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去下单"
+            android:padding="10dp"
+            android:textSize="8pt"
+           />
+
+        </LinearLayout>
+</LinearLayout>
