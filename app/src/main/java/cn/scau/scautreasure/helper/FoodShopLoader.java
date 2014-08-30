@@ -51,6 +51,7 @@ public class FoodShopLoader {
                     helper.addOrUpdateOneFoodShop(model);
                     Log.i("写入/更新 店铺", list.getShop().get(i).getShop_name());
                 }else{
+                   //如果status为0,删除该店铺
                     FoodShopDBModel model=new FoodShopDBModel(list.getShop().get(i).getId());
                     helper.deleteShop(model);
                     Log.i("删除 店铺", list.getShop().get(i).getShop_name());
