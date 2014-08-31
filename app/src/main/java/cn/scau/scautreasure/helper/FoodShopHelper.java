@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.helper;
 
+import android.accounts.Account;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -36,9 +37,30 @@ public class FoodShopHelper {
     public void addOrUpdateOneFoodShop(FoodShopDBModel model) {
         dao.createOrUpdate(model);
     }
+    public void updateOnFoodShop(String key,String value,int id){
+            dao.updateRaw("update foodshop set "+key +" = "+value +" where id = " +id);
 
-    public List<FoodShopDBModel> getFoodShopList() {
+//        UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson'
+
+//        UpdateBuilder<Account, String> updateBuilder =
+//                accountDao.updateBuilder();
+//// update the password to be "none"
+//        updateBuilder.updateColumnValue("password", "none");
+//// only update the rows where password is null
+//        updateBuilder.where().isNull(Account.PASSWORD_FIELD_NAME);
+//        updateBuilder.update();
+
+    }
+
+    public List<FoodShopDBModel> getFoodShopList(){
         return dao.queryForAll();
+//        try {
+////            return  dao.("select *form foodshop ordeyby lastTime");
+//           return dao.queryBuilder().orderBy("lastTime",true).where().eq("status","1").query();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 
     public void addOrUpdateMenu(ShopMenuDBModel model) {

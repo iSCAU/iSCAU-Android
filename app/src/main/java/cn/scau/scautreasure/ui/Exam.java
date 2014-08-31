@@ -8,11 +8,14 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.rest.RestService;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import java.util.ArrayList;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ExamAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.util.StringUtil;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
@@ -28,12 +31,13 @@ public class Exam extends CommonQueryActivity {
 
     @RestService
     EdusysApi api;
-
+    ArrayList<String> value;
     @AfterViews
     void init() {
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
-        cacheHelper.setCacheKey("exam_arrange");
+//        cacheHelper.setCacheKey("exam_arrange");
+        cacheHelper.setCacheKey("exam" + StringUtil.join(value, "_"));
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }

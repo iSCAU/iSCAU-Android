@@ -4,6 +4,9 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:gravity="center_vertical"
     android:padding="10dp"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/list_item_bg"
     android:layout_height="match_parent">
     <TextView
         android:text="斯蒂芬斯达夫"

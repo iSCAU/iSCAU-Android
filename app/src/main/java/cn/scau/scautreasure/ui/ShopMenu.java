@@ -23,6 +23,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ public class ShopMenu extends CommonActivity {
     @Bean
     FoodShopHelper helper;
 
-
+@ViewById(R.id.order_button)
+    TextView order_button;
     private boolean isRest=false;
     List<ShopMenuDBModel> menuList,orderList;
     private String msg="";
@@ -66,10 +68,13 @@ public class ShopMenu extends CommonActivity {
 
     @Click(R.id.order)
     void next(){
+        //是否休息中
         if(!isRest) {
+            //产生菜色list
             makeList();
+            //如果菜色不为0
             if ((orderList.size() > 0)) {
-                OrderFood_.intent(this).sendList(orderList).msg(msg).phone(phone).shopName(shop_name).shopLogo(shop_logo).start();
+                OrderFood_.intent(this).sendList(orderList).msg(msg).phone(phone).shopName(shop_name).shopLogo(shop_logo).shopId(id).start();
             } else {
                 Toast.makeText(this, "你还没选择饭菜", Toast.LENGTH_SHORT).show();
             }
@@ -77,7 +82,7 @@ public class ShopMenu extends CommonActivity {
             AppMsg.makeText(getSherlockActivity(),"本外卖店休息中",AppMsg.STYLE_ALERT).show();
         }
     }
-    private void checkTime(String start,String end ){
+    private void checkoutTime(String start,String end ){
         String startTime[]=start.split(":");
         String endTime[]=end.split(":");
         int startMin=Integer.parseInt(startTime[0])*60+Integer.parseInt(startTime[1]);
@@ -87,6 +92,7 @@ public class ShopMenu extends CommonActivity {
         if (!(nowMIn>startMin&&nowMIn<endMin)){
             isRest=true;
             getSherlockActivity().getSupportActionBar().setSubtitle("休息中");
+            order_button.setText("本店休息中,暂无法下单");
         }
     }
     /*
@@ -110,7 +116,7 @@ public class ShopMenu extends CommonActivity {
     @AfterViews
     void initView(){
          setTitle(""+shop_name);
-        checkTime(start_time,end_time);
+        checkoutTime(start_time,end_time);
 
         loadData();
         fmAdapter=new FoodMenuAdapter();
@@ -179,9 +185,14 @@ public class ShopMenu extends CommonActivity {
                      finalViewHolder.foodCount.setText(String.valueOf(menuList.get(i).getCount()));
                  }
              });
-
+             if (i % 2 == 0) {
+                 view.setBackground( getResources().getDrawable(R.drawable.list_item_click));
+             } else {
+                 view.setBackground( getResources().getDrawable(R.drawable.list_item_click1));
+             }
              return view;
          }
+
         class ViewHolder{
             public ImageButton removeOne;
             public ImageButton addOne;

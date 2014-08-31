@@ -31,6 +31,7 @@ import cn.scau.scautreasure.AppConfig_;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.OrderListAdapter;
+import cn.scau.scautreasure.helper.FoodShopHelper;
 import cn.scau.scautreasure.model.FoodShopDBModel;
 import cn.scau.scautreasure.model.ShopMenuDBModel;
 import cn.scau.scautreasure.util.TextUtil;
@@ -41,6 +42,10 @@ import cn.scau.scautreasure.widget.ParamWidget;
  */
 @EActivity(R.layout.activity_order_food)
 public class OrderFood extends CommonActivity {
+    @Bean
+    FoodShopHelper helper;
+    @Extra
+    String shopId;
     @Extra
     List<ShopMenuDBModel> sendList;
     @ViewById(R.id.orderList)
@@ -77,10 +82,15 @@ public class OrderFood extends CommonActivity {
         saveAddress();
         //判断是否手机设备,如果是则跳到发短信,否则提示
         if (!appConfig.isThePad().get()) {
+            //是否填入地址
             if (!TextUtils.isEmpty(address.getText().toString().trim())) {
+                //是否点到菜
                 if (sendList.size()>0) {
                     String sendMsg=msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim() + "[来自华农宝客户端]";
-                    sendSMS(sendMsg);
+                    sendSMS(sendMsg);//发送短信
+                    updateLastTime();//更新lastTime
+
+
                 }else{
                     Toast.makeText(this,"你尚未选择饭菜",Toast.LENGTH_SHORT).show();
                 }
@@ -91,7 +101,17 @@ public class OrderFood extends CommonActivity {
             AppMsg.makeText(this,"当前设备不是手机,请更换手机使用.",AppMsg.STYLE_ALERT).show();
         }
     }
+    //更新lasttime,提供外卖店排序的根据
+    void updateLastTime(){
+        Log.i("更新外卖店:","id="+shopId);
+        long time=System.currentTimeMillis();
+        helper.updateOnFoodShop("lastTime",String.valueOf(time),Integer.valueOf(shopId));
+        Log.i("更新外卖店","更新lastTime:"+time);
+    }
 
+
+
+//保存地址
     void saveAddress(){
         appConfig.block().put(param_block.getWheel().getCurrentItem());
         appConfig.address().put(address.getText().toString().trim());

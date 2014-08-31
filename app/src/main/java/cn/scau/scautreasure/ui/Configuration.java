@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -11,6 +12,7 @@ import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -40,12 +42,13 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
     cn.scau.scautreasure.AppConfig_ config;
 
     @ViewById
-    ParamWidget param_server, param_classTableAsFirstScreen,
+    ParamWidget  param_classTableAsFirstScreen,
             param_ringer_mode_during_class, param_ringer_mode_after_class;
 
     @StringArrayRes
     String[] server, ringer_mode;
-
+    @ViewById(R.id.alert_before_class)
+    CheckBox alertClass;
     @StringRes
     String listitem_lable_server, listitem_lable_classTableAsFirstScreen,
             listitem_label_ringerModeDuringClass, listitem_label_ringerModeAfterClass;
@@ -68,12 +71,14 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
             }
         }
     };
-
+    @CheckedChange(R.id.alert_before_class)
+    void setAlertClass(){
+        config.isAlertClass().put(alertClass.isChecked());
+    }
     @AfterViews
     void initViews() {
 
-        param_server.initView(listitem_lable_server, server, 0);
-        param_server.getWheel().setCurrentItem(AppContext.server - 1);
+        alertClass.setChecked(config.isAlertClass().get());
         param_classTableAsFirstScreen.initViewWithYesOrNoOption(listitem_lable_classTableAsFirstScreen, 1);
         param_classTableAsFirstScreen.setYesOrNo(config.classTableAsFirstScreen().get());
         param_ringer_mode_during_class.initView(listitem_label_ringerModeDuringClass, ringer_mode, 2);
@@ -121,10 +126,8 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
 
     @Click
     void btn_save() {
-        int server = Integer.valueOf(param_server.getSelectedParam());
+
         boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
-        AppContext.server = server;
-        config.eduServer().put(server);
         config.classTableAsFirstScreen().put(isFirstScreen);
         RingerMode[] modes = RingerMode.values();
         RingerMode duringMode = modes[param_ringer_mode_during_class.getWheel().getCurrentItem()];

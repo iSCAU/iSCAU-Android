@@ -8,6 +8,8 @@ import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import java.sql.Date;
+
 import cn.scau.scautreasure.AppConfig_;
 import cn.scau.scautreasure.api.FoodApi;
 import cn.scau.scautreasure.model.FoodShopDBModel;
@@ -46,7 +48,7 @@ public class FoodShopLoader {
                 //把从json解析出的东西中分离组成一个数据库模型写入数据库
                 if (Integer.parseInt(list.getShop().get(i).getStatus())==1) {
                     FoodShopDBModel model = new FoodShopDBModel(list.getShop().get(i).getId(), list.getShop().get(i).getShop_name(), list.getShop().get(i).getPhone()
-                            , list.getShop().get(i).getStatus(), list.getShop().get(i).getEdit_time(), 0, list.getShop().get(i).getStart_time(), list.getShop().get(i).getEnd_time(), list.getShop().get(i).getLogo_url());
+                            , list.getShop().get(i).getStatus(), list.getShop().get(i).getEdit_time(),System.currentTimeMillis(), list.getShop().get(i).getStart_time(), list.getShop().get(i).getEnd_time(), list.getShop().get(i).getLogo_url());
 
                     helper.addOrUpdateOneFoodShop(model);
                     Log.i("写入/更新 店铺", list.getShop().get(i).getShop_name());

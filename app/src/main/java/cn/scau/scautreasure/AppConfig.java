@@ -20,6 +20,10 @@ import cn.scau.scautreasure.ui.ClassTable;
 
 @SharedPref(value = SharedPref.Scope.UNIQUE)
 public interface AppConfig {
+
+    @DefaultBoolean(true)
+    boolean isAlertClass();
+
    @DefaultBoolean(false)
    boolean isThePad();
 

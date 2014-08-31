@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content"
-                android:background="@drawable/menu_title_background"
+                android:background="@color/money_bg"
              >
                 <com.meg7.widget.CircleImageView
                     android:layout_width="48dp"

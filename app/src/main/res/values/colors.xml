@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="black_text">#000000</color>
     <color name="background_normal">#ffffff</color>
     <color name="login_lable_font_color">#7c8389</color>
     <color name="login_edittext_textcolor">#7c8389</color>
@@ -48,4 +49,9 @@
     <color name="swipe_refresh_4">#29A2C6</color>
 
     <color name="money_color">#f7882d</color>
+
+    <color name="list_item_bg_1">#efefef</color>
+    <color name="list_item_bg_2">#ffffff</color>
+    <color name="list_item_click_bg">#c5c5c5</color>
+    <color name="money_bg">#c7eae4</color>
 </resources>

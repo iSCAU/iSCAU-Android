@@ -5,6 +5,7 @@
               android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:padding="5dp"
+    android:id="@+id/list_item_bg"
               android:orientation="horizontal">
 
     <com.meg7.widget.CircleImageView
@@ -30,11 +31,12 @@
         android:textSize="7pt"
         android:id="@+id/text2"
         android:layout_width="wrap_content"
+        android:textColor="@color/intro_content_textcolor"
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:id="@+id/goicon"
         android:scaleType="centerCrop"
-
         android:src="@drawable/abc_ic_go_search_api_holo_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

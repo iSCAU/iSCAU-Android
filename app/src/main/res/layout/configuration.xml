@@ -16,17 +16,35 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical">
-
-            <TextView
-                style="@style/menu_title_label"
+            <LinearLayout
+                 android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="28dp"
+            android:paddingRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_server"/>
+                android:orientation="horizontal">
 
-            <cn.scau.scautreasure.widget.ParamWidget_
-                android:id="@+id/param_server"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="上课前30分钟提醒"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alert_before_class"/>
+
+                </LinearLayout>
+            <!--<TextView-->
+                <!--style="@style/menu_title_label"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/settings_server"/>-->
+
+            <!--<cn.scau.scautreasure.widget.ParamWidget_-->
+                <!--android:id="@+id/param_server"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
 
             <cn.scau.scautreasure.widget.ParamWidget_
                 android:id="@+id/param_classTableAsFirstScreen"

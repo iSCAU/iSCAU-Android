@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
+import com.joanzapata.android.BaseAdapterHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -27,6 +28,9 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cn.scau.scautreasure.AppCompatible;
@@ -154,11 +158,25 @@ public class Food extends CommonFragment implements OnTabSelectListener {
     void loadFromDB(){
         list=  helper.getFoodShopList();
         Log.i("加载数据", String.valueOf(list.size()));
+
+
         if (list.size()>0) {
+
+
+            SortByLastTime comp1 = new SortByLastTime();
+           Collections.sort(list,comp1);
+            //Collections.reverse(list);
+            SortComparator comp = new SortComparator();
+           Collections.sort(list, comp);
+
+
+
             if (listAdapter==null) {
+                Log.i("adapter","建立adapter");
                 listAdapter = new FoodShopAdapter(getSherlockActivity(), R.layout.food_shop_list_layout, list);
                 shopListView.setAdapter(listAdapter);
             }else{
+                Log.i("adapter","刷新adapter");
                 listAdapter.notifyDataSetChanged();
             }
             linearLayout.setVisibility(View.GONE);
@@ -189,4 +207,76 @@ public class Food extends CommonFragment implements OnTabSelectListener {
         swipe_refresh.setRefreshing(true);
 
     }
+
+    /**
+     * 返回负数就是靠前,正数靠后---排序器
+     */
+    class SortComparator implements Comparator {
+        @Override
+        public int compare(Object lhs, Object rhs) {
+            FoodShopDBModel a = (FoodShopDBModel) lhs;
+            FoodShopDBModel b = (FoodShopDBModel) rhs;
+
+            if (checkTime(a.getStart_time(), a.getEnd_time())) {
+                if (checkTime(b.getStart_time(), b.getEnd_time())) {
+                    return 0;
+                }
+                if (!checkTime(b.getStart_time(), b.getEnd_time())) {
+                    return -1;
+                }
+
+            } else {
+                if (checkTime(b.getStart_time(), b.getEnd_time())) {
+                    return 1;
+                }
+                if (!checkTime(b.getStart_time(), b.getEnd_time())) {
+                    return 0;
+                }
+            }
+            return 0;
+
+
+        }
+
+
+        private boolean checkTime(String start, String end) {
+
+            String startTime[] = start.split(":");
+            String endTime[] = end.split(":");
+            int startMin = Integer.parseInt(startTime[0]) * 60 + Integer.parseInt(startTime[1]);
+            int endMin = Integer.parseInt(endTime[0]) * 60 + Integer.parseInt(endTime[1]);
+            java.util.Calendar c = java.util.Calendar.getInstance();
+            int nowMIn = c.get(java.util.Calendar.HOUR_OF_DAY) * 60 + c.get(java.util.Calendar.MINUTE);
+            if ((nowMIn > startMin && nowMIn < endMin)) {
+                //工作
+                return true;
+            } else {
+                //休息
+                return false;
+            }
+
+        }
+    }
+    class SortByLastTime implements Comparator{
+
+
+        @Override
+        public int compare(Object o, Object o2) {
+            FoodShopDBModel a = (FoodShopDBModel) o;
+            FoodShopDBModel b = (FoodShopDBModel) o2;
+           // return Integer.parseInt(String.valueOf(Long.valueOf(a.getLastTime()-b.getLastTime())));
+            if (a.getLastTime()>b.getLastTime()){
+                return -1;
+            }else if (a.getLastTime()<b.getLastTime()){
+                return 1;
+            }else {
+                return 0;
+            }
+
+//            return  (int)(b.getLastTime()-a.getLastTime());
+
+
+        }
+    }
+
 }

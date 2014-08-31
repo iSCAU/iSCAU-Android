@@ -74,16 +74,16 @@ public class FoodShopDBModel {
         this.logo_url = logo_url;
     }
 
-    public FoodShopDBModel(int id, String shop_name, String phone, String status, long edit_time, long lastTime, String start_time, String end_time, String logo_url) {
+    public FoodShopDBModel(int id, String shop_name, String phone, String status, long edit_time, long lastTime,  String start_time, String end_time, String logo_url) {
         this.id = id;
         this.shop_name = shop_name;
         this.phone = phone;
         this.status = status;
         this.edit_time = edit_time;
-        this.lastTime = lastTime;
         this.start_time = start_time;
         this.end_time = end_time;
         this.logo_url = logo_url;
+        this.lastTime=lastTime;
     }
 
     public FoodShopDBModel(int id) {

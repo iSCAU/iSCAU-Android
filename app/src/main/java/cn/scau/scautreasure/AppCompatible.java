@@ -41,6 +41,7 @@ public class AppCompatible {
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
 
+
     @RootContext
     Context ctx;
 

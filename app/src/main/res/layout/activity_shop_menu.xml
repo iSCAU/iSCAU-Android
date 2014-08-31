@@ -23,6 +23,7 @@
             android:layout_height="32dp"
             android:src="@drawable/shopbox"/>
         <TextView
+            android:id="@+id/order_button"
             android:textColor="@color/actionar_title_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
