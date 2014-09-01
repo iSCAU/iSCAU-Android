@@ -53,7 +53,7 @@ public class SchoolActivity extends CommonActivity {
 
     @AfterViews
     void initView() {
-        getSupportActionBar().hide();
+        setTitle("校园活动");
         helper = new SchoolActivityHelper(this);
 
         today = new SchoolActivityPullToRefresh(this, helper, "today");
@@ -79,10 +79,6 @@ public class SchoolActivity extends CommonActivity {
         //loadData();
     }
 
-    @Click
-    void iv_back(){
-        finish();
-    }
 
     /*
      * 这里因为种种原因要这么做，getWidth=0是没办法避免的事情，只好等待
@@ -102,15 +98,8 @@ public class SchoolActivity extends CommonActivity {
         today.setRefreshing();
     }
 
-    @Click(R.id.title)
-    void icon_back() {
-        finish();
-    }
 
-    @Override
-    void initActionBar() {
-        //留空
-    }
+
 
     void initPullToRefreshListView(PullToRefreshListView view) {
         view.getRefreshableView().setDivider(null);
