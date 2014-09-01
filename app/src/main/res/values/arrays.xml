@@ -101,14 +101,15 @@
         <item>1.9</item>
         <item>2.0</item>
     </string-array>
-    <string-array name="server">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
+    <!--取消多服务器选择-->
+    <!--<string-array name="server">-->
+        <!--<item>1</item>-->
+        <!--<item>2</item>-->
+        <!--<item>3</item>-->
+        <!--<item>4</item>-->
+        <!--<item>5</item>-->
+        <!--<item>6</item>-->
+    <!--</string-array>-->
     <string-array name="yes_or_no">
         <item>是</item>
         <item>否</item>

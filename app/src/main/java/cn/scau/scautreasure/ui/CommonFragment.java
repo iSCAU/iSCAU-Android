@@ -89,7 +89,8 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
 
     protected void showErrorResult(ActionBarActivity ctx, int requestCode, ServerOnChangeListener listener) {
         if (isServerError(requestCode)) {
-            handleServerError(ctx, listener);
+            //handleServerError(ctx, listener);
+            
         } else {
             showErrorResult(ctx, requestCode);
         }
@@ -119,24 +120,24 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
         return ctx != null && !ctx.isFinishing();
     }
 
-    @UiThread
-    void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener) {
-        if (!ensureActivityAvailable(ctx))
-            return;
-        UIHelper.getDialog().dismiss();
-        String[] server = ctx.getResources().getStringArray(R.array.server);
-        SpinnerDialog spinner = new SpinnerDialog(ctx, Arrays.asList(server));
-        spinner.setDefaultSelectPosition(AppContext.getServer() - 1);
-        spinner.setMessage(ctx.getString(R.string.tips_edu_server_error));
-        spinner.setDialogListener(new SpinnerDialog.DialogListener() {
-            @Override
-            public void select(int n) {
-                AppContext.setServer(n + 1);
-                listener.onChangeServer();
-            }
-        });
-        spinner.createBuilder().create().show();
-    }
+//    @UiThread
+//    void handleServerError(final ActionBarActivity ctx, final ServerOnChangeListener listener) {
+//        if (!ensureActivityAvailable(ctx))
+//            return;
+//        UIHelper.getDialog().dismiss();
+//        String[] server = ctx.getResources().getStringArray(R.array.server);
+//        SpinnerDialog spinner = new SpinnerDialog(ctx, Arrays.asList(server));
+//        spinner.setDefaultSelectPosition(AppContext.getServer() - 1);
+//        spinner.setMessage(ctx.getString(R.string.tips_edu_server_error));
+//        spinner.setDialogListener(new SpinnerDialog.DialogListener() {
+//            @Override
+//            public void select(int n) {
+//                AppContext.setServer(n + 1);
+//                listener.onChangeServer();
+//            }
+//        });
+//        spinner.createBuilder().create().show();
+//    }
 
     @UiThread
     void handleNoNetWorkError(ActionBarActivity ctx) {

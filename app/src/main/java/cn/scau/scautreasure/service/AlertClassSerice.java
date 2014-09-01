@@ -1,10 +1,24 @@
 package cn.scau.scautreasure.service;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
+
+import java.util.Calendar;
+import java.util.List;
+
+import cn.scau.scautreasure.helper.ClassHelper;
+import cn.scau.scautreasure.model.ClassModel;
+import cn.scau.scautreasure.receiver.AlertClassReceiver_;
+import cn.scau.scautreasure.util.ClassUtil;
+import cn.scau.scautreasure.util.DateUtil;
 
 /**
  * Created by apple on 14-8-31.
@@ -20,23 +34,88 @@ import org.androidannotations.annotations.EService;
  */
 @EService
 public class AlertClassSerice extends Service{
+    //当天的课程ListView
+    private   List<ClassModel> dayClassList = null;
+    private  int currentDay ;
+    private  String chineseDay;
+
+    @Bean
+    ClassHelper classHelper;
+    @Bean
+    DateUtil dateUtil;
+    //30分钟前触发
+    private int offsetMinute=-30;
+    private String time="";
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        currentDay =  dateUtil.getDayOfWeek();
+          chineseDay = dateUtil.numDayToChinese(currentDay);
+
+        dayClassList = classHelper.getDayLesson(chineseDay);
+
+        if (dayClassList.size()>0) {
+
+
+            for (int i = 0; i < dayClassList.size(); i++) {
+                Log.i("今天课程:","第"+dayClassList.get(i).getNode()+"节--" +dayClassList.get(i).getClassname());
+                startAlert(dayClassList.get(i).getClassname(),dayClassList.get(i).getLocation(),dayClassList.get(i).getNode());
+
+            }
+        }
+    }
+
+    /**
+     *
+     * @param className
+     * @param node  节次
+     */
+    void startAlert(String className,String classBlock,String node){
+            long triggerAtTime=countTime(node);
+            Intent intent = new Intent(getApplicationContext(), AlertClassReceiver_.class);
+            intent.putExtra("className", className);
+            intent.putExtra("classTime", time);
+            intent.putExtra("classBlock", classBlock);
+
+            PendingIntent pendIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                    Integer.valueOf(node.split(",")[0]), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Log.i("课程提醒", node + "|" + className + "|" + triggerAtTime);
+            am.set(AlarmManager.RTC_WAKEUP, triggerAtTime, pendIntent);
+
+    }
+
+    long countTime(String node){
+        int  startNode= Integer.valueOf(node.split(",")[0]);
+        Calendar c = Calendar.getInstance();
+        time =ClassUtil.genClassBeginTime(c, startNode);
+         c.add(Calendar.MINUTE, offsetMinute);
+        return c.getTimeInMillis();
+//        alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendIntent);
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("AlertClassService","开启");
         return super.onStartCommand(intent, flags, startId);
+
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.i("AlertClassService","关闭");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
 }

@@ -35,11 +35,13 @@ public class ClassUtil {
      * @param c    时间，设置好小时和分钟
      * @param node 节次
      */
-    public static void genClassBeginTime(Calendar c, int node) {
+    public static String genClassBeginTime(Calendar c, int node) {
         c.set(Calendar.HOUR_OF_DAY, HOURS_ON[node - 1]);
         c.set(Calendar.MINUTE, MINUTES_ON[node - 1]);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
+
+        return  HOURS_ON[node-1]+":"+MINUTES_ON[node-1];
     }
 
     /**
@@ -53,6 +55,8 @@ public class ClassUtil {
         c.set(Calendar.MINUTE, MINUTES_OVER[node - 1]);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
+
+
     }
 
     /**

@@ -25,6 +25,8 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.PackageHelper;
 import cn.scau.scautreasure.helper.SplashHelper;
 import cn.scau.scautreasure.model.SplashModel;
+import cn.scau.scautreasure.service.AlertClassSerice;
+import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.service.FoodShopService_;
 
 /**
@@ -51,9 +53,16 @@ public class Welcome extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //开启课程提醒
+        if (appConfig.isAlertClass().get()) {
+//            AlertClassSerice_.intent(this).start();
+            //注解那个方法是绑定的
+            Intent sevice = new Intent(this, AlertClassSerice_.class);
+            startService(sevice);
+        }
         //拿外卖
         FoodShopService_.intent(this).start();
+
         if (isPad()){
 
             appConfig.isThePad().put(true);

@@ -38,6 +38,7 @@ import cn.scau.scautreasure.util.TextManager;
 @EBean
 public class AppCompatible {
 
+
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
 

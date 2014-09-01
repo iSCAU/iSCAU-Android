@@ -298,6 +298,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         swipe_refresh.setRefreshing(false);
     }
 
+
+
     /**
      * 展示课程表,同时将课程表切换到今天.
      */

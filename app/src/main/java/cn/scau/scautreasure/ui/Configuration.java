@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.RingerMode;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
+import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 
@@ -46,7 +48,7 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
             param_ringer_mode_during_class, param_ringer_mode_after_class;
 
     @StringArrayRes
-    String[] server, ringer_mode;
+    String[]  ringer_mode;
     @ViewById(R.id.alert_before_class)
     CheckBox alertClass;
     @StringRes
@@ -71,9 +73,15 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
             }
         }
     };
-    @CheckedChange(R.id.alert_before_class)
-    void setAlertClass(){
+     void setAlertClass(){
         config.isAlertClass().put(alertClass.isChecked());
+        if (config.isAlertClass().get()){
+//            AlertClassSerice_.intent(this).start();
+            Intent sevice = new Intent(getSherlockActivity(), AlertClassSerice_.class);
+            getSherlockActivity().startService(sevice);
+        }else{
+            AlertClassSerice_.intent(this).stop();
+        }
     }
     @AfterViews
     void initViews() {
@@ -126,7 +134,7 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
 
     @Click
     void btn_save() {
-
+        setAlertClass();
         boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
         config.classTableAsFirstScreen().put(isFirstScreen);
         RingerMode[] modes = RingerMode.values();

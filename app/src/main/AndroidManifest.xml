@@ -186,6 +186,9 @@
                 <action android:name="cn.scau.scautreasure.BOOK_NOTIFICATION"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.AlertClassReceiver_">
+
+        </receiver>
 
         <service
             android:name="com.umeng.common.net.DownloadingService"
