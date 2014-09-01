@@ -61,7 +61,7 @@ public class AlertClassSerice extends Service{
 
             for (int i = 0; i < dayClassList.size(); i++) {
                 Log.i("今天课程:","第"+dayClassList.get(i).getNode()+"节--" +dayClassList.get(i).getClassname());
-                startAlert(dayClassList.get(i).getClassname(),dayClassList.get(i).getLocation(),dayClassList.get(i).getNode());
+                startAlert(dayClassList.get(i).getClassname(),dayClassList.get(i).getLocation(),dayClassList.get(i).getNode(),i);
 
             }
         }
@@ -72,19 +72,24 @@ public class AlertClassSerice extends Service{
      * @param className
      * @param node  节次
      */
-    void startAlert(String className,String classBlock,String node){
+    void startAlert(String className,String classBlock,String node,int id){
             long triggerAtTime=countTime(node);
+        Calendar c_cur = Calendar.getInstance();
+        //指添加未来的课
+        if(c_cur.getTimeInMillis()<triggerAtTime) {
             Intent intent = new Intent(getApplicationContext(), AlertClassReceiver_.class);
             intent.putExtra("className", className);
             intent.putExtra("classTime", time);
             intent.putExtra("classBlock", classBlock);
 
             PendingIntent pendIntent = PendingIntent.getBroadcast(getApplicationContext(),
-                    Integer.valueOf(node.split(",")[0]), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             Log.i("课程提醒", node + "|" + className + "|" + triggerAtTime);
             am.set(AlarmManager.RTC_WAKEUP, triggerAtTime, pendIntent);
+
+        }
 
     }
 
@@ -92,6 +97,7 @@ public class AlertClassSerice extends Service{
         int  startNode= Integer.valueOf(node.split(",")[0]);
         Calendar c = Calendar.getInstance();
         time =ClassUtil.genClassBeginTime(c, startNode);
+
          c.add(Calendar.MINUTE, offsetMinute);
         return c.getTimeInMillis();
 //        alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendIntent);
