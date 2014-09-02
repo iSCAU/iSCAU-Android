@@ -49,7 +49,7 @@ public class AlertClassReceiver extends BroadcastReceiver
         notification.icon = R.drawable.icon;
          notification.tickerText = className;
         // 添加振动
-        notification.defaults=Notification.DEFAULT_VIBRATE;
+       // notification.defaults=Notification.DEFAULT_VIBRATE;
 
         //下边的两个方式可以添加音乐
 

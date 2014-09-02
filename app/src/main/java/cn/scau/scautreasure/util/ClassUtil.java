@@ -41,7 +41,7 @@ public class ClassUtil {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
 
-        return  HOURS_ON[node-1]+":"+MINUTES_ON[node-1];
+        return  String.format("%2d:%2d",HOURS_ON[node-1],MINUTES_ON[node-1]); //不足两位，补零
     }
 
     /**

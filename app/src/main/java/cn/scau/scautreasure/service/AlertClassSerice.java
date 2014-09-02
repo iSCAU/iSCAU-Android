@@ -65,6 +65,8 @@ public class AlertClassSerice extends Service{
 
             }
         }
+
+        stopSelf();
     }
 
     /**
@@ -75,7 +77,7 @@ public class AlertClassSerice extends Service{
     void startAlert(String className,String classBlock,String node,int id){
             long triggerAtTime=countTime(node);
         Calendar c_cur = Calendar.getInstance();
-        //指添加未来的课
+        //只添加未来的课
         if(c_cur.getTimeInMillis()<triggerAtTime) {
             Intent intent = new Intent(getApplicationContext(), AlertClassReceiver_.class);
             intent.putExtra("className", className);
@@ -86,7 +88,7 @@ public class AlertClassSerice extends Service{
                     id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Log.i("课程提醒", node + "|" + className + "|" + triggerAtTime);
+            Log.i("课程提醒", node + "|" + className + "|" + time);
             am.set(AlarmManager.RTC_WAKEUP, triggerAtTime, pendIntent);
 
         }
