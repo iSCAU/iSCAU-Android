@@ -96,6 +96,7 @@ public class SchoolActivity extends CommonActivity {
     @UiThread(delay = 500)
     void demo() {
         today.setRefreshing();
+
     }
 
 

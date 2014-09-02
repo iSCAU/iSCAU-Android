@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.avos.avoscloud.AVOSCloud;
@@ -24,6 +25,7 @@ import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.scau.scautreasure.util.CryptUtil;
+import cn.scau.scautreasure.widget.BadgeView;
 
 /**
  * AppContext.
@@ -170,6 +172,21 @@ public class AppContext extends Application {
 
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
+    }
+
+    /**
+     * 用于设置角标红点
+     * @param context
+     * @param view
+     * @return
+     */
+    public static BadgeView setTabRedPoint( Context context,View view){
+        BadgeView badgeView=new BadgeView(context,view);
+        badgeView.setHeight(8);
+        badgeView.setWidth(8);
+        badgeView.setBadgeMargin(40,0);
+        badgeView.setBackgroundResource(R.drawable.redpoin);
+        return badgeView;
     }
 
 }
