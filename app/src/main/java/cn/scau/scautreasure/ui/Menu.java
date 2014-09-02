@@ -1,15 +1,31 @@
 package cn.scau.scautreasure.ui;
 
+import android.widget.ImageView;
+
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
+import cn.scau.scautreasure.widget.BadgeView;
 
 
 @EFragment(R.layout.menu)
 public class Menu extends CommonFragment implements OnTabSelectListener {
+    @ViewById(R.id.menu_activityinfomation)
+    ImageView activityInfo;
+
+    @AfterViews
+    void initView(){
+//        BadgeView badgeView=new BadgeView(getSherlockActivity(),activityInfo);
+//        badgeView.setBackgroundResource(R.drawable.redpoin);
+//        badgeView.show();
+
+    }
+
 
     @Click
     void menu_goal() {

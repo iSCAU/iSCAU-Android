@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.util.DateUtil;
+import cn.scau.scautreasure.widget.BadgeView;
 
 /**
  * 主页面;
@@ -60,6 +63,10 @@ public class Main extends ActionBarActivity {
     RadioGroup radioGroup;
     @ViewById
     RadioButton rd_classtable, rd_features, rd_settings, rd_food;
+    @ViewById
+    Button bt_classtable, bt_features, bt_settings, bt_food;
+
+    BadgeView bv_classtable,bv_features,bv_settings,bv_food;
     Fragment fragmentMenu;
     Fragment fragmentClassTable;
     Fragment fragmentSettings;
@@ -79,7 +86,23 @@ public class Main extends ActionBarActivity {
         initMobclickAgent();
         checkForUpdate();
         showNotification();
+        showNotePoint();
+//显示红点
+        bv_food.show();
     }
+
+    /**
+     * 获取红点
+     */
+    private void showNotePoint() {
+        bv_classtable=AppContext.setTabRedPoint(this,bt_classtable);
+        bv_features=AppContext.setTabRedPoint(this,bt_features);
+        bv_settings=AppContext.setTabRedPoint(this,bt_settings);
+        bv_food=AppContext.setTabRedPoint(this,bt_food);
+    }
+
+
+
 
     private void setUpTab() {
         if (fragmentMenu == null) {
@@ -107,23 +130,28 @@ public class Main extends ActionBarActivity {
                 if (i == rd_features.getId()) {
                     UIHelper.startFragment(mContext, fragmentMenu, MENU_TAG);
                     ((OnTabSelectListener) fragmentMenu).onTabSelect();
+
+
                 } else if (i == rd_classtable.getId()) {
                     UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
                     ((OnTabSelectListener) fragmentClassTable).onTabSelect();
+
                 } else if (i == rd_settings.getId()) {
                     UIHelper.startFragment(mContext, fragmentSettings, SETTINGS_TAG);
                     ((OnTabSelectListener) fragmentSettings).onTabSelect();
+
                 } else if (i == rd_food.getId()) {
                     UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
                     ((OnTabSelectListener) fragmentFood).onTabSelect();
+
                 }
             }
         });
 
-        if (checkTime()){
+        if (checkTime()) {
             UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
             rd_food.setChecked(true);
-        }else{
+        } else {
             if (checkedId == 0) {
                 UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
                 rd_classtable.setChecked(true);
@@ -131,22 +159,22 @@ public class Main extends ActionBarActivity {
         }
 
 
-
     }
-  //7、	在11:30-12:30时间段和5:30到6:30的时间段，打开华农宝，自动跳转到外卖的页面，其余时间跳转到课表的页面。
+    //7、	在11:30-12:30时间段和5:30到6:30的时间段，打开华农宝，自动跳转到外卖的页面，其余时间跳转到课表的页面。
 
-    boolean checkTime(){
+    boolean checkTime() {
         java.util.Calendar calendar = java.util.Calendar.getInstance();
-        int hour=calendar.get(java.util.Calendar.HOUR_OF_DAY);
+        int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
 
-        if ((hour>=11)&&(hour<=12)||((hour>=17)&&(hour<=18))){
-            Log.i("当前时间:",String.valueOf(hour)+"时,切换外卖");
+        if ((hour >= 11) && (hour <= 12) || ((hour >= 17) && (hour <= 18))) {
+            Log.i("当前时间:", String.valueOf(hour) + "时,切换外卖");
             return true;
         }
-        Log.i("当前时间:",String.valueOf(hour)+"时,切换课表");
+        Log.i("当前时间:", String.valueOf(hour) + "时,切换课表");
         return false;
 
     }
+
     private void initMobclickAgent() {
         MobclickAgent.updateOnlineConfig(this);
         MobclickAgent.openActivityDurationTrack(false);

@@ -83,6 +83,10 @@ public class BadgeView extends TextView {
 	public BadgeView(Context context, View target) {
 		 this(context, null, android.R.attr.textViewStyle, target, 0);
 	}
+    public BadgeView(Context context,View target,boolean point){
+        super(context);
+
+    }
 	
 	/**
      * Constructor -
