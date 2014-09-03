@@ -419,7 +419,23 @@
                             android:text="校内地图"/>
 
                     </LinearLayout>
+                    <LinearLayout
+                        style="@style/menu_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
+                        <ImageButton
+                            android:id="@+id/menu_settings"
+                            style="@style/menu_item_icon"
+                            android:src="@drawable/icon_study_selector"/>
+
+                        <TextView
+                            style="@style/menu_item_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="设置"/>
+
+                    </LinearLayout>
                 </TableRow>
 
             </TableLayout>

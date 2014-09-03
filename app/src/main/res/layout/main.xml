@@ -58,7 +58,7 @@
                 android:focusable="false" />
 
             <Button
-                android:id="@+id/bt_settings"
+                android:id="@+id/bt_activity"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,12 +101,12 @@
                 android:text="@string/tab_food" />
 
             <RadioButton
-                android:id="@+id/rd_settings"
+                android:id="@+id/rd_activity"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/icon_settings_selector"
-                android:text="@string/tab_settings" />
+                android:text="校园活动" />
 
         </RadioGroup>
 

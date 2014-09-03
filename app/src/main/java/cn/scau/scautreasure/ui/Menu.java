@@ -41,6 +41,11 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     }
 
     @Click
+    void menu_settings(){
+        Settings_.intent(this).start();
+    }
+
+    @Click
     void menu_pickCourseInfo() {
         PickClassInfo_.intent(this).start();
     }

@@ -43,6 +43,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"/>
         <activity
+            android:name="cn.scau.scautreasure.ui.Settings_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity
             android:name="cn.scau.scautreasure.ui.Main_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"/>
