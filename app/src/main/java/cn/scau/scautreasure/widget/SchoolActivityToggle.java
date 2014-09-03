@@ -81,14 +81,16 @@ public class SchoolActivityToggle extends LinearLayout {
         expandableOnClickListener = l;
     }
 
-    public void setOnClickListener2(OnClickListener l) {
+    public void setExtraOnClickListener(OnClickListener l) {
         extraOnClickListener = l;
+    }
+
+    public OnClickListener getExtraOnClickListener(){
+        return extraOnClickListener;
     }
 
     void onClick() {
         if (expandableOnClickListener != null)
             expandableOnClickListener.onClick(this);
-        if (extraOnClickListener != null)
-            extraOnClickListener.onClick(this);
     }
 }

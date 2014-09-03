@@ -6,6 +6,7 @@ import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
@@ -16,6 +17,8 @@ import com.tjerkw.slideexpandable.library.WrapperListAdapterImpl;
 import java.util.BitSet;
 
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.ui.SchoolActivity;
+import cn.scau.scautreasure.widget.SchoolActivityToggle;
 
 /**
  * Created by stcdasqy on 2014-08-25.
@@ -116,6 +119,17 @@ public class SchoolActivityExpandableListAdapter extends WrapperListAdapterImpl 
      */
     public View getExpandableView(View parent) {
         return parent.findViewById(expandable_view_id);
+    }
+
+    public SchoolActivityToggle getToggleFromTarget(View target) {
+        ViewParent vp = target.getParent();
+        while (vp != null && vp instanceof View) {
+            View v = ((View) vp).findViewById(toggle_button_id);
+            if (v != null && v instanceof SchoolActivityToggle) {
+                return (SchoolActivityToggle) v;
+            }
+        }
+        return null;
     }
 
     /**
@@ -255,6 +269,9 @@ public class SchoolActivityExpandableListAdapter extends WrapperListAdapterImpl 
      *               or ExpandCollapseAnimation.EXPAND
      */
     private void animateView(final View target, final int type) {
+        SchoolActivityToggle toggle = getToggleFromTarget(target);
+        if (toggle != null)
+            toggle.getExtraOnClickListener().onClick(toggle);
         Animation anim = new ExpandCollapseAnimation(
                 target,
                 type
