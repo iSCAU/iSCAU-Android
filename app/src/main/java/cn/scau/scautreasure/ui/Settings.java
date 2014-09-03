@@ -3,6 +3,7 @@ package cn.scau.scautreasure.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.view.KeyEvent;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -129,7 +130,7 @@ public class Settings extends CommonActivity {
         Login_.intent(this).start();
     }
 
-    @Click
+
     void btn_save() {
         setAlertClass();
         boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
@@ -159,7 +160,24 @@ public class Settings extends CommonActivity {
         } else {
             audioManager.setRingerMode(afterMode.getValue());
         }
-        AppMsg.makeText(this, R.string.tips_save_successfully, AppMsg.STYLE_INFO).show();
+        Toast.makeText(this,"保存成功",Toast.LENGTH_LONG).show();
+        finish();
+//        AppMsg.makeText(this, R.string.tips_save_successfully, AppMsg.STYLE_INFO).show();
     }
 
+    @Override
+    void home() {
+//        super.home();
+        btn_save();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode()==KeyEvent.KEYCODE_BACK){
+            btn_save();
+        }
+
+        return false;
+//        return super.onKeyDown(keyCode, event);
+    }
 }

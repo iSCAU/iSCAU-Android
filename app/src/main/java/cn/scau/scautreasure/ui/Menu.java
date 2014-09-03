@@ -15,8 +15,6 @@ import cn.scau.scautreasure.widget.BadgeView;
 
 @EFragment(R.layout.menu)
 public class Menu extends CommonFragment implements OnTabSelectListener {
-    @ViewById(R.id.menu_activityinfomation)
-    ImageView activityInfo;
 
     @AfterViews
     void initView(){
@@ -117,10 +115,7 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
                 .start();
     }
 
-    @Click
-    void menu_activityinfomation() {
-        SchoolActivity_.intent(this).start();
-    }
+
 
     @Click
     void menu_calendar() {
