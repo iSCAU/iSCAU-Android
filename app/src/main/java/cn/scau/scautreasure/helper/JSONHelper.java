@@ -17,8 +17,7 @@ public class JSONHelper {
     /**
      * 将Javabean转换为Map
      *
-     * @param javaBean
-     *            javaBean
+     * @param javaBean javaBean
      * @return Map对象
      */
     public static Map toMap(Object javaBean) {
@@ -54,8 +53,7 @@ public class JSONHelper {
     /**
      * 将Json对象转换成Map
      *
-     * @param jsonString
-     *            json对象
+     * @param jsonString json对象
      * @return Map对象
      * @throws JSONException
      */
@@ -82,8 +80,7 @@ public class JSONHelper {
     /**
      * 将JavaBean转换成JSONObject（通过Map中转）
      *
-     * @param bean
-     *            javaBean
+     * @param bean javaBean
      * @return json对象
      */
     public static JSONObject toJSON(Object bean) {
@@ -95,10 +92,8 @@ public class JSONHelper {
     /**
      * 将Map转换成Javabean
      *
-     * @param javabean
-     *            javaBean
-     * @param data
-     *            Map数据
+     * @param javabean javaBean
+     * @param data     Map数据
      */
     public static Object toJavaBean(Object javabean, Map data) {
 
@@ -111,7 +106,7 @@ public class JSONHelper {
                     String field = method.getName();
                     field = field.substring(field.indexOf("set") + 3);
                     field = field.toLowerCase().charAt(0) + field.substring(1);
-                    method.invoke(javabean, new Object[] {
+                    method.invoke(javabean, new Object[]{
 
                             data.get(field)
 
@@ -130,12 +125,10 @@ public class JSONHelper {
     /**
      * JSONObject到JavaBean
      *
-     * @param javabean
-     *            javaBean
+     * @param javabean   javaBean
      * @param jsonString
      * @return json对象
-     * @throws ParseException
-     *             json解析异常
+     * @throws ParseException json解析异常
      * @throws JSONException
      */
     public static void toJavaBean(Object javabean, String jsonString)

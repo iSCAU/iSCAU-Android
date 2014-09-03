@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+
+
+
+            <cn.scau.scautreasure.widget.ParamWidget_
+                android:id="@+id/param_block"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:padding="10dp"
+        style="@style/menu_title_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="填写详细地址"/>
+
+            <EditText
+                android:singleLine="false"
+                style="@style/login_edittext"
+                android:hint="如:23栋606室/信息学院935室"
+                android:padding="10dp"
+                android:textSize="14dp"
+                android:textColor="#000000"
+               android:id="@+id/addressFull"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+
+                ></EditText>
+            <TextView
+                style="@style/menu_title_label"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="账单详细"
+             />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
+            <LinearLayout
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:background="@color/money_bg"
+             >
+                <com.meg7.widget.CircleImageView
+                    android:layout_width="48dp"
+                    android:scaleType="fitCenter"
+                    android:layout_height="48dp"
+                    android:id="@+id/shopLogo"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="原味肠粉王"
+                    android:textSize="8pt"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/shopName"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/money_color"
+                    android:gravity="right"
+                    android:padding="10dp"
+                    android:text="23"
+                    android:textSize="8pt"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/allMoney"
+                    android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            <ListView
+                android:layout_weight="1"
+                android:id="@+id/orderList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                </ListView>
+            <LinearLayout
+                android:clickable="true"
+                android:background="@drawable/blue_button_selector"
+                android:descendantFocusability="blocksDescendants"
+                android:id="@+id/done_order"
+                android:layout_width="match_parent"
+
+                android:gravity="center"
+                android:orientation="horizontal" android:layout_height="wrap_content"
+                >
+                <ImageView
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/gofororder"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/actionar_title_color"
+                    android:text="去订餐"
+                    android:padding="10dp"
+                    android:textSize="8pt"
+                  />
+
+            </LinearLayout>
+            </LinearLayout>
+
+</LinearLayout>

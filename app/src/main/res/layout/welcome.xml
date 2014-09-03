@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/background_normal"
+             android:orientation="vertical">
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
-            android:src="@drawable/logo"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/logo"/>
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal|bottom">
+            android:text="@string/version"
+            android:textColor="@color/textview_version_text_color"
+            android:textSize="20sp"/>
+
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/version"
-                android:textSize="20sp"
-                android:textColor="@color/textview_version_text_color"
-                android:id="@+id/tv_version"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="www.huanongbao.com"
-                android:textSize="16sp"
-                android:textColor="#aaaaaa"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="www.huanongbao.com"
+            android:textColor="#aaaaaa"
+            android:textSize="16sp"/>
     </LinearLayout>
 </FrameLayout>

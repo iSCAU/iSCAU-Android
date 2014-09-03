@@ -84,7 +84,7 @@ public class BookDetailModel {
                 '}';
     }
 
-    public class DetailList{
+    public class DetailList {
 
         private ArrayList<BookDetailModel> details;
 

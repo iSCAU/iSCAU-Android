@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,39 +20,40 @@
             <WebView
                 android:id="@+id/week_classtable"
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
 
             <!-- 单日课表 -->
             <LinearLayout
                 android:id="@+id/day_classtable_container"
-                android:orientation="vertical"
-                android:background="#f7f7f7"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="#f7f7f7"
+                android:orientation="vertical">
+
                 <cn.scau.scautreasure.widget.ClassTabWidget_
-                        android:id="@+id/titles"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="2dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_width="fill_parent" />
+                    android:id="@+id/titles"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"/>
 
                 <ImageView
-                        style="@style/listitem_separator"
-                        android:layout_marginTop="2dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription=""/>
+                    style="@style/listitem_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:contentDescription=""
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"/>
 
                 <android.support.v4.view.ViewPager
-                        android:id="@+id/pager"
-                        android:layout_width="fill_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
             </LinearLayout>
         </LinearLayout>
 

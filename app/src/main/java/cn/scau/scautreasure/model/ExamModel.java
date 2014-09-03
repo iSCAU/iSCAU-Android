@@ -16,7 +16,7 @@ import java.util.ArrayList;
 //        "考试形式" => "form",
 //        "座位号" => "seat_number",
 //        "校区" => "campus"
-public class ExamModel implements Serializable{
+public class ExamModel implements Serializable {
 
     private String name;
     private String name_student;
@@ -95,7 +95,7 @@ public class ExamModel implements Serializable{
                 '}';
     }
 
-    public class ExamList{
+    public class ExamList {
 
         private ArrayList<ExamModel> exam;
 

@@ -57,23 +57,23 @@ public class Splash extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        if(metrics.widthPixels > metrics.heightPixels) shouldFitXY = false;
+        if (metrics.widthPixels > metrics.heightPixels) shouldFitXY = false;
     }
 
     @AfterViews
     void init() {
-        if(title!=null){
+        if (title != null) {
             try {
                 FileInputStream fis = openFileInput(SplashHelper.getFileName(title));
-                Bitmap bitmap  = BitmapFactory.decodeStream(fis);
+                Bitmap bitmap = BitmapFactory.decodeStream(fis);
                 splash.setImageBitmap(bitmap);
-                if(shouldFitXY){
+                if (shouldFitXY) {
                     ViewGroup.LayoutParams lp = splash.getLayoutParams();
                     lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
                     splash.setLayoutParams(lp);
                     splash.setScaleType(ImageView.ScaleType.FIT_XY);
-                }else{
+                } else {
                     iSCAU_info.setVisibility(View.VISIBLE);
                 }
 
@@ -85,22 +85,22 @@ public class Splash extends Activity {
     }
 
     @UiThread(delay = 3000)
-    void close(){
-        if(hasSetAccount()){
+    void close() {
+        if (hasSetAccount()) {
             Main_.intent(this).start();
-        }else{
+        } else {
             Login_.intent(this).runMainActivity(true).start();
         }
         waitToFinish();
     }
 
     @Background(delay = 1000)
-    void waitToFinish(){
+    void waitToFinish() {
         finish();
     }
 
-    private boolean hasSetAccount(){
+    private boolean hasSetAccount() {
         return app.userName != null &&
-                ( app.eduSysPassword != null || app.libPassword != null || app.cardPassword != null);
+                (app.eduSysPassword != null || app.libPassword != null || app.cardPassword != null);
     }
 }

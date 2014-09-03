@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_refresh_classtable"
-        app:showAsAction="always"
+        android:icon="@drawable/icon_menu_refresh"
         android:title="从正方刷新课程表"
-        android:icon="@drawable/icon_menu_refresh" />
+        app:showAsAction="always"/>
     <item
         android:id="@+id/menu_all"
         android:icon="@drawable/abc_ic_menu_moreoverflow_normal_holo_light"
-        app:showAsAction="always"
-        android:title="更多">
+        android:title="更多"
+        app:showAsAction="always">
         <menu>
             <item
-                app:showAsAction="always"
                 android:id="@+id/menu_add_class"
-                android:title="添加自定义课程"/>
+                android:title="添加自定义课程"
+                app:showAsAction="always"/>
             <item
-                    android:id="@+id/menu_load_classtable_with_params"
-                    android:title="@string/menu_load_classtable_with_params"/>
+                android:id="@+id/menu_load_classtable_with_params"
+                android:title="@string/menu_load_classtable_with_params"/>
             <item
-                    android:id="@+id/menu_load_classtable_all"
-                    android:title="@string/menu_load_classtable_with_all"/>
+                android:id="@+id/menu_load_classtable_all"
+                android:title="@string/menu_load_classtable_with_all"/>
         </menu>
     </item>
 </menu>

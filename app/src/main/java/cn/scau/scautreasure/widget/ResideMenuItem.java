@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import cn.scau.scautreasure.R;
 
 /**
@@ -13,11 +14,15 @@ import cn.scau.scautreasure.R;
  * Time: 下午11:05
  * Mail: specialcyci@gmail.com
  */
-public class ResideMenuItem extends LinearLayout{
+public class ResideMenuItem extends LinearLayout {
 
-    /** main item  icon  */
+    /**
+     * main item  icon
+     */
     private ImageView iv_icon;
-    /** main item  title */
+    /**
+     * main item  title
+     */
     private TextView tv_title;
 
     public ResideMenuItem(Context context) {
@@ -39,8 +44,8 @@ public class ResideMenuItem extends LinearLayout{
         tv_title.setText(title);
     }
 
-    private void initViews(Context context){
-        LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private void initViews(Context context) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.residemenu_item, this);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         tv_title = (TextView) findViewById(R.id.tv_title);
@@ -51,16 +56,17 @@ public class ResideMenuItem extends LinearLayout{
      *
      * @param icon
      */
-    public void setIcon(int icon){
+    public void setIcon(int icon) {
         iv_icon.setImageResource(icon);
     }
 
     /**
      * set the title with resource
      * ;
+     *
      * @param title
      */
-    public void setTitle(int title){
+    public void setTitle(int title) {
         tv_title.setText(title);
     }
 
@@ -69,7 +75,7 @@ public class ResideMenuItem extends LinearLayout{
      *
      * @param title
      */
-    public void setTitle(String title){
+    public void setTitle(String title) {
         tv_title.setText(title);
     }
 }

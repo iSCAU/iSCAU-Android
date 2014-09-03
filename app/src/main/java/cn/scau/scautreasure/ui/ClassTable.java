@@ -56,38 +56,64 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Time:  下午11:09
  * Mail:  specialcyci@gmail.com
  */
-@EFragment( R.layout.classtable )
-@OptionsMenu ( R.menu.menu_classtable )
+@EFragment(R.layout.classtable)
+@OptionsMenu(R.menu.menu_classtable)
 public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener, ActionBar.TabListener {
 
-    @Pref        cn.scau.scautreasure.AppConfig_  config;
-    @RestService EdusysApi   api;
-    @ViewById    ViewPager   pager;
-    @ViewById    cn.scau.scautreasure.widget.ClassTabWidget_ titles;
-    @ViewById    SwipeRefreshLayout swipe_refresh;
-    @ViewById    WebView week_classtable;
-    @ViewById    LinearLayout day_classtable_container;
-    @Bean        DateUtil    dateUtil;
-    @Bean        ClassHelper classHelper;
-    private ArrayList<View>       listViews;
-    private ClassTableAdapter     adapter;
-    /** 课程表筛选显示模式  */
-    public  static final int      MODE_ALL    = 0;
-    public  static final int      MODE_PARAMS = 1;
+    /**
+     * 课程表筛选显示模式
+     */
+    public static final int MODE_ALL = 0;
+    public static final int MODE_PARAMS = 1;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
+    @RestService
+    EdusysApi api;
+    @ViewById
+    ViewPager pager;
+    @ViewById
+    cn.scau.scautreasure.widget.ClassTabWidget_ titles;
+    @ViewById
+    SwipeRefreshLayout swipe_refresh;
+    @ViewById
+    WebView week_classtable;
+    @ViewById
+    LinearLayout day_classtable_container;
+    @Bean
+    DateUtil dateUtil;
+    @Bean
+    ClassHelper classHelper;
+    private ArrayList<View> listViews;
+    private ClassTableAdapter adapter;
+    /**
+     * 星期标签的点击,同时viewPager设置到相应位置；
+     */
+    private ClassTabWidget.onTabChangeListener onTabChangeListener = new ClassTabWidget.onTabChangeListener() {
+        @Override
+        public void change(int posistion) {
+            pager.setCurrentItem(posistion);
+        }
+    };
+    /**
+     * viewPager滑动监听,同时同步课程表上方的tab位置;
+     */
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
 
-    private String getTitle(){
-        StringBuilder builder = new StringBuilder();
-        builder.append(dateUtil.getWeekOfDate());
-        return builder.toString();
-    }
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
 
-    private String getSubTitle(){
-        StringBuilder builder = new StringBuilder();
-        builder.append(getString(R.string.widget_week_start));
-        builder.append(classHelper.getSchoolWeek());
-        builder.append(getString(R.string.widget_week_end));
-        return builder.toString();
-    }
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            titles.changeWeekDay(i);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
 
     // 由于全周课表还没有搞好，先注释了
     // @AfterViews
@@ -110,13 +136,25 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 //        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 //    }
 
+    private String getTitle() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(dateUtil.getWeekOfDate());
+        return builder.toString();
+    }
 
+    private String getSubTitle() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getString(R.string.widget_week_start));
+        builder.append(classHelper.getSchoolWeek());
+        builder.append(getString(R.string.widget_week_end));
+        return builder.toString();
+    }
 
     @AfterViews
-    void initView(){
+    void initView() {
 
         listViews = new ArrayList<View>();
-        adapter   = new ClassTableAdapter();
+        adapter = new ClassTableAdapter();
 
         pager.setOffscreenPageLimit(3);
         pager.setOnPageChangeListener(onPageChangeListener);
@@ -145,7 +183,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 添加课程;
      */
     @OptionsItem
-    void menu_add_class(){
+    void menu_add_class() {
         startActivityForResult(ClassEditor_.intent(getSherlockActivity())
                 .isNewClass(true)
                 .model(new ClassModel()).get(), UIHelper.QUERY_FOR_EDIT_CLASS);
@@ -156,7 +194,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @OptionsItem
     void menu_refresh_classtable() {
-        if (app.eduSysPassword == null || app.eduSysPassword.equals("")){
+        if (app.eduSysPassword == null || app.eduSysPassword.equals("")) {
             Login_.intent(this).startTips(getString(R.string.start_tips_edusys)).start();
         } else {
             swipe_refresh.setRefreshing(true);
@@ -168,7 +206,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 切换到加载所有课程模式;
      */
     @OptionsItem
-    void menu_load_classtable_all(){
+    void menu_load_classtable_all() {
         config.classTableShowMode().put(MODE_ALL);
         showClassTable();
     }
@@ -177,50 +215,20 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 切换到智能加载课程模式;
      */
     @OptionsItem
-    void menu_load_classtable_with_params(MenuItem item){
+    void menu_load_classtable_with_params(MenuItem item) {
         config.classTableShowMode().put(MODE_PARAMS);
         showClassTable();
     }
 
     /**
-     * 星期标签的点击,同时viewPager设置到相应位置；
-     */
-    private ClassTabWidget.onTabChangeListener onTabChangeListener = new ClassTabWidget.onTabChangeListener() {
-        @Override
-        public void change(int posistion) {
-            pager.setCurrentItem(posistion);
-        }
-    };
-
-    /**
-     * viewPager滑动监听,同时同步课程表上方的tab位置;
-     */
-    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageScrolled(int i, float v, int i2) {
-
-        }
-
-        @Override
-        public void onPageSelected(int i) {
-            titles.changeWeekDay(i);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int i) {
-
-        }
-    };
-
-    /**
      * 修改课程表后，接收来自修改课程表activiy回传的model,写入数据库，并且更新到界面；
+     *
      * @param resultCode
      * @param data
      */
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_CLASS)
-    void modifyClassOnResult(int resultCode,Intent data){
-        if(resultCode == getSherlockActivity().RESULT_OK){
+    void modifyClassOnResult(int resultCode, Intent data) {
+        if (resultCode == getSherlockActivity().RESULT_OK) {
             ClassModel model = (ClassModel) data.getSerializableExtra("class");
             createOrUpdateClassInformation(model);
         }
@@ -229,20 +237,22 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     /**
      * 线程添加或修改课程表信息
+     *
      * @param model
      */
     @Background
-    void createOrUpdateClassInformation(ClassModel model){
+    void createOrUpdateClassInformation(ClassModel model) {
         classHelper.createOrUpdateLesson(model);
         showClassTable();
     }
 
     /**
      * 线程删除课程;
+     *
      * @param model
      */
     @Background
-    public void deleteClass(ClassModel model){
+    public void deleteClass(ClassModel model) {
         classHelper.deleteLesson(model);
         showClassTable();
     }
@@ -252,10 +262,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 引发一系列BUG，这里延迟500ms执行；
      */
     @UiThread(delay = 500)
-    void showTab(){
+    void showTab() {
         int currentDay = dateUtil.getDayOfWeek() - 1;
         // 这句不能去掉，当日期为星期一时，就不重绘了，只有移动下它才重绘
-        if(currentDay == 0)
+        if (currentDay == 0)
             titles.changeWeekDay(1);
         pager.setCurrentItem(currentDay);
         titles.changeWeekDay(currentDay);
@@ -263,27 +273,28 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     /**
      * 展示网络加载异常结果
+     *
      * @param ctx
      * @param requestCode
      */
     @Override
     @UiThread
-    void showErrorResult(ActionBarActivity ctx, int requestCode){
+    void showErrorResult(ActionBarActivity ctx, int requestCode) {
         swipe_refresh.setRefreshing(false);
-        if(requestCode == 404){
+        if (requestCode == 404) {
             AppMsg.makeText(ctx, R.string.tips_classtable_null, AppMsg.STYLE_ALERT).show();
-        }else{
-            app.showError(requestCode,ctx);
+        } else {
+            app.showError(requestCode, ctx);
         }
     }
 
     @UiThread
-    void showSuccess(){
-        AppMsg.makeText(getSherlockActivity(), "课表更新完成" , AppMsg.STYLE_INFO).show();
+    void showSuccess() {
+        AppMsg.makeText(getSherlockActivity(), "课表更新完成", AppMsg.STYLE_INFO).show();
     }
 
     @UiThread
-    void closeSwipeRefresh(){
+    void closeSwipeRefresh() {
         swipe_refresh.setRefreshing(false);
     }
 
@@ -291,7 +302,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * 展示课程表,同时将课程表切换到今天.
      */
     @UiThread()
-    void showClassTable(){
+    void showClassTable() {
 
         // 以下是刷新日课表;
         int prevPosition = pager.getCurrentItem();
@@ -303,9 +314,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             List<ClassModel> dayClassList = null;
             String chineseDay = dateUtil.numDayToChinese(i);
 
-            if(config.classTableShowMode().get() == MODE_ALL){
+            if (config.classTableShowMode().get() == MODE_ALL) {
                 dayClassList = classHelper.getDayLesson(chineseDay);
-            }else{
+            } else {
                 dayClassList = classHelper.getDayLessonWithParams(chineseDay);
             }
 
@@ -322,10 +333,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         week_classtable.reload();
     }
 
-    private void buildDayClassTableAdapter(List<ClassModel> dayClassList){
+    private void buildDayClassTableAdapter(List<ClassModel> dayClassList) {
         ListView classListView = UIHelper.buildClassListView(getSherlockActivity());
-        ClassAdapter  cAdapter = ClassAdapter_.getInstance_(getSherlockActivity());
-        BaseAdapter   _adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) classListView,EXPANDABLE_ALPHA);
+        ClassAdapter cAdapter = ClassAdapter_.getInstance_(getSherlockActivity());
+        BaseAdapter _adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) classListView, EXPANDABLE_ALPHA);
 
         cAdapter.addAll(dayClassList);
         cAdapter.setFragment(this);
@@ -333,13 +344,14 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         listViews.add(classListView);
 
     }
+
     /**
      * 线程从服务器加载课程表，同时保存在本地数据库，再行操作;
      */
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
 
-        try{
+        try {
             ClassModel.ClassList l = api.getClassTable(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server);
             config.termStartDate().put(l.getTermStartDate());
             // save data in sqlite;
@@ -347,9 +359,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             showSuccess();
             showClassTable();
             showTab();
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
-        }catch (Exception e){
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
         closeSwipeRefresh();
@@ -362,7 +374,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     // 横竖屏切换到额时候，重新绘制课程表日期下划线.
     @UiThread(delay = 300)
-    void updateTabOnOrientationChange(){
+    void updateTabOnOrientationChange() {
         titles.changeWeekDay(pager.getCurrentItem());
         ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
     }
@@ -393,10 +405,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        if ( tab.getPosition() == 0 ){
+        if (tab.getPosition() == 0) {
             week_classtable.setVisibility(View.GONE);
             day_classtable_container.setVisibility(View.VISIBLE);
-        } else if ( tab.getPosition() == 1 ) {
+        } else if (tab.getPosition() == 1) {
             week_classtable.setVisibility(View.VISIBLE);
             day_classtable_container.setVisibility(View.GONE);
         }

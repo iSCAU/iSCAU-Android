@@ -1,12 +1,10 @@
 package cn.scau.scautreasure.api;
 
-import cn.scau.scautreasure.model.*;
 import org.androidannotations.annotations.rest.Get;
-import org.androidannotations.annotations.rest.Post;
 import org.androidannotations.annotations.rest.Rest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+
+import cn.scau.scautreasure.model.NoticeModel;
 
 /**
  * 校园通知Api;
@@ -16,8 +14,8 @@ import org.springframework.web.client.RestTemplate;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://115.28.144.49/notice/", converters = { GsonHttpMessageConverter.class } )
-public interface NoticeApi{
+@Rest(rootUrl = "http://115.28.144.49/notice/", converters = {GsonHttpMessageConverter.class})
+public interface NoticeApi {
 
     @Get("getlist/{page}")
     NoticeModel.NoticeList getList(int page);

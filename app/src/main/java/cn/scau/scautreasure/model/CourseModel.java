@@ -22,25 +22,66 @@ public class CourseModel implements Serializable {
     private int Liked;
     private int Disliked;
 
-    public int getCourseId(){return CourseId;}
-    public void setCourseId(int CourseId){this.CourseId=CourseId;}
-    public String getCourseName(){return CourseName;}
-    public void setCourseName(String CourseName){this.CourseName=CourseName;}
-    public String getTeacher(){return Teacher;}
-    public void setTeacher(String Teacher){this.Teacher=Teacher;}
-    public String getProperty(){return Property;}
-    public void setProperty(String Property){this.Property=Property;}
-    public String getScore(){return Score;}
-    public void setScore(String Score){this.Score=Score;}
-    public int getLiked(){return Liked;}
-    public void setLiked(int Liked){this.Liked=Liked;}
-    public int getDisliked(){return Disliked;}
-    public void setDisliked(int Disliked){this.Disliked=Disliked;}
+    public int getCourseId() {
+        return CourseId;
+    }
+
+    public void setCourseId(int CourseId) {
+        this.CourseId = CourseId;
+    }
+
+    public String getCourseName() {
+        return CourseName;
+    }
+
+    public void setCourseName(String CourseName) {
+        this.CourseName = CourseName;
+    }
+
+    public String getTeacher() {
+        return Teacher;
+    }
+
+    public void setTeacher(String Teacher) {
+        this.Teacher = Teacher;
+    }
+
+    public String getProperty() {
+        return Property;
+    }
+
+    public void setProperty(String Property) {
+        this.Property = Property;
+    }
+
+    public String getScore() {
+        return Score;
+    }
+
+    public void setScore(String Score) {
+        this.Score = Score;
+    }
+
+    public int getLiked() {
+        return Liked;
+    }
+
+    public void setLiked(int Liked) {
+        this.Liked = Liked;
+    }
+
+    public int getDisliked() {
+        return Disliked;
+    }
+
+    public void setDisliked(int Disliked) {
+        this.Disliked = Disliked;
+    }
 
     @Override
     public String toString() {
         return "CourseModel{" +
-                "CourseId=" +CourseId +
+                "CourseId=" + CourseId +
                 ", CourseName='" + CourseName + '\'' +
                 ", Teacher='" + Teacher + '\'' +
                 ", Porperty='" + Property + '\'' +
@@ -50,7 +91,7 @@ public class CourseModel implements Serializable {
                 '}';
     }
 
-    public class CourseList{
+    public class CourseList {
 
         private List<CourseModel> courses;
 

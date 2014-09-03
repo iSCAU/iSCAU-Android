@@ -1,7 +1,10 @@
 package cn.scau.scautreasure;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.DefaultInt;
+import org.androidannotations.annotations.sharedpreferences.DefaultLong;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
@@ -15,8 +18,24 @@ import cn.scau.scautreasure.ui.ClassTable;
  * Mail:  specialcyci@gmail.com
  */
 
-@SharedPref( value = SharedPref.Scope.UNIQUE)
+@SharedPref(value = SharedPref.Scope.UNIQUE)
 public interface AppConfig {
+
+    @DefaultBoolean(true)
+    boolean isAlertClass();
+
+   @DefaultBoolean(false)
+   boolean isThePad();
+
+
+    @DefaultLong(0)
+    long lastUpdateFood();  //上一次更新外卖列表的时间记录
+
+    @DefaultInt(0)
+    int block();            //外卖地址校区:五山区,华山区,启林区
+
+    @DefaultString("")
+    String address();     //外卖详细地址
 
     @DefaultInt(0)
     int versionCode();           // 当前的versionCode
@@ -43,7 +62,7 @@ public interface AppConfig {
     String lastSeeNotificationDate();      // 上次显示通知的时间
 
     @DefaultInt(ClassTable.MODE_PARAMS)
-    int    classTableShowMode(); // 课程表显示模式;
+    int classTableShowMode(); // 课程表显示模式;
 
     @DefaultInt(0xffffffff)
     int widgetFontColor();

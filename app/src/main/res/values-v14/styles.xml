@@ -21,7 +21,7 @@
 
     <!-- ActionBar tabs styles -->
     <style name="ActionBarTabs"
-        parent="@style/Widget.AppCompat.ActionBar.TabView">
+           parent="@style/Widget.AppCompat.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_special</item>
     </style>
 

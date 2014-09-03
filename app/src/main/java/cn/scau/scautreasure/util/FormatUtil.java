@@ -1,16 +1,16 @@
 package cn.scau.scautreasure.util;
 
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 /**
  * Created by stcdasqy on 2014-08-15.
@@ -116,7 +116,8 @@ public class FormatUtil {
                         drawable.getIntrinsicWidth(),
                         drawable.getIntrinsicHeight(),
                         drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                                : Bitmap.Config.RGB_565);
+                                : Bitmap.Config.RGB_565
+                );
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight());

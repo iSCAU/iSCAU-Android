@@ -39,13 +39,13 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Time: 下午9:27
  * Mail: specialcyci@gmail.com
  */
-@EActivity( R.layout.searchbook )
+@EActivity(R.layout.searchbook)
 public class SearchBook extends CommonActivity {
 
     @RestService
     LibraryApi api;
 
-    @ViewById( R.id.listView )
+    @ViewById(R.id.listView)
     PullToRefreshListView pullListView;
 
     @ViewById
@@ -59,123 +59,27 @@ public class SearchBook extends CommonActivity {
      * 当前页数;
      */
     private int page;
-    private String searchKeyword;
-    private SearchBookAdapter bookadapter;
-    private SlideExpandableListAdapter exadapter;
-    private SearchView searchView;
-    private MenuItem menuItemSearch;
-
-
-    @AfterViews
-    void init(){
-
-        setTitle(getString(R.string.title_search_book));
-        tips_empty = R.string.tips_searchbook_null;
-        pullListView.setOnRefreshListener(onRefreshListener);
-        pullListView.setOnItemClickListener(onListViewItemClicked);
-        setSwipeRefresh();
-    }
-
-    private void setSwipeRefresh() {
-        swipe_refresh.setEnabled(false);
-        // 顶部刷新的样式
-        swipe_refresh.setColorScheme(R.color.swipe_refresh_1,
-                R.color.swipe_refresh_2,
-                R.color.swipe_refresh_3,
-                R.color.swipe_refresh_4);
-    }
-
     /**
      * listView下拉刷新;
      */
     private PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
-            if(page < Math.ceil(count/10)){
+            if (page < Math.ceil(count / 10)) {
                 page++;
                 loadData();
-            }else{
+            } else {
                 AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
                 refreshView.setRefreshing(false);
             }
         }
     };
-
-    /**
-     * listView选中图书：
-     */
-    private AdapterView.OnItemClickListener onListViewItemClicked = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-            BookModel book = (BookModel) parent.getAdapter().getItem(position);
-            BookDetail_.intent(getSherlockActivity()).bookName(book.getTitle()).url(book.getUrl()).start();
-        }
-    };
-
-    @UiThread
-    void showSuccessResult(BookModel.BookList l){
-
-        // new search
-        if(bookadapter == null){
-            count = l.getCount();
-            setListViewAdapter(l.getBooks());
-            String tips = getString(R.string.tips_searchbook_count) + count;
-            swipe_refresh.setRefreshing(false);
-            AppMsg.makeText(getSherlockActivity(),tips,AppMsg.STYLE_INFO).show();
-        }else{
-            // next page;
-            bookadapter.addAll(l.getBooks());
-            pullListView.onRefreshComplete();
-
-            bookadapter.notifyDataSetChanged();
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    @UiThread
-    void onFailed(){
-        swipe_refresh.setRefreshing(false);
-    }
-
-    private void setListViewAdapter(List<BookModel> books){
-        bookadapter = new SearchBookAdapter(getSherlockActivity(), R.layout.searchbook_listitem,books);
-        ListView lv = pullListView.getRefreshableView();
-        adapter     = UIHelper.buildEffectAdapter(bookadapter, lv, EXPANDABLE_SWING);
-        pullListView.setAdapter(adapter);
-    }
-
-    @Background( id = UIHelper.CANCEL_FLAG )
-    void loadData(Object... params) {
-        try{
-
-            String serach_text   = CryptUtil.base64_url_safe(searchKeyword );
-            BookModel.BookList l = api.searchBook(serach_text, page);
-
-            showSuccessResult(l);
-            return;
-        }catch (HttpStatusCodeException e){
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
-        }catch (Exception e){
-            handleNoNetWorkError(getSherlockActivity());
-        }
-        onFailed();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_searchbook, menu);
-        menuItemSearch = menu.findItem(R.id.search_button);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItemSearch);
-        searchView.setQueryHint(getString(R.string.hint_searchbook));
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(oQueryTextListener);
-        ImageView mSearchHintIcon = (ImageView) searchView.findViewById(R.id.search_mag_icon);
-        mSearchHintIcon.setVisibility(View.GONE);
-        MenuItemCompat.expandActionView(menuItemSearch);
-        return true;
-    }
-
-    SearchView.OnQueryTextListener oQueryTextListener = new SearchView.OnQueryTextListener(){
+    private String searchKeyword;
+    private SearchBookAdapter bookadapter;
+    private SlideExpandableListAdapter exadapter;
+    private SearchView searchView;
+    private MenuItem menuItemSearch;
+    SearchView.OnQueryTextListener oQueryTextListener = new SearchView.OnQueryTextListener() {
 
         @Override
         public boolean onQueryTextSubmit(String s) {
@@ -194,4 +98,96 @@ public class SearchBook extends CommonActivity {
             return false;
         }
     };
+    /**
+     * listView选中图书：
+     */
+    private AdapterView.OnItemClickListener onListViewItemClicked = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+            BookModel book = (BookModel) parent.getAdapter().getItem(position);
+            BookDetail_.intent(getSherlockActivity()).bookName(book.getTitle()).url(book.getUrl()).start();
+        }
+    };
+
+    @AfterViews
+    void init() {
+
+        setTitle(getString(R.string.title_search_book));
+        tips_empty = R.string.tips_searchbook_null;
+        pullListView.setOnRefreshListener(onRefreshListener);
+        pullListView.setOnItemClickListener(onListViewItemClicked);
+        setSwipeRefresh();
+    }
+
+    private void setSwipeRefresh() {
+        swipe_refresh.setEnabled(false);
+        // 顶部刷新的样式
+        swipe_refresh.setColorScheme(R.color.swipe_refresh_1,
+                R.color.swipe_refresh_2,
+                R.color.swipe_refresh_3,
+                R.color.swipe_refresh_4);
+    }
+
+    @UiThread
+    void showSuccessResult(BookModel.BookList l) {
+
+        // new search
+        if (bookadapter == null) {
+            count = l.getCount();
+            setListViewAdapter(l.getBooks());
+            String tips = getString(R.string.tips_searchbook_count) + count;
+            swipe_refresh.setRefreshing(false);
+            AppMsg.makeText(getSherlockActivity(), tips, AppMsg.STYLE_INFO).show();
+        } else {
+            // next page;
+            bookadapter.addAll(l.getBooks());
+            pullListView.onRefreshComplete();
+
+            bookadapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @UiThread
+    void onFailed() {
+        swipe_refresh.setRefreshing(false);
+    }
+
+    private void setListViewAdapter(List<BookModel> books) {
+        bookadapter = new SearchBookAdapter(getSherlockActivity(), R.layout.searchbook_listitem, books);
+        ListView lv = pullListView.getRefreshableView();
+        adapter = UIHelper.buildEffectAdapter(bookadapter, lv, EXPANDABLE_SWING);
+        pullListView.setAdapter(adapter);
+    }
+
+    @Background(id = UIHelper.CANCEL_FLAG)
+    void loadData(Object... params) {
+        try {
+
+            String serach_text = CryptUtil.base64_url_safe(searchKeyword);
+            BookModel.BookList l = api.searchBook(serach_text, page);
+
+            showSuccessResult(l);
+            return;
+        } catch (HttpStatusCodeException e) {
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+        } catch (Exception e) {
+            handleNoNetWorkError(getSherlockActivity());
+        }
+        onFailed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_searchbook, menu);
+        menuItemSearch = menu.findItem(R.id.search_button);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItemSearch);
+        searchView.setQueryHint(getString(R.string.hint_searchbook));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(oQueryTextListener);
+        ImageView mSearchHintIcon = (ImageView) searchView.findViewById(R.id.search_mag_icon);
+        mSearchHintIcon.setVisibility(View.GONE);
+        MenuItemCompat.expandActionView(menuItemSearch);
+        return true;
+    }
 }

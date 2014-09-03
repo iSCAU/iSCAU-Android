@@ -39,7 +39,7 @@ public class WidgetConfiguration extends CommonActivity {
     WidgetHelper widgetHelper;
 
     @ViewById
-    com.larswerkman.holocolorpicker.ColorPicker  picker;
+    com.larswerkman.holocolorpicker.ColorPicker picker;
 
     @ViewById
     SVBar svbar;
@@ -54,25 +54,25 @@ public class WidgetConfiguration extends CommonActivity {
     ParamWidget param_background, param_fontSize;
 
     @StringArrayRes
-    String[] widget_background,widget_fontSize;
+    String[] widget_background, widget_fontSize;
 
     @StringRes
-    String  listitem_lable_widget_backgroud;
+    String listitem_lable_widget_backgroud;
 
     @StringRes
-    String  listitem_lable_widget_fontsize;
+    String listitem_lable_widget_fontsize;
 
     private int mAppWidgetId;
 
     @AfterViews
-    void init(){
+    void init() {
         getAppWidgetParams();
         getSupportActionBar().setTitle(R.string.title_colorpicker);
         initColorPicker();
         initParam();
     }
 
-    private void initColorPicker(){
+    private void initColorPicker() {
         picker.addSVBar(svbar);
         picker.addSaturationBar(saturationbar);
         picker.addValueBar(valuebar);
@@ -80,24 +80,24 @@ public class WidgetConfiguration extends CommonActivity {
         picker.setNewCenterColor(config.widgetFontColor().get());
     }
 
-    private void initParam(){
+    private void initParam() {
         String fontSize = config.widgetFontSize().get();
         String background = config.widgetBackground().get();
-        param_fontSize.initView(listitem_lable_widget_fontsize,widget_fontSize,0);
-        param_background.initView(listitem_lable_widget_backgroud,widget_background,1);
-        param_fontSize.getWheel().setCurrentItem(findMatchIndex(widget_fontSize,fontSize));
-        param_background.getWheel().setCurrentItem(findMatchIndex(widget_background,background));
+        param_fontSize.initView(listitem_lable_widget_fontsize, widget_fontSize, 0);
+        param_background.initView(listitem_lable_widget_backgroud, widget_background, 1);
+        param_fontSize.getWheel().setCurrentItem(findMatchIndex(widget_fontSize, fontSize));
+        param_background.getWheel().setCurrentItem(findMatchIndex(widget_background, background));
     }
 
-    private int findMatchIndex(String[] stringArray, String want){
-        for (int i = 0; i < stringArray.length ; i++)
+    private int findMatchIndex(String[] stringArray, String want) {
+        for (int i = 0; i < stringArray.length; i++)
             if (stringArray[i].equals(want))
                 return i;
         return 0;
     }
 
     @OptionsItem
-    void menu_done(){
+    void menu_done() {
         int color = picker.getColor();
         String fontSize = param_fontSize.getSelectedParam();
         String background = param_background.getSelectedParam();
@@ -108,7 +108,7 @@ public class WidgetConfiguration extends CommonActivity {
         returnAppWidget();
     }
 
-    private void getAppWidgetParams(){
+    private void getAppWidgetParams() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -118,7 +118,7 @@ public class WidgetConfiguration extends CommonActivity {
         }
     }
 
-    private void returnAppWidget(){
+    private void returnAppWidget() {
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         setResult(RESULT_OK, resultValue);

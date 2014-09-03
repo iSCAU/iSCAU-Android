@@ -23,12 +23,12 @@ public class About extends CommonActivity {
     PackageHelper packageHelper;
 
     @AfterViews
-    void init(){
-        textView_appName.setText(getString(R.string.app_name) + " v" + packageHelper.getAppVersionName() );
+    void init() {
+        textView_appName.setText(getString(R.string.app_name) + " v" + packageHelper.getAppVersionName());
     }
 
     @Click
-    void btn_advise(){
+    void btn_advise() {
         FeedbackAgent agent = new FeedbackAgent(this);
         agent.startFeedbackActivity();
     }

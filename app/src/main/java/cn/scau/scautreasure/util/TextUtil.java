@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.util;
 
 import android.content.Context;
+
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
@@ -20,18 +21,18 @@ public class TextUtil {
     @RootContext
     Context ctx;
 
-    public String getFromAssets(String filename){
+    public String getFromAssets(String filename) {
 
         try {
 
-            String line      = "";
-            String Result    = "";
+            String line = "";
+            String Result = "";
 
             InputStream file = ctx.getResources().getAssets().open(filename);
             InputStreamReader inputReader = new InputStreamReader(file);
-            BufferedReader    bufReader   = new BufferedReader(inputReader);
+            BufferedReader bufReader = new BufferedReader(inputReader);
 
-            while((line = bufReader.readLine()) != null) Result += line;
+            while ((line = bufReader.readLine()) != null) Result += line;
 
             return Result;
 
@@ -42,8 +43,9 @@ public class TextUtil {
         return null;
     }
 
-    /***
+    /**
      * 半角转换为全角
+     *
      * @param input
      * @return
      */

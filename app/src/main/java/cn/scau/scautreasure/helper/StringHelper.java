@@ -11,12 +11,12 @@ import org.androidannotations.annotations.EBean;
 @EBean
 public class StringHelper {
 
-    public String join(String join,String[] strAry){
-        StringBuffer sb=new StringBuffer();
-        for(int i=0;i<strAry.length;i++){
-            if(i==(strAry.length-1)){
+    public String join(String join, String[] strAry) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < strAry.length; i++) {
+            if (i == (strAry.length - 1)) {
                 sb.append(strAry[i]);
-            }else{
+            } else {
                 sb.append(strAry[i]).append(join);
             }
         }

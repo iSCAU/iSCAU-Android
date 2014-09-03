@@ -22,10 +22,6 @@ public class RefreshActionItem extends FrameLayout implements View.OnClickListen
     private MenuItem mMenuItem;
     private RefreshButtonListener refreshButtonListener;
 
-    public interface RefreshButtonListener{
-        public void onRefresh(RefreshActionItem refreshActionItem);
-    }
-
     public RefreshActionItem(Context context) {
         this(context, null);
     }
@@ -42,7 +38,7 @@ public class RefreshActionItem extends FrameLayout implements View.OnClickListen
     }
 
     // Start to rotating the refresh icon.
-    public void startProgress(){
+    public void startProgress() {
         if (mRefreshButton.getAnimation() != null)
             return;
         RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
@@ -56,7 +52,7 @@ public class RefreshActionItem extends FrameLayout implements View.OnClickListen
     }
 
     // Clear the animations of refresh icon.
-    public void stopProgress(){
+    public void stopProgress() {
         mRefreshButton.clearAnimation();
     }
 
@@ -66,7 +62,6 @@ public class RefreshActionItem extends FrameLayout implements View.OnClickListen
             mRefreshButton.setImageDrawable(mMenuItem.getIcon());
         }
     }
-
 
     public RefreshButtonListener getRefreshButtonListener() {
         return refreshButtonListener;
@@ -81,5 +76,9 @@ public class RefreshActionItem extends FrameLayout implements View.OnClickListen
         if (refreshButtonListener != null) {
             refreshButtonListener.onRefresh(this);
         }
+    }
+
+    public interface RefreshButtonListener {
+        public void onRefresh(RefreshActionItem refreshActionItem);
     }
 }

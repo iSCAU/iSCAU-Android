@@ -1,12 +1,11 @@
 package cn.scau.scautreasure.api;
 
-import cn.scau.scautreasure.model.*;
 import org.androidannotations.annotations.rest.Get;
-import org.androidannotations.annotations.rest.Post;
 import org.androidannotations.annotations.rest.Rest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+
+import cn.scau.scautreasure.model.BookDetailModel;
+import cn.scau.scautreasure.model.BookModel;
 
 /**
  * 图书馆Api;
@@ -16,22 +15,22 @@ import org.springframework.web.client.RestTemplate;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://115.28.144.49/lib/", converters = { GsonHttpMessageConverter.class } )
+@Rest(rootUrl = "http://115.28.144.49/lib/", converters = {GsonHttpMessageConverter.class})
 public interface LibraryApi {
 
     @Get("search/{title}/{page}")
-    BookModel.BookList searchBook(String title,int page);
+    BookModel.BookList searchBook(String title, int page);
 
     @Get("book/{address}")
     BookDetailModel.DetailList getBookDetail(String address);
 
     @Get("list/now/{userName}/{passWord}")
-    BookModel.BookList getNowBorrowedBooks(String userName,String passWord);
+    BookModel.BookList getNowBorrowedBooks(String userName, String passWord);
 
     @Get("list/history/{userName}/{passWord}")
-    BookModel.BookList getHistoryBorrowedBooks(String userName,String passWord);
+    BookModel.BookList getHistoryBorrowedBooks(String userName, String passWord);
 
     @Get("renew/{userName}/{passWord}/{barCode}/{checkCode}")
-    void reNewBook(String userName,String passWord,String barCode,String checkCode);
+    void reNewBook(String userName, String passWord, String barCode, String checkCode);
 
 }

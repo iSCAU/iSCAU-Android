@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+
 import cn.scau.scautreasure.AppConstant;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.AppContext_;
@@ -15,7 +16,7 @@ import cn.scau.scautreasure.helper.WidgetHelper_;
 
 /**
  * 桌面小插件控制类
- *
+ * <p/>
  * User: special
  * Date: 13-9-10
  * Time: 下午8:23
@@ -40,21 +41,21 @@ public class Widget extends AppWidgetProvider {
         setUpWidgetContext(context);
         startUpdateTimer();
         app.Log("intent: " + intent.getAction());
-        if (intent.getAction().equals(AppConstant.INTENT_MONDAY)){
+        if (intent.getAction().equals(AppConstant.INTENT_MONDAY)) {
             widgetHelper.showDayClassTableView(1);
-        }else if (intent.getAction().equals(AppConstant.INTENT_TUESDAY)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_TUESDAY)) {
             widgetHelper.showDayClassTableView(2);
-        }else if (intent.getAction().equals(AppConstant.INTENT_WEDNESDAY)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_WEDNESDAY)) {
             widgetHelper.showDayClassTableView(3);
-        }else if (intent.getAction().equals(AppConstant.INTENT_THURDAY)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_THURDAY)) {
             widgetHelper.showDayClassTableView(4);
-        }else if (intent.getAction().equals(AppConstant.INTENT_FRIDAY)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_FRIDAY)) {
             widgetHelper.showDayClassTableView(5);
-        }else if (intent.getAction().equals(AppConstant.INTENT_SATURDAY)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_SATURDAY)) {
             widgetHelper.showDayClassTableView(6);
-        }else if (intent.getAction().equals(AppConstant.INTENT_SUNDAY)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_SUNDAY)) {
             widgetHelper.showDayClassTableView(7);
-        }else if (intent.getAction().equals(AppConstant.INTENT_SETTINGS)){
+        } else if (intent.getAction().equals(AppConstant.INTENT_SETTINGS)) {
             startSettingsActivity();
         } else {
             widgetHelper.setUpViews();
@@ -77,11 +78,11 @@ public class Widget extends AppWidgetProvider {
         super.onDisabled(context);
     }
 
-    private void startSettingsActivity(){
+    private void startSettingsActivity() {
         WidgetConfiguration_.intent(context).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
     }
 
-    private void startUpdateTimer(){
+    private void startUpdateTimer() {
         if (isUpdateTimerRunning()) return;
         long firstime = SystemClock.elapsedRealtime();
         long interval = AppConstant.WIDGET_UPDATE_INTERVAL;
@@ -89,18 +90,18 @@ public class Widget extends AppWidgetProvider {
                 interval, getUpdateTimer());
     }
 
-    private PendingIntent getUpdateTimer(){
-        Intent intent = new Intent(context,WidgetProvider.class);
+    private PendingIntent getUpdateTimer() {
+        Intent intent = new Intent(context, WidgetProvider.class);
         intent.setAction(AppConstant.INTENT_UPDATE);
-        return PendingIntent.getBroadcast(context, 0,intent, 0);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
-    private void stopUpdateTimer(){
+    private void stopUpdateTimer() {
         alarmManager.cancel(getUpdateTimer());
     }
 
-    private boolean isUpdateTimerRunning(){
-        Intent intent = new Intent(context,WidgetProvider.class);
+    private boolean isUpdateTimerRunning() {
+        Intent intent = new Intent(context, WidgetProvider.class);
         intent.setAction(AppConstant.INTENT_UPDATE);
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null;
     }

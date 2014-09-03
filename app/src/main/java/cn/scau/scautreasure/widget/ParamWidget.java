@@ -1,19 +1,18 @@
 package cn.scau.scautreasure.widget;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import antistatic.spinnerwheel.WheelHorizontalView;
-import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
-import cn.scau.scautreasure.AppConstant;
-import cn.scau.scautreasure.R;
-import cn.scau.scautreasure.helper.UIHelper;
+
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
+
+import antistatic.spinnerwheel.WheelHorizontalView;
+import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
+import cn.scau.scautreasure.R;
 
 /**
  * 参数选择的选择部件;
@@ -22,14 +21,14 @@ import org.androidannotations.annotations.res.StringArrayRes;
  * Time: 上午11:37
  * Mail: specialcyci@gmail.com
  */
-@EViewGroup ( R.layout.param_widget)
-public class ParamWidget extends LinearLayout{
+@EViewGroup(R.layout.param_widget)
+public class ParamWidget extends LinearLayout {
 
     @ViewById
     ImageView param_iv;
 
     @ViewById
-    TextView  param_lable;
+    TextView param_lable;
 
     @ViewById
     WheelHorizontalView param_wheel;
@@ -60,10 +59,11 @@ public class ParamWidget extends LinearLayout{
 
     /**
      * set up the param view with lable text and param list;
+     *
      * @param lableText
      * @param paramList
      */
-    public void initView(String lableText,String[] paramList,int index){
+    public void initView(String lableText, String[] paramList, int index) {
 
         param_lable.setText(lableText);
 
@@ -80,12 +80,13 @@ public class ParamWidget extends LinearLayout{
      * @param lableText
      * @param index
      */
-    public void initViewWithYesOrNoOption(String lableText,int index){
-        initView(lableText,yes_or_no,index);
+    public void initViewWithYesOrNoOption(String lableText, int index) {
+        initView(lableText, yes_or_no, index);
     }
 
     /**
      * return the wheel control
+     *
      * @return
      */
     public WheelHorizontalView getWheel() {
@@ -94,6 +95,7 @@ public class ParamWidget extends LinearLayout{
 
     /**
      * return the wheelAdapter
+     *
      * @return
      */
     public ArrayWheelAdapter getAdapter() {
@@ -102,10 +104,20 @@ public class ParamWidget extends LinearLayout{
 
     /**
      * return the selected content of wheel
+     *
      * @return
      */
-    public String getSelectedParam(){
+    public String getSelectedParam() {
         return (String) adapter.getItemText(param_wheel.getCurrentItem());
+    }
+
+    /**
+     * return the options value "yes" or "no",
+     * only work for init views with yes or
+     * no options.
+     */
+    public boolean getYesOrNo() {
+        return getWheel().getCurrentItem() == 0;
     }
 
     /**
@@ -115,21 +127,11 @@ public class ParamWidget extends LinearLayout{
      *
      * @param yesOrNo
      */
-    public void setYesOrNo(boolean yesOrNo){
-        getWheel().setCurrentItem(yesOrNo?0:1);
+    public void setYesOrNo(boolean yesOrNo) {
+        getWheel().setCurrentItem(yesOrNo ? 0 : 1);
     }
 
-    /**
-     * return the options value "yes" or "no",
-     * only work for init views with yes or
-     * no options.
-     *
-     */
-    public boolean getYesOrNo(){
-        return getWheel().getCurrentItem() == 0;
-    }
-
-    public void setSeparatorVisable(int visable){
+    public void setSeparatorVisable(int visable) {
         separator.setVisibility(visable);
     }
 }

@@ -10,7 +10,7 @@ import cn.scau.scautreasure.model.SchoolActivityModel;
  * 校园活动 Api;
  */
 
-@Rest(rootUrl = "http://iscaucms.sinaapp.com/index.php/Api/getActivities?", converters = { GsonHttpMessageConverter.class } )
+@Rest(rootUrl = "http://iscaucms.sinaapp.com/index.php/Api/getActivities?", converters = {GsonHttpMessageConverter.class})
 public interface SchoolActivityApi {
 
     @Get("time={time}")

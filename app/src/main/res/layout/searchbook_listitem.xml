@@ -1,156 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <!-- 书籍名称 -->
     <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_bookname"
-            android:textSize="@dimen/listitem_textSize"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:textColor="@color/normail_item_passed_text_color"
-            android:background="@color/normal_item_passed_color"
-            android:paddingLeft="@dimen/listitem_title_padding_left"/>
+        android:id="@+id/tv_bookname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/normal_item_passed_color"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:singleLine="true"
+        android:textColor="@color/normail_item_passed_text_color"
+        android:textSize="@dimen/listitem_textSize"/>
+
     <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/listitem_padding"
-            android:paddingBottom="@dimen/listitem_padding"
-            android:paddingLeft="@dimen/listitem_title_padding_left"
-            android:paddingRight="@dimen/listitem_title_padding_left">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/listitem_padding"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_title_padding_left"
+        android:paddingTop="@dimen/listitem_padding">
 
         <TableLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
             <TableRow>
 
                 <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_author"
-                        android:id="@+id/textView"/>
+                    android:id="@+id/textView"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_author"/>
 
                 <!-- 作者 -->
                 <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_author"/>
+                    android:id="@+id/tv_author"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </TableRow>
 
             <TableRow>
 
                 <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_author"
-                        android:id="@+id/textView"/>
+                    android:id="@+id/textView"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_author"/>
 
                 <!-- 出版社 -->
                 <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_press"/>
+                    android:id="@+id/tv_press"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </TableRow>
 
             <TableRow
-                    android:layout_width="wrap_content">
+                android:layout_width="wrap_content">
 
                 <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/listitem_lable_serial_number"/>
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_serial_number"/>
 
                 <!-- 索书号 -->
                 <TextView
-                        style="@style/normal_item_sub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_serial_number" />
+                    android:id="@+id/tv_serial_number"
+                    style="@style/normal_item_sub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
 
             </TableRow>
         </TableLayout>
 
         <ToggleButton
-                android:focusable="false"
-                android:layout_gravity="right|bottom"
-                style="@style/expand_button"
-                android:id="@+id/expandable_toggle_button"
-                android:checked="false"/>
+            android:id="@+id/expandable_toggle_button"
+            style="@style/expand_button"
+            android:layout_gravity="right|bottom"
+            android:checked="false"
+            android:focusable="false"/>
     </FrameLayout>
 
     <ImageView
-            style="@style/listitem_separator"
-            android:layout_marginTop="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription=""/>
+        style="@style/listitem_separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:contentDescription=""/>
 
     <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/expandable"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:paddingLeft="@dimen/listitem_title_padding_left"
-            android:paddingRight="@dimen/listitem_goal_title_padding_right">
+        android:id="@+id/expandable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_goal_title_padding_right">
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_bookname"/>
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_bookname"/>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_all_bookname"/>
+                android:id="@+id/tv_all_bookname"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
         <TableRow>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_document_type"/>
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listitem_lable_document_type"/>
 
             <TextView
-                    style="@style/normal_item_sub_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_document_type"/>
+                android:id="@+id/tv_document_type"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
 
         <TableRow>
+
             <ImageView
-                    android:layout_weight="1"
-                    style="@style/listitem_separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription=""/>
+                style="@style/listitem_separator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription=""/>
         </TableRow>
 
     </TableLayout>

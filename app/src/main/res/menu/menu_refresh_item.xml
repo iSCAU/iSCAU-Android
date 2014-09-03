@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/refresh_button"
-        app:showAsAction="always"
         android:icon="@drawable/icon_menu_refresh"
+        android:title="@string/action_refresh"
         app:actionViewClass="cn.scau.scautreasure.widget.RefreshActionItem"
-        android:title="@string/action_refresh"/>
+        app:showAsAction="always"/>
 
 </menu>

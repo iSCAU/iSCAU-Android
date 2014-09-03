@@ -2,7 +2,6 @@ package cn.scau.scautreasure.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User:  Special Leung
@@ -10,7 +9,7 @@ import java.util.List;
  * Time:  下午4:09
  * Mail:  specialcyci@gmail.com
  */
-public class ParamModel implements Serializable{
+public class ParamModel implements Serializable {
 
     private String key;
     private String[] value;

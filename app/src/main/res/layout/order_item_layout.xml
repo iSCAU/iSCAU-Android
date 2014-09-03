@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:padding="10dp"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/list_item_bg"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="斯蒂芬斯达夫"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/foodName"/>
+    <TextView
+        android:text="3份"
+        android:gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodCount"/>
+    <TextView
+    android:text="$67"
+        android:gravity="right"
+    android:layout_width="60dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/foodMoney"/>
+
+</LinearLayout>

@@ -21,15 +21,15 @@ public class LogUtil {
     private static final SimpleDateFormat SDF = new SimpleDateFormat(
             "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-    public static void writeLog(String log){
+    public static void writeLog(String log) {
         Log.d(AppConstant.LOG_TAG, log);
         PrintWriter writer = null;
         try {
             File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
                     + "/" + AppConstant.LOG_FILE_NAME);
-            if(!file.exists()){
+            if (!file.exists()) {
                 File parent = file.getParentFile();
-                if(!parent.exists()){
+                if (!parent.exists()) {
                     parent.mkdirs();
                 }
                 file.createNewFile();

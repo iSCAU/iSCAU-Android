@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
 /**
  * Created by special on 14-5-2.
  */
@@ -23,16 +24,16 @@ class TouchDisableView extends ViewGroup {
         super(context, attrs);
     }
 
+    public View getContent() {
+        return mContent;
+    }
+
     public void setContent(View v) {
         if (mContent != null) {
             this.removeView(mContent);
         }
         mContent = v;
         addView(mContent);
-    }
-
-    public View getContent() {
-        return mContent;
     }
 
     @Override

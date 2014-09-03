@@ -14,11 +14,11 @@ import java.util.List;
  * Mail:  specialcyci@gmail.com
  */
 
-@DatabaseTable( tableName = "classes" )
+@DatabaseTable(tableName = "classes")
 public class ClassModel implements Serializable {
 
-    @DatabaseField( generatedId = true )
-    private int    id;
+    @DatabaseField(generatedId = true)
+    private int id;
 
     @DatabaseField
     private String classname;
@@ -33,10 +33,10 @@ public class ClassModel implements Serializable {
     private String node;
 
     @DatabaseField
-    private int    strWeek;
+    private int strWeek;
 
     @DatabaseField
-    private int    endWeek;
+    private int endWeek;
 
     @DatabaseField
     private String dsz;
@@ -44,7 +44,8 @@ public class ClassModel implements Serializable {
     @DatabaseField
     private String location;
 
-    public ClassModel(){}
+    public ClassModel() {
+    }
 
     public int getId() {
         return id;
@@ -136,7 +137,7 @@ public class ClassModel implements Serializable {
 
         private List<ClassModel> classes;
 
-        private String           termStartDate;
+        private String termStartDate;
 
         public String getTermStartDate() {
             return termStartDate;

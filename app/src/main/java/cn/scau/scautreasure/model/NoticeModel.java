@@ -59,7 +59,7 @@ public class NoticeModel implements Serializable {
                 '}';
     }
 
-    public class NoticeList implements Serializable{
+    public class NoticeList implements Serializable {
 
         private int count;
         private ArrayList<NoticeModel> notice;

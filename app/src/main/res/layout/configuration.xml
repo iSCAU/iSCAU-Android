@@ -1,42 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/background_normal"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
+
     <cn.scau.scautreasure.widget.ElasticScrollView_
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
         <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <LinearLayout
+                 android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="28dp"
+            android:paddingRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/menu_title_label"
-                android:text="@string/settings_server"/>
+                android:orientation="horizontal">
 
-            <cn.scau.scautreasure.widget.ParamWidget_
-                    android:id="@+id/param_server"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            <cn.scau.scautreasure.widget.ParamWidget_
-                    android:id="@+id/param_classTableAsFirstScreen"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="上课前30分钟提醒"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                    android:id="@+id/alert_before_class"/>
 
-            <TextView
-                android:layout_marginTop="10dp"
+                </LinearLayout>
+            <!--<TextView-->
+                <!--style="@style/menu_title_label"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/settings_server"/>-->
+
+            <!--<cn.scau.scautreasure.widget.ParamWidget_-->
+                <!--android:id="@+id/param_server"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+            <cn.scau.scautreasure.widget.ParamWidget_
+                android:id="@+id/param_classTableAsFirstScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <TextView
                 style="@style/menu_title_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/settings_ringer_model"/>
 
             <cn.scau.scautreasure.widget.ParamWidget_
@@ -58,22 +78,22 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:layout_marginTop="10dp"
+                style="@style/menu_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/menu_title_label"
+                android:layout_marginTop="10dp"
                 android:text="@string/settings_other"/>
 
             <Button
-                style="@style/settings_other_button"
                 android:id="@+id/btn_notification_setting"
+                style="@style/settings_other_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="@string/btn_notification_setting"
+                android:layout_marginTop="10dp"
 
-                android:layout_marginTop="10dp"/>
+                android:text="@string/btn_notification_setting"/>
 
             <ImageView
                 style="@style/listitem_separator"
@@ -84,8 +104,8 @@
                 android:contentDescription=""/>
 
             <Button
-                style="@style/settings_other_button"
                 android:id="@+id/btn_update"
+                style="@style/settings_other_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -101,8 +121,8 @@
                 android:contentDescription=""/>
 
             <Button
-                style="@style/settings_other_button"
                 android:id="@+id/btn_about"
+                style="@style/settings_other_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -110,23 +130,24 @@
                 android:text="@string/btn_about"/>
 
             <Button
-                    style="@style/noraml_button"
-                    android:id="@+id/btn_save"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:text="@string/btn_save"
-                    android:layout_marginTop="10dp"/>
-            <Button
-                style="@style/blue_button"
-                android:id="@+id/btn_change_account"
+                android:id="@+id/btn_save"
+                style="@style/noraml_button"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="@string/btn_change_account"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:text="@string/btn_save"/>
+
+            <Button
+                android:id="@+id/btn_change_account"
+                style="@style/blue_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/btn_change_account"/>
 
             <View
                 android:layout_width="match_parent"

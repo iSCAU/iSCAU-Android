@@ -27,8 +27,8 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail:  specialcyci@gmail.com
  */
 
-@EActivity( R.layout.emptyclassroom )
-public class EmptyClassRoom extends CommonQueryActivity{
+@EActivity(R.layout.emptyclassroom)
+public class EmptyClassRoom extends CommonQueryActivity {
 
     @RestService
     EdusysApi api;
@@ -36,7 +36,7 @@ public class EmptyClassRoom extends CommonQueryActivity{
     ArrayList<String> value;
 
     @AfterViews
-    void init(){
+    void init() {
         setTitle(R.string.title_emptyclassroom);
         setDataEmptyTips(R.string.tips_emptyclassroom_null);
         cacheHelper.setCacheKey("emptyClassRoom_" + StringUtil.join(value, "_"));
@@ -44,10 +44,10 @@ public class EmptyClassRoom extends CommonQueryActivity{
         buildAndShowListViewAdapter();
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
         beforeLoadData();
-        try{
+        try {
             ArrayList<String> param = value;
             list = api.getEmptyClassRoom(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server,
                     param.get(0), param.get(1), param.get(2), param.get(3), param.get(4),
@@ -55,17 +55,17 @@ public class EmptyClassRoom extends CommonQueryActivity{
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
 
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
-        }catch (Exception e){
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
         afterLoadData();
     }
 
-    private void buildAndShowListViewAdapter(){
+    private void buildAndShowListViewAdapter() {
         ClassRoomAdapter cAdapter = new ClassRoomAdapter(getSherlockActivity(), R.layout.emptyclassroom_listitem, list);
-        adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) listView,EXPANDABLE_SWING);
+        adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) listView, EXPANDABLE_SWING);
         showSuccessResult();
     }
 

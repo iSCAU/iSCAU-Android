@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <!-- 书籍名称 -->
     <TextView
+        android:id="@+id/tv_bookname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_bookname"
-        android:textSize="@dimen/listitem_textSize"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:textColor="@color/normail_item_passed_text_color"
         android:background="@color/normal_item_passed_color"
-        android:paddingLeft="@dimen/listitem_title_padding_left"/>
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:singleLine="true"
+        android:textColor="@color/normail_item_passed_text_color"
+        android:textSize="@dimen/listitem_textSize"/>
+
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/listitem_padding"
         android:paddingBottom="@dimen/listitem_padding"
         android:paddingLeft="@dimen/listitem_title_padding_left"
-        android:paddingRight="@dimen/listitem_title_padding_left">
+        android:paddingRight="@dimen/listitem_title_padding_left"
+        android:paddingTop="@dimen/listitem_padding">
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -31,18 +32,18 @@
             <TableRow>
 
                 <TextView
+                    android:id="@+id/textView"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_borrow_date"
-                    android:id="@+id/textView"/>
+                    android:text="@string/listitem_lable_borrow_date"/>
 
                 <!-- 借阅日期 -->
                 <TextView
+                    android:id="@+id/tv_borrow_date"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_borrow_date"/>
+                    android:layout_height="wrap_content"/>
 
             </TableRow>
 
@@ -50,18 +51,18 @@
                 android:layout_width="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_lable_return_date"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/listitem_lable_return_date"
-                    android:id="@+id/tv_lable_return_date"/>
+                    android:text="@string/listitem_lable_return_date"/>
 
                 <!-- 应还日期 归还日期 -->
                 <TextView
+                    android:id="@+id/tv_return_date"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_return_date"/>
+                    android:layout_height="wrap_content"/>
             </TableRow>
 
             <TableRow
@@ -75,15 +76,14 @@
 
                 <!-- 条码号 -->
                 <TextView
+                    android:id="@+id/tv_barcode_number"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_barcode_number" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-
 
 
             </TableRow>
@@ -99,37 +99,36 @@
 
                 <!-- 馆藏地 -->
                 <TextView
+                    android:id="@+id/tv_collection_place"
                     style="@style/normal_item_sub_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_collection_place" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
 
-
             </TableRow>
         </TableLayout>
 
         <Button
-            android:focusable="false"
-            android:layout_gravity="right|bottom"
-            style="@style/noraml_button"
             android:id="@+id/btn_renew"
+            style="@style/noraml_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|bottom"
+            android:focusable="false"
             android:padding="2dp"
             android:text="@string/btn_renew"
-            android:textSize="13sp"
-            android:layout_width="40dp"
-            android:layout_height="30dp"/>
+            android:textSize="13sp"/>
     </FrameLayout>
 
     <ImageView
         style="@style/listitem_separator"
-        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:contentDescription=""/>
 
 </LinearLayout>

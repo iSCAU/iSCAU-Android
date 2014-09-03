@@ -23,7 +23,7 @@ import java.util.ArrayList;
 //        "重修成绩" => "goal_restudy",
 //        "开课学院" => "college_hold",
 //        "重修标记" => "flag_restudy"
-public class GoalModel implements Serializable{
+public class GoalModel implements Serializable {
     private String year;
     private String team;
     private String code;
@@ -161,7 +161,7 @@ public class GoalModel implements Serializable{
                 '}';
     }
 
-    public class GoalList{
+    public class GoalList {
 
         private ArrayList<GoalModel> goals;
 

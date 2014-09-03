@@ -15,7 +15,7 @@ import java.util.ArrayList;
 //        "考试座位数" => "seat_exam",
 //        "建筑面积" => "area",
 //        "预约情况" => "has_book"
-public class ClassRoomModel implements Serializable{
+public class ClassRoomModel implements Serializable {
 
     private String type;
     private String number;
@@ -94,7 +94,7 @@ public class ClassRoomModel implements Serializable{
                 '}';
     }
 
-    public class ClassRoomList{
+    public class ClassRoomList {
 
         private ArrayList<ClassRoomModel> classRooms;
 

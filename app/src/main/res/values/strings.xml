@@ -18,8 +18,8 @@
     <string name="tips_classtable_null">嗯..竟然找不到你的课程表</string>
     <string name="tips_username_error">抱歉，你的用户名不存在..</string>
     <string name="tips_password_error">抱歉，你的密码错误..</string>
-    <string name="tips_server_error">抱歉,服务器崩溃了,请稍后再试</string>
-    <string name="tips_edu_server_error">抱歉,你所选择的教务服务器崩溃了,请更换重试</string>
+    <string name="tips_server_error">正方系统暂时登入不上，请尝试在电脑进行网页登入</string>
+    <string name="tips_edu_server_error">正方系统暂时登入不上，请尝试在电脑进行网页登入</string>
     <string name="tips">提示</string>
     <string name="tips_loading_classtable">正在加载课程表..</string>
     <string name="tips_loading_params">正在加载条件..第一次加载可能比较慢，请耐心等待.</string>
@@ -204,6 +204,7 @@
     <string name="menu_course_comments">选课评论</string>
     <string name="tab_classtable">课表</string>
     <string name="tab_features">功能</string>
+    <string name="tab_food">外卖</string>
     <string name="tab_settings">设置</string>
     <string name="tips_no_network">未知错误，请检查您的网络状态</string>
     <string name="settings_server">服务器选择</string>

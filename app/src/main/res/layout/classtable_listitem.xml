@@ -1,206 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
-                android:id="@+id/class_iv"
-                android:layout_marginLeft="2dp"
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:contentDescription=""/>
+            android:id="@+id/class_iv"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:contentDescription=""/>
 
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_nodes"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
+                android:text="9,10,11节"
+                android:textColor="@color/class_note_textcolor"
+                android:textSize="@dimen/class_note_textsize"/>
 
             <TextView
-                    android:layout_weight="5"
-                    android:id="@+id/tv_nodes"
-                    android:text="9,10,11节"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:textColor="@color/class_note_textcolor"
-                    android:textSize="@dimen/class_note_textsize"
-                    android:layout_marginLeft="10dp"/>
-            <TextView
-                    android:layout_weight="3"
-                    android:id="@+id/tv_classname"
-                    android:text="大学英语"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:textColor="@color/class_name_textcolor"
-                    android:textSize="@dimen/class_name_textsize"/>
+                android:id="@+id/tv_classname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="大学英语"
+                android:textColor="@color/class_name_textcolor"
+                android:textSize="@dimen/class_name_textsize"/>
 
             <TextView
-                    android:layout_weight="5"
-                    android:id="@+id/tv_place"
-                    android:text="实验楼99"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="right|center_vertical"
-                    android:textColor="@color/class_place_textcolor"
-                    android:textSize="@dimen/class_place_textsize"/>
+                android:id="@+id/tv_place"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:gravity="right|center_vertical"
+                android:text="实验楼99"
+                android:textColor="@color/class_place_textcolor"
+                android:textSize="@dimen/class_place_textsize"/>
 
             <FrameLayout
-                    android:layout_weight="6"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="6">
 
                 <ToggleButton
-                        android:layout_gravity="center"
-                        style="@style/class_expand_button"
-                        android:layout_alignParentRight="true"
-                        android:id="@+id/expandable_toggle_button"
-                        android:checked="false"/>
+                    android:id="@+id/expandable_toggle_button"
+                    style="@style/class_expand_button"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:checked="false"/>
 
             </FrameLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
     <ImageView
-            style="@style/listitem_separator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/listitem_separator_margin_right"
-            android:contentDescription=""/>
+        style="@style/listitem_separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/listitem_separator_margin_right"
+        android:contentDescription=""/>
 
 
     <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/expandable"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:paddingLeft="@dimen/listitem_title_padding_left"
-            android:paddingRight="@dimen/listitem_goal_title_padding_right">
+        android:id="@+id/expandable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="@dimen/listitem_title_padding_left"
+        android:paddingRight="@dimen/listitem_goal_title_padding_right">
 
         <TableLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
             <TableRow>
 
                 <TextView
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:text="@string/listitem_lable_class_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_class_name"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
 
                 <TextView
-                        android:id="@+id/tv_classname_details"
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/tv_classname_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
             </TableRow>
 
             <TableRow>
 
                 <TextView
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:text="@string/listitem_lable_class_place"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_class_place"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
 
                 <TextView
-                        android:id="@+id/tv_class_place"
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/tv_class_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
             </TableRow>
 
             <TableRow>
 
                 <TextView
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:text="@string/listitem_lable_name_teacher"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_name_teacher"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
 
                 <TextView
-                        android:id="@+id/tv_teacher"
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/tv_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
             </TableRow>
 
             <TableRow>
 
                 <TextView
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:text="@string/listitem_lable_dsz"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_dsz"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
 
                 <TextView
-                        android:id="@+id/tv_dsz"
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/tv_dsz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
             </TableRow>
 
             <TableRow>
 
                 <TextView
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:text="@string/listitem_lable_week_range"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listitem_lable_week_range"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
 
                 <TextView
-                        android:id="@+id/tv_week_range"
-                        android:textColor="@color/listitem_goal_sub_title_color"
-                        android:textSize="@dimen/listitem_goal_sub_title_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/tv_week_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_goal_sub_title_color"
+                    android:textSize="@dimen/listitem_goal_sub_title_size"/>
             </TableRow>
         </TableLayout>
 
         <Button
-                android:focusable="false"
-                android:layout_gravity="right|bottom"
-                android:layout_marginRight="45dp"
-                style="@style/noraml_button"
-                android:id="@+id/btn_delete"
-                android:padding="2dp"
-                android:text="@string/btn_delete"
-                android:textSize="13sp"
-                android:layout_width="40dp"
-                android:layout_height="30dp"/>
+            android:id="@+id/btn_delete"
+            style="@style/noraml_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="45dp"
+            android:focusable="false"
+            android:padding="2dp"
+            android:text="@string/btn_delete"
+            android:textSize="13sp"/>
 
         <Button
-                android:focusable="false"
-                android:layout_gravity="right|bottom"
-                style="@style/noraml_button"
-                android:id="@+id/btn_modify"
-                android:padding="2dp"
-                android:text="@string/btn_modify"
-                android:textSize="13sp"
-                android:layout_width="40dp"
-                android:layout_height="30dp"/>
+            android:id="@+id/btn_modify"
+            style="@style/noraml_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|bottom"
+            android:focusable="false"
+            android:padding="2dp"
+            android:text="@string/btn_modify"
+            android:textSize="13sp"/>
 
     </FrameLayout>
 </LinearLayout>

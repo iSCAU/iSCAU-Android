@@ -2,27 +2,31 @@ package cn.scau.scautreasure.ui;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
 
-import cn.scau.scautreasure.AppConstant;
+import com.devspark.appmsg.AppMsg;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.HttpStatusCodeException;
+
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.NoticeAdapter;
 import cn.scau.scautreasure.api.NoticeApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.NoticeModel;
-import cn.scau.scautreasure.model.ParamModel;
 import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.widget.NoticeHeaderWidget_;
-import com.devspark.appmsg.AppMsg;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.RestService;
-import org.springframework.web.client.HttpStatusCodeException;
 
-import java.util.ArrayList;
-
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
+import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
 /**
  * 校园通知列表;
@@ -31,36 +35,63 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.*;
  * Time: 下午2:14
  * Mail: specialcyci@gmail.com
  */
-@EActivity ( R.layout.notice )
+@EActivity(R.layout.notice)
 public class Notice extends CommonActivity {
 
+    private final static String cacheKey = "notice_lastest_news";
     @RestService
     NoticeApi api;
-
     @ViewById
     ImageView notice_iv;
-
-    @ViewById( R.id.listView )
+    @ViewById(R.id.listView)
     PullToRefreshListView _listView;
-
     @ViewById
     SwipeRefreshLayout swipe_refresh;
-
     private int page;
     private int count;
+    /**
+     * listView下拉刷新;
+     */
+    private PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
+        @Override
+        public void onRefresh(PullToRefreshBase refreshView) {
+            if (page < Math.ceil(count / 10)) {
+                page++;
+                loadData();
+            } else {
+                AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
+                refreshView.setRefreshing(false);
+            }
+        }
+    };
     private NoticeAdapter listAdapter;
-    private final static String cacheKey = "notice_lastest_news";
     private boolean isFromCache = true;
-
+    /**
+     * listView选中：
+     */
+    private AdapterView.OnItemClickListener onListViewItemClicked = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+            app.Log("position : " + position);
+            if (position != 1) {
+                NoticeModel notice = (NoticeModel) parent.getAdapter().getItem(position);
+                NoticeDetail_.intent(getSherlockActivity())
+                        .title(notice.getTitle())
+                        .time(notice.getTime())
+                        .url(notice.getUrl())
+                        .start();
+            }
+        }
+    };
 
     @Override
-    void initActionBar(){
+    void initActionBar() {
         // 由于隐藏了标题栏，所以要覆盖初始化actionbar的函数
         // 否则空指针
     }
 
     @AfterViews
-    void init(){
+    void init() {
 
         getSupportActionBar().hide();
 
@@ -88,67 +119,33 @@ public class Notice extends CommonActivity {
     }
 
     // 加载缓存的通知，并且载入时显示；
-    void loadCacheData(){
+    void loadCacheData() {
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
         NoticeModel.NoticeList l = (NoticeModel.NoticeList) cacheUtil.getAsObject(this.cacheKey);
-        if(l != null)
+        if (l != null)
             showSuccessResult(l);
     }
 
-    /**
-     * listView选中：
-     */
-    private AdapterView.OnItemClickListener onListViewItemClicked = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-            app.Log("position : " + position );
-            if(position != 1) {
-                NoticeModel notice = (NoticeModel) parent.getAdapter().getItem(position);
-                NoticeDetail_.intent(getSherlockActivity())
-                        .title(notice.getTitle())
-                        .time(notice.getTime())
-                        .url(notice.getUrl())
-                        .start();
-            }
-        }
-    };
-
-    /**
-     * listView下拉刷新;
-     */
-    private PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
-        @Override
-        public void onRefresh(PullToRefreshBase refreshView) {
-            if(page < Math.ceil(count/10)){
-                page++;
-                loadData();
-            }else{
-                AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
-                refreshView.setRefreshing(false);
-            }
-        }
-    };
-
     @UiThread
-    void showSuccessResult(NoticeModel.NoticeList l){
+    void showSuccessResult(NoticeModel.NoticeList l) {
 
         // new search
-        if(listAdapter == null){
+        if (listAdapter == null) {
 
             count = l.getCount();
-            listAdapter = new NoticeAdapter(getSherlockActivity(), R.layout.notice_listitem,l.getNotice());
+            listAdapter = new NoticeAdapter(getSherlockActivity(), R.layout.notice_listitem, l.getNotice());
             ListView lv = _listView.getRefreshableView();
-            adapter     = UIHelper.buildEffectAdapter(listAdapter, lv, ALPHA);
+            adapter = UIHelper.buildEffectAdapter(listAdapter, lv, ALPHA);
             _listView.setAdapter(listAdapter);
             swipe_refresh.setRefreshing(false);
 
-            if (isFromCache){
+            if (isFromCache) {
                 // 置空adapter, 可以使得下面从网络加载数据后，自动清除
                 // 缓存的数据，置入从网络加载的数据；
                 listAdapter = null;
                 isFromCache = false;
             }
-        }else{
+        } else {
             // next page;
             listAdapter.addAll(l.getNotice());
             listAdapter.notifyDataSetChanged();
@@ -158,16 +155,16 @@ public class Notice extends CommonActivity {
         _listView.onRefreshComplete();
     }
 
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
 
-        try{
+        try {
             NoticeModel.NoticeList l = api.getList(page);
             cacheLastestNotice(l);
             showSuccessResult(l);
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
-        }catch (Exception e){
+        } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }
 
@@ -175,12 +172,12 @@ public class Notice extends CommonActivity {
 
     // 缓存最新的通知信息;
     @Background
-    void cacheLastestNotice(NoticeModel.NoticeList noticeList){
+    void cacheLastestNotice(NoticeModel.NoticeList noticeList) {
         // 只缓存最新的通知
-        if(page != 1)
+        if (page != 1)
             return;
         CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
-        if(noticeList.getCount() != 0)
+        if (noticeList.getCount() != 0)
             cacheUtil.put(this.cacheKey, noticeList);
     }
 

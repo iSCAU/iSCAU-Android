@@ -37,6 +37,20 @@ public class SplashHelper {
         mContext = ctx;
     }
 
+    public static long getLastUpdate(Context ctx) {
+        SharedPreferences sp = ctx.getSharedPreferences("splash", Context.MODE_PRIVATE);
+        return sp.getLong("lastUpdate", 0);
+    }
+
+    public static void setLastUpdate(Context ctx, long lastUpdate) {
+        SharedPreferences sp = ctx.getSharedPreferences("splash", Context.MODE_PRIVATE);
+        sp.edit().putLong("lastUpdate", lastUpdate).commit();
+    }
+
+    public static String getFileName(String title) {
+        return "splash_" + CryptUtil.base64_url_safe(title);
+    }
+
     ArrayList<SplashModel> getSplashList() {
         SplashDatabaseHelper sp = new SplashDatabaseHelper(mContext);
         return sp.getSplashList();
@@ -46,18 +60,8 @@ public class SplashHelper {
         return getLastUpdate(mContext);
     }
 
-    public static long getLastUpdate(Context ctx) {
-        SharedPreferences sp = ctx.getSharedPreferences("splash", Context.MODE_PRIVATE);
-        return sp.getLong("lastUpdate", 0);
-    }
-
     public void setLastUpdate(long lastUpdate) {
         setLastUpdate(mContext, lastUpdate);
-    }
-
-    public static void setLastUpdate(Context ctx, long lastUpdate) {
-        SharedPreferences sp = ctx.getSharedPreferences("splash", Context.MODE_PRIVATE);
-        sp.edit().putLong("lastUpdate", lastUpdate).commit();
     }
 
     public SplashModel getSuitableSplash() {
@@ -80,7 +84,7 @@ public class SplashHelper {
     void loadData_() {
         try {
             mSplashList = api.getSplash(getLastUpdate());
-            setLastUpdate(System.currentTimeMillis()/1000);
+            setLastUpdate(System.currentTimeMillis() / 1000);
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -142,12 +146,8 @@ public class SplashHelper {
     }
 
     boolean isSplashFileExist(String title) {
-        return new File(mContext.getFilesDir()+"/"+getFileName(title))
+        return new File(mContext.getFilesDir() + "/" + getFileName(title))
                 .exists();
-    }
-
-    public static String getFileName(String title) {
-        return "splash_" + CryptUtil.base64_url_safe(title);
     }
 
     public final class SplashApi_

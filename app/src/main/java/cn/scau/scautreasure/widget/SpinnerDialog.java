@@ -1,18 +1,14 @@
 package cn.scau.scautreasure.widget;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
-import cn.scau.scautreasure.R;
 
 import java.util.List;
+
+import cn.scau.scautreasure.R;
 
 /**
  * User: special
@@ -24,7 +20,7 @@ public class SpinnerDialog extends AlertDialog.Builder {
 
     private List<String> mList;
     private Context mContext;
-    private String  mText;
+    private String mText;
     private int defaultPosition = 0;
     private DialogListener dialogListener;
 
@@ -34,11 +30,11 @@ public class SpinnerDialog extends AlertDialog.Builder {
         mList = list;
     }
 
-    public void setMessage(String text){
+    public void setMessage(String text) {
         mText = text;
     }
 
-    public void setDefaultSelectPosition(int index){
+    public void setDefaultSelectPosition(int index) {
         defaultPosition = index;
     }
 
@@ -55,13 +51,14 @@ public class SpinnerDialog extends AlertDialog.Builder {
         setView(mSpinner);
         setNegativeButton(mContext.getString(R.string.btn_cancel), null);
         setPositiveButton(mContext.getString(R.string.btn_retry),
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    int n = mSpinner.getSelectedItemPosition();
-                    dialogListener.select(n);
-                }
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        int n = mSpinner.getSelectedItemPosition();
+                        dialogListener.select(n);
+                    }
 
-            });
+                }
+        );
         return this;
     }
 

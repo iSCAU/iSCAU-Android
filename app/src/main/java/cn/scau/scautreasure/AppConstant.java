@@ -24,7 +24,7 @@ public class AppConstant {
     /**
      * 教务系统的参数选择缓存有效时间;
      */
-    public static final int PARAMS_CACHE_TIME   = 7 * CacheUtil.TIME_DAY;
+    public static final int PARAMS_CACHE_TIME = 7 * CacheUtil.TIME_DAY;
 
     /**
      * 巴士线路信息的缓存有效时间;
@@ -55,16 +55,16 @@ public class AppConstant {
     /**
      * 桌面小插件的Intent;
      */
-    public static final String INTENT_CONFIGURE   = "android.appwidget.action.APPWIDGET_CONFIGURE";
-    public static final String INTENT_SETTINGS    = "cn.scau.scautreasure.SETTINGS";
-    public static final String INTENT_UPDATE      = "cn.scau.scautreasure.RECEIVER_UPDATE";
-    public static final String INTENT_MONDAY      = "cn.scau.scautreasure.MONDAY";
-    public static final String INTENT_TUESDAY     = "cn.scau.scautreasure.TUESDAY";
-    public static final String INTENT_WEDNESDAY   = "cn.scau.scautreasure.WEDNESDAY";
-    public static final String INTENT_THURDAY     = "cn.scau.scautreasure.THURDAY";
-    public static final String INTENT_FRIDAY      = "cn.scau.scautreasure.FRIDAY";
-    public static final String INTENT_SATURDAY    = "cn.scau.scautreasure.SATURDAY";
-    public static final String INTENT_SUNDAY      = "cn.scau.scautreasure.SUNDAY";
+    public static final String INTENT_CONFIGURE = "android.appwidget.action.APPWIDGET_CONFIGURE";
+    public static final String INTENT_SETTINGS = "cn.scau.scautreasure.SETTINGS";
+    public static final String INTENT_UPDATE = "cn.scau.scautreasure.RECEIVER_UPDATE";
+    public static final String INTENT_MONDAY = "cn.scau.scautreasure.MONDAY";
+    public static final String INTENT_TUESDAY = "cn.scau.scautreasure.TUESDAY";
+    public static final String INTENT_WEDNESDAY = "cn.scau.scautreasure.WEDNESDAY";
+    public static final String INTENT_THURDAY = "cn.scau.scautreasure.THURDAY";
+    public static final String INTENT_FRIDAY = "cn.scau.scautreasure.FRIDAY";
+    public static final String INTENT_SATURDAY = "cn.scau.scautreasure.SATURDAY";
+    public static final String INTENT_SUNDAY = "cn.scau.scautreasure.SUNDAY";
 
     /**
      * 更改上课情景模式

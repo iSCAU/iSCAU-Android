@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval" >
+       android:shape="oval">
 
     <!-- 填充颜色 -->
-    <solid android:color="#f1f1f1" ></solid>
+    <solid android:color="#f1f1f1"></solid>
 
     <padding
         android:bottom="20dp"
@@ -11,6 +11,6 @@
         android:right="20dp"
         android:top="20dp"/>
     <!-- 矩形的圆角半径 -->
-    <corners android:radius="99dp" />
+    <corners android:radius="99dp"/>
 
 </shape>

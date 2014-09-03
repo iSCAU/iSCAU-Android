@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 某辆巴士的到站信息
- *
+ * <p/>
  * User: special
  * Date: 13-9-8
  * Time: 下午1:12

@@ -2,11 +2,10 @@ package cn.scau.scautreasure.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 校巴线路模型
- *
+ * <p/>
  * User: special
  * Date: 13-9-8
  * Time: 下午1:10
@@ -42,7 +41,7 @@ public class BusLineModel implements Serializable {
     }
 
 
-    public class LineList{
+    public class LineList {
         private ArrayList<BusLineModel> lines;
 
         public ArrayList<BusLineModel> getLines() {

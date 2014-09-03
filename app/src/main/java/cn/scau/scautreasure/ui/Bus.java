@@ -43,30 +43,65 @@ import cn.scau.scautreasure.widget.ParamWidget_;
  * Time: 下午4:40
  * Mail: specialcyci@gmail.com
  */
-@EFragment  (R.layout.bus)
+@EFragment(R.layout.bus)
 @OptionsMenu(R.menu.menu_bus)
 public class Bus extends CommonFragment {
 
-    @RestService BusApi api;
-    @App         AppContext app;
-    @ViewById    BusWidget busWidget;
-    @ViewById    LinearLayout layout_parent;
+    @RestService
+    BusApi api;
+    @App
+    AppContext app;
+    @ViewById
+    BusWidget busWidget;
+    @ViewById
+    LinearLayout layout_parent;
     @StringArrayRes
-    String[] both_direction,both_direction_eng;
+    String[] both_direction, both_direction_eng;
     @StringArrayRes
-    String[] cycle_direction,cycle_direction_eng;
+    String[] cycle_direction, cycle_direction_eng;
+    ParamWidget wheel_line, wheel_direction;
     private ArrayList<BusLineModel> lineList;
-    private ArrayList<BusSiteModel>  siteList;
+    private ArrayList<BusSiteModel> siteList;
     private List<BusStateModel> stateList;
     private CacheUtil cacheUtil;
     private boolean isAutomateRefresh = false;
-    ParamWidget wheel_line,wheel_direction;
+    /**
+     * the timer to automate load data
+     */
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            refreshSiteAndBus();
+            handler.postDelayed(this, 30 * 1000);
+        }
+    };
+    /**
+     * listen to the wheels change
+     */
+    private OnWheelChangedListener wheelChange = new OnWheelChangedListener() {
+        @Override
+        public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+
+            BusLineModel _line = lineList.get(wheel_line.getWheel().getCurrentItem());
+
+            if (wheel == wheel_line.getWheel()) {
+                // 切换线路的话，重新装载方向;
+                String[] direction = getDirectionByLine(_line);
+                wheel_direction.initView(getString(R.string.listitem_lable_direction), direction, 1);
+
+            } else {
+                // 切换方向的话，加载新的站点信息;
+                refreshSiteAndBus();
+            }
+
+        }
+    };
 
     @AfterViews
-    void init(){
+    void init() {
         setTitle(R.string.title_bus);
         setDataEmptyTips(R.string.tips_bus_loading_err);
-        cacheUtil  = CacheUtil.get(getSherlockActivity());
+        cacheUtil = CacheUtil.get(getSherlockActivity());
         UIHelper.getDialog(R.string.loading_bus_route).show();
         loadLine();
     }
@@ -76,7 +111,7 @@ public class Bus extends CommonFragment {
      */
     @Override
     public void onDestroyView() {
-        BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG,true);
+        BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
         handler.removeCallbacks(runnable);
         super.onDestroyView();
     }
@@ -85,7 +120,7 @@ public class Bus extends CommonFragment {
      * main button of refresh
      */
     @OptionsItem
-    void menu_refresh(){
+    void menu_refresh() {
         refreshSiteAndBus();
     }
 
@@ -93,74 +128,42 @@ public class Bus extends CommonFragment {
      * main button of automate refresh;
      */
     @OptionsItem
-    void menu_automate_refresh(MenuItem item){
+    void menu_automate_refresh(MenuItem item) {
         isAutomateRefresh = !isAutomateRefresh;
 
-        if(isAutomateRefresh){
+        if (isAutomateRefresh) {
             item.setTitle(R.string.menu_automate_refresh_close);
-            handler.postDelayed(runnable,1000);
-        }else{
+            handler.postDelayed(runnable, 1000);
+        } else {
             item.setTitle(R.string.menu_automate_refresh);
             handler.removeCallbacks(runnable);
         }
     }
 
     /**
-     * the timer to automate load data
-     */
-    private Handler handler = new Handler( );
-    private Runnable runnable = new Runnable( ) {
-        public void run ( ) {
-            refreshSiteAndBus();
-            handler.postDelayed(this,30 * 1000);
-        }
-    };
-
-    /**
-     * listen to the wheels change
-     */
-    private OnWheelChangedListener wheelChange = new OnWheelChangedListener() {
-        @Override
-        public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
-
-            BusLineModel _line  = lineList.get(wheel_line.getWheel().getCurrentItem());
-
-            if(wheel ==  wheel_line.getWheel()){
-                // 切换线路的话，重新装载方向;
-                String[] direction = getDirectionByLine(_line);
-                wheel_direction.initView(getString(R.string.listitem_lable_direction),direction,1);
-
-            }else{
-                // 切换方向的话，加载新的站点信息;
-                refreshSiteAndBus();
-            }
-
-        }
-    };
-
-    /**
      * return the string array of direction which to display in UI;
+     *
      * @param line
      * @return
      */
-    private String[] getDirectionByLine(BusLineModel line){
+    private String[] getDirectionByLine(BusLineModel line) {
         String lineType = line.getLineType();
 
-        if (lineType.equals("BOTH_DIRECT")){
+        if (lineType.equals("BOTH_DIRECT")) {
             return both_direction;
-        }else if (lineType.equals("CYCLE_DIRECT")){
+        } else if (lineType.equals("CYCLE_DIRECT")) {
             return cycle_direction;
         }
         return null;
     }
 
 
-    private String[] getDirectionEngByLine(BusLineModel line){
+    private String[] getDirectionEngByLine(BusLineModel line) {
         String lineType = line.getLineType();
 
-        if (lineType.equals("BOTH_DIRECT")){
+        if (lineType.equals("BOTH_DIRECT")) {
             return both_direction_eng;
-        }else if (lineType.equals("CYCLE_DIRECT")){
+        } else if (lineType.equals("CYCLE_DIRECT")) {
             return cycle_direction_eng;
         }
         return null;
@@ -173,27 +176,27 @@ public class Bus extends CommonFragment {
     //--------------------------------------------------------------------------
 
     @UiThread(delay = 300)
-    void showLine(){
+    void showLine() {
         UIHelper.getDialog().dismiss();
 
         // build line information;
         int i = 0;
         String[] line = new String[lineList.size()];
-        for (BusLineModel r : lineList)  line[i++] = r.getLineNum();
+        for (BusLineModel r : lineList) line[i++] = r.getLineNum();
 
         // build up wheel control;
         buildWheel(line);
 
         // add to view;
-        layout_parent.addView(wheel_line,0);
-        layout_parent.addView(wheel_direction,1);
+        layout_parent.addView(wheel_line, 0);
+        layout_parent.addView(wheel_direction, 1);
 
     }
 
 
     @UiThread
-    void showSiteAndBus(){
-        if(siteList != null)
+    void showSiteAndBus() {
+        if (siteList != null)
             busWidget.initView(siteList, stateList);
     }
 
@@ -201,14 +204,14 @@ public class Bus extends CommonFragment {
      * call relate method to refresh the site and bus
      */
     @UiThread
-    void refreshSiteAndBus(){
+    void refreshSiteAndBus() {
 
-        AppMsg.makeText(getSherlockActivity(),R.string.tips_bus_loading, AppMsg.STYLE_INFO).show();
+        AppMsg.makeText(getSherlockActivity(), R.string.tips_bus_loading, AppMsg.STYLE_INFO).show();
 
-        BusLineModel     _line = lineList.get(wheel_line.getWheel().getCurrentItem());
+        BusLineModel _line = lineList.get(wheel_line.getWheel().getCurrentItem());
         String[] direction_eng = getDirectionEngByLine(_line);
-        String            line = wheel_line.getSelectedParam();
-        String       direction = direction_eng[wheel_direction.getWheel().getCurrentItem()];
+        String line = wheel_line.getSelectedParam();
+        String direction = direction_eng[wheel_direction.getWheel().getCurrentItem()];
 
         loadSite(line, direction);
         loadData(line, direction);
@@ -216,16 +219,17 @@ public class Bus extends CommonFragment {
 
     /**
      * help to build line and direction wheel;
+     *
      * @param line
      */
-    private void buildWheel(String[] line){
-        wheel_line      = ParamWidget_.build(getSherlockActivity());
+    private void buildWheel(String[] line) {
+        wheel_line = ParamWidget_.build(getSherlockActivity());
         wheel_direction = ParamWidget_.build(getSherlockActivity());
         wheel_line.getWheel().addChangingListener(wheelChange);
         wheel_direction.getWheel().addChangingListener(wheelChange);
 
-        wheel_line.initView(getString(R.string.listitem_lable_line),line,0);
-        wheel_direction.initView(getString(R.string.listitem_lable_direction),getDirectionByLine(lineList.get(0)),1);
+        wheel_line.initView(getString(R.string.listitem_lable_line), line, 0);
+        wheel_direction.initView(getString(R.string.listitem_lable_direction), getDirectionByLine(lineList.get(0)), 1);
     }
 
     //--------------------------------------------------------------------------
@@ -237,15 +241,15 @@ public class Bus extends CommonFragment {
     /**
      * loading line informations
      */
-    @Background( id = UIHelper.CANCEL_FLAG )
-    void loadLine(){
+    @Background(id = UIHelper.CANCEL_FLAG)
+    void loadLine() {
         loadCacheLineList();
-        if (lineList == null){
-            try{
+        if (lineList == null) {
+            try {
                 lineList = api.getLine().getLines();
                 saveCacheLineList();
                 showLine();
-            }catch (HttpStatusCodeException e){
+            } catch (HttpStatusCodeException e) {
                 showErrorResult(getSherlockActivity(), e.getStatusCode().value());
             }
         }
@@ -253,18 +257,19 @@ public class Bus extends CommonFragment {
 
     /**
      * loading the bus stop of the route;
+     *
      * @param line
      * @param direction
      */
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadSite(String line, String direction) {
-        loadCacheSiteList(line,direction);
+        loadCacheSiteList(line, direction);
 
-        if (siteList == null){
-            try{
-                siteList = api.getSite(line,direction).getSites();
-                saveCacheSiteList(line,direction);
-            }catch (HttpStatusCodeException e){
+        if (siteList == null) {
+            try {
+                siteList = api.getSite(line, direction).getSites();
+                saveCacheSiteList(line, direction);
+            } catch (HttpStatusCodeException e) {
                 showErrorResult(getSherlockActivity(), e.getStatusCode().value());
             }
         }
@@ -273,32 +278,33 @@ public class Bus extends CommonFragment {
 
     /**
      * load the bus location information;
+     *
      * @param params
      */
-    @Background( id = UIHelper.CANCEL_FLAG )
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-        try{
+        try {
             stateList = api.getBusState((String) params[0], (String) params[1]).getStates();
             showSiteAndBus();
-        }catch (HttpStatusCodeException e){
+        } catch (HttpStatusCodeException e) {
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
         }
     }
 
-    private void loadCacheLineList(){
+    private void loadCacheLineList() {
         lineList = (ArrayList<BusLineModel>) cacheUtil.getAsObject("bus_line");
     }
 
-    private void saveCacheLineList(){
-        cacheUtil.put("bus_line", lineList , AppConstant.BUS_LINE_CACHE_TIME);
+    private void saveCacheLineList() {
+        cacheUtil.put("bus_line", lineList, AppConstant.BUS_LINE_CACHE_TIME);
     }
 
-    private void loadCacheSiteList(String line,String direction){
+    private void loadCacheSiteList(String line, String direction) {
         String key = "bus_site_" + line + direction;
-        siteList   = (ArrayList<BusSiteModel>) cacheUtil.getAsObject(key);
+        siteList = (ArrayList<BusSiteModel>) cacheUtil.getAsObject(key);
     }
 
-    private void saveCacheSiteList(String line,String direction){
+    private void saveCacheSiteList(String line, String direction) {
         cacheUtil.put("bus_site_" + line + direction, siteList, AppConstant.BUS_SITE_CACHE_TIME);
     }
 

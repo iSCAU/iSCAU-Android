@@ -10,7 +10,7 @@ import cn.scau.scautreasure.model.SplashModel;
  * Splash Api;
  */
 
-@Rest(rootUrl = "http://iscaucms.sinaapp.com/index.php?m=Api&a=splash&", converters = { GsonHttpMessageConverter.class } )
+@Rest(rootUrl = "http://iscaucms.sinaapp.com/index.php?m=Api&a=splash&", converters = {GsonHttpMessageConverter.class})
 public interface SplashApi {
 
     @Get("lastupdate={time}")

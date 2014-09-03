@@ -1,11 +1,10 @@
 package cn.scau.scautreasure.api;
 
-import cn.scau.scautreasure.model.BusLineModel;
-import cn.scau.scautreasure.model.CardRecordModel;
-import cn.scau.scautreasure.model.PersonModel;
 import org.androidannotations.annotations.rest.Get;
 import org.androidannotations.annotations.rest.Rest;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+
+import cn.scau.scautreasure.model.CardRecordModel;
 
 /**
  * User: special
@@ -13,13 +12,13 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
  * Time: 下午3:30
  * Mail: specialcyci@gmail.com
  */
-@Rest(rootUrl = "http://115.28.144.49/card/", converters = { GsonHttpMessageConverter.class } )
+@Rest(rootUrl = "http://115.28.144.49/card/", converters = {GsonHttpMessageConverter.class})
 public interface CardApi {
 
     @Get("gettoday/{userName}/{passWord}")
-    CardRecordModel.RecordList getToday(String userName,String passWord);
+    CardRecordModel.RecordList getToday(String userName, String passWord);
 
     @Get("gethistory/{userName}/{passWord}/{startdate}/{enddate}/{page}")
-    CardRecordModel.RecordList getHistory(String userName,String passWord,String startdate,String enddate,int page);
+    CardRecordModel.RecordList getHistory(String userName, String passWord, String startdate, String enddate, int page);
 
 }

@@ -38,42 +38,54 @@ import cn.scau.scautreasure.util.DateUtil;
 @EFragment(R.layout.card_param)
 public class CardParam extends CommonFragment {
 
-    @App  AppContext app;
-    @Bean DateUtil dateUtil;
-    @ViewById LinearLayout linear_parent;
-    @ViewById EditText edt_start_date;
-    @ViewById EditText edt_end_date;
+    @App
+    AppContext app;
+    @Bean
+    DateUtil dateUtil;
+    @ViewById
+    LinearLayout linear_parent;
+    @ViewById
+    EditText edt_start_date;
+    @ViewById
+    EditText edt_end_date;
     private EditText currentEditText;
     private CaldroidFragment dialogCaldroidFragment;
+    private CaldroidListener listener = new CaldroidListener() {
+        @Override
+        public void onSelectDate(Date date, View view) {
+            currentEditText.setText(dateUtil.parseCardQueryDate(date));
+            dialogCaldroidFragment.dismiss();
+        }
+    };
 
     @AfterViews
-    void initActionBar(){
+    void initActionBar() {
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(R.string.title_params);
     }
 
     @Touch
-    void edt_start_date(MotionEvent motionEvent){
+    void edt_start_date(MotionEvent motionEvent) {
         layout_start_date(motionEvent);
     }
 
     @Touch
-    void edt_end_date(MotionEvent motionEvent){
+    void edt_end_date(MotionEvent motionEvent) {
         layout_end_date(motionEvent);
     }
 
     @Touch
-    void layout_start_date(MotionEvent motionEvent){
-        showCaldroidDialog(edt_start_date,motionEvent);
+    void layout_start_date(MotionEvent motionEvent) {
+        showCaldroidDialog(edt_start_date, motionEvent);
     }
 
     @Touch
-    void layout_end_date(MotionEvent motionEvent){
-        showCaldroidDialog(edt_end_date,motionEvent);
+    void layout_end_date(MotionEvent motionEvent) {
+        showCaldroidDialog(edt_end_date, motionEvent);
     }
 
-    private void showCaldroidDialog(EditText targetView,MotionEvent motionEvent){
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)  {
+    private void showCaldroidDialog(EditText targetView, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             initCaldroidDialog();
             dialogCaldroidFragment.show(getSherlockActivity().getSupportFragmentManager(),
                     "CALDROID_DIALOG_FRAGMENT");
@@ -81,7 +93,7 @@ public class CardParam extends CommonFragment {
         }
     }
 
-    private void initCaldroidDialog(){
+    private void initCaldroidDialog() {
         dialogCaldroidFragment = new CaldroidFragment();
         dialogCaldroidFragment.setCaldroidListener(listener);
         Bundle bundle = new Bundle();
@@ -92,24 +104,16 @@ public class CardParam extends CommonFragment {
         dialogCaldroidFragment.setArguments(bundle);
     }
 
-    private CaldroidListener listener = new CaldroidListener() {
-        @Override
-        public void onSelectDate(Date date, View view) {
-            currentEditText.setText(dateUtil.parseCardQueryDate(date));
-            dialogCaldroidFragment.dismiss();
-        }
-    };
-
     /**
      * 继续查询按钮点击事件;
      */
     @Click
-    void btn_continue(){
+    void btn_continue() {
         try {
-            if(isRightStartAndEndDate())
+            if (isRightStartAndEndDate())
                 startDetailFragment();
             else
-                AppMsg.makeText(getSherlockActivity(),R.string.tips_card_date_wrong,AppMsg.STYLE_ALERT).show();
+                AppMsg.makeText(getSherlockActivity(), R.string.tips_card_date_wrong, AppMsg.STYLE_ALERT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +131,7 @@ public class CardParam extends CommonFragment {
         UIHelper.addFragment(getSherlockActivity(), fragment, "startAndEndDate", buildParamsValue());
     }
 
-    private ArrayList<String> buildParamsValue(){
+    private ArrayList<String> buildParamsValue() {
         ArrayList<String> value = new ArrayList<String>();
         value.add(edt_start_date.getText().toString());
         value.add(edt_end_date.getText().toString());

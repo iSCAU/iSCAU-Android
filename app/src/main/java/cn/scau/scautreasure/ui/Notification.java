@@ -15,7 +15,7 @@ import cn.scau.scautreasure.util.DateUtil;
 
 /**
  * 软件公告通知.
- *
+ * <p/>
  * User: special
  * Date: 13-10-5
  * Time: 下午1:36
@@ -24,22 +24,25 @@ import cn.scau.scautreasure.util.DateUtil;
 @EActivity(R.layout.notification)
 public class Notification extends CommonActivity {
 
-    @Pref cn.scau.scautreasure.AppConfig_ config;
-    @ViewById TextView tv_content;
-    @Bean  DateUtil dateUtil;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
+    @ViewById
+    TextView tv_content;
+    @Bean
+    DateUtil dateUtil;
     @Extra
     String notification;
 
     @AfterViews
-    void initViews(){
+    void initViews() {
         setTitle(R.string.title_notification);
         tv_content.setText(notification);
         config.lastSeeNotificationDate().put(dateUtil.getCurrentDateString());
     }
 
     @Click
-    void btn_back(){
-       this.finish();
+    void btn_back() {
+        this.finish();
     }
 
 }

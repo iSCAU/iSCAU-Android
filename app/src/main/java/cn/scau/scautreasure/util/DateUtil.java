@@ -1,13 +1,11 @@
 package cn.scau.scautreasure.util;
 
-import cn.scau.scautreasure.R;
 import org.androidannotations.annotations.EBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * User: special
@@ -18,7 +16,7 @@ import java.util.HashMap;
 @EBean
 public class DateUtil {
 
-    public Date parseDate(String date){
+    public Date parseDate(String date) {
         try {
             SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
             return f.parse(date);
@@ -28,7 +26,7 @@ public class DateUtil {
         return new Date();
     }
 
-    public String parseCardQueryDate(Date date){
+    public String parseCardQueryDate(Date date) {
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         return f.format(date);
     }
@@ -43,13 +41,14 @@ public class DateUtil {
 
     /**
      * 获得 星期几 的数字编码
+     *
      * @return
      */
     public int getDayOfWeek() {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date(System.currentTimeMillis()));
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek==1?7:dayOfWeek-1;
+        return dayOfWeek == 1 ? 7 : dayOfWeek - 1;
     }
 
     /* 获得当前日期 */
@@ -59,12 +58,13 @@ public class DateUtil {
         return (sf.format(date));
     }
 
-    public Date getCurrentDate(){
+    public Date getCurrentDate() {
         return new Date();
     }
 
     /**
      * get the current month - date;
+     *
      * @return
      */
     public String getCurrentMonthDate() {
@@ -108,9 +108,9 @@ public class DateUtil {
     }
 
     /* 根据当前日期与开学时间获得周 */
-    public int dateToSchoolWeek(String date,String termStartDate){
+    public int dateToSchoolWeek(String date, String termStartDate) {
         try {
-            return dateDiff(termStartDate,date,
+            return dateDiff(termStartDate, date,
                     "yyyy-MM-dd");
         } catch (java.text.ParseException e) {
 //            e.printStackTrace();
@@ -120,12 +120,13 @@ public class DateUtil {
 
     /**
      * 判断单双周;
+     *
      * @param schoolWeek
      * @return
      */
-    public String judgeDsz(int schoolWeek){
+    public String judgeDsz(int schoolWeek) {
         String strNowDsz;
-        int intNowDSZ = schoolWeek%2;
+        int intNowDSZ = schoolWeek % 2;
         switch (intNowDSZ) {
             case 0:
                 strNowDsz = "双";
@@ -165,28 +166,30 @@ public class DateUtil {
 
     /**
      * 中文日期到数字;
+     *
      * @param day
      * @return
      */
-    public int chineseToNumDay(String day){
+    public int chineseToNumDay(String day) {
 
-        if(day.equals("一")) return 0;
-        if(day.equals("二")) return 1;
-        if(day.equals("三")) return 2;
-        if(day.equals("四")) return 3;
-        if(day.equals("五")) return 4;
-        if(day.equals("六")) return 5;
-        if(day.equals("日")) return 6;
+        if (day.equals("一")) return 0;
+        if (day.equals("二")) return 1;
+        if (day.equals("三")) return 2;
+        if (day.equals("四")) return 3;
+        if (day.equals("五")) return 4;
+        if (day.equals("六")) return 5;
+        if (day.equals("日")) return 6;
         return 0;
 
     }
 
     /**
      * 数字星期转换成中文日期;
+     *
      * @param day
      * @return
      */
-    public String numDayToChinese(int day){
+    public String numDayToChinese(int day) {
 
         String cday = null;
         switch (day) {
