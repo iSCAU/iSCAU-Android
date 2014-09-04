@@ -163,13 +163,21 @@ public class OrderFood extends CommonActivity {
 
     {
         Log.i("发送的信息:", msg);
+       /* Uri deleteUri = Uri.parse("content://sms");
+        getContentResolver().delete(deleteUri, "type=? and address=?", new String[] {String.valueOf(3),phone});*/
         finish();
 
-        Uri smsToUri = Uri.parse("smsto:" + phone);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.putExtra("address", phone);
+        intent.putExtra("sms_body", msg);
+        intent.setData(Uri.parse("smsto:"+phone)); //yes, you need the number twice
+
+
+       /* Uri smsToUri = Uri.parse("smsto:" + phone);
 
         Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
 
-        intent.putExtra("sms_body", msg);
+        intent.putExtra("sms_body", msg);*/
 
         startActivity(intent);
 

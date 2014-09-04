@@ -45,9 +45,9 @@ public class FoodShopAdapter extends QuickAdapter<FoodShopDBModel> {
     }
         private void setBg(BaseAdapterHelper helper) {
             if (helper.getPosition() % 2 == 0) {
-                helper.getView(R.id.list_item_bg).setBackground(context.getResources().getDrawable(R.drawable.list_item_click));
+                helper.getView(R.id.list_item_bg).setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click));
             } else {
-                helper.getView(R.id.list_item_bg).setBackground(context.getResources().getDrawable(R.drawable.list_item_click1));
+                helper.getView(R.id.list_item_bg).setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click1));
             }
         }
     private void checkTime(String start,String end,BaseAdapterHelper helper){
