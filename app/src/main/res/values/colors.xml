@@ -5,7 +5,7 @@
     <color name="background_normal">#ffffff</color>
     <color name="login_lable_font_color">#7c8389</color>
     <color name="login_edittext_textcolor">#7c8389</color>
-    <color name="actionar_title_color">#ffffff</color>
+    <color name="actionbar_title_color">#ffffff</color>
     <color name="param_lable_textcolor">#484848</color>
     <color name="normal_item_passed_color">#f1f1f1</color>
     <color name="normail_item_passed_text_color">#292929</color>
