@@ -40,7 +40,7 @@
 
     <!-- ActionBar tabs styles -->
     <style name="ActionBarTabs"
-           parent="@style/Widget.AppCompat.ActionBar.TabView">
+        parent="@style/Widget.AppCompat.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_special</item>
     </style>
 
@@ -180,7 +180,7 @@
         <item name="android:layout_marginTop">@dimen/modify_lable_marginTop</item>
         <item name="android:layout_marginBottom">@dimen/modify_lable_marginBottom</item>
     </style>
-
+    
     <style name="classTab_normal_engtext">
         <item name="android:textColor">#969696</item>
         <item name="android:textSize">14sp</item>
@@ -202,13 +202,13 @@
     </style>
 
     <style name="schoolActivityTab_click">
-        <item name="android:textColor">#484747</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#1fc1a8</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="schoolActivityTab_normal">
-        <item name="android:textColor">#969696</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#6d6d6d</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="menu_lable_style">
