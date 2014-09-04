@@ -34,14 +34,13 @@ public class Exam extends CommonQueryActivity {
     @RestService
     EdusysApi api;
 
-    ArrayList<String> value;
 
     @AfterViews
     void init() {
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
-//        cacheHelper.setCacheKey("exam_arrange");
-        cacheHelper.setCacheKey("exam_" + StringUtil.join(value, "_"));
+        cacheHelper.setCacheKey("exam_arrange");
+
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }
@@ -50,17 +49,16 @@ public class Exam extends CommonQueryActivity {
     void loadData(Object... params) {
         beforeLoadData();
         try {
-            list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
+           list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
             //模拟数据,用来测试
-
-//            ExamModel examModel = new ExamModel("傻逼", "萧哥", "12-11", "教4", "3432", "34", "嗯嗯");
-//            ArrayList listTest = new ArrayList();
-//            listTest.add(examModel);
-//            listTest.add(examModel);
-//            listTest.add(examModel);
-//            listTest.add(examModel);
-
-
+           /* ExamModel examModel = new ExamModel("test", "test", "12-11", "教4", "3432", "34", "嗯嗯");
+           ArrayList listTest = new ArrayList();
+           listTest.add(examModel);
+           listTest.add(examModel);
+         listTest.add(examModel);
+          listTest.add(examModel);
+            list = listTest;*/
+            cacheHelper.setCacheKey("exam_arrange");
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {

@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.devspark.appmsg.AppMsg;
+
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
@@ -55,6 +57,8 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     String targetActivity;
     private List<ParamWidget> wheelList;
     private ArrayList<ParamModel> paramList;
+    //是否开学
+    private boolean isStartStudy = true;
 
     @AfterInject
     void init() {
@@ -78,6 +82,11 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     void btn_continue() {
         try {
             startNextActivity();
+                /*if(target.equals("emptyClassRoom")&&!isStartStudy){
+                    AppMsg.makeText(this,"现在还没开学，无法查询空课室",AppMsg.STYLE_ALERT).show();
+                }else{
+
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,7 +132,12 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     }
 
     private ParamWidget buildParamViews(String key, String[] values) {
-        if (values == null) values = new String[]{"NULL"};
+        if (values == null) {
+            values = new String[]{"无"};
+            if(target.equals("emptyClassRoom"))
+            isStartStudy=false;
+
+        }
         ParamWidget paramWidget = ParamWidget_.build(getSherlockActivity());
         paramWidget.initView(key, values, wheelList.size());
         paramWidget.setSeparatorVisable(View.VISIBLE);

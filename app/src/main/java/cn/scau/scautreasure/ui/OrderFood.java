@@ -169,21 +169,7 @@ public class OrderFood extends CommonActivity {
         getContentResolver().delete(deleteUri, "type=? and address=?", new String[] {String.valueOf(3),phone});*/
         finish();
 
-<<<<<<< HEAD
-//        Uri smsToUri = Uri.parse("smsto:" + phone);
-//
-//        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
-//
-//        intent.putExtra("sms_body", msg);
-//
-//        startActivity(intent);
 
-        Intent intent =new Intent(Intent.ACTION_VIEW);
-        intent.putExtra("address",phone);
-        intent.putExtra("sms_body",msg);
-        intent.setData(Uri.parse("smsto:"+phone));
-        startService(intent);
-=======
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.putExtra("address", phone);
         intent.putExtra("sms_body", msg);
@@ -197,7 +183,6 @@ public class OrderFood extends CommonActivity {
         intent.putExtra("sms_body", msg);*/
 
         startActivity(intent);
->>>>>>> 800778b283954568261717ab8bbf12e559e72a72
 
     }
 
