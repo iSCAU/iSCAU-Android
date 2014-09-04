@@ -17,6 +17,15 @@ import java.util.ArrayList;
 //        "座位号" => "seat_number",
 //        "校区" => "campus"
 public class ExamModel implements Serializable {
+    public ExamModel(String name, String name_student, String time, String place, String form, String seat_number, String campus) {
+        this.name = name;
+        this.name_student = name_student;
+        this.time = time;
+        this.place = place;
+        this.form = form;
+        this.seat_number = seat_number;
+        this.campus = campus;
+    }
 
     private String name;
     private String name_student;

@@ -18,7 +18,8 @@ import java.io.IOException;
         import org.apache.http.client.methods.HttpPost;
         import org.apache.http.client.methods.HttpUriRequest;
         import org.apache.http.impl.client.DefaultHttpClient;
-        import org.apache.http.util.EntityUtils;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
         import org.json.JSONException;
         import org.json.JSONObject;
         import android.content.Context;
@@ -102,9 +103,12 @@ public class NetUtil {
         if (null == market_uri || "" == market_uri) {
             return null;
         }
+
+
         HttpPost request = new HttpPost(market_uri);
         try {
-            request.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            request.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
+//            request.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             return getRespose(request);
         } catch (UnsupportedEncodingException e1) {
             e1.printStackTrace();

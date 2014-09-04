@@ -101,7 +101,7 @@
     <string name="menu_activityinfomation">校园活动</string>
     <string name="menu_guardianserves">家长服务</string>
     <string name="menu_studyinformation">学习资讯</string>
-    <string name="menu_busandtelphone">校巴与常用电话</string>
+    <string name="menu_busandtelphone">常用电话</string>
     <string name="tips_default_null">没有找到你需要的信息</string>
     <string name="menu_calendar">校历</string>
     <string name="btn_close">关闭</string>
@@ -109,7 +109,9 @@
     <string name="tips_calendar_click">点击亮色日期可查看事件</string>
     <string name="listitem_lable_class_name">课程名称：</string>
     <string name="menu_refresh_classtable">更新课表</string>
-    <string name="tips_unknow_error">未知错误</string>
+
+
+    <string name="tips_unknow_error">正方系统繁忙</string>
     <string name="menu_notice">校园通知</string>
     <string name="tips_notice_detail_loading">内容正在加载中..</string>
     <string name="tips_notice_loading">正在加载最新通知..</string>
@@ -206,7 +208,7 @@
     <string name="tab_features">功能</string>
     <string name="tab_food">外卖</string>
     <string name="tab_settings">设置</string>
-    <string name="tips_no_network">未知错误，请检查您的网络状态</string>
+    <string name="tips_no_network">网络错误，请检查您的网络状态</string>
     <string name="settings_server">服务器选择</string>
     <string name="settings_ringer_model">自动静音</string>
     <string name="settings_other">其它</string>

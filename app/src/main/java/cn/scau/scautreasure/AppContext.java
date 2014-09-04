@@ -205,15 +205,22 @@ public class AppContext extends Application {
             System.out.println(info[0]);
             System.out.println(info[1]);
             System.out.println(info[2]);
+            System.out.println(info[3]);
+            System.out.println(info[4]);
+
             long theTime=(System.currentTimeMillis()-Long.parseLong(info[2]))/1000/3600;
             System.out.println(theTime+"==="+config.lastOrderInfo().get());
            if (theTime<=1){
                System.out.println("需要post外卖内容");
                List<NameValuePair> nameValuePairs =new ArrayList<NameValuePair>();
                nameValuePairs.clear();
+
+
+               nameValuePairs.add(new BasicNameValuePair("text",info[3]));
+               nameValuePairs.add(new BasicNameValuePair("type",info[4]));
                nameValuePairs.add(new BasicNameValuePair("shop_id", info[0]));
                nameValuePairs.add(new BasicNameValuePair("shop_name", info[1]));
-               nameValuePairs.add(new BasicNameValuePair("time",info[2]));
+               nameValuePairs.add(new BasicNameValuePair("time",String.valueOf(Long.parseLong(info[2])/1000)));
                JSONObject retJson= NetUtil.getResponseForPost(NOTIFY_FOOD_URL, nameValuePairs, context);
 //               {"result":"success"}
                try {

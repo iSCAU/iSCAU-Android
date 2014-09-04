@@ -27,9 +27,5 @@ public class About extends CommonActivity {
         textView_appName.setText(getString(R.string.app_name) + " v" + packageHelper.getAppVersionName());
     }
 
-    @Click
-    void btn_advise() {
-        FeedbackAgent agent = new FeedbackAgent(this);
-        agent.startFeedbackActivity();
-    }
+
 }

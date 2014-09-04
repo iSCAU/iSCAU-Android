@@ -77,6 +77,7 @@ public class OrderFood extends CommonActivity {
     cn.scau.scautreasure.AppConfig_ appConfig;
 
     OrderListAdapter orderListAdapter;
+    private int type;
 
     @Click(R.id.done_order)
     void next() {
@@ -90,6 +91,7 @@ public class OrderFood extends CommonActivity {
                 if (sendList.size() > 0) {
                     String sendMsg = msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim() + "[来自华农宝客户端]";
                     sendSMS(sendMsg);//发送短信
+                    type=0;
                     updateLastTime();//更新lastTime
                 } else {
                     Toast.makeText(this, "你尚未选择饭菜", Toast.LENGTH_SHORT).show();
@@ -105,7 +107,7 @@ public class OrderFood extends CommonActivity {
     //更新lasttime,提供外卖店排序的根据
     void updateLastTime() {
 
-        String lastOrderInfo = shopId+","+shopName+","+System.currentTimeMillis();
+        String lastOrderInfo = shopId+","+shopName+","+System.currentTimeMillis()+","+msg+","+type;
         appConfig.lastOrderInfo().put(lastOrderInfo);
         System.out.println("缓存:" + lastOrderInfo);
 //开启同步服务
@@ -165,13 +167,19 @@ public class OrderFood extends CommonActivity {
         Log.i("发送的信息:", msg);
         finish();
 
-        Uri smsToUri = Uri.parse("smsto:" + phone);
+//        Uri smsToUri = Uri.parse("smsto:" + phone);
+//
+//        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+//
+//        intent.putExtra("sms_body", msg);
+//
+//        startActivity(intent);
 
-        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
-
-        intent.putExtra("sms_body", msg);
-
-        startActivity(intent);
+        Intent intent =new Intent(Intent.ACTION_VIEW);
+        intent.putExtra("address",phone);
+        intent.putExtra("sms_body",msg);
+        intent.setData(Uri.parse("smsto:"+phone));
+        startService(intent);
 
     }
 

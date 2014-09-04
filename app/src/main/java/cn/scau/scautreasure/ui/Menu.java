@@ -2,6 +2,8 @@ package cn.scau.scautreasure.ui;
 
 import android.widget.ImageView;
 
+import com.umeng.fb.FeedbackAgent;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -17,7 +19,7 @@ import cn.scau.scautreasure.widget.BadgeView;
 public class Menu extends CommonFragment implements OnTabSelectListener {
 
     @AfterViews
-    void initView(){
+    void initView() {
 //        BadgeView badgeView=new BadgeView(getSherlockActivity(),activityInfo);
 //        badgeView.setBackgroundResource(R.drawable.redpoin);
 //        badgeView.show();
@@ -39,7 +41,7 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     }
 
     @Click
-    void menu_settings(){
+    void menu_settings() {
         Settings_.intent(this).start();
     }
 
@@ -116,7 +118,6 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     }
 
 
-
     @Click
     void menu_calendar() {
         Calendar_.intent(this).start();
@@ -127,11 +128,24 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
         Notice_.intent(this).start();
     }
 
+    @Click
+    void menu_english() {
+        //此频道建设中
+        English_.intent(this).start();
+    }
 
     @Click
-    void menu_map(){
+    void menu_contact() {
+
+        FeedbackAgent agent = new FeedbackAgent(getSherlockActivity());
+        agent.startFeedbackActivity();
+    }
+
+    @Click
+    void menu_map() {
         Map_.intent(this).start();
     }
+
     @Override
     public void onTabSelect() {
         setTitle(R.string.title_menu);

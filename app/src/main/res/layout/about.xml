@@ -84,15 +84,15 @@
                     android:textSize="15sp"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_advise"
-                style="@style/blue_button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/btn_advise"/>
+            <!--<Button-->
+                <!--android:id="@+id/btn_advise"-->
+                <!--style="@style/blue_button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginLeft="35dp"-->
+                <!--android:layout_marginRight="35dp"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:text="@string/btn_advise"/>-->
 
         </LinearLayout>
     </cn.scau.scautreasure.widget.ElasticScrollView_>

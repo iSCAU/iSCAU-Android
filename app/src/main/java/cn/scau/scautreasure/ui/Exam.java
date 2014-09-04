@@ -9,12 +9,14 @@ import org.androidannotations.annotations.rest.RestService;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ExamAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.model.ExamModel;
 import cn.scau.scautreasure.util.StringUtil;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
@@ -31,13 +33,15 @@ public class Exam extends CommonQueryActivity {
 
     @RestService
     EdusysApi api;
+
     ArrayList<String> value;
+
     @AfterViews
     void init() {
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
 //        cacheHelper.setCacheKey("exam_arrange");
-        cacheHelper.setCacheKey("exam" + StringUtil.join(value, "_"));
+        cacheHelper.setCacheKey("exam_" + StringUtil.join(value, "_"));
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }
@@ -47,6 +51,16 @@ public class Exam extends CommonQueryActivity {
         beforeLoadData();
         try {
             list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
+            //模拟数据,用来测试
+
+//            ExamModel examModel = new ExamModel("傻逼", "萧哥", "12-11", "教4", "3432", "34", "嗯嗯");
+//            ArrayList listTest = new ArrayList();
+//            listTest.add(examModel);
+//            listTest.add(examModel);
+//            listTest.add(examModel);
+//            listTest.add(examModel);
+
+
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
