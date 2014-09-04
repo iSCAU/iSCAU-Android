@@ -230,7 +230,7 @@ public class ShopMenu extends CommonActivity {
     }
     void showTips(){
         makeList();
-        if (orderList.size() > 0 && !hasOrder) {
+        if (orderList.size() > 0 && !hasOrder&&!isRest) {
 //           你未进行结算，返回的话，你现在的订单会丢失，是否继续？
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setMessage("你未进行结算，返回的话，你现在的订单会丢失，确定继续？");
