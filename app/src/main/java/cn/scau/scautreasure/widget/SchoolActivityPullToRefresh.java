@@ -20,6 +20,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.SWING;
 
 /**
  * Created by stcdasqy on 2014-08-12.
+ * 校园活动的下拉刷新控件，继承自原生的下拉刷新。
  */
 public class SchoolActivityPullToRefresh extends PullToRefreshListView {
     private SchoolActivityHeaderWidget header;

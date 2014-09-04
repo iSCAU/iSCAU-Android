@@ -17,6 +17,7 @@ import cn.scau.scautreasure.R;
 
 /**
  * copy from ClassTableTabWidget,服务于SchoolActivity
+ * 内容是导航栏的（今天，明天和未来）
  */
 @EViewGroup(R.layout.schoolactivity_tab)
 public class SchoolActivityTabWidget extends LinearLayout {

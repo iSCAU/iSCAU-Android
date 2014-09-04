@@ -15,6 +15,7 @@ import cn.scau.scautreasure.R;
 
 /**
  * 校园活动列表头部;
+ * 当没有活动的时候将会显示。
  */
 @EViewGroup( R.layout.schoolactivity_header )
 public class SchoolActivityHeaderWidget extends LinearLayout{

@@ -24,6 +24,13 @@ import cn.scau.scautreasure.widget.SchoolActivityToggle;
  * Created by stcdasqy on 2014-08-25.
  * webView跟原本的slideExpandable不是很适配，因为webView在需要一点时间来测量自己的width和
  * height，所以copy了一下原版的，修改了一点东西。
+ * 仅适用于搭配校园活动中的下拉刷新控件。
+ *
+ * 列举修复自原生版本的部分：
+ * ①增加getToggleFromTarget方法
+ * ②修改了animateView，配合校园活动中的箭头变向
+ * ③修改了ExpandCollapseAnimation中获取高度的部分，这里直接改用获取target下
+ * 的webView的measureHeight。
  */
 public class SchoolActivityExpandableListAdapter extends WrapperListAdapterImpl {
     /**
