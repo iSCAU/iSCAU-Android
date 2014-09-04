@@ -71,6 +71,7 @@ public class ShopMenu extends CommonActivity {
     private boolean isRest = false;
     List<ShopMenuDBModel> menuList, orderList;
     private String msg = "";
+    private boolean hasOrder=false;
 
 
     @Click(R.id.order)
@@ -213,6 +214,8 @@ public class ShopMenu extends CommonActivity {
     @OnActivityResult(1111)
     void emptyMsg() {
         msg = "";
+        hasOrder=true;
+
     }
 
     @Override
@@ -227,7 +230,7 @@ public class ShopMenu extends CommonActivity {
     }
     void showTips(){
         makeList();
-        if (orderList.size() > 0) {
+        if (orderList.size() > 0 && !hasOrder) {
 //           你未进行结算，返回的话，你现在的订单会丢失，是否继续？
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setMessage("你未进行结算，返回的话，你现在的订单会丢失，确定继续？");
@@ -254,4 +257,5 @@ public class ShopMenu extends CommonActivity {
        // return super.onKeyDown(keyCode, event);
         return false;
     }
+
 }
