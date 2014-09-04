@@ -92,7 +92,7 @@ public class OrderFood extends CommonActivity {
                     String sendMsg = msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim() + "[来自华农宝客户端]";
                     sendSMS(sendMsg);//发送短信
                     type=0;
-                    updateLastTime();//更新lastTime
+                    updateLastTime(sendMsg);//更新lastTime
                 } else {
                     Toast.makeText(this, "你尚未选择饭菜", Toast.LENGTH_SHORT).show();
                 }
@@ -105,9 +105,10 @@ public class OrderFood extends CommonActivity {
     }
 
     //更新lasttime,提供外卖店排序的根据
-    void updateLastTime() {
+    void updateLastTime(String sendMsg) {
 
-        String lastOrderInfo = shopId+","+shopName+","+System.currentTimeMillis()+","+msg+","+type;
+        String lastOrderInfo = shopId+";"+shopName+";"+System.currentTimeMillis()+";"+sendMsg+";"+type;
+        System.out.println(lastOrderInfo);
         appConfig.lastOrderInfo().put(lastOrderInfo);
         System.out.println("缓存:" + lastOrderInfo);
 //开启同步服务
