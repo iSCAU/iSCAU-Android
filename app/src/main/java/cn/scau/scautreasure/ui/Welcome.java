@@ -28,6 +28,7 @@ import cn.scau.scautreasure.model.SplashModel;
 import cn.scau.scautreasure.service.AlertClassSerice;
 import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.service.FoodShopService_;
+import cn.scau.scautreasure.service.NetworkStatusService_;
 
 /**
  * User: special
@@ -60,10 +61,14 @@ public class Welcome extends Activity {
             Intent sevice = new Intent(this, AlertClassSerice_.class);
             startService(sevice);
         }
+
         //拿外卖
         FoodShopService_.intent(this).start();
 
-        if (isPad()){
+        //开启网络监控
+        Intent networkService = new Intent(this, NetworkStatusService_.class);
+        startService(networkService);
+        if (isPad()) {
 
             appConfig.isThePad().put(true);
         }
@@ -104,6 +109,7 @@ public class Welcome extends Activity {
         return app.userName != null &&
                 (app.eduSysPassword != null || app.libPassword != null || app.cardPassword != null);
     }
+
     /**
      * 判断是否为平板
      *
@@ -124,10 +130,10 @@ public class Welcome extends Activity {
         double screenInches = Math.sqrt(x + y);
         // 大于6尺寸则为Pad
         if (screenInches >= 6.0) {
-            Log.i("设备类型:","平板--尺寸:"+String.valueOf(screenInches));
+            Log.i("设备类型:", "平板--尺寸:" + String.valueOf(screenInches));
             return true;
         }
-        Log.i("设备类型:","手机--尺寸:"+String.valueOf(screenInches));
+        Log.i("设备类型:", "手机--尺寸:" + String.valueOf(screenInches));
         return false;
     }
 }
