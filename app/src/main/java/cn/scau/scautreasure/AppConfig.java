@@ -90,5 +90,7 @@ public interface AppConfig {
     @DefaultInt(-1)
     int afterClassRingerMode(); //下课后的情景模式，默认不设置
 
+    @DefaultLong(0)
     long lastUpdated();
+
 }

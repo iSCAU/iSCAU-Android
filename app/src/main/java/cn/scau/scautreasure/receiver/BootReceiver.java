@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 
 import cn.scau.scautreasure.RingerMode;
+import cn.scau.scautreasure.service.AlertClassSerice_;
+import cn.scau.scautreasure.util.AlertClassUtil;
 import cn.scau.scautreasure.util.ClassUtil;
 
 /**
@@ -18,6 +20,10 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         config = new cn.scau.scautreasure.AppConfig_(context);
+        if(config.isAlertClass().get()) { //如果启动提醒
+            AlertClassUtil.startAlertClass(context);
+        }
+        RingerMode.setDateChangedAlarm(context);
         RingerMode duringMode = RingerMode.getModeByValue(config.duringClassRingerMode().get());
         RingerMode afterMode = RingerMode.getModeByValue(config.afterClassRingerMode().get());
         if (!RingerMode.isSet(duringMode.getValue()) && !RingerMode.isSet(afterMode.getValue())) {
@@ -25,7 +31,7 @@ public class BootReceiver extends BroadcastReceiver {
         }
         RingerMode.duringClassOn(context, duringMode, -1);
         RingerMode.afterClassOn(context, afterMode, 1);
-        RingerMode.setDateChangedAlarm(context);
+
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (ClassUtil.isDuringClassNow(context)) {
             if (RingerMode.isSet(duringMode.getValue())) {
@@ -37,4 +43,6 @@ public class BootReceiver extends BroadcastReceiver {
             }
         }
     }
+
+
 }

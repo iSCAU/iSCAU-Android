@@ -192,9 +192,9 @@ public class ShopMenu extends CommonActivity {
                 }
             });
             if (i % 2 == 0) {
-                view.setBackground(getResources().getDrawable(R.drawable.list_item_click));
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_click));
             } else {
-                view.setBackground(getResources().getDrawable(R.drawable.list_item_click1));
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_click1));
             }
             return view;
         }
