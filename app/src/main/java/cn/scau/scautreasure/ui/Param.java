@@ -123,7 +123,8 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
      */
     @UiThread
     void showParams() {
-        UIHelper.getDialog().dismiss();
+        if (UIHelper.getDialog() != null)
+            UIHelper.getDialog().dismiss();
         wheelList.clear();
         for (ParamModel p : paramList) {
             ParamWidget paramWidget = buildParamViews(p.getKey(), p.getValue());
