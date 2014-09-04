@@ -40,8 +40,8 @@ public class Exam extends CommonQueryActivity {
     void init() {
         setTitle(R.string.title_exam);
         setDataEmptyTips(R.string.tips_exam_null);
-//        cacheHelper.setCacheKey("exam_arrange");
-        cacheHelper.setCacheKey("exam_" + StringUtil.join(value, "_"));
+        cacheHelper.setCacheKey("exam_arrange");
+//        cacheHelper.setCacheKey("exam_" + StringUtil.join(value, "_"));
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
     }

@@ -3,11 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+
+
     android:orientation="vertical">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="此频道建设中" />
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="@drawable/forgirls"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="哎呀，频道正在建设中.......\n
+招贤：有兴趣参建设与运营的童鞋请发邮件至
+huanongbao@163.com，等着你哦！"
+            android:textColor="#000000"
+            android:textSize="10pt" />
+    </FrameLayout>
 </LinearLayout>
