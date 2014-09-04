@@ -21,11 +21,15 @@ import cn.scau.scautreasure.ui.ClassTable;
 @SharedPref(value = SharedPref.Scope.UNIQUE)
 public interface AppConfig {
 
-    @DefaultBoolean(true)
-    boolean isAlertClass();
+    @DefaultString("")
+    String lastOrderInfo();
 
-   @DefaultBoolean(false)
-   boolean isThePad();
+    @DefaultBoolean(true)
+    boolean isAlertClass();    //是否上课前提示
+
+
+    @DefaultBoolean(false)
+    boolean isThePad();  //判断设备类型,手机或者是平板
 
 
     @DefaultLong(0)

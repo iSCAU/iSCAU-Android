@@ -3,6 +3,7 @@ package cn.scau.scautreasure.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.view.KeyEvent;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -13,38 +14,35 @@ import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
 import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.RingerMode;
-import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.widget.ParamWidget;
 
 /**
- * 设置界面吧.
- * <p/>
- * User: special
- * Date: 13-10-5
- * Time: 下午1:36
- * Mail: specialcyci@gmail.com
+ * Created by apple on 14-9-3.
  */
-@EFragment(R.layout.configuration)
-public class Configuration extends CommonFragment implements OnTabSelectListener {
+@EActivity((R.layout.configuration))
+public class Settings extends CommonActivity {
 
+
+    @AfterViews
+    void initView(){
+        setTitle("设置");
+    }
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
 
     @ViewById
-    ParamWidget  param_classTableAsFirstScreen,
+    ParamWidget param_classTableAsFirstScreen,
             param_ringer_mode_during_class, param_ringer_mode_after_class;
 
     @StringArrayRes
@@ -73,7 +71,7 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
             }
         }
     };
-     void setAlertClass(){
+    void setAlertClass(){
         config.isAlertClass().put(alertClass.isChecked());
         if (config.isAlertClass().get()){
 //            AlertClassSerice_.intent(this).start();
@@ -132,7 +130,7 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
         Login_.intent(this).start();
     }
 
-    @Click
+
     void btn_save() {
         setAlertClass();
         boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();
@@ -148,26 +146,38 @@ public class Configuration extends CommonFragment implements OnTabSelectListener
         config.duringClassRingerMode().put(duringMode.getValue());
         config.afterClassRingerMode().put(afterMode.getValue());
         if (needUpdateAlarm) {
-            RingerMode.duringClassOn(getActivity(), duringMode, -1);
-            RingerMode.afterClassOn(getActivity(), afterMode, 1);
+            RingerMode.duringClassOn(this, duringMode, -1);
+            RingerMode.afterClassOn(this, afterMode, 1);
         }
         if (RingerMode.isSet(duringMode.getValue()) || RingerMode.isSet(afterMode.getValue())) {
-            RingerMode.setDateChangedAlarm(getActivity());
+            RingerMode.setDateChangedAlarm(this);
         } else {
-            RingerMode.cancelDateChangedAlarm(getActivity());
+            RingerMode.cancelDateChangedAlarm(this);
         }
-        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-        if (ClassUtil.isDuringClassNow(getActivity())) {
+        AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        if (ClassUtil.isDuringClassNow(this)) {
             audioManager.setRingerMode(duringMode.getValue());
         } else {
             audioManager.setRingerMode(afterMode.getValue());
         }
-        AppMsg.makeText(parentActivity(), R.string.tips_save_successfully, AppMsg.STYLE_INFO).show();
+        Toast.makeText(this,"保存成功",Toast.LENGTH_LONG).show();
+        finish();
+//        AppMsg.makeText(this, R.string.tips_save_successfully, AppMsg.STYLE_INFO).show();
     }
 
     @Override
-    public void onTabSelect() {
-        setTitle(R.string.title_configuration);
-        setSubTitle(null);
+    void home() {
+//        super.home();
+        btn_save();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode()==KeyEvent.KEYCODE_BACK){
+            btn_save();
+        }
+
+        return false;
+//        return super.onKeyDown(keyCode, event);
     }
 }

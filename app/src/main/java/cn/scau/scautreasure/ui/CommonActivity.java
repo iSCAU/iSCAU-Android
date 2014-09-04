@@ -233,4 +233,5 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
     void up() {
         this.finish();
     }
+
 }

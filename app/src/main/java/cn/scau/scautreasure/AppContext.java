@@ -23,7 +23,15 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.scau.scautreasure.helper.NetUtil;
 import cn.scau.scautreasure.util.CryptUtil;
 import cn.scau.scautreasure.widget.BadgeView;
 
@@ -187,6 +195,45 @@ public class AppContext extends Application {
         badgeView.setBadgeMargin(40,0);
         badgeView.setBackgroundResource(R.drawable.redpoin);
         return badgeView;
+    }
+    final private static String NOTIFY_FOOD_URL="http://iscaucms.sinaapp.com/index.php/Api/notifyFood";
+    public static boolean notifyFood(Context context){
+        String info[]=null;
+        if (!config.lastOrderInfo().get().equals("")) {
+//            shop_id|shop_name|time
+           info= config.lastOrderInfo().get().split(",");
+            System.out.println(info[0]);
+            System.out.println(info[1]);
+            System.out.println(info[2]);
+            long theTime=(System.currentTimeMillis()-Long.parseLong(info[2]))/1000/3600;
+            System.out.println(theTime+"==="+config.lastOrderInfo().get());
+           if (theTime<=1){
+               System.out.println("需要post外卖内容");
+               List<NameValuePair> nameValuePairs =new ArrayList<NameValuePair>();
+               nameValuePairs.clear();
+               nameValuePairs.add(new BasicNameValuePair("shop_id", info[0]));
+               nameValuePairs.add(new BasicNameValuePair("shop_name", info[1]));
+               nameValuePairs.add(new BasicNameValuePair("time",info[2]));
+               JSONObject retJson= NetUtil.getResponseForPost(NOTIFY_FOOD_URL, nameValuePairs, context);
+//               {"result":"success"}
+               try {
+                   if (retJson.getString("result").equals("success")){
+                       System.out.println("成功post");
+                       config.lastOrderInfo().put("");//清空最后一次点餐记录
+                       return true;
+                   }else{
+                       System.out.println("异常post");
+                   }
+               } catch (JSONException e) {
+                   e.printStackTrace();
+               }
+           }else{
+               System.out.println("超时,不post了");
+           }
+        }
+
+
+        return false;
     }
 
 }

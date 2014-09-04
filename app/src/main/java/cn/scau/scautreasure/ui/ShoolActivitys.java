@@ -1,41 +1,64 @@
 package cn.scau.scautreasure.ui;
 
+import android.content.Context;
+import android.content.Intent;
+import android.media.AudioManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.RingerMode;
 import cn.scau.scautreasure.adapter.SchoolActivityPagerAdapter;
 import cn.scau.scautreasure.api.SchoolActivityApi;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.model.SchoolActivityModel;
+import cn.scau.scautreasure.service.AlertClassSerice_;
+import cn.scau.scautreasure.util.ClassUtil;
+import cn.scau.scautreasure.widget.ParamWidget;
 import cn.scau.scautreasure.widget.SchoolActivityPullToRefresh;
 import cn.scau.scautreasure.widget.SchoolActivityTabWidget;
 
 /**
- * 校园活动
+ * 设置界面吧.
+ * <p/>
+ * User: special
+ * Date: 13-10-5
+ * Time: 下午1:36
+ * Mail: specialcyci@gmail.com
  */
-@EActivity(R.layout.schoolactivity)
-public class SchoolActivity extends CommonActivity {
+@EFragment(R.layout.schoolactivity)
+public class ShoolActivitys extends CommonFragment implements OnTabSelectListener {
 
     @RestService
     SchoolActivityApi api;
@@ -54,11 +77,11 @@ public class SchoolActivity extends CommonActivity {
     @AfterViews
     void initView() {
         setTitle("校园活动");
-        helper = new SchoolActivityHelper(this);
+        helper = new SchoolActivityHelper(getSherlockActivity());
 
-        today = new SchoolActivityPullToRefresh(this, helper, "today");
-        tomorrow = new SchoolActivityPullToRefresh(this, helper, "tomorrow");
-        later = new SchoolActivityPullToRefresh(this, helper, "later");
+        today = new SchoolActivityPullToRefresh(getSherlockActivity(), helper, "today");
+        tomorrow = new SchoolActivityPullToRefresh(getSherlockActivity(), helper, "tomorrow");
+        later = new SchoolActivityPullToRefresh(getSherlockActivity(), helper, "later");
 
         initPullToRefreshListView(today);
         initPullToRefreshListView(tomorrow);
@@ -182,13 +205,13 @@ public class SchoolActivity extends CommonActivity {
 
     @UiThread
     void tips_no_allow_so_frequently() {
-        Toast.makeText(this, R.string.tips_no_allow_so_frequently, Toast.LENGTH_SHORT)
+        Toast.makeText(getSherlockActivity(), R.string.tips_no_allow_so_frequently, Toast.LENGTH_SHORT)
                 .show();
     }
 
     @UiThread
     void tips_no_update() {
-        Toast.makeText(this, R.string.tips_no_update, Toast.LENGTH_SHORT)
+        Toast.makeText(getSherlockActivity(), R.string.tips_no_update, Toast.LENGTH_SHORT)
                 .show();
     }
 
@@ -230,5 +253,9 @@ public class SchoolActivity extends CommonActivity {
             stopPullToRefreshListView();
         }
     }
-
+    @Override
+    public void onTabSelect() {
+        setTitle("校园活动");
+        setSubTitle(null);
+    }
 }

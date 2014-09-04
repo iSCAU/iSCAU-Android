@@ -62,14 +62,14 @@ public class Main extends ActionBarActivity {
     @ViewById
     RadioGroup radioGroup;
     @ViewById
-    RadioButton rd_classtable, rd_features, rd_settings, rd_food;
+    RadioButton rd_classtable, rd_features, rd_activity, rd_food;
     @ViewById
-    Button bt_classtable, bt_features, bt_settings, bt_food;
+    Button bt_classtable, bt_features, bt_activity, bt_food;
 
-    BadgeView bv_classtable,bv_features,bv_settings,bv_food;
+    BadgeView bv_classtable,bv_features,bv_activity,bv_food;
     Fragment fragmentMenu;
     Fragment fragmentClassTable;
-    Fragment fragmentSettings;
+    Fragment fragmentActivity;
     Fragment fragmentFood;
     private ActionBarActivity mContext;
     private int checkedId;
@@ -97,7 +97,7 @@ public class Main extends ActionBarActivity {
     private void showNotePoint() {
         bv_classtable=AppContext.setTabRedPoint(this,bt_classtable);
         bv_features=AppContext.setTabRedPoint(this,bt_features);
-        bv_settings=AppContext.setTabRedPoint(this,bt_settings);
+        bv_activity=AppContext.setTabRedPoint(this,bt_activity);
         bv_food=AppContext.setTabRedPoint(this,bt_food);
     }
 
@@ -114,8 +114,8 @@ public class Main extends ActionBarActivity {
         if (fragmentFood == null) {
             fragmentFood = Food_.builder().build();
         }
-        if (fragmentSettings == null) {
-            fragmentSettings = Configuration_.builder().build();
+        if (fragmentActivity == null) {
+            fragmentActivity = ShoolActivitys_.builder().build();
         }
         if (checkedId != 0) {
             //恢复到Activity被杀前的选中状态
@@ -136,9 +136,9 @@ public class Main extends ActionBarActivity {
                     UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
                     ((OnTabSelectListener) fragmentClassTable).onTabSelect();
 
-                } else if (i == rd_settings.getId()) {
-                    UIHelper.startFragment(mContext, fragmentSettings, SETTINGS_TAG);
-                    ((OnTabSelectListener) fragmentSettings).onTabSelect();
+                } else if (i == rd_activity.getId()) {
+                    UIHelper.startFragment(mContext, fragmentActivity, SETTINGS_TAG);
+                    ((OnTabSelectListener) fragmentActivity).onTabSelect();
 
                 } else if (i == rd_food.getId()) {
                     UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
@@ -282,7 +282,7 @@ public class Main extends ActionBarActivity {
         FragmentManager fm = getSupportFragmentManager();
         fragmentMenu = fm.findFragmentByTag(MENU_TAG);
         fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
-        fragmentSettings = fm.findFragmentByTag(SETTINGS_TAG);
+        fragmentActivity = fm.findFragmentByTag(SETTINGS_TAG);
         fragmentFood = fm.findFragmentByTag(FOOD_TAG);
     }
 }

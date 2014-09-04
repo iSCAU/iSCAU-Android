@@ -43,6 +43,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"/>
         <activity
+            android:name="cn.scau.scautreasure.ui.Settings_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity
             android:name="cn.scau.scautreasure.ui.Main_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"/>
@@ -196,9 +201,11 @@
         </service>
 
         <service android:name=".service.NotificationService"/>
+        <service android:name=".service.NotifyFoodService_"/>
         <service android:name=".service.AlertClassSerice_"/>
         <service android:name=".service.FoodShopService_"/>
-
+        <service android:name=".service.NetworkStatusService_"></service>
+        <receiver android:name=".receiver.NetWorkStatusReceiver_"></receiver>
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="503868725270157f0e0001f7"/>
