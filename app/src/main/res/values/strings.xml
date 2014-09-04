@@ -130,7 +130,7 @@
     <string name="menu_edusys">教务系统</string>
     <string name="menu_lib">图书馆</string>
     <string name="menu_card">校园卡</string>
-    <string name="menu_other">应用汇</string>
+    <string name="menu_other">其他</string>
     <string name="menu_about">关于</string>
     <string name="menu_back">返回</string>
     <string name="title_params">查询条件</string>
