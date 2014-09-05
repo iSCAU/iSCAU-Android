@@ -38,8 +38,10 @@ public class UpLoadUsersService extends Service {
         if (upLoadUsersModel.getResult().equals("success")){
             System.out.println("上传用户资料成功");
             app.config.hasUpdatedUsers().put(true);
+            this.stopSelf();
         }else{
             System.out.println("上传用户资料出错");
+            this.stopSelf();
         }
 
     }

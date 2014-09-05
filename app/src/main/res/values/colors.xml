@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="guidview_bg">#ececec</color>
+    <color name="unvisistable">#0000</color>
     <color name="black_text">#000000</color>
     <color name="background_normal">#ffffff</color>
     <color name="login_lable_font_color">#7c8389</color>

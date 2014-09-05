@@ -38,7 +38,6 @@ public class NetworkStatusService extends Service{
     public void onDestroy() {
         super.onDestroy();
         System.out.println("网络状态检测服务关闭");
-
         unregisterReceiver(mReceiver);
     }
 

@@ -18,14 +18,13 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import cn.scau.scautreasure.AppConfig;
-import cn.scau.scautreasure.AppConfig_;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.guideview.GuideView_;
 import cn.scau.scautreasure.helper.PackageHelper;
 import cn.scau.scautreasure.helper.SplashHelper;
 import cn.scau.scautreasure.model.SplashModel;
-import cn.scau.scautreasure.service.AlertClassSerice;
+import cn.scau.scautreasure.service.ActivityCountService_;
 import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.service.FoodShopService_;
 import cn.scau.scautreasure.service.NetworkStatusService_;
@@ -55,6 +54,8 @@ public class Welcome extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         //开启课程提醒
         if (appConfig.isAlertClass().get()) {
 //            AlertClassSerice_.intent(this).start();
@@ -67,13 +68,17 @@ public class Welcome extends Activity {
         FoodShopService_.intent(this).start();
 
         //上传用户资料
-        if (!appConfig.hasUpdatedUsers().get()&&!appConfig.userName().equals("")){
+        if (!appConfig.hasUpdatedUsers().get() && !appConfig.userName().equals("")) {
             UpLoadUsersService_.intent(getApplicationContext()).start();
         }
 
         //开启网络监控
         Intent networkService = new Intent(this, NetworkStatusService_.class);
         startService(networkService);
+        //校园活动是否有更新
+        ActivityCountService_.intent(getApplicationContext()).start();
+
+        //判断设备类型
         if (isPad()) {
 
             appConfig.isThePad().put(true);
@@ -107,6 +112,10 @@ public class Welcome extends Activity {
             Main_.intent(this).start();
         } else {
             Login_.intent(this).runMainActivity(true).start();
+        }
+
+        if (appConfig.isFirstStartApp().get()) {
+            GuideView_.intent(this).start();
         }
         finish();
     }

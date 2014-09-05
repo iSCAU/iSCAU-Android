@@ -205,14 +205,14 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
 
     @UiThread
     void tips_no_allow_so_frequently() {
-        Toast.makeText(getSherlockActivity(), R.string.tips_no_allow_so_frequently, Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(getSherlockActivity(), R.string.tips_no_allow_so_frequently, Toast.LENGTH_SHORT)
+//                .show();
     }
 
     @UiThread
     void tips_no_update() {
-        Toast.makeText(getSherlockActivity(), R.string.tips_no_update, Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(getSherlockActivity(), R.string.tips_no_update, Toast.LENGTH_SHORT)
+//                .show();
     }
 
     /**

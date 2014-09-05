@@ -20,6 +20,11 @@ import cn.scau.scautreasure.ui.ClassTable;
 
 @SharedPref(value = SharedPref.Scope.UNIQUE)
 public interface AppConfig {
+    @DefaultBoolean(true)
+    boolean isFirstStartApp();
+
+    @DefaultLong(0)
+    long lastRedPoint();//上一次红点访问时间
 
     @DefaultBoolean(false)
     boolean hasUpdatedUsers();  //当前是否上传了用户的简略资料
