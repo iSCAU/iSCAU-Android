@@ -15,15 +15,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/tab_background"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_background">
 
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/radioGroup"></FrameLayout>
-
 
 
         <LinearLayout
@@ -51,18 +50,19 @@
                 android:focusable="false" />
 
             <Button
+                android:id="@+id/bt_activity"
+                style="@style/tab_item_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false" />
+            <Button
                 android:id="@+id/bt_food"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false" />
 
-            <Button
-                android:id="@+id/bt_activity"
-                style="@style/tab_item_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false" />
+
         </LinearLayout>
 
         <RadioGroup
@@ -93,6 +93,14 @@
                 android:text="@string/tab_features" />
 
             <RadioButton
+                android:id="@+id/rd_activity"
+                style="@style/tab_item_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_shoolactivity_selector"
+                android:text="校园活动" />
+
+            <RadioButton
                 android:id="@+id/rd_food"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
@@ -100,13 +108,6 @@
                 android:drawableTop="@drawable/icon_food_selector"
                 android:text="@string/tab_food" />
 
-            <RadioButton
-                android:id="@+id/rd_activity"
-                style="@style/tab_item_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/icon_shoolactivity_selector"
-                android:text="校园活动" />
 
         </RadioGroup>
 

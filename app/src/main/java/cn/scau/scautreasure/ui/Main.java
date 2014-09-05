@@ -88,7 +88,7 @@ public class Main extends ActionBarActivity {
         showNotification();
         showNotePoint();
 //显示红点
-        bv_food.show();
+        bv_activity.show();
     }
 
     /**
