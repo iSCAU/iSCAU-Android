@@ -61,7 +61,7 @@ public interface AppConfig {
     @DefaultString("")
     String stuName();
 
-    @DefaultString("")
+    @DefaultString("暂无")
     String major();              //用户专业
 
     @DefaultString("")
