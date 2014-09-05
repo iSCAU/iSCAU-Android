@@ -20,6 +20,7 @@ public class GuideView extends Activity {
     @App
     AppContext app;
     private JazzyViewPager mJazzy;
+    
     private int drawables[] = {R.drawable.guideview1, R.drawable.guidview2, R.drawable.guidview3, R.drawable.guidview4};
 
     //String imageUri = "drawable://" + R.drawable.image;

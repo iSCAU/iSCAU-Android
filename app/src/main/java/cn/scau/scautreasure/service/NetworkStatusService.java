@@ -17,9 +17,9 @@ import cn.scau.scautreasure.receiver.NetWorkStatusReceiver;
 @EService
 public class NetworkStatusService extends Service{
 
+
     private NetWorkStatusReceiver mReceiver;
 
-    
     @Override
     public void onCreate() {
         super.onCreate();
