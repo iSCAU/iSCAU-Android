@@ -19,6 +19,7 @@ public class NetworkStatusService extends Service{
 
     private NetWorkStatusReceiver mReceiver;
 
+    
     @Override
     public void onCreate() {
         super.onCreate();
