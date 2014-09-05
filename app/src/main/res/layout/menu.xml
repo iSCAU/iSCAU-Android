@@ -20,7 +20,8 @@
                 style="@style/menu_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="八宝箱" />
+                android:text="百宝箱"
+                />
 
             <TableLayout
                 android:layout_width="match_parent"
