@@ -88,7 +88,9 @@ public class Main extends ActionBarActivity {
         showNotification();
         showNotePoint();
 //显示红点
-        bv_activity.show();
+        if(Long.valueOf(app.config.lastRedPoint().get())>0) {
+            bv_activity.show();
+        }
     }
 
     /**
@@ -137,6 +139,7 @@ public class Main extends ActionBarActivity {
                     ((OnTabSelectListener) fragmentClassTable).onTabSelect();
 
                 } else if (i == rd_activity.getId()) {
+                    bv_activity.hide();
                     UIHelper.startFragment(mContext, fragmentActivity, SETTINGS_TAG);
                     ((OnTabSelectListener) fragmentActivity).onTabSelect();
 

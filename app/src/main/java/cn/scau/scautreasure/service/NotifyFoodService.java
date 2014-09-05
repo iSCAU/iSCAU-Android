@@ -23,7 +23,7 @@ public class NotifyFoodService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-       System.out.println("同步最新一次点餐记录服务开启");
+        System.out.println("同步最新一次点餐记录服务开启");
 
     }
 
@@ -33,13 +33,15 @@ public class NotifyFoodService extends Service {
         return super.onStartCommand(intent, flags, startId);
 
     }
-    @Background
-    void access(){
-        if (AppContext.notifyFood(getApplicationContext())){
-            System.out.println("同步最后一次点餐记录成功");
 
-        }else{
+    @Background
+    void access() {
+        if (AppContext.notifyFood(getApplicationContext())) {
+            System.out.println("同步最后一次点餐记录成功");
+            this.stopSelf();
+        } else {
 //            System.out.println();
+            this.stopSelf();
         }
     }
 
