@@ -111,7 +111,7 @@
     <string name="menu_refresh_classtable">更新课表</string>
 
 
-    <string name="tips_unknow_error">正方系统繁忙</string>
+    <string name="tips_unknow_error">教务系统繁忙</string>
     <string name="menu_notice">校园通知</string>
     <string name="tips_notice_detail_loading">内容正在加载中..</string>
     <string name="tips_notice_loading">正在加载最新通知..</string>

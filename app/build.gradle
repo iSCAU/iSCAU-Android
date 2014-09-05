@@ -6,7 +6,7 @@ android {
     buildToolsVersion '19.1.0'
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 19
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
         versionName "2.5"

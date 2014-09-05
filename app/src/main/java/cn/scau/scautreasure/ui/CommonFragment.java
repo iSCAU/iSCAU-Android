@@ -88,12 +88,12 @@ public abstract class CommonFragment extends Fragment implements DialogInterface
     }
 
     protected void showErrorResult(ActionBarActivity ctx, int requestCode, ServerOnChangeListener listener) {
-        if (isServerError(requestCode)) {
-            //handleServerError(ctx, listener);
+        /*if (isServerError(requestCode)) {
+           // handleServerError(ctx, listener);
             
-        } else {
+        } else {*/  //即使是正方错误，也提示
             showErrorResult(ctx, requestCode);
-        }
+        /*}*/
     }
 
     private boolean isServerError(int requestCode) {
