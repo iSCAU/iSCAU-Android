@@ -29,6 +29,7 @@ import cn.scau.scautreasure.service.AlertClassSerice;
 import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.service.FoodShopService_;
 import cn.scau.scautreasure.service.NetworkStatusService_;
+import cn.scau.scautreasure.service.UpLoadUsersService_;
 
 /**
  * User: special
@@ -64,6 +65,11 @@ public class Welcome extends Activity {
 
         //拿外卖
         FoodShopService_.intent(this).start();
+
+        //上传用户资料
+        if (!appConfig.hasUpdatedUsers().get()&&!appConfig.userName().equals("")){
+            UpLoadUsersService_.intent(getApplicationContext()).start();
+        }
 
         //开启网络监控
         Intent networkService = new Intent(this, NetworkStatusService_.class);

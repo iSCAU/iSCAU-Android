@@ -17,6 +17,7 @@ import org.androidannotations.annotations.ViewById;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.service.LoginService_;
 import cn.scau.scautreasure.util.CryptUtil;
 
 /**
@@ -103,6 +104,7 @@ public class Login extends Activity {
         app.config.eduSysPassword().put(eduSysPassword);
         app.config.libPassword().put(libPassword);
         app.config.cardPassword().put(cardPassword);
+        LoginService_.intent(getApplicationContext()).start();
 
         if (runMainActivity)
             Main_.intent(this).start();

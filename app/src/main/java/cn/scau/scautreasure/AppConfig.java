@@ -21,6 +21,9 @@ import cn.scau.scautreasure.ui.ClassTable;
 @SharedPref(value = SharedPref.Scope.UNIQUE)
 public interface AppConfig {
 
+    @DefaultBoolean(false)
+    boolean hasUpdatedUsers();  //当前是否上传了用户的简略资料
+
     @DefaultString("")
     String lastOrderInfo();
 
@@ -49,6 +52,24 @@ public interface AppConfig {
 
     @DefaultString("")
     String userName();           // 用户学号
+
+    @DefaultString("")
+    String stuName();
+
+    @DefaultString("")
+    String major();              //用户专业
+
+    @DefaultString("")
+    String grade();             //年级
+
+    @DefaultString("")
+    String collage();             //学院
+
+    @DefaultString("")
+    String department();          //系
+
+    @DefaultString("")
+    String classes();             //班级
 
     @DefaultString("")
     String eduSysPassword();     // 教务系统密码

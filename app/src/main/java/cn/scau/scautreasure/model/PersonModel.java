@@ -10,12 +10,21 @@ package cn.scau.scautreasure.model;
 
 public class PersonModel {
 
-    private String name;
-    private String grade;
-    private String collage;
-    private String department;
-    private String major;
-    private String classes;
+    private String name;//学生名字 张三
+    private String grade;//年级 2013
+    private String collage; //学院  理学院
+    private String department;//缺省
+    private String major;//专业 xxx
+    private String classes;//班级 xx
+    private String msg;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public String getName() {
         return name;

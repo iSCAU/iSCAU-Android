@@ -24,7 +24,7 @@ import cn.scau.scautreasure.model.PickClassModel;
 public interface EdusysApi {
 
     @Get("login/{userName}/{passWord}/{server}")
-    PersonModel login(String userName, String passWord, int server);
+    PersonModel login(String userName, String passWord, int server);//错误时候{"msg":"password_error"}
 
     @Get("classtable/{userName}/{passWord}/{server}")
     ClassModel.ClassList getClassTable(String userName, String passWord, int server);

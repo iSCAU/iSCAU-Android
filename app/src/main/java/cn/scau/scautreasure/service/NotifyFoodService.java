@@ -39,7 +39,7 @@ public class NotifyFoodService extends Service {
             System.out.println("同步最后一次点餐记录成功");
 
         }else{
-            System.out.println("同步最后一次点餐记录失败");
+//            System.out.println();
         }
     }
 

@@ -201,6 +201,8 @@
         </service>
 
         <service android:name=".service.NotificationService"/>
+        <service android:name=".service.UpLoadUsersService_"/>
+        <service android:name=".service.LoginService_"/>
         <service android:name=".service.NotifyFoodService_"/>
         <service android:name=".service.AlertClassSerice_"/>
         <service android:name=".service.FoodShopService_"/>
