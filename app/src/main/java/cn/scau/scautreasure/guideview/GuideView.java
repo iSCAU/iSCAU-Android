@@ -21,7 +21,7 @@ public class GuideView extends Activity {
     AppContext app;
     private JazzyViewPager mJazzy;
 
-    private int drawables[] = {R.drawable.guideview1, R.drawable.guideview2, R.drawable.guideview3, R.drawable.guideview4};
+    private int drawables[] = {R.drawable.guideview1, R.drawable.guideview3, R.drawable.guideview4};
     //String imageUri = "drawable://" + R.drawable.image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class GuideView extends Activity {
             image.setPadding(30, 30, 30, 30);
 //            image.setImageResource(guidImage[position]);
             AppContext.loadImage("drawable://" + drawables[position], image, null);
-            if (position == 3) {
+            if (position == 2) {
                 image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -87,7 +87,7 @@ public class GuideView extends Activity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
