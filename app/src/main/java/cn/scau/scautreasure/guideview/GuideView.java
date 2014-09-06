@@ -3,6 +3,7 @@ package cn.scau.scautreasure.guideview;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -104,5 +105,12 @@ public class GuideView extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         //System.out.println("引导退出");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        return  false;
+//        return super.onKeyDown(keyCode, event);
     }
 }
