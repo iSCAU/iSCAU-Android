@@ -156,7 +156,8 @@ public class DateUtil {
             long day = diff / nd; // 计算差多少天
 
             // System.out.println("day:" + day / 7.0);
-            return (int) Math.ceil(day / 7.0);
+
+            return ((int) Math.ceil(day / 7.0))>0?((int) Math.ceil(day / 7.0)):0;
 
         } catch (ParseException e) {
             e.printStackTrace();

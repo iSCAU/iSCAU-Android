@@ -103,6 +103,6 @@ public class GuideView extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("引导退出");
+        //System.out.println("引导退出");
     }
 }

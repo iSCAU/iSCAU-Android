@@ -27,7 +27,7 @@ public class NoticeAdapter extends QuickAdapter<NoticeModel> {
 
     @Override
     protected void convert(final BaseAdapterHelper baseAdapterHelper, NoticeModel model) {
-        System.out.println("notice item id:"+baseAdapterHelper.getPosition());
+        //System.out.println("notice item id:"+baseAdapterHelper.getPosition());
         baseAdapterHelper.setText(R.id.notice_title, model.getTitle())
                 .setText(R.id.notice_time, model.getTime());
 

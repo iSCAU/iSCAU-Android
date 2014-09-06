@@ -55,7 +55,7 @@ public class AppCompatible {
         int currentVersionCode = getVersionCode();
         if (currentVersionCode == lastVersionCode) return;
         if (lastVersionCode == 0) {
-            System.out.println("update from version 7");
+            //System.out.println("update from version 7");
             // dealwith the old data
             upgrade_version_7();
         }

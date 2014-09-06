@@ -89,7 +89,7 @@ public class OrderFood extends CommonActivity {
             if (!TextUtils.isEmpty(address.getText().toString().trim())) {
                 //是否点到菜
                 if (sendList.size() > 0) {
-                    String sendMsg = msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim() + "[来自华农宝客户端]";
+                    String sendMsg ="[华农宝]"+ msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim()  ;
                     sendSMS(sendMsg);//发送短信
                     type=0;
                     updateLastTime();//更新lastTime
@@ -107,7 +107,7 @@ public class OrderFood extends CommonActivity {
     //更新lasttime,提供外卖店排序的根据
     void updateLastTime() {
 
-        String lastOrderInfo = shopId+","+shopName+","+System.currentTimeMillis()+","+msg+","+type;
+        String lastOrderInfo = shopId+"##"+shopName+"##"+System.currentTimeMillis()+"##"+msg+"##"+type;
         appConfig.lastOrderInfo().put(lastOrderInfo);
         System.out.println("缓存:" + lastOrderInfo);
 //开启同步服务

@@ -201,7 +201,7 @@ public class AppContext extends Application {
         String info[]=null;
         if (!config.lastOrderInfo().get().equals("")) {
 //            shop_id|shop_name|time
-           info= config.lastOrderInfo().get().split(";");
+           info= config.lastOrderInfo().get().split("##");
             System.out.println(info[0]);
             System.out.println(info[1]);
             System.out.println(info[2]);
