@@ -20,6 +20,7 @@ import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
@@ -64,6 +65,8 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
     SchoolActivityApi api;
     @ViewById
     ViewPager pager;
+    @App
+    AppContext app;
     @ViewById
     cn.scau.scautreasure.widget.SchoolActivityTabWidget_ titles;
 
@@ -240,6 +243,7 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
                 }
                 helper.addSchoolActivity(lists);
                 helper.setLastUpdate(System.currentTimeMillis() / 1000);
+                app.config.lastRedPoint().put(System.currentTimeMillis() / 1000);
                 showSchoolActivity();
             } else {
                 tips_no_update();

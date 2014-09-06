@@ -22,19 +22,24 @@ import com.umeng.update.UmengUpdateAgent;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.sql.Time;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.api.SchoolActivityApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
+import cn.scau.scautreasure.model.ActivityCountModel;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.BadgeView;
 
@@ -65,6 +70,8 @@ public class Main extends ActionBarActivity {
     RadioButton rd_classtable, rd_features, rd_activity, rd_food;
     @ViewById
     Button bt_classtable, bt_features, bt_activity, bt_food;
+    @RestService
+    SchoolActivityApi api;
 
     BadgeView bv_classtable,bv_features,bv_activity,bv_food;
     Fragment fragmentMenu;
@@ -87,10 +94,11 @@ public class Main extends ActionBarActivity {
         checkForUpdate();
         showNotification();
         showNotePoint();
-//显示红点
+        updateActivityRedPoint();
+/*//显示红点
         if(Long.valueOf(app.config.lastRedPoint().get())>0) {
             bv_activity.show();
-        }
+        }*/
     }
 
     /**
@@ -287,5 +295,28 @@ public class Main extends ActionBarActivity {
         fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
         fragmentActivity = fm.findFragmentByTag(SETTINGS_TAG);
         fragmentFood = fm.findFragmentByTag(FOOD_TAG);
+    }
+
+    @Background(delay = 500)
+    protected void updateActivityRedPoint(){
+        try {
+            ActivityCountModel model = api.getActivityCount(String.valueOf(app.config.lastRedPoint().get()));
+            if (Integer.parseInt(model.getResult()) > 0) {
+                Log.d("校园活动", "有更新");
+                showActvityRedPoint();
+            } else {
+                Log.d("校园活动", "无更新");
+
+            }
+        } catch (HttpStatusCodeException e) {
+            Log.d("校园活动", "无网络");
+        } catch (Exception e) {
+            Log.d("校园活动", "无网络");
+        }
+    }
+
+    @UiThread
+    protected void showActvityRedPoint(){
+        bv_activity.show();
     }
 }

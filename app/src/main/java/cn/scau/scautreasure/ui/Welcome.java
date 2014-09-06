@@ -75,8 +75,8 @@ public class Welcome extends Activity {
         //开启网络监控
         Intent networkService = new Intent(this, NetworkStatusService_.class);
         startService(networkService);
-        //校园活动是否有更新
-        ActivityCountService_.intent(getApplicationContext()).start();
+       /* //校园活动是否有更新
+        ActivityCountService_.intent(getApplicationContext()).start();*/
 
         //判断设备类型
         if (isPad()) {

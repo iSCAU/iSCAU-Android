@@ -134,4 +134,5 @@ public class ParamWidget extends LinearLayout {
     public void setSeparatorVisable(int visable) {
         separator.setVisibility(visable);
     }
+
 }

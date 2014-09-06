@@ -45,7 +45,7 @@ public class ActivityCountService extends Service{
         ActivityCountModel model=api.getActivityCount(String.valueOf(app.config.lastRedPoint().get()));
         if (Integer.parseInt(model.getResult())>0){
             System.out.println("校园活动有更新");
-            app.config.lastRedPoint().put(Long.parseLong(String.valueOf(System.currentTimeMillis()).substring(0,10)));
+           // app.config.lastRedPoint().put(Long.parseLong(String.valueOf(System.currentTimeMillis()).substring(0,10)));
             this.stopSelf();
         }else{
             System.out.println("校园活动无更新");

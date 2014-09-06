@@ -31,7 +31,7 @@
             <EditText
                 android:singleLine="false"
                 style="@style/login_edittext"
-                android:hint="如:23栋606室/信息学院935室"
+                android:hint="如:23栋606室/信息学院802室"
                 android:padding="10dp"
                 android:textSize="14dp"
                 android:textColor="#000000"
