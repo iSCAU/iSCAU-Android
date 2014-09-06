@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.util.Log;
 
 import org.androidannotations.api.BackgroundExecutor;
 import org.androidannotations.api.rest.RestErrorHandler;
@@ -72,11 +73,14 @@ public class SplashHelper {
             SplashModel splash = list.get(i);
             if (splash.getEnd_time() < now) {
                 sp.delete(splash.getId());
-                File f = mContext.getDir(getFileName(splash.getTitle()), Context.MODE_PRIVATE);
+                File f = mContext.getDir(getFileName(splash.getEdit_time()+""), Context.MODE_PRIVATE);
                 if (f.exists()) f.delete();
-            } else if (splash.getStart_time() < now && isSplashFileExist(splash.getTitle())) {
+            } else if (splash.getStart_time() < now && isSplashFileExist(splash.getEdit_time()+"")) {
                 return splash;
-            }
+            }/*else if(splash.getStart_time() < now && !isSplashFileExist(splash.getTitle())){
+                //假如没有下载成功
+
+            }*/
         }
         return null;
     }
@@ -84,15 +88,18 @@ public class SplashHelper {
     void loadData_() {
         try {
             mSplashList = api.getSplash(getLastUpdate());
+            if (mSplashList != null && "success".equals(mSplashList.getStatus())) {
+                Log.d("splash","获取到新闪屏");
+                writeToDatabase(mSplashList);
+            }
             setLastUpdate(System.currentTimeMillis() / 1000);
         } catch (Exception e) {
             e.printStackTrace();
-            return;
+            Log.d("splash","无网络");
         }
-        if (mSplashList != null && "success".equals(mSplashList.getStatus())) {
-            writeToDatabase(mSplashList);
-            CheckAndDownloadSplash();
-        }
+
+        CheckAndDownloadSplash();
+        return;
     }
 
     public void loadData() {
@@ -113,17 +120,19 @@ public class SplashHelper {
 
     void writeToDatabase(SplashModel.SplashList splashList) {
         SplashDatabaseHelper dbHelper = new SplashDatabaseHelper(mContext);
-        dbHelper.insert(splashList);
+        dbHelper.insertOrUpdate(splashList);
+        dbHelper.close();
     }
 
     void CheckAndDownloadSplash() {
         SplashDatabaseHelper dbHelper = new SplashDatabaseHelper(mContext);
         ArrayList<SplashModel> list = dbHelper.getSplashList();
         for (int i = list.size() - 1; i >= 0; i--) {
-            if (isSplashFileExist(list.get(i).getTitle())) {
+            if (isSplashFileExist(list.get(i).getEdit_time()+"")) {
                 list.remove(i);
             }
         }
+        dbHelper.close();
         BinderService(list);
     }
 

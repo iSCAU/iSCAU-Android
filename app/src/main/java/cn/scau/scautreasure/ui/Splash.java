@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -64,6 +65,7 @@ public class Splash extends Activity {
     void init() {
         if (title != null) {
             try {
+                Log.d("splash",title);
                 FileInputStream fis = openFileInput(SplashHelper.getFileName(title));
                 Bitmap bitmap = BitmapFactory.decodeStream(fis);
                 splash.setImageBitmap(bitmap);

@@ -88,13 +88,14 @@ public class Welcome extends Activity {
         SplashModel splashModel = splashHelper.getSuitableSplash();
         if (splashModel != null) {
             Intent splash = new Intent(this, Splash_.class);
-            splash.putExtra("title", splashModel.getTitle());
+            splash.putExtra("title", splashModel.getEdit_time()+"");
             startActivity(splash);
             wantToExit = true;
             finish();
-        } else {
-            splashHelper.loadData();
         }
+            Log.d("splash","start");
+            splashHelper.loadData();
+
     }
 
     @AfterViews
