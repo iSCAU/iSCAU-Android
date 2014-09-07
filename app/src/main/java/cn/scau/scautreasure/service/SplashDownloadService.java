@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +38,7 @@ public class SplashDownloadService extends Service {
                 String path = null;
                 if (downloadList.size() != 0) {
                     SplashModel sm = downloadList.get(0);
-                    path = SplashHelper.getFileName(sm.getTitle());
+                    path = SplashHelper.getFileName(sm.getEdit_time()+"");
                     if (downloadFile(sm.getUrl(), path)) {
                         synchronized (sync) {
                             downloadList.remove(0);
@@ -88,6 +89,7 @@ public class SplashDownloadService extends Service {
 
     boolean downloadFile(String http, String filename) {
         try {
+            Log.d("splash_download",http);
             URL url = new URL(http);
             URLConnection conn = url.openConnection();
             InputStream is = conn.getInputStream();
@@ -106,6 +108,7 @@ public class SplashDownloadService extends Service {
 
                 File f2 = new File(this.getFilesDir() + "/" + filename + ".temp");
                 f2.renameTo(f);
+                Log.d("splash","文件写入完成");
             }
             return true;
         } catch (MalformedURLException e) {

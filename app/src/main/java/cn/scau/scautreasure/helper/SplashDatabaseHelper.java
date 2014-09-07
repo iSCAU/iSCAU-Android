@@ -33,7 +33,7 @@ public class SplashDatabaseHelper extends SQLiteOpenHelper {
         cv.put(FIELD_TITLE, splashModel.getTitle());
         cv.put(FIELD_URL, splashModel.getUrl());
         cv.put(FIELD_START_TIME, splashModel.getStart_time());
-        cv.put(FIELD_END_TIME, splashModel.getEdit_time());
+        cv.put(FIELD_END_TIME, splashModel.getEnd_time());
         cv.put(FIELD_EDIT_TIME, splashModel.getEdit_time());
         return cv;
     }
@@ -88,7 +88,7 @@ public class SplashDatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, cv);
     }
 
-    private void insert(SplashModel splashModel) {
+    private void insertOrUpdate(SplashModel splashModel) {
         int id;
         if ((id = query(splashModel)) != -1) {
             update(id, splashModel);
@@ -98,9 +98,9 @@ public class SplashDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insert(SplashModel.SplashList splist) {
+    public void insertOrUpdate(SplashModel.SplashList splist) {
         ArrayList<SplashModel> list = splist.getCourses();
-        if (list != null) for (int i = 0; i < list.size(); i++) insert(list.get(i));
+        if (list != null) for (int i = 0; i < list.size(); i++) insertOrUpdate(list.get(i));
     }
 
     public int query(SplashModel splashModel) {
