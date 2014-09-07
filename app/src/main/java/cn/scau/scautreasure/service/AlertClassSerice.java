@@ -54,7 +54,7 @@ public class AlertClassSerice extends Service{
         currentDay =  dateUtil.getDayOfWeek();
           chineseDay = dateUtil.numDayToChinese(currentDay);
 
-        dayClassList = classHelper.getDayLesson(chineseDay);
+        dayClassList = classHelper.getDayLessonWithParams(chineseDay);
 
         if (dayClassList.size()>0) {
 
