@@ -224,6 +224,7 @@ public class AppContext extends Application {
                JSONObject retJson= NetUtil.getResponseForPost(NOTIFY_FOOD_URL, nameValuePairs, context);
 //               {"result":"success"}
                try {
+                   if(retJson!=null)
                    if (retJson.getString("result").equals("success")){
                        System.out.println("成功post");
                        config.lastOrderInfo().put("");//清空最后一次点餐记录

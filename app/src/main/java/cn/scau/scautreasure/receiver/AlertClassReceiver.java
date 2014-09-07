@@ -57,7 +57,7 @@ public class AlertClassReceiver extends BroadcastReceiver
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         // 点击状态栏的图标出现的提示信息设置
         //你即将要上的课是：xxxx(课名)，地点:xxx
-        notification.setLatestEventInfo(context, "华农宝提醒你：", "上课提醒:"+className+"("+classBlock+"|"+classTime+")", pendingIntent);
+        notification.setLatestEventInfo(context, "华农宝提醒你：", className+"("+classBlock+"|"+classTime+")", pendingIntent);
         manager.notify(1, notification);
 
     }

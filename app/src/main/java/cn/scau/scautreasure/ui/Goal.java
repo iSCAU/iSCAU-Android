@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.util.Log;
 import android.widget.AbsListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -86,6 +87,7 @@ public class Goal extends CommonQueryActivity {
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
+            Log.d("server_code",e.getStatusCode()+"");
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
         } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());

@@ -167,7 +167,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
 //            }
 //        });
 //        spinner.createBuilder().create().show();
-        AppMsg.makeText(this,R.string.tips_edu_server_error,AppMsg.STYLE_ALERT);
+        AppMsg.makeText(this,R.string.tips_edu_server_error,AppMsg.STYLE_ALERT).show();
     }
 
 

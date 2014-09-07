@@ -1,6 +1,11 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.*;
+import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -92,7 +97,7 @@ public class OrderFood extends CommonActivity {
                     String sendMsg ="[华农宝]"+ msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim()  ;
                     sendSMS(sendMsg);//发送短信
                     type=0;
-                    updateLastTime();//更新lastTime
+
                 } else {
                     Toast.makeText(this, "你尚未选择饭菜", Toast.LENGTH_SHORT).show();
                 }
@@ -164,9 +169,20 @@ public class OrderFood extends CommonActivity {
     private void sendSMS(String msg)
 
     {
+        updateLastTime();//更新lastTime
         Log.i("发送的信息:", msg);
        /* Uri deleteUri = Uri.parse("content://sms");
         getContentResolver().delete(deleteUri, "type=? and address=?", new String[] {String.valueOf(3),phone});*/
+        /*getApplicationContext().registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(getResultCode()== Activity.RESULT_OK){
+                    Log.d("callback_phone",intent.getStringExtra("phoneNumber"));
+                    Log.d("callback_send_status","success");
+                    getApplicationContext().unregisterReceiver(this);
+                }
+            }
+        },new IntentFilter("SENT_SMS_ACTION"));*/
         finish();
 
 

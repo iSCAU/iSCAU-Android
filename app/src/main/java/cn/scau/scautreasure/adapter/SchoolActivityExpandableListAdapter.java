@@ -17,7 +17,6 @@ import com.tjerkw.slideexpandable.library.WrapperListAdapterImpl;
 import java.util.BitSet;
 
 import cn.scau.scautreasure.R;
-import cn.scau.scautreasure.ui.SchoolActivity;
 import cn.scau.scautreasure.widget.SchoolActivityToggle;
 
 /**

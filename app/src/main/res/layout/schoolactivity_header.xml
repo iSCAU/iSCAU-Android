@@ -9,23 +9,24 @@
     <LinearLayout
         android:id="@+id/innerLayout"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        >
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="match_parent"
             android:id="@+id/imageView"
             android:src="#00ff00"
-            android:layout_marginRight="12dp" />
+            />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="今天没有活动，\n可以好好睡觉了。"
-            android:textSize="30sp"
+            android:textSize="18sp"
             android:id="@+id/textView"
+            android:textColor="#75204d1d"
             android:gravity="center_horizontal" />
     </LinearLayout>
 

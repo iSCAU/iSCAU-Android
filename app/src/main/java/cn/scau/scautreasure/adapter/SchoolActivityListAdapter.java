@@ -23,6 +23,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
@@ -117,7 +118,7 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
             baseAdapterHelper.setVisible(R.id.icon_new, true);
 
         final ImageView logoView = (ImageView) baseAdapterHelper.getView(R.id.logo);
-        Bitmap logo = helper.getBitmap(model.getLogoUrl(), model.getT());
+       /* Bitmap logo = helper.getBitmap(model.getLogoUrl(), model.getT());
         if (logo == null)
             helper.download(model.getLogoUrl(), model.getT(), new SchoolActivityHelper.OnDownloadStateChanged() {
                 @Override
@@ -143,6 +144,7 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
             });
         else {
             logoView.setImageBitmap(logo);
-        }
+        }*/
+        AppContext.loadImage(model.getLogoUrl(), logoView, null);
     }
 }

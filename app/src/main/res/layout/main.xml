@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/icon_shoolactivity_selector"
-                android:text="校园活动" />
+                android:text="@string/tab_activity" />
 
             <RadioButton
                 android:id="@+id/rd_food"

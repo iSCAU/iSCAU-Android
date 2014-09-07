@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1"
-                    android:text="上课前30分钟提醒"/>
+                    android:text="课前提醒"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,12 +52,12 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
 
-            <TextView
+            <!--<TextView
                 style="@style/menu_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/settings_ringer_model"/>
+                android:text="@string/settings_ringer_model"/>-->
 
             <cn.scau.scautreasure.widget.ParamWidget_
                 android:id="@+id/param_ringer_mode_during_class"

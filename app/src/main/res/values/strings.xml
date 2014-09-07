@@ -26,8 +26,8 @@
     <string name="tips_no_allow_so_frequently">亲,刷新太频繁了,休息一会喝杯茶吧.</string>
     <string name="btn_continue">查   询</string>
     <string name="loading_goal">正在加载成绩..</string>
-    <string name="tips_goal_null">没有找到你想要的成绩</string>
-    <string name="tips_exam_null">找不到你的考试情况..</string>
+    <string name="tips_goal_null">正方上没有你的考试成绩</string>
+    <string name="tips_exam_null">正方上没有你的考试情况</string>
     <string name="tips_pickclassinfo_null">找不到你的选课情况..</string>
     <string name="loading_pickclassinfo">正在加载选课信息..</string>
     <string name="loading_exam">正在加载考试情况..</string>
@@ -207,7 +207,7 @@
     <string name="tab_classtable">课表</string>
     <string name="tab_features">功能</string>
     <string name="tab_food">外卖</string>
-    <string name="tab_settings">设置</string>
+    <string name="tab_activity">活动圈</string>
     <string name="tips_no_network">网络错误，请检查您的网络状态</string>
     <string name="settings_server">服务器选择</string>
     <string name="settings_ringer_model">自动静音</string>

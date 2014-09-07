@@ -9,7 +9,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 19
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
-        versionName "2.5"
+        versionName "2.6"
     }
     buildTypes {
         release {

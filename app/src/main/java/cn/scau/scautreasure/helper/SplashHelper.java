@@ -94,7 +94,7 @@ public class SplashHelper {
             }
             setLastUpdate(System.currentTimeMillis() / 1000);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             Log.d("splash","无网络");
         }
 
@@ -183,6 +183,7 @@ public class SplashHelper {
                     restErrorHandler.onRestClientExceptionThrown(e);
                     return null;
                 } else {
+                    Log.d("splash","无网络");
                     throw e;
                 }
             }

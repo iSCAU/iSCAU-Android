@@ -33,16 +33,23 @@ public class UpLoadUsersService extends Service {
 
     @Background
     void UpLoad() {
-        System.out.println("开始上传用户资料");
-        UpLoadUsersModel upLoadUsersModel = Api.upLoadUsers(app.config.userName().get(), "暂无", app.config.major().get());
-        if (upLoadUsersModel.getResult().equals("success")){
-            System.out.println("上传用户资料成功");
-            app.config.hasUpdatedUsers().put(true);
-            this.stopSelf();
-        }else{
-            System.out.println("上传用户资料出错");
-            this.stopSelf();
+        System.out.println("开始统计");
+        try {
+            UpLoadUsersModel upLoadUsersModel = Api.upLoadUsers(app.config.userName().get(), "暂无", app.config.major().get());
+
+            if (upLoadUsersModel != null)
+                if (upLoadUsersModel.getResult().equals("success")) {
+                    System.out.println("统计成功");
+                    app.config.hasUpdatedUsers().put(true);
+
+                } else {
+                    System.out.println("统计出错");
+
+                }
+        }catch (Exception e){
+            System.out.println("统计出错");
         }
+        this.stopSelf();
 
     }
 
