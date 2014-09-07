@@ -29,7 +29,10 @@ import cn.scau.scautreasure.R;
 
 /**
  * Created by stcdasqy on 2014-08-16.
- * 这里添加了webView对自己高度的测量
+ * 这个类主要实现三个功能：
+ * ① 控制页面内的超链接，防止程序崩溃。
+ * ② 可以在这里控制图片大小的宽度（实测表面，使用max-width:100%的属性很有效）
+ * ③ 这里添加了webView对自己高度的测量。（这是为了配合SlideExpandableListAdapter）
  */
 public class SchoolActivityContentWebView extends WebView {
     private Context mContext;

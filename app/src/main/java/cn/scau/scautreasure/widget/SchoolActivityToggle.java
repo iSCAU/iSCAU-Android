@@ -14,8 +14,12 @@ import cn.scau.scautreasure.R;
 
 /**
  * Created by stcdasqy on 2014-08-24.
- * 出于某些原因，这里需要安置两个OnClickListener，以及为了测量
- * webView的高度
+ * 此类主要目的为了测量webView高度，配合一个copy from SlideExpandableListAdapter
+ * 的自定义类，之前的SlideExpandableListAdapter下测量高度采用的是事先measure(0,0)的方法，
+ * 但实证表面，webView控件无法通过这样的方式获得实际的高度。
+ *
+ * 这里采用的办法是将expandable的高度设置为0，在测量的时候置VISIBLE，
+ * 才可以让webView获取自己的高度。
  */
 public class SchoolActivityToggle extends LinearLayout {
     private OnClickListener expandableOnClickListener = null;
@@ -81,14 +85,16 @@ public class SchoolActivityToggle extends LinearLayout {
         expandableOnClickListener = l;
     }
 
-    public void setOnClickListener2(OnClickListener l) {
+    public void setExtraOnClickListener(OnClickListener l) {
         extraOnClickListener = l;
+    }
+
+    public OnClickListener getExtraOnClickListener(){
+        return extraOnClickListener;
     }
 
     void onClick() {
         if (expandableOnClickListener != null)
             expandableOnClickListener.onClick(this);
-        if (extraOnClickListener != null)
-            extraOnClickListener.onClick(this);
     }
 }

@@ -24,7 +24,7 @@
             android:src="@drawable/shopbox"/>
         <TextView
             android:id="@+id/order_button"
-            android:textColor="@color/actionar_title_color"
+            android:textColor="@color/actionbar_title_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去下单"
