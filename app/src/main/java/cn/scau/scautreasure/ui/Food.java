@@ -114,9 +114,9 @@ public class Food extends CommonFragment implements OnTabSelectListener {
         }catch (HttpStatusCodeException e) {
             Log.i("异常",String.valueOf(e.getStatusCode().value()));
             showErrorResult(getSherlockActivity(), e.getStatusCode().value());
-            closeSwipeRefresh();
         } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
+        }finally {
             closeSwipeRefresh();
         }
     }
@@ -155,36 +155,42 @@ public class Food extends CommonFragment implements OnTabSelectListener {
                 R.color.swipe_refresh_4);
     }
 
-    void loadFromDB(){
-        list=  helper.getFoodShopList();
-        Log.i("加载数据", String.valueOf(list.size()));
+    void loadFromDB() {
+
+        try {
+            list = helper.getFoodShopList();
+            Log.i("加载数据", String.valueOf(list.size()));
 
 
-        if (list.size()>0) {
+            if (list.size() > 0) {
 
 
-            SortByLastTime comp1 = new SortByLastTime();
-           Collections.sort(list,comp1);
-            //Collections.reverse(list);
-            SortComparator comp = new SortComparator();
-           Collections.sort(list, comp);
+                SortByLastTime comp1 = new SortByLastTime();
+                Collections.sort(list, comp1);
+                //Collections.reverse(list);
+                SortComparator comp = new SortComparator();
+                Collections.sort(list, comp);
 
 
-
-            if (listAdapter==null) {
-                Log.i("adapter","建立adapter");
-                listAdapter = new FoodShopAdapter(getSherlockActivity(), R.layout.food_shop_list_layout, list);
-                shopListView.setAdapter(listAdapter);
-            }else{
-                Log.i("adapter","刷新adapter");
-                listAdapter.notifyDataSetChanged();
+                if (listAdapter == null) {
+                    Log.i("adapter", "建立adapter");
+                    listAdapter = new FoodShopAdapter(getSherlockActivity(), R.layout.food_shop_list_layout, list);
+                    shopListView.setAdapter(listAdapter);
+                } else {
+                    Log.i("adapter", "刷新adapter");
+                    listAdapter.notifyDataSetChanged();
+                }
+                linearLayout.setVisibility(View.GONE);
+            } else {
+                AppMsg.makeText(getSherlockActivity(), "暂无数据,请尝试手动更新", AppMsg.STYLE_INFO).show();
+                linearLayout.setVisibility(View.VISIBLE);
             }
-            linearLayout.setVisibility(View.GONE);
-        }else{
-            AppMsg.makeText(getSherlockActivity(),"暂无数据,请尝试手动更新", AppMsg.STYLE_INFO).show();
+            closeSwipeRefresh();
+        }catch (Exception e){
+            Log.d("food","还没建表");
+            AppMsg.makeText(getSherlockActivity(), "暂无数据,请尝试手动更新", AppMsg.STYLE_INFO).show();
             linearLayout.setVisibility(View.VISIBLE);
         }
-        closeSwipeRefresh();
     }
 
     @UiThread

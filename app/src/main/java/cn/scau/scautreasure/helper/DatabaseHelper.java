@@ -23,7 +23,7 @@ import cn.scau.scautreasure.model.ShopMenuDBModel;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "db_iscau.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,6 +34,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, ClassModel.class);
+            Log.d("food","foodShop建表");
             TableUtils.createTable(connectionSource, FoodShopDBModel.class);
             TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
         } catch (SQLException e) {
@@ -43,7 +44,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-
+        try {
+            Log.d("food","foodShop建表");
+            TableUtils.createTable(connectionSource, FoodShopDBModel.class);
+            TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
+        } catch (SQLException e) {
+            Log.e(DatabaseHelper.class.getName(), "Unable to create datbases", e);
+        }
     }
 
 }
