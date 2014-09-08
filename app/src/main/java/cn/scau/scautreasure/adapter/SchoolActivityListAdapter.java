@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -52,8 +53,9 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(ts);
             result = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" +
-                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + calendar.get(Calendar.HOUR) + ":" +
-                    calendar.get(Calendar.MINUTE);
+                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + String.format("%02d",calendar.get(Calendar.HOUR)) + ":" +
+                    String.format("%02d",calendar.get(Calendar.MINUTE));
+            Log.d("activity",result);
         } catch (Exception e) {
             e.printStackTrace();
         }

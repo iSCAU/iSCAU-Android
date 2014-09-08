@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.support.v7.app.ActionBarActivity;
 import android.widget.AbsListView;
 
 import com.devspark.appmsg.AppMsg;
@@ -18,6 +19,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BorrowedBookAdapter_;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.impl.ServerOnChangeListener;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
@@ -102,5 +104,10 @@ public class BorrowedBook extends CommonQueryActivity {
         bookadapter.addAll(list);
         adapter = UIHelper.buildEffectAdapter(bookadapter, (AbsListView) listView, ALPHA);
         showSuccessResult();
+    }
+
+    @Override
+    void handleServerError(ActionBarActivity ctx, ServerOnChangeListener listener) {
+        AppMsg.makeText(this,R.string.book_sys_error,AppMsg.STYLE_ALERT).show();
     }
 }

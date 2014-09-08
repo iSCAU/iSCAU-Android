@@ -109,7 +109,7 @@
     <string name="tips_calendar_click">点击亮色日期可查看事件</string>
     <string name="listitem_lable_class_name">课程名称：</string>
     <string name="menu_refresh_classtable">更新课表</string>
-
+    <string name="book_sys_error">图书馆系统繁忙</string>
 
     <string name="tips_unknow_error">教务系统繁忙</string>
     <string name="menu_notice">校园通知</string>

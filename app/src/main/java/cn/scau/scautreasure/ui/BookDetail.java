@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.DialogInterface;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BookDetailAdapter;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.util.CryptUtil;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
@@ -100,5 +102,10 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
     public void onCancel(DialogInterface dialogInterface) {
         BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
         finish();
+    }
+
+    @Override
+    void handleServerError(ActionBarActivity ctx, ServerOnChangeListener listener) {
+        AppMsg.makeText(this,R.string.book_sys_error,AppMsg.STYLE_ALERT).show();
     }
 }

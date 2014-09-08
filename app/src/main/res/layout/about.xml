@@ -30,18 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:text="华农宝 v2.4.5"
+                android:text="华农宝 v2.6"
                 android:textColor="#ff376b"
                 android:textSize="30sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="华农学子 自己的 App!"
-                android:textColor="#969696"
-                android:textSize="15sp"/>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -50,6 +43,22 @@
                 android:layout_marginTop="50dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoLink="web"
+                    android:text="深度合作:\n\t\t\t\t\t\t\t视传工作室"
+                    android:textColor="#434242"
+                    android:textSize="15sp"
+                     />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoLink="web"
+                    android:text="\t\t\t\t\t\t\t华南农业大学学生会"
+                    android:textColor="#434242"
+                    android:textSize="15sp"
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
