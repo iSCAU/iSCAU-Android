@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 校园活动 模板
  */
-public class SchoolActivityModel implements Serializable {
+public class SchoolActivityModel implements Serializable,Comparable<SchoolActivityModel>{
     private int id;
     private String title;
     private String place;
@@ -120,6 +120,16 @@ public class SchoolActivityModel implements Serializable {
                 ", time='" + time + '\'' +
                 ", t='" + t + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(SchoolActivityModel schoolActivityModel) {
+        if(this.getLevel()>schoolActivityModel.getLevel()){
+            return -1;
+        }else if(this.getLevel()==schoolActivityModel.getLevel()){
+            return 0;
+        }
+        return 1;
     }
 
 

@@ -235,12 +235,12 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
         }
         try {
             alreadyInLoadData = true;
-            SchoolActivityModel.ActivityList lists = api.getSchoolActivity(lastUpdate);
+            SchoolActivityModel.ActivityList lists = api.getSchoolActivity(app.config.lastRedPoint().get());
             List<SchoolActivityModel> content = lists.getContent();
             if (content != null && content.size() != 0) {
-                for (int i = 0; i < content.size(); i++) {
+                /*for (int i = 0; i < content.size(); i++) {
                     content.get(i).setIsNewOne(true);
-                }
+                }*/
                 helper.addSchoolActivity(lists);
                 helper.setLastUpdate(System.currentTimeMillis() / 1000);
                 app.config.lastRedPoint().put(System.currentTimeMillis() / 1000);

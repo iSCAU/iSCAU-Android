@@ -53,7 +53,7 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(ts);
             result = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" +
-                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + String.format("%02d",calendar.get(Calendar.HOUR)) + ":" +
+                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + String.format("%02d",calendar.get(Calendar.HOUR_OF_DAY)) + ":" +
                     String.format("%02d",calendar.get(Calendar.MINUTE));
             Log.d("activity",result);
         } catch (Exception e) {

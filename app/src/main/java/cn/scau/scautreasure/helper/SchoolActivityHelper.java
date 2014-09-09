@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class SchoolActivityHelper {
                 for (int i = content.size() - 1; i >= 0; i--) {
                     SchoolActivityModel act = content.get(i);
                     if (act == null) continue;
-                    if (!hasInit) act.setIsNewOne(false);
+                   // if (!hasInit) act.setIsNewOne(false);
                     Date d;
                     try {
                         Timestamp ts = Timestamp.valueOf(act.getTime());
@@ -107,7 +108,7 @@ public class SchoolActivityHelper {
                         content.remove(i);
                         deleteLogoCache(act.getLogoUrl(), act.getT());
                         deleteContentCache(act.getContent(), act.getT());
-                    } else if (d.before(tomorrowDate)) {
+                    } else if (d.before(tomorrowDate)||act.getLevel()==9) {
                         today.add(act);
                     } else if (d.before(laterDate)) {
                         tomorrow.add(act);
@@ -121,6 +122,9 @@ public class SchoolActivityHelper {
                 }
             }
         }
+        Collections.sort(today);
+        Collections.sort(tomorrow);
+        Collections.sort(later);
         hasInit = true;
     }
 

@@ -29,12 +29,12 @@
 
                 <ImageView
                     android:id="@+id/logo"
-                    android:layout_width="30dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="24dp"
                     android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:background="#ffffffff"
                     android:src="@drawable/logotest" />
