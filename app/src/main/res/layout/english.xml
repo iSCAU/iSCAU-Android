@@ -31,6 +31,6 @@
         android:text="有兴趣参建设与运营的同学\n请发邮件至 huanongbao@163.com\n等着你哦！"
         android:textColor="#000000"
         android:textSize="10pt"
-        android:id="@+id/" />
+        />
 
 </LinearLayout>
