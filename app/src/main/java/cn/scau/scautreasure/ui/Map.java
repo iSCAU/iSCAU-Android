@@ -18,6 +18,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import cn.scau.scautreasure.AppContext;
+
 import cn.scau.scautreasure.R;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -28,11 +29,12 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 @EActivity(R.layout.activity_map)
 //@OptionsMenu(R.menu.menu_turn)
 public class Map extends CommonActivity {
-   private static PhotoViewAttacher mAttacher = null;
+    private static PhotoViewAttacher mAttacher = null;
     @ViewById(R.id.map)
     ImageView map;
-    private float  angel=0;
-//旋转
+    private float angel = 0;
+
+    //旋转
 //    @OptionsItem(R.id.menu_turn)
 //    boolean turn(){
 //        Matrix matrix=new Matrix();
@@ -44,41 +46,41 @@ public class Map extends CommonActivity {
 //
 //    }
     @AfterViews
-    void initView(){
+    void initView() {
 
         setTitle("校内地图");
 //        AppContext.loadImage( "http://img3.imgtn.bdimg.com/it/u=86040403,2916800900&fm=90&gp=0.jpg",map,new ImageLoadingListener() {
-        AppContext.loadImage( "assets://map.jpg",map,new ImageLoadingListener() {
+        AppContext.loadImage("assets://map.png", map, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
-                Log.i("加载地图","开始加载");
+                Log.i("加载地图", "开始加载");
             }
 
             @Override
             public void onLoadingFailed(String s, View view, FailReason failReason) {
-                Log.i("加载地图","失败");
+                Log.i("加载地图", "失败");
             }
 
             @Override
             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                Log.i("加载地图","完成");
+                Log.i("加载地图", "完成");
                 mAttacher = new PhotoViewAttacher(map);
                 mAttacher.canZoom();
-                Log.i("装载缩放","完成");
+                Log.i("装载缩放", "完成");
 
 
                 mAttacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-//
+                    //
                     @Override
                     public void onPhotoTap(View view, float x, float y) {
-                        Log.i("点击地图","("+x+","+y+")");
+                        Log.i("点击地图", "(" + x + "," + y + ")");
                     }
                 });
             }
 
             @Override
             public void onLoadingCancelled(String s, View view) {
-                Log.i("加载地图","取消");
+                Log.i("加载地图", "取消");
             }
         });
     }
