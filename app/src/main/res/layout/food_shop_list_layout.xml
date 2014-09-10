@@ -17,7 +17,7 @@
 
         android:padding="10dp"
         android:text="SADY高级饭店"
-        android:textSize="7pt"
+        android:textSize="14sp"
         android:id="@+id/text1"
         android:layout_weight="1"
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
         android:visibility="gone"
         android:padding="5dp"
         android:text="休息中"
-        android:textSize="7pt"
+        android:textSize="14sp"
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:textColor="@color/intro_content_textcolor"

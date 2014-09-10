@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,15 +64,17 @@ public class FoodShopAdapter extends QuickAdapter<FoodShopDBModel> {
         if (!((nowMIn>startMin)&&(nowMIn<endMin))){
             helper.getView(R.id.text2).setVisibility(View.VISIBLE);
             ((TextView)helper.getView(R.id.text1)).setTextColor(context.getResources().getColor(R.color.intro_content_textcolor));
-
-            imageView.setAlpha(0.5f);
-            goIcon.setAlpha(0.5f);
-        }else{
+            if(Build.VERSION.SDK_INT >= 11) {
+                imageView.setAlpha(0.5f);
+                goIcon.setAlpha(0.5f);
+            }
+        }else {
             helper.getView(R.id.text2).setVisibility(View.GONE);
-            ((TextView)helper.getView(R.id.text1)).setTextColor(context.getResources().getColor(R.color.black_text));
-
-            imageView.setAlpha(1f);
-            goIcon.setAlpha(1f);
+            ((TextView) helper.getView(R.id.text1)).setTextColor(context.getResources().getColor(R.color.black_text));
+            if (Build.VERSION.SDK_INT >= 11){
+                imageView.setAlpha(1f);
+                goIcon.setAlpha(1f);
+            }
         }
     }
 }
