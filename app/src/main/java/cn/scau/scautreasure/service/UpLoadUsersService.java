@@ -56,13 +56,13 @@ public class UpLoadUsersService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        System.out.println("上传用户资料服务结束");
+        //System.out.println("上传用户资料服务结束");
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        System.out.println("上传用户资料服务开启");
+        //System.out.println("上传用户资料服务开启");
     }
 
     @Override

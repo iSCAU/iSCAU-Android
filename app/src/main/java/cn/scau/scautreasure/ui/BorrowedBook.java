@@ -89,7 +89,11 @@ public class BorrowedBook extends CommonQueryActivity {
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+            if(e.getStatusCode().value()==500){
+                handleServerError(getSherlockActivity(),null);
+            }else {
+                showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+            }
         } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());
         }

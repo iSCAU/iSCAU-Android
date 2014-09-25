@@ -3,6 +3,7 @@ package cn.scau.scautreasure.ui;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,12 +66,15 @@ public class SearchBook extends CommonActivity {
     private PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
-            if (page < Math.ceil(count / 10)) {
+            if (page < Math.ceil(count / 10.0)) { //修正没有最后一页 把10写成10.0，使到返回的是浮点数，这样ceil才有效
                 page++;
                 loadData();
             } else {
-                AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
-                refreshView.setRefreshing(false);
+               /* refreshView.onRefreshComplete();
+                AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();*/
+                //为什么上面的写法不行，估计是那个下拉控件的官方bug，现在只能写一个假异步来取消那个loading
+                onLastPage();
+
             }
         }
     };
@@ -190,4 +194,16 @@ public class SearchBook extends CommonActivity {
         MenuItemCompat.expandActionView(menuItemSearch);
         return true;
     }
+
+    @Background
+    void onLastPage(){
+        showLastPage();
+    }
+
+    @UiThread(delay = 500)
+    void showLastPage(){
+        pullListView.onRefreshComplete();
+        AppMsg.makeText(getSherlockActivity(), R.string.tips_default_last, AppMsg.STYLE_CONFIRM).show();
+    }
 }
+
