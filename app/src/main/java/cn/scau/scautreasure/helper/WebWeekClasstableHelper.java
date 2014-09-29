@@ -36,7 +36,6 @@ public class WebWeekClasstableHelper {
 
     @JavascriptInterface
     public String getDayLesson(int day) {
-
         List<ClassModel> dayClassList = null;
         String chineseDay = dateUtil.numDayToChinese(day);
         if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
