@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.ui.ClassTable;
 import cn.scau.scautreasure.util.DateUtil;
@@ -25,38 +26,41 @@ public class WebWeekClasstableHelper {
     private cn.scau.scautreasure.AppConfig_ config;
     private DateUtil dateUtil;
     private ClassHelper classHelper;
+    private AppContext appContext;
 
-    public WebWeekClasstableHelper(WebView webView, cn.scau.scautreasure.AppConfig_ config, DateUtil dateUtil, ClassHelper classHelper) {
+    public WebWeekClasstableHelper(WebView webView, cn.scau.scautreasure.AppConfig_ config, DateUtil dateUtil, ClassHelper classHelper,AppContext appContext) {
         this.webView = webView;
         this.vto = webView.getViewTreeObserver();
         this.config = config;
         this.dateUtil = dateUtil;
         this.classHelper = classHelper;
+        this.appContext=appContext;
     }
 
     @JavascriptInterface
     public String getDayLesson(int day) {
-        List<ClassModel> dayClassList = null;
-        String chineseDay = dateUtil.numDayToChinese(day);
-        if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
-            dayClassList = classHelper.getDayLesson(chineseDay);
-        } else {
-            dayClassList = classHelper.getDayLessonWithParams(chineseDay);
-        }
+//        List<ClassModel> dayClassList = null;
+//        String chineseDay = dateUtil.numDayToChinese(day);
+//        if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
+//            dayClassList = classHelper.getDayLesson(chineseDay);
+//        } else {
+//            dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+//        }
+//
+//        JSONArray ja = new JSONArray();
+//        for (ClassModel classModel : dayClassList) {
+//            ja.put(JSONHelper.toJSON(classModel));
+//        }
+//        JSONObject jo = new JSONObject();
+//        try {
+//            jo.put("count", dayClassList.size());
+//            jo.put("day_class", ja);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
-        JSONArray ja = new JSONArray();
-        for (ClassModel classModel : dayClassList) {
-            ja.put(JSONHelper.toJSON(classModel));
-        }
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("count", dayClassList.size());
-            jo.put("day_class", ja);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        System.out.println(jo.toString());
-        return jo.toString();
+        System.out.println("js:"+appContext.getAllLession()[day-1]);
+        return appContext.getAllLession()[day-1];
     }
 
     @JavascriptInterface

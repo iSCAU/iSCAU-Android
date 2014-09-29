@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -41,6 +42,7 @@ import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ActionBarHelper;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
@@ -85,6 +87,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     ClassHelper classHelper;
     private ArrayList<View> listViews;
     private ClassTableAdapter adapter;
+
     /**
      * 星期标签的点击,同时viewPager设置到相应位置；
      */
@@ -115,26 +118,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         }
     };
 
-    // 由于全周课表还没有搞好，先注释了
-    // @AfterViews
-//    void initActionBar(){
-//
-//        // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
-//        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-//        ActionBarHelper.enableEmbeddedTabs(actionBar);
-//
-//        boolean isSelectedDay = config.classTableSelectedTab().get() == 0;
-//        actionBar.addTab(actionBar.newTab()
-//                          .setText(app.getString(R.string.actionbar_tab_day))
-//                          .setTabListener(this),
-//                          isSelectedDay);
-//        actionBar.addTab(actionBar.newTab()
-//                        .setText(app.getString(R.string.actionbar_tab_week))
-//                        .setTabListener(this),
-//                !isSelectedDay
-//        );
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//    }
+
 
     private String getTitle() {
         StringBuilder builder = new StringBuilder();
@@ -150,8 +134,16 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         return builder.toString();
     }
 
-    @AfterViews
-    void initView() {
+//    @AfterViews
+//    void initView() {
+//
+//    }
+
+
+    ActionBar  actionBar= null;
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         listViews = new ArrayList<View>();
         adapter = new ClassTableAdapter();
@@ -163,12 +155,37 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         showClassTable();
         showTab();
         setSwipeRefresh();
-//
-//        week_classtable.getSettings().setJavaScriptEnabled(true);
-//        week_classtable.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-//        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-//        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
+
+
+
+        // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
+        actionBar= getSherlockActivity().getSupportActionBar();
+
+        ActionBarHelper.enableEmbeddedTabs(actionBar);
+        boolean isSelectedDay = config.classTableSelectedTab().get() == 0;
+        actionBar.addTab(actionBar.newTab()
+                        .setText(app.getString(R.string.actionbar_tab_day))
+                        .setTabListener(this),
+                isSelectedDay);
+        actionBar.addTab(actionBar.newTab()
+                        .setText(app.getString(R.string.actionbar_tab_week))
+                        .setTabListener(this),
+                !isSelectedDay
+        );
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+
+
+        week_classtable.getSettings().setJavaScriptEnabled(true);
+        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+
+        // 无参数调用
+        week_classtable.loadUrl("javascript:javacalljs()");
+        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper,app), "Android");
+        week_classtable.getSettings().setSupportZoom(true);
     }
+
+
 
     private void setSwipeRefresh() {
         swipe_refresh.setEnabled(false);
@@ -201,6 +218,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             loadData();
         }
     }
+
 
     /**
      * 切换到加载所有课程模式;

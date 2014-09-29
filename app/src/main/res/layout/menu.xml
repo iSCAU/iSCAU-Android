@@ -414,15 +414,13 @@
                         android:layout_height="wrap_content">
 
                         <ImageButton
-                            android:id="@+id/menu_week_classtable"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_contatc_selector" />
+
+                            style="@style/menu_item_icon" />
 
                         <TextView
                             style="@style/menu_item_label"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="全周课表" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
                     <LinearLayout

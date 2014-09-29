@@ -46,7 +46,7 @@ public class AppCompatible {
 
     @RootContext
     Context ctx;
-
+//429331233:abcd666888,
     @Bean
     ClassHelper classHelper;
 
@@ -117,6 +117,8 @@ public class AppCompatible {
             }
         }
     }
+
+
 
     private List<ClassModel> parseFromOldVersionJson(String jsonString) throws JSONException {
         List<ClassModel> classModelList = new ArrayList<ClassModel>();

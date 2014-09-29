@@ -152,11 +152,6 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
         setSubTitle(null);
     }
 
-    @Click
-    void menu_week_classtable(){
-        WeekClassTable_.intent(this).start();
-
-    }
 
 
 }

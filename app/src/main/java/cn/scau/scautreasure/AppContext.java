@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.avos.avoscloud.AVOSCloud;
@@ -21,18 +22,25 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.scau.scautreasure.helper.ClassHelper;
+import cn.scau.scautreasure.helper.JSONHelper;
 import cn.scau.scautreasure.helper.NetUtil;
+import cn.scau.scautreasure.model.ClassModel;
+import cn.scau.scautreasure.ui.ClassTable;
 import cn.scau.scautreasure.util.CryptUtil;
+import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.BadgeView;
 
 /**
@@ -44,6 +52,14 @@ import cn.scau.scautreasure.widget.BadgeView;
  */
 @EApplication
 public class AppContext extends Application {
+
+    private ViewTreeObserver vto;
+    @Bean
+     DateUtil dateUtil;
+    @Bean
+     ClassHelper classHelper;
+
+    private static String[] allLession=new String[7];
 
     public static String userName;
     public static String eduSysPassword;
@@ -84,6 +100,7 @@ public class AppContext extends Application {
         compatiable();
         getAccountSettings();
         initImageLoader(getApplicationContext());
+        getLession();
     }
 
     private void initAVOS() {
@@ -243,5 +260,39 @@ public class AppContext extends Application {
 
         return false;
     }
+    public void getLession(){
+        for (int i=0;i<7;i++) {
+            List<ClassModel> dayClassList = null;
+            String chineseDay = dateUtil.numDayToChinese(i+1);
+            if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
+                dayClassList = classHelper.getDayLesson(chineseDay);
+            } else {
+                dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+            }
 
+            JSONArray ja = new JSONArray();
+            for (ClassModel classModel : dayClassList) {
+                ja.put(JSONHelper.toJSON(classModel));
+            }
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("count", dayClassList.size());
+                jo.put("day_class", ja);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            allLession[i]=jo.toString();
+//            System.out.println(allLession[i]);
+           // return jo.toString();
+        }
+    }
+
+    public String[] getAllLession() {
+        return allLession;
+    }
+
+    public void setAllLession(String[] allLession) {
+        this.allLession = allLession;
+    }
 }
