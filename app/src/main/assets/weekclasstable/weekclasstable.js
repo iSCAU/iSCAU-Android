@@ -22,7 +22,7 @@ var main = function(){
     $(".eng").css("margin-top", (topHeight - $(".eng").height() - $(".num").height())/2);
     // 设置节数相关
     $(".class_index").height(blockHeight);
-    $(".class_index").css("padding-top", ( blockHeight - parseInt($(".class_index").css("font-size")) ) / 2);
+    $(".class_index").css("line-height",blockHeight+"px");
 
     // 颜色
     var colors = new Array("#fa7886", "#38d3a9", "#34ced9", "#fcdc36","#64baff","#af92d7");
@@ -33,7 +33,7 @@ var main = function(){
         // 获取一天课表
         var mess = null;
         mess = Android.getDayLesson(i);
-        var obj = eval ("(" + mess + ")");
+        var obj = JSON.parse(mess);
 
         var count = parseInt(obj.count);
         if(count == 0) {
@@ -53,16 +53,17 @@ var main = function(){
             for(var k = 0; k < nodes.length; k ++) {
                 allNodes += "," + nodes[k] + ",";
             }
-            Android.debug("node:"+(parseInt(nodes[0])+i));
-            $(".classtable_class").append(
-                "<div id='"+obj.day_class[j].id+"' class='class_item' style='top: "+itemY+"px;"+
-                " left:"+itemX+"px; width: "+blockWidth+"px; height: "+blockHeight*nodes.length+"px;"+
-                " background-color: "+colors[parseInt(parseInt(nodes[0])+i)%colors.length]+"; '>"+
-                "<div id=item"+obj.day_class[j].id+">"+obj.day_class[j].classname+"<br/>"+obj.day_class[j].location+"</div></div>");
-            var mt = ($("#"+obj.day_class[j].id).height() - $("#item"+obj.day_class[j].id).height() ) /2;
-            $("#item"+obj.day_class[j].id).css("margin-top", mt);
+            //Android.debug("node:"+(parseInt(nodes[0])+i));
+            $class = $("<div id='"+obj.day_class[j].id+"' class='class_item' style='top: "+itemY+"px;"+
+                                       " left:"+itemX+"px; width: "+blockWidth+"px; height: "+blockHeight*nodes.length+"px;"+
+                                       " background-color: "+colors[parseInt(parseInt(nodes[0])+i)%colors.length]+"; '></div>");
+            $class_item=$("<div id=item"+obj.day_class[j].id+">"+obj.day_class[j].classname+"<br/>"+obj.day_class[j].location+"</div>");
+            $class.html($class_item);
+            $(".classtable_class").append($class);
+            var mt = (blockHeight*nodes.length - $class_item.height() ) /2;
+            $class_item.css("margin-top", mt+'px');
         };
-        Android.debug(allNodes);
+        //Android.debug(allNodes);
         for(var j = 0; j < 13; j++){
             if(allNodes.indexOf(","+(j+1)+",") > -1)
                 continue;
@@ -73,7 +74,6 @@ var main = function(){
         }
 
     }
-    $(".classtable_class").fadeIn();
 }
 
 function hideBody(){

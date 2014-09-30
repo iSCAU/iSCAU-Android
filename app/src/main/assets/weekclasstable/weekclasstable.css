@@ -18,6 +18,7 @@ hr.my {
   height: 100%;
   float: left;
   font-size: 0.6rem;
+  width: 14.28%;
 }
 .day_block .eng {
   color: #969696;
@@ -42,6 +43,7 @@ hr.my {
   color: white;
   border-radius:5px;
 }
+
 
 .right_top_block{
     background-color: #ebeae7;

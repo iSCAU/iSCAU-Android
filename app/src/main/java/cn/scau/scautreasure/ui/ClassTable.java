@@ -184,7 +184,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
 
         week_classtable.getSettings().setJavaScriptEnabled(true);
-        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+      //  week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
 
         // 无参数调用
         week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
@@ -460,9 +460,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         } else if (tab.getPosition() == 1) {
             day_classtable_container.setVisibility(View.GONE);
             if(first) {
-                week_classtable.loadUrl("javascript:hideBody()");
+                week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
                 week_classtable.setVisibility(View.VISIBLE);
-                week_classtable.reload();
                 first=false;
             }else{
                 week_classtable.setVisibility(View.VISIBLE);
