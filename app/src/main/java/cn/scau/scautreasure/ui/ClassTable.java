@@ -87,6 +87,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     ClassHelper classHelper;
     private ArrayList<View> listViews;
     private ClassTableAdapter adapter;
+    private WebWeekClasstableHelper webWeekClasstableHelper;
+    private boolean first=true;
 
     /**
      * 星期标签的点击,同时viewPager设置到相应位置；
@@ -152,6 +154,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         pager.setOnPageChangeListener(onPageChangeListener);
         titles.setListener(onTabChangeListener);
 
+        webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
         showClassTable();
         showTab();
         setSwipeRefresh();
@@ -180,12 +183,28 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
 
         // 无参数调用
-        week_classtable.loadUrl("javascript:javacalljs()");
-        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper,app), "Android");
+        week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
         week_classtable.getSettings().setSupportZoom(true);
     }
 
+/*    @Override
+    public void onStart() {
+        super.onStart();
+        actionBar= getSherlockActivity().getSupportActionBar();
 
+        ActionBarHelper.enableEmbeddedTabs(actionBar);
+        boolean isSelectedDay = config.classTableSelectedTab().get() == 0;
+        actionBar.addTab(actionBar.newTab()
+                        .setText(app.getString(R.string.actionbar_tab_day))
+                        .setTabListener(this),
+                isSelectedDay);
+        actionBar.addTab(actionBar.newTab()
+                        .setText(app.getString(R.string.actionbar_tab_week))
+                        .setTabListener(this),
+                !isSelectedDay
+        );
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }*/
 
     private void setSwipeRefresh() {
         swipe_refresh.setEnabled(false);
@@ -215,6 +234,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             Login_.intent(this).startTips(getString(R.string.start_tips_edusys)).start();
         } else {
             swipe_refresh.setRefreshing(true);
+
             loadData();
         }
     }
@@ -350,7 +370,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         onTabSelect();
 
         // 以下是刷新全周课表
+        webWeekClasstableHelper.refreshClassTable();
         week_classtable.reload();
+
     }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList) {
@@ -397,6 +419,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     void updateTabOnOrientationChange() {
         titles.changeWeekDay(pager.getCurrentItem());
         ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
+        if(config.classTableSelectedTab().get()==1){
+            week_classtable.reload();
+        }
     }
 
     @Override
@@ -428,9 +453,18 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         if (tab.getPosition() == 0) {
             week_classtable.setVisibility(View.GONE);
             day_classtable_container.setVisibility(View.VISIBLE);
+            showTab();
         } else if (tab.getPosition() == 1) {
-            week_classtable.setVisibility(View.VISIBLE);
             day_classtable_container.setVisibility(View.GONE);
+            if(first) {
+                week_classtable.loadUrl("javascript:hideBody()");
+                week_classtable.setVisibility(View.VISIBLE);
+                week_classtable.reload();
+                first=false;
+            }else{
+                week_classtable.setVisibility(View.VISIBLE);
+            }
+
         }
         // 储存用户当前选择的 Tab ；
         config.classTableSelectedTab().put(tab.getPosition());
