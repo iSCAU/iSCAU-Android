@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,12 +13,14 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.devspark.appmsg.AppMsg;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -61,6 +64,8 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
 @EFragment(R.layout.classtable)
 @OptionsMenu(R.menu.menu_classtable)
 public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener, ActionBar.TabListener {
+    @App
+    protected AppContext app;
 
     /**
      * 课程表筛选显示模式
@@ -144,7 +149,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         listViews = new ArrayList<View>();
         adapter = new ClassTableAdapter();
 
@@ -159,8 +163,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
 
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
-        actionBar= getSherlockActivity().getSupportActionBar();
 
+        actionBar= getSherlockActivity().getSupportActionBar();
         ActionBarHelper.enableEmbeddedTabs(actionBar);
         boolean isSelectedDay = config.classTableSelectedTab().get() == 0;
         actionBar.addTab(actionBar.newTab()
@@ -201,7 +205,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @OptionsItem
     void menu_add_class() {
-        startActivityForResult(ClassEditor_.intent(getSherlockActivity())
+        startActivityForResult(ClassEditor_.intent(getActivity())
                 .isNewClass(true)
                 .model(new ClassModel()).get(), UIHelper.QUERY_FOR_EDIT_CLASS);
     }
@@ -246,7 +250,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_CLASS)
     void modifyClassOnResult(int resultCode, Intent data) {
-        if (resultCode == getSherlockActivity().RESULT_OK) {
+        if (resultCode == getActivity().RESULT_OK) {
             ClassModel model = (ClassModel) data.getSerializableExtra("class");
             createOrUpdateClassInformation(model);
         }
@@ -295,7 +299,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * @param ctx
      * @param requestCode
      */
-    @Override
     @UiThread
     void showErrorResult(ActionBarActivity ctx, int requestCode) {
         swipe_refresh.setRefreshing(false);
@@ -308,7 +311,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @UiThread
     void showSuccess() {
-        AppMsg.makeText(getSherlockActivity(), "课表更新完成", AppMsg.STYLE_INFO).show();
+        AppMsg.makeText(getActivity(), "课表更新完成", AppMsg.STYLE_INFO).show();
     }
 
     @UiThread
@@ -354,8 +357,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList) {
-        ListView classListView = UIHelper.buildClassListView(getSherlockActivity());
-        ClassAdapter cAdapter = ClassAdapter_.getInstance_(getSherlockActivity());
+        ListView classListView = UIHelper.buildClassListView(getActivity());
+        ClassAdapter cAdapter = ClassAdapter_.getInstance_(getActivity());
         BaseAdapter _adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) classListView, EXPANDABLE_ALPHA);
 
         cAdapter.addAll(dayClassList);
@@ -414,8 +417,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onTabSelect() {
         setTitle(getTitle());
         setSubTitle(getSubTitle());
-        // getSherlockActivity().getSupportActionBar()
-        //        .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        getSherlockActivity().getSupportActionBar()
+                .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
 
     /*
