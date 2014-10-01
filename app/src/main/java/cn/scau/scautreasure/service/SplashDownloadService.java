@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.scau.scautreasure.helper.SplashHelper;
 import cn.scau.scautreasure.model.SplashModel;
@@ -77,7 +78,7 @@ public class SplashDownloadService extends Service {
         }
     }
 
-    public void enqueue(ArrayList<SplashModel> splashModels) {
+    public void enqueue(List<SplashModel> splashModels) {
         synchronized (sync) {
             for (int i = 0; i < splashModels.size(); i++) {
                 if (!downloadList.contains(splashModels.get(i)))

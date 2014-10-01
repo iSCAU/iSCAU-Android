@@ -3,6 +3,8 @@ package cn.scau.scautreasure.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -22,8 +24,10 @@ import com.umeng.update.UpdateStatus;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -69,10 +73,11 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
     AppContext app;
     @ViewById
     cn.scau.scautreasure.widget.SchoolActivityTabWidget_ titles;
+    @Bean
+    SchoolActivityHelper helper;
 
     private ArrayList<View> listViews = new ArrayList<View>();
     private SchoolActivityPagerAdapter adapter;
-    private SchoolActivityHelper helper;
     private SchoolActivityPullToRefresh today, tomorrow, later;
     private boolean alreadyInLoadData = false;
     private boolean isFirstTimeOpenActivity = true;
@@ -80,8 +85,7 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
     @AfterViews
     void initView() {
         setTitle("校园活动");
-        helper = new SchoolActivityHelper(getSherlockActivity());
-
+        helper.initHelper(getActivity().getApplication());
         today = new SchoolActivityPullToRefresh(getSherlockActivity(), helper, "today");
         tomorrow = new SchoolActivityPullToRefresh(getSherlockActivity(), helper, "tomorrow");
         later = new SchoolActivityPullToRefresh(getSherlockActivity(), helper, "later");
@@ -99,10 +103,11 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
         pager.setOnPageChangeListener(onPageChangeListener);
         pager.setAdapter(adapter);
 
-
         showSchoolActivity();
-        demo();
-        //loadData();
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            demo();
     }
 
 
@@ -124,8 +129,6 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
         today.setRefreshing();
 
     }
-
-
 
 
     void initPullToRefreshListView(PullToRefreshListView view) {
@@ -252,11 +255,12 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
             e.printStackTrace();
             handleNoNetWorkError(getSherlockActivity());
         } finally {
-            if(isFirstTimeOpenActivity) isFirstTimeOpenActivity = false;
+            if (isFirstTimeOpenActivity) isFirstTimeOpenActivity = false;
             alreadyInLoadData = false;
             stopPullToRefreshListView();
         }
     }
+
     @Override
     public void onTabSelect() {
         setTitle("校园活动");

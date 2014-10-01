@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.helper;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -10,9 +11,12 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import cn.scau.scautreasure.adapter.SchoolActivityListAdapter;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.model.FoodShopDBModel;
+import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.model.ShopMenuDBModel;
+import cn.scau.scautreasure.model.SplashModel;
 
 /**
  * User:  Special Leung
@@ -23,20 +27,21 @@ import cn.scau.scautreasure.model.ShopMenuDBModel;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "db_iscau.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, ClassModel.class);
-            Log.d("food","foodShop建表");
+            Log.d("food", "foodShop建表");
             TableUtils.createTable(connectionSource, FoodShopDBModel.class);
             TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
+            TableUtils.createTable(connectionSource, SchoolActivityModel.class);
+            TableUtils.createTable(connectionSource, SplashModel.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create datbases", e);
         }
@@ -45,9 +50,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            Log.d("food","foodShop建表");
+            Log.d("food", "foodShop建表");
             TableUtils.createTable(connectionSource, FoodShopDBModel.class);
             TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
+            TableUtils.dropTable(connectionSource, SchoolActivityModel.class, true);
+            TableUtils.createTable(connectionSource, SchoolActivityModel.class);
+            TableUtils.dropTable(connectionSource, SplashModel.class, true);
+            TableUtils.createTable(connectionSource, SplashModel.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create datbases", e);
         }

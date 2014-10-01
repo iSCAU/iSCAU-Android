@@ -14,12 +14,15 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.api.SplashApi;
 import cn.scau.scautreasure.guideview.GuideView_;
 import cn.scau.scautreasure.helper.PackageHelper;
 import cn.scau.scautreasure.helper.SplashHelper;
@@ -41,6 +44,10 @@ public class Welcome extends Activity {
 
     @App
     AppContext app;
+    @RestService
+    SplashApi api;
+    @Bean
+    SplashHelper splashHelper;
 
     @Bean
     PackageHelper packageHelper;
@@ -84,7 +91,8 @@ public class Welcome extends Activity {
             appConfig.isThePad().put(true);
         }
 
-        SplashHelper splashHelper = new SplashHelper(getApplicationContext());
+        splashHelper.initHelper(api, getApplication());
+        //SplashHelper splashHelper = new SplashHelper(getApplicationContext());
         SplashModel splashModel = splashHelper.getSuitableSplash();
         if (splashModel != null) {
             Intent splash = new Intent(this, Splash_.class);
