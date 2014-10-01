@@ -166,6 +166,10 @@ public class ClassHelper {
         return queryBuilder.prepare();
     }
 
+    /**
+     * 获取当前第几周
+     * @return
+     */
     public int getSchoolWeek() {
         String currentDate = dateUtil.getCurrentDateString();
         String termStartDate = config.termStartDate().get();

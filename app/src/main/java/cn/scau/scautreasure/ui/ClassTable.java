@@ -1,5 +1,7 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +10,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
+import android.view.Menu;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
 
@@ -41,6 +45,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassAdapter;
 import cn.scau.scautreasure.adapter.ClassAdapter_;
 import cn.scau.scautreasure.adapter.ClassTableAdapter;
+
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ActionBarHelper;
 import cn.scau.scautreasure.helper.ClassHelper;
@@ -139,10 +144,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         return builder.toString();
     }
 
-//    @AfterViews
-//    void initView() {
-//
-//    }
 
 
     ActionBar  actionBar= null;
@@ -178,8 +179,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         );
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-
-
         week_classtable.getSettings().setJavaScriptEnabled(true);
         week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
 
@@ -189,7 +188,54 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         week_classtable.getSettings().setSupportZoom(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                selectWeek();
+                System.out.println("按了第几周");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    /**
+     * 按周查看
+     */
+    void selectWeek(){
+
+        final NumberPicker mPicker = new NumberPicker(getSherlockActivity());
+        mPicker.setMinValue(1);
+        mPicker.setMaxValue(23);
+        mPicker.setOnValueChangedListener(new android.widget.NumberPicker.OnValueChangeListener() {
+
+
+            @Override
+            public void onValueChange(android.widget.NumberPicker numberPicker, int i, int i2) {
+
+            }
+        });
+
+        AlertDialog.Builder builder =new AlertDialog.Builder(getActivity());
+        builder.setTitle("当前第"+classHelper.getSchoolWeek()+"周");
+        builder.setView(mPicker);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getSherlockActivity(),"选择了第"+mPicker.getValue()+"周",Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("修改当前周",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                UpdateCurrentWeek_.intent(getSherlockActivity()).current(String.valueOf(classHelper.getSchoolWeek())).startForResult(12345);
+            }
+        });
+        builder.create();
+        builder.show();
+
+    }
 
     private void setSwipeRefresh() {
         swipe_refresh.setEnabled(false);
@@ -415,10 +461,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     */
     @Override
     public void onTabSelect() {
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getTitle());
         setSubTitle(getSubTitle());
         getSherlockActivity().getSupportActionBar()
                 .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//        week_classtable.reload();
     }
 
     /*
@@ -434,6 +482,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         } else if (tab.getPosition() == 1) {
             week_classtable.setVisibility(View.VISIBLE);
             day_classtable_container.setVisibility(View.GONE);
+           week_classtable.reload();
+
         }
         // 储存用户当前选择的 Tab ；
         config.classTableSelectedTab().put(tab.getPosition());
@@ -449,4 +499,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==12345){
+            //接受设置第几周
+            showClassTable();
+        }
+    }
 }

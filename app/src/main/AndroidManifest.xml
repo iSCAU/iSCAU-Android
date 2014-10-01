@@ -90,6 +90,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name="cn.scau.scautreasure.ui.UpdateCurrentWeek_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name="cn.scau.scautreasure.ui.EmptyClassRoom_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />

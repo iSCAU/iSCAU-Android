@@ -79,6 +79,8 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
 
     @AfterViews
     void initView() {
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         setTitle("校园活动");
         helper = new SchoolActivityHelper(getSherlockActivity());
 

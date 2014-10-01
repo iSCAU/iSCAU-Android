@@ -55,4 +55,7 @@
     <color name="list_item_bg_2">#ffffff</color>
     <color name="list_item_click_bg">#c5c5c5</color>
     <color name="money_bg">#c7eae4</color>
+
+    <color name="transparent">#00000000</color>
+
 </resources>

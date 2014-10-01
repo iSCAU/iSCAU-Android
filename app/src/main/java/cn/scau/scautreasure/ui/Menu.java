@@ -23,6 +23,7 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
 //        BadgeView badgeView=new BadgeView(getSherlockActivity(),activityInfo);
 //        badgeView.setBackgroundResource(R.drawable.redpoin);
 //        badgeView.show();
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 
