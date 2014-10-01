@@ -188,7 +188,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         // 无参数调用
         week_classtable.loadUrl("javascript:javacalljs()");
-        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper,app), "Android");
+        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
         week_classtable.getSettings().setSupportZoom(true);
     }
 
