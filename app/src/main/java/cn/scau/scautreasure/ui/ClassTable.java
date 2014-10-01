@@ -1,5 +1,7 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +10,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
+import android.view.Menu;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 
 import com.devspark.appmsg.AppMsg;
 
@@ -41,6 +44,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassAdapter;
 import cn.scau.scautreasure.adapter.ClassAdapter_;
 import cn.scau.scautreasure.adapter.ClassTableAdapter;
+
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ActionBarHelper;
 import cn.scau.scautreasure.helper.ClassHelper;
@@ -92,8 +96,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     ClassHelper classHelper;
     private ArrayList<View> listViews;
     private ClassTableAdapter adapter;
-    private WebWeekClasstableHelper webWeekClasstableHelper;
-    private boolean first=true;
 
     /**
      * 星期标签的点击,同时viewPager设置到相应位置；
@@ -158,12 +160,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         pager.setOnPageChangeListener(onPageChangeListener);
         titles.setListener(onTabChangeListener);
 
-        webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
         showClassTable();
         showTab();
         setSwipeRefresh();
 
 
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
 
@@ -192,7 +194,54 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         week_classtable.getSettings().setSupportZoom(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                selectWeek();
+                System.out.println("按了第几周");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    /**
+     * 按周查看
+     */
+    void selectWeek(){
+
+        NumberPicker mPicker = new NumberPicker(getSherlockActivity());
+        mPicker.setMinValue(1);
+        mPicker.setMaxValue(23);
+        mPicker.setOnValueChangedListener(new android.widget.NumberPicker.OnValueChangeListener() {
+
+
+            @Override
+            public void onValueChange(android.widget.NumberPicker numberPicker, int i, int i2) {
+
+            }
+        });
+
+        AlertDialog.Builder builder =new AlertDialog.Builder(getActivity());
+        builder.setTitle("当前第"+classHelper.getSchoolWeek()+"周");
+        builder.setView(mPicker);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.setNegativeButton("修改当前周",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                UpdateCurrentWeek_.intent(getSherlockActivity()).current(String.valueOf(classHelper.getSchoolWeek())).startForResult(12345);
+            }
+        });
+        builder.create();
+        builder.show();
+
+    }
 
     private void setSwipeRefresh() {
         swipe_refresh.setEnabled(false);
@@ -403,9 +452,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     void updateTabOnOrientationChange() {
         titles.changeWeekDay(pager.getCurrentItem());
         ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
-        if(config.classTableSelectedTab().get()==1){
-            week_classtable.reload();
-        }
     }
 
     @Override
@@ -421,6 +467,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     */
     @Override
     public void onTabSelect() {
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getTitle());
         setSubTitle(getSubTitle());
         getSherlockActivity().getSupportActionBar()
@@ -437,17 +484,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         if (tab.getPosition() == 0) {
             week_classtable.setVisibility(View.GONE);
             day_classtable_container.setVisibility(View.VISIBLE);
-            showTab();
         } else if (tab.getPosition() == 1) {
+            week_classtable.setVisibility(View.VISIBLE);
             day_classtable_container.setVisibility(View.GONE);
-            if(first) {
-                week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-                week_classtable.setVisibility(View.VISIBLE);
-                first=false;
-            }else{
-                week_classtable.setVisibility(View.VISIBLE);
-            }
-
         }
         // 储存用户当前选择的 Tab ；
         config.classTableSelectedTab().put(tab.getPosition());
@@ -463,4 +502,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==12345){
+            //接受设置第几周
+            showClassTable();
+        }
+    }
 }
