@@ -8,6 +8,11 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.OrmLiteDao;
+import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.api.BackgroundExecutor;
 import org.androidannotations.api.rest.RestErrorHandler;
 import org.springframework.http.HttpMethod;
@@ -16,25 +21,32 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.scau.scautreasure.api.SplashApi;
+import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.model.SplashModel;
 import cn.scau.scautreasure.service.SplashDownloadService;
+import cn.scau.scautreasure.ui.Splash;
 import cn.scau.scautreasure.util.CryptUtil;
 
 /**
  * Created by stcdasqy on 2014/7/25.
  */
+@EBean
 public class SplashHelper {
+
+    @OrmLiteDao(helper = DatabaseHelper.class, model = SplashModel.class)
+    RuntimeExceptionDao<SplashModel, Integer> modelDao;
     Context mContext;
-
-    SplashApi api = new SplashApi_();
-
+    SplashApi api;
     SplashModel.SplashList mSplashList;
 
-    public SplashHelper(Context ctx) {
+    public void initHelper(SplashApi api, Context ctx){
+        this.api = api;
         mContext = ctx;
     }
 
@@ -52,11 +64,6 @@ public class SplashHelper {
         return "splash_" + CryptUtil.base64_url_safe(title);
     }
 
-    ArrayList<SplashModel> getSplashList() {
-        SplashDatabaseHelper sp = new SplashDatabaseHelper(mContext);
-        return sp.getSplashList();
-    }
-
     public long getLastUpdate() {
         return getLastUpdate(mContext);
     }
@@ -66,13 +73,12 @@ public class SplashHelper {
     }
 
     public SplashModel getSuitableSplash() {
-        ArrayList<SplashModel> list = getSplashList();
-        SplashDatabaseHelper sp = new SplashDatabaseHelper(mContext);
+        List<SplashModel> list = modelDao.queryForAll();
         long now = System.currentTimeMillis() / 1000;
         for (int i = 0; i < list.size(); i++) {
             SplashModel splash = list.get(i);
             if (splash.getEnd_time() < now) {
-                sp.delete(splash.getId());
+                modelDao.delete(splash);
                 File f = mContext.getDir(getFileName(splash.getEdit_time()+""), Context.MODE_PRIVATE);
                 if (f.exists()) f.delete();
             } else if (splash.getStart_time() < now && isSplashFileExist(splash.getEdit_time()+"")) {
@@ -118,25 +124,31 @@ public class SplashHelper {
         );
     }
 
-    void writeToDatabase(SplashModel.SplashList splashList) {
-        SplashDatabaseHelper dbHelper = new SplashDatabaseHelper(mContext);
-        dbHelper.insertOrUpdate(splashList);
-        dbHelper.close();
+    public void writeToDatabase(SplashModel.SplashList splashList) {
+        modelDao.setAutoCommit(false);
+        List<SplashModel> lists = splashList.getCourses();
+        if(lists != null){
+            for(int i=0;i<lists.size();i++)
+                modelDao.createOrUpdate(lists.get(i));
+        }
+        try {
+            modelDao.commit(modelDao.getConnectionSource().getReadWriteConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    void CheckAndDownloadSplash() {
-        SplashDatabaseHelper dbHelper = new SplashDatabaseHelper(mContext);
-        ArrayList<SplashModel> list = dbHelper.getSplashList();
+    public void CheckAndDownloadSplash() {
+        List<SplashModel> list = modelDao.queryForAll();
         for (int i = list.size() - 1; i >= 0; i--) {
             if (isSplashFileExist(list.get(i).getEdit_time()+"")) {
                 list.remove(i);
             }
         }
-        dbHelper.close();
         BinderService(list);
     }
 
-    private void BinderService(final ArrayList<SplashModel> list) {
+    private void BinderService(final List<SplashModel> list) {
         Intent intent = new Intent(mContext, SplashDownloadService.class);
         mContext.bindService(intent, new ServiceConnection() {
             @Override
@@ -157,37 +169,5 @@ public class SplashHelper {
     boolean isSplashFileExist(String title) {
         return new File(mContext.getFilesDir() + "/" + getFileName(title))
                 .exists();
-    }
-
-    public final class SplashApi_
-            implements SplashApi {
-
-        private String rootUrl;
-        private RestTemplate restTemplate;
-        private RestErrorHandler restErrorHandler;
-
-        public SplashApi_() {
-            rootUrl = "http://iscaucms.sinaapp.com/index.php?m=Api&a=splash&";
-            restTemplate = new RestTemplate();
-            restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
-        }
-
-        @Override
-        public SplashModel.SplashList getSplash(long time) {
-            HashMap<String, Object> urlVariables = new HashMap<String, Object>();
-            urlVariables.put("time", time);
-            try {
-                return restTemplate.exchange(rootUrl.concat("lastupdate={time}"), HttpMethod.GET, null, SplashModel.SplashList.class, urlVariables).getBody();
-            } catch (RestClientException e) {
-                if (restErrorHandler != null) {
-                    restErrorHandler.onRestClientExceptionThrown(e);
-                    return null;
-                } else {
-                    Log.d("splash","无网络");
-                    throw e;
-                }
-            }
-        }
-
     }
 }

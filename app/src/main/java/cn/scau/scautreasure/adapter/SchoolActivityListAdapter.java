@@ -113,40 +113,12 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
         if (model.getContent() == null || "".equals(model.getContent()))
             model.setContent("没有详细的说明哦！");
         final SchoolActivityContentWebView content = baseAdapterHelper.getView(R.id.content);
-        content.setContent(model.getContent(),
-                helper.getContentCacheName(model.getContent(), model.getT()));
+        content.setContent(model.getContent());
 
         if (model.getIsNewOne())
             baseAdapterHelper.setVisible(R.id.icon_new, true);
 
-        final ImageView logoView = (ImageView) baseAdapterHelper.getView(R.id.logo);
-       /* Bitmap logo = helper.getBitmap(model.getLogoUrl(), model.getT());
-        if (logo == null)
-            helper.download(model.getLogoUrl(), model.getT(), new SchoolActivityHelper.OnDownloadStateChanged() {
-                @Override
-                public void onDownloadFinished(final Bitmap bitmap) {
-                    logoView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            logoView.setImageBitmap(bitmap);
-                        }
-                    });
-                }
-
-                @Override
-                public void onDownloadFailure() {
-                    logoView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(ctx, "Download logo Failure", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    });
-                }
-            });
-        else {
-            logoView.setImageBitmap(logo);
-        }*/
+        final ImageView logoView = baseAdapterHelper.getView(R.id.logo);
         AppContext.loadImage(model.getLogoUrl(), logoView, null);
     }
 }

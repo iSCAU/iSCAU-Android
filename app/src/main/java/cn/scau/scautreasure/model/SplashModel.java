@@ -1,17 +1,27 @@
 package cn.scau.scautreasure.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Splash模型
  */
+@DatabaseTable(tableName = "db_splash")
 public class SplashModel implements Serializable {
+    @DatabaseField(id = true)
     private int id;
+    @DatabaseField
     private String title;
+    @DatabaseField
     private String url;
+    @DatabaseField
     private int start_time;
+    @DatabaseField
     private int end_time;
+    @DatabaseField
     private int edit_time;
 
     public int getId() {
@@ -83,7 +93,7 @@ public class SplashModel implements Serializable {
             return courses;
         }
 
-        public void setLines(ArrayList<SplashModel> courses) {
+        public void setCourses(ArrayList<SplashModel> courses) {
             this.courses = courses;
         }
 

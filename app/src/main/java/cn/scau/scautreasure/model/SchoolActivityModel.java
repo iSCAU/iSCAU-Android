@@ -1,22 +1,37 @@
 package cn.scau.scautreasure.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * 校园活动 模板
  */
+@DatabaseTable(tableName = "schoolActivity")
 public class SchoolActivityModel implements Serializable,Comparable<SchoolActivityModel>{
+    @DatabaseField(id = true)
     private int id;
+    @DatabaseField
     private String title;
+    @DatabaseField
     private String place;
+    @DatabaseField
     private String association;
+    @DatabaseField
     private int level;
+    @DatabaseField
     private String logoUrl;
+    @DatabaseField
     private String username;
+    @DatabaseField
     private String time;
+    @DatabaseField
     private int t;
+    @DatabaseField
     private String content;
+    @DatabaseField
     private boolean isNewOne = false;
 
     public int getId() {
