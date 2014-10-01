@@ -1,6 +1,8 @@
 body {
   margin: 0;
   padding: 0;
+  width:100%;
+  background-color: #f5f4f1;
 }
 hr.my {
   margin: 0;
@@ -16,26 +18,36 @@ hr.my {
   height: 100%;
   float: left;
   font-size: 0.6rem;
+  width: 14.28%;
 }
 .day_block .eng {
   color: #969696;
   text-align: center;
 }
 .day_block .num {
-  color: #D2D2D2;
+  color: #999999;
   text-align: center;
 }
 .left_block {
   text-align: center;
-  color: white;
+  color: #999999;
   font-size: 0.65rem;
-  background-color: #24A9FD;
+  background-color: #ebeae7;
 }
 .class_item {
   position: absolute;
-  font-size: 0.62rem;
+  font-size: 0.68rem;
   line-height: 0.7rem;
   padding: 0.2rem;
   text-align: center;
   color: white;
+  border-radius:5px;
+}
+
+
+.right_top_block{
+    background-color: #ebeae7;
+}
+#first-row{
+    background-color: #d6d5d0;
 }

@@ -3,17 +3,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/menu_refresh_classtable"
-        android:icon="@drawable/icon_menu_refresh"
-        android:title="从正方刷新课程表"
-        app:showAsAction="always"/>
+
     <item
         android:id="@+id/menu_all"
         android:icon="@drawable/abc_ic_menu_moreoverflow_normal_holo_light"
         android:title="更多"
         app:showAsAction="always">
         <menu>
+            <item
+                android:id="@+id/menu_refresh_classtable"
+                android:title="从正方刷新课程表"
+                app:showAsAction="always"/>
             <item
                 android:id="@+id/menu_add_class"
                 android:title="添加自定义课程"

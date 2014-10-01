@@ -59,7 +59,6 @@ public class AppContext extends Application {
     @Bean
      ClassHelper classHelper;
 
-    private static String[] allLession=new String[7];
 
     public static String userName;
     public static String eduSysPassword;
@@ -100,7 +99,6 @@ public class AppContext extends Application {
         compatiable();
         getAccountSettings();
         initImageLoader(getApplicationContext());
-        getLession();
     }
 
     private void initAVOS() {
@@ -260,39 +258,6 @@ public class AppContext extends Application {
 
         return false;
     }
-    public void getLession(){
-        for (int i=0;i<7;i++) {
-            List<ClassModel> dayClassList = null;
-            String chineseDay = dateUtil.numDayToChinese(i+1);
-            if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
-                dayClassList = classHelper.getDayLesson(chineseDay);
-            } else {
-                dayClassList = classHelper.getDayLessonWithParams(chineseDay);
-            }
 
-            JSONArray ja = new JSONArray();
-            for (ClassModel classModel : dayClassList) {
-                ja.put(JSONHelper.toJSON(classModel));
-            }
-            JSONObject jo = new JSONObject();
-            try {
-                jo.put("count", dayClassList.size());
-                jo.put("day_class", ja);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            allLession[i]=jo.toString();
-//            System.out.println(allLession[i]);
-           // return jo.toString();
-        }
-    }
-
-    public String[] getAllLession() {
-        return allLession;
-    }
-
-    public void setAllLession(String[] allLession) {
-        this.allLession = allLession;
-    }
 }
