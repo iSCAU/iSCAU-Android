@@ -29,7 +29,6 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
-import cn.scau.scautreasure.widget.SchoolActivityToggle;
 
 /**
  * User:  stcdalyc
@@ -70,46 +69,13 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
                 .setText(R.id.association, model.getAssociation())
                 .setText(R.id.time, getTimeText(model.getTime()));
 
-        final SchoolActivityToggle toggle_button = baseAdapterHelper.getView(R.id.expandable_toggle_button);
         final View expandable = baseAdapterHelper.getView(R.id.expandable);
-        final View cross_bar = baseAdapterHelper.getView(R.id.cross_bar);
-        final ImageView triangle = baseAdapterHelper.getView(R.id.triangle);
-        final View toggle_triangle = baseAdapterHelper.getView(R.id.toggle_triangle);
-        final View fake_toggle_triangle = baseAdapterHelper.getView(R.id.fake_toggle_triangle);
-
-        toggle_button.controlWebView(expandable, fake_toggle_triangle);
-        toggle_triangle.setOnClickListener(new View.OnClickListener() {
+        expandable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggle_button.performClick();
-            }
-        });
-        toggle_button.setExtraOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final FrameLayout.LayoutParams flp = (FrameLayout.LayoutParams) cross_bar.getLayoutParams();
-                if (flp.gravity == Gravity.TOP) {
-                    triangle.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            flp.gravity = Gravity.BOTTOM;
-                            triangle.setImageResource(R.drawable.icon_green_triangle_up);
-                            toggle_triangle.setBackgroundColor(Color.rgb(250, 250, 250));
-                        }
-                    }, 330);
-                } else {
-                    triangle.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            flp.gravity = Gravity.TOP;
-                            triangle.setImageResource(R.drawable.icon_green_triangle);
-                            toggle_triangle.setBackgroundColor(Color.TRANSPARENT);
-                        }
-                    }, 330);
-                }
-            }
-        });
 
+            }
+        });
         if (model.getContent() == null || "".equals(model.getContent()))
             model.setContent("没有详细的说明哦！");
         final SchoolActivityContentWebView content = baseAdapterHelper.getView(R.id.content);
