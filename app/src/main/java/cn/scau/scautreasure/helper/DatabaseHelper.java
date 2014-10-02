@@ -49,17 +49,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        Log.d("db_version",oldVersion+"");
         try {
-            if(oldVersion==1) {
-                 Log.d("food", "foodShop建表");
-                 TableUtils.createTable(connectionSource, FoodShopDBModel.class);
-                 TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
-            }
-            //TableUtils.dropTable(connectionSource, SchoolActivityModel.class, true);
-            TableUtils.createTableIfNotExists(connectionSource, SchoolActivityModel.class);
-            //TableUtils.dropTable(connectionSource, SplashModel.class, true);
-            TableUtils.createTableIfNotExists(connectionSource, SplashModel.class);
+            Log.d("food", "foodShop建表");
+            TableUtils.createTableIfNotExists(connectionSource, FoodShopDBModel.class);
+            TableUtils.createTableIfNotExists(connectionSource, ShopMenuDBModel.class);
+            TableUtils.dropTable(connectionSource, SchoolActivityModel.class, true);
+            TableUtils.createTable(connectionSource, SchoolActivityModel.class);
+            TableUtils.dropTable(connectionSource, SplashModel.class, true);
+            TableUtils.createTable(connectionSource, SplashModel.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create datbases", e);
         }

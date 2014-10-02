@@ -229,8 +229,6 @@ public class AppContext extends Application {
                System.out.println("需要post外卖内容");
                List<NameValuePair> nameValuePairs =new ArrayList<NameValuePair>();
                nameValuePairs.clear();
-
-
                nameValuePairs.add(new BasicNameValuePair("text",info[3]));
                nameValuePairs.add(new BasicNameValuePair("type",info[4]));
                nameValuePairs.add(new BasicNameValuePair("shop_id", info[0]));

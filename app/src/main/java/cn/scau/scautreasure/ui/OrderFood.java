@@ -4,6 +4,7 @@ import android.app.*;
 import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -90,25 +91,39 @@ public class OrderFood extends CommonActivity {
         saveAddress();
         //判断是否手机设备,如果是则跳到发短信,否则提示
         if (!appConfig.isThePad().get()) {
-            //是否填入地址
-            if (!TextUtils.isEmpty(address.getText().toString().trim())) {
-                //是否点到菜
-                if (sendList.size() > 0) {
-                    String sendMsg ="[华农宝]"+ msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim()  ;
-                    sendSMS(sendMsg);//发送短信
-                    type=0;
-
-                } else {
-                    Toast.makeText(this, "你尚未选择饭菜", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                AppMsg.makeText(this, "请输入详细地址", AppMsg.STYLE_ALERT).show();
-            }
+            nextStep();
         } else {
-            AppMsg.makeText(this, "当前设备不是手机,请更换手机使用.", AppMsg.STYLE_ALERT).show();
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("提示");
+            builder.setMessage("请确认你的设备是手机!");
+            builder.setNegativeButton("取消",null);
+            builder.setPositiveButton("下一步",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    nextStep();
+                }
+            });
+            builder.create();
+            builder.show();
         }
     }
 
+    void nextStep(){
+        //是否填入地址
+        if (!TextUtils.isEmpty(address.getText().toString().trim())) {
+            //是否点到菜
+            if (sendList.size() > 0) {
+                String sendMsg ="[华农宝]"+ msg + "送到" + block[param_block.getWheel().getCurrentItem()] + " " + address.getText().toString().trim()  ;
+                sendSMS(sendMsg);//发送短信
+                type=0;
+
+            } else {
+                Toast.makeText(this, "你尚未选择饭菜", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            AppMsg.makeText(this, "请输入详细地址", AppMsg.STYLE_ALERT).show();
+        }
+    }
     //更新lasttime,提供外卖店排序的根据
     void updateLastTime() {
 
@@ -149,7 +164,7 @@ public class OrderFood extends CommonActivity {
     }
 
     void initListView() {
-        orderListAdapter = new OrderListAdapter(this, R.layout.order_item_layout, sendList);
+        orderListAdapter = new OrderListAdapter(this, sendList);
         orderList.setAdapter(orderListAdapter);
     }
 
@@ -184,8 +199,6 @@ public class OrderFood extends CommonActivity {
             }
         },new IntentFilter("SENT_SMS_ACTION"));*/
         finish();
-
-
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.putExtra("address", phone);
         intent.putExtra("sms_body", msg);

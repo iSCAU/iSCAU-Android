@@ -36,11 +36,17 @@ public class NotifyFoodService extends Service {
 
     @Background
     void access() {
-        if (AppContext.notifyFood(getApplicationContext())) {
-            System.out.println("同步最后一次点餐记录成功");
-            this.stopSelf();
-        } else {
+        try {
+            if (AppContext.notifyFood(getApplicationContext())) {
+                System.out.println("同步最后一次点餐记录成功");
+
+            } else {
 //            System.out.println();
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
             this.stopSelf();
         }
     }

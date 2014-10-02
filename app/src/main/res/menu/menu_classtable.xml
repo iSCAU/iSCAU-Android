@@ -3,6 +3,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:title="按周查看"
+        android:id="@+id/menu_selece_week"
+        android:icon="@drawable/icon_menu_week_setting"
+        app:showAsAction="always"
+        >
+
+        </item>
 
     <item
         android:id="@+id/menu_all"
