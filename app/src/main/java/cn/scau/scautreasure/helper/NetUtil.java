@@ -48,7 +48,7 @@ public class NetUtil {
                 }
             }
         }
-        Toast.makeText(context, "网络连接失败", Toast.LENGTH_SHORT).show();
+   //     Toast.makeText(context, "网络连接失败", Toast.LENGTH_SHORT).show();
         return false;
     }
 
