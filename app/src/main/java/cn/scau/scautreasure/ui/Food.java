@@ -177,7 +177,7 @@ public class Food extends CommonFragment implements OnTabSelectListener {
 
                 if (listAdapter == null) {
                     Log.i("adapter", "建立adapter");
-                    listAdapter = new FoodShopAdapter(getSherlockActivity(), R.layout.food_shop_list_layout, list);
+                    listAdapter = new FoodShopAdapter(getSherlockActivity(),list);
                     shopListView.setAdapter(listAdapter);
                 } else {
                     Log.i("adapter", "刷新adapter");
