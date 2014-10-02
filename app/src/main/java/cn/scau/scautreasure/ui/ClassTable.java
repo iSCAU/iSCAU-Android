@@ -96,7 +96,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     ClassHelper classHelper;
     private ArrayList<View> listViews;
     private ClassTableAdapter adapter;
-
+    private WebWeekClasstableHelper webWeekClasstableHelper;
+    private boolean first=true;
     /**
      * 星期标签的点击,同时viewPager设置到相应位置；
      */
@@ -184,13 +185,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 
-
+        webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
         week_classtable.getSettings().setJavaScriptEnabled(true);
-        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
-
-        // 无参数调用
-        week_classtable.loadUrl("javascript:javacalljs()");
-        week_classtable.addJavascriptInterface(new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper), "Android");
+        week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
         week_classtable.getSettings().setSupportZoom(true);
     }
 
@@ -405,6 +402,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         onTabSelect();
 
         // 以下是刷新全周课表
+        webWeekClasstableHelper.refreshClassTable();
         week_classtable.reload();
     }
 
@@ -452,6 +450,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     void updateTabOnOrientationChange() {
         titles.changeWeekDay(pager.getCurrentItem());
         ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
+        if(config.classTableSelectedTab().get()==1){
+            week_classtable.reload();
+        }
     }
 
     @Override
@@ -484,9 +485,16 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         if (tab.getPosition() == 0) {
             week_classtable.setVisibility(View.GONE);
             day_classtable_container.setVisibility(View.VISIBLE);
+            showTab();
         } else if (tab.getPosition() == 1) {
-            week_classtable.setVisibility(View.VISIBLE);
             day_classtable_container.setVisibility(View.GONE);
+            if(first) {
+                week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+                week_classtable.setVisibility(View.VISIBLE);
+                first=false;
+            }else{
+                week_classtable.setVisibility(View.VISIBLE);
+            }
         }
         // 储存用户当前选择的 Tab ；
         config.classTableSelectedTab().put(tab.getPosition());

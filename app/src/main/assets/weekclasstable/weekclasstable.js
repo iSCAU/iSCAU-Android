@@ -1,5 +1,4 @@
 var main = function(){
-
     // 显示的天数
     var showCount = 7;
     // 可视范围大小
@@ -74,6 +73,7 @@ var main = function(){
         }
 
     }
+
 }
 
 function hideBody(){
