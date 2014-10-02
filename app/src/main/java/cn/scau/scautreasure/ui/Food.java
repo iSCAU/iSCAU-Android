@@ -141,7 +141,6 @@ public class Food extends CommonFragment implements OnTabSelectListener {
 
     @AfterViews
     void initViews() {
-        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         setSwipeRefresh();
         swipe_refresh.setRefreshing(true);
