@@ -174,6 +174,7 @@ public class ShopMenu extends CommonActivity {
             }
             viewHolder.foodName.setText(menuList.get(i).getFood_name());
             viewHolder.foodMoney.setText("￥" + menuList.get(i).getFood_price());
+            viewHolder.foodCount.setText(String.valueOf(menuList.get(i).getCount()));
             final ViewHolder finalViewHolder = viewHolder;
             viewHolder.removeOne.setOnClickListener(new View.OnClickListener() {
                 @Override

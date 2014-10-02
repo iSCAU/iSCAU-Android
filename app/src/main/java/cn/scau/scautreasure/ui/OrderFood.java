@@ -149,7 +149,7 @@ public class OrderFood extends CommonActivity {
     }
 
     void initListView() {
-        orderListAdapter = new OrderListAdapter(this, R.layout.order_item_layout, sendList);
+        orderListAdapter = new OrderListAdapter(this, sendList);
         orderList.setAdapter(orderListAdapter);
     }
 

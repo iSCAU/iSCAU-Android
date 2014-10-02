@@ -48,7 +48,7 @@ public class ShopMenuDBModel implements Serializable{
         this.count = count;
     }
 
-    private int count;
+    private int count=0;
 
     public ShopMenuDBModel(int id, String food_name, float food_price, long edit_tiime, int food_shop_id, String status) {
         this.id = id;
