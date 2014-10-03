@@ -21,6 +21,7 @@
                 android:id="@+id/week_classtable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hardwareAccelerated="true"
                 android:visibility="gone"/>
 
             <!-- 单日课表 -->
