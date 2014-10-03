@@ -28,6 +28,8 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
+import cn.scau.scautreasure.ui.SchoolActivityContent;
+import cn.scau.scautreasure.ui.SchoolActivityContent_;
 import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
 
 /**
@@ -45,41 +47,23 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
         this.helper = helper;
     }
 
-    String getTimeText(String original) {
-        String result = original;
-        try {
-            Timestamp ts = Timestamp.valueOf(original);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(ts);
-            result = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" +
-                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + String.format("%02d",calendar.get(Calendar.HOUR_OF_DAY)) + ":" +
-                    String.format("%02d",calendar.get(Calendar.MINUTE));
-            Log.d("activity",result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     @Override
     protected void convert(final BaseAdapterHelper baseAdapterHelper, final SchoolActivityModel model) {
 
         baseAdapterHelper.setText(R.id.place, model.getPlace())
                 .setText(R.id.title, model.getTitle())
                 .setText(R.id.association, model.getAssociation())
-                .setText(R.id.time, getTimeText(model.getTime()));
+                .setText(R.id.time, helper.getTimeText(model.getTime()));
 
-        final View expandable = baseAdapterHelper.getView(R.id.expandable);
+        final View expandable = baseAdapterHelper.getView(R.id.expandable_toggle_button);
         expandable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               SchoolActivityContent_.intent(expandable.getContext()).model(model).start();
             }
         });
         if (model.getContent() == null || "".equals(model.getContent()))
             model.setContent("没有详细的说明哦！");
-        final SchoolActivityContentWebView content = baseAdapterHelper.getView(R.id.content);
-        content.setContent(model.getContent());
 
         if (model.getIsNewOne())
             baseAdapterHelper.setVisible(R.id.icon_new, true);

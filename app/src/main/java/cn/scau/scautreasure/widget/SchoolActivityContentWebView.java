@@ -26,6 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.util.TextUtil;
 
 /**
  * Created by stcdasqy on 2014-08-16.
@@ -140,12 +141,12 @@ public class SchoolActivityContentWebView extends WebView {
     }
 
     public void setContent(String content) {
-        String html = content;
-        html = "<body style=\"background: rgb(250, 250, 250);width:90%; \" >" + html + "</body>";
-        html = "<html><head><meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">" +
-                "<meta name=\"viewport\" content=\"width=device-width,initial-scale=0.9, minimum-scale=0.9, maximum-scale=1.0, user-scalable=no\" /></head>"
-                + html + "</html>";
-        loadDataWithBaseURL(null,html,"text/html","utf-8",null);
+        String html = TextUtil.getFromAssets(getContext(),
+                "schoolactivity/temple.html");
+        html = html.replace("${body_content}", content);
+
+        loadDataWithBaseURL("file:///android_asset/schoolactivity/",
+                html, "text/html", "utf-8", null);
         /*this.getSettings().setDefaultTextEncodingName("UTF -8") ;*/
         /*this.loadData(html, "text/html", "UTF-8") ;*/
     }

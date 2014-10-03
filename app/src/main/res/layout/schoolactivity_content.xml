@@ -4,15 +4,15 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:padding="12dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView" >
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,10 +37,10 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="12dp" />
 
-            <WebView
+            <cn.scau.scautreasure.widget.SchoolActivityContentWebView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/webView" />
+                android:id="@+id/content" />
         </LinearLayout>
     </ScrollView>
 

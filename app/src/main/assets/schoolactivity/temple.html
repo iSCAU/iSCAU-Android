@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.9, minimum-scale=0.9, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body style="background: rgb(250, 250, 250); width:90%;">
+${body_content}
+</body>
+<script>
+var background_1 = "background300x200.png";
+var network_failure = "network_failure.png";
+var loading = "300x200.gif";
+var a_e;
+var imgs = document.getElementsByTagName('img');
+for(var i=0;i<imgs.length;i++){
+	var e = imgs[i];
+	e._src = e.src;
+	e.src = background_1;
+	e.onerror = handleError;
+}
+setTimeout(loadAllImage, 100);
+function loadAllImage(){
+	for(var i=0;i<imgs.length;i++){
+		var e = imgs[i];
+		e.src = e._src;
+	}
+}
+function loadImage(){
+	for(var i=0;i<imgs.length;i++){
+		var e = imgs[i];
+		var m = e.src.match(/300x200\.gif$/);
+		if(m != null && m.length>0){
+			e.src = e._src;
+			break;
+		}
+	}
+}
+
+function handleError(msg, url, l){
+	var e = msg.target;
+	if(typeof e == "object" && e.tagName.toLowerCase() == "img"){
+		e.src = network_failure;
+		e.onclick = function(){
+			this.src = loading;
+			setTimeout(loadImage, 100);
+			e.onclick = function(){};
+		}
+	}
+}
+</script>
+</html>

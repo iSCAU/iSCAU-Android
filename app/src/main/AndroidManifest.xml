@@ -31,6 +31,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="cn.scau.scautreasure.ui.CommonQueryActivity_"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity
             android:name=".guideview.GuideView_"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
@@ -87,6 +91,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="cn.scau.scautreasure.ui.PickClassInfo_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="cn.scau.scautreasure.ui.SchoolActivityContent_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity
