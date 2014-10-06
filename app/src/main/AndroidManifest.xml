@@ -146,6 +146,7 @@
         <activity
             android:name="cn.scau.scautreasure.ui.sns.Login_"
             android:label="@string/title_activity_login"></activity>
+        <activity android:name=".ui.WeekClass_"></activity>
         <activity
             android:name="cn.scau.scautreasure.ui.WidgetConfiguration_"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -62,7 +62,7 @@ public class WebWeekClasstableHelper {
                 e.printStackTrace();
             }
 
-
+            System.out.println(jo.toString());
             lessons.add(jo.toString());
             //allLession[i]=jo.toString();
 //            System.out.println(allLession[i]);
