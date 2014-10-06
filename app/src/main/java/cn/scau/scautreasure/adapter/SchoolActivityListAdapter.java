@@ -28,8 +28,9 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
+import cn.scau.scautreasure.ui.SchoolActivityContent;
+import cn.scau.scautreasure.ui.SchoolActivityContent_;
 import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
-import cn.scau.scautreasure.widget.SchoolActivityToggle;
 
 /**
  * User:  stcdalyc
@@ -46,74 +47,23 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
         this.helper = helper;
     }
 
-    String getTimeText(String original) {
-        String result = original;
-        try {
-            Timestamp ts = Timestamp.valueOf(original);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(ts);
-            result = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" +
-                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + String.format("%02d",calendar.get(Calendar.HOUR_OF_DAY)) + ":" +
-                    String.format("%02d",calendar.get(Calendar.MINUTE));
-            Log.d("activity",result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     @Override
     protected void convert(final BaseAdapterHelper baseAdapterHelper, final SchoolActivityModel model) {
 
         baseAdapterHelper.setText(R.id.place, model.getPlace())
                 .setText(R.id.title, model.getTitle())
                 .setText(R.id.association, model.getAssociation())
-                .setText(R.id.time, getTimeText(model.getTime()));
+                .setText(R.id.time, helper.getTimeText(model.getTime()));
 
-        final SchoolActivityToggle toggle_button = baseAdapterHelper.getView(R.id.expandable_toggle_button);
-        final View expandable = baseAdapterHelper.getView(R.id.expandable);
-        final View cross_bar = baseAdapterHelper.getView(R.id.cross_bar);
-        final ImageView triangle = baseAdapterHelper.getView(R.id.triangle);
-        final View toggle_triangle = baseAdapterHelper.getView(R.id.toggle_triangle);
-        final View fake_toggle_triangle = baseAdapterHelper.getView(R.id.fake_toggle_triangle);
-
-        toggle_button.controlWebView(expandable, fake_toggle_triangle);
-        toggle_triangle.setOnClickListener(new View.OnClickListener() {
+        final View expandable = baseAdapterHelper.getView(R.id.expandable_toggle_button);
+        expandable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggle_button.performClick();
+               SchoolActivityContent_.intent(expandable.getContext()).model(model).start();
             }
         });
-        toggle_button.setExtraOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final FrameLayout.LayoutParams flp = (FrameLayout.LayoutParams) cross_bar.getLayoutParams();
-                if (flp.gravity == Gravity.TOP) {
-                    triangle.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            flp.gravity = Gravity.BOTTOM;
-                            triangle.setImageResource(R.drawable.icon_green_triangle_up);
-                            toggle_triangle.setBackgroundColor(Color.rgb(250, 250, 250));
-                        }
-                    }, 330);
-                } else {
-                    triangle.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            flp.gravity = Gravity.TOP;
-                            triangle.setImageResource(R.drawable.icon_green_triangle);
-                            toggle_triangle.setBackgroundColor(Color.TRANSPARENT);
-                        }
-                    }, 330);
-                }
-            }
-        });
-
         if (model.getContent() == null || "".equals(model.getContent()))
             model.setContent("没有详细的说明哦！");
-        final SchoolActivityContentWebView content = baseAdapterHelper.getView(R.id.content);
-        content.setContent(model.getContent());
 
         if (model.getIsNewOne())
             baseAdapterHelper.setVisible(R.id.icon_new, true);

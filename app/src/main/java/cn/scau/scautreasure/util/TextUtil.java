@@ -43,6 +43,28 @@ public class TextUtil {
         return null;
     }
 
+    public static String getFromAssets(Context ctx, String filename) {
+
+        try {
+
+            String line = "";
+            String Result = "";
+
+            InputStream file = ctx.getResources().getAssets().open(filename);
+            InputStreamReader inputReader = new InputStreamReader(file);
+            BufferedReader bufReader = new BufferedReader(inputReader);
+
+            while ((line = bufReader.readLine()) != null) Result += line;
+
+            return Result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     /**
      * 半角转换为全角
      *

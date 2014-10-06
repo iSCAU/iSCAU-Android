@@ -1,5 +1,4 @@
 var main = function(){
-
     // 显示的天数
     var showCount = 7;
     // 可视范围大小
@@ -16,6 +15,8 @@ var main = function(){
     var blockWidth = $(".right_top_block").width()/showCount;
 
     // 设置顶部相关
+    var $first_row = $("#margin-height");
+    $first_row.height(topHeight);
     $(".day_block").width(blockWidth);
     $(".top").height(topHeight);
     $(".right_top_block").height(topHeight);
@@ -74,6 +75,7 @@ var main = function(){
         }
 
     }
+
 }
 
 function hideBody(){

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
@@ -149,5 +150,21 @@ public class SchoolActivityHelper {
     public void setLastUpdate(long lastUpdate) {
         SharedPreferences sp = mContext.getSharedPreferences(SP_Name, Context.MODE_PRIVATE);
         sp.edit().putLong("lastUpdate", lastUpdate).commit();
+    }
+
+    public static String getTimeText(String original) {
+        String result = original;
+        try {
+            Timestamp ts = Timestamp.valueOf(original);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(ts);
+            result = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" +
+                    calendar.get(Calendar.DAY_OF_MONTH) + "日  " + String.format("%02d",calendar.get(Calendar.HOUR_OF_DAY)) + ":" +
+                    String.format("%02d",calendar.get(Calendar.MINUTE));
+            Log.d("activity", result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
