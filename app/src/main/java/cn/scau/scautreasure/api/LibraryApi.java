@@ -15,7 +15,7 @@ import cn.scau.scautreasure.model.BookModel;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://115.28.144.49/lib/", converters = {GsonHttpMessageConverter.class})
+@Rest(rootUrl = "http://mywpserver.sinaapp.com/index.php?s=lib/", converters = {GsonHttpMessageConverter.class})
 public interface LibraryApi {
 
     @Get("search/{title}/{page}")

@@ -133,9 +133,9 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     @Click
     void menu_english() {
         //此频道建设中
-       // English_.intent(this).start();
+       English_.intent(this).start();
 //        startActivity(new Intent(getSherlockActivity(),WeekClass.class));
-    WeekClass_.intent(this).start();
+    //WeekClass_.intent(this).start();
     }
 
     @Click
