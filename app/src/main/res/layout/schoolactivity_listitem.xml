@@ -3,20 +3,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="12dp"
-    >
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="8dp"
+        android:layout_height="1dp"
         android:src="#cef1f4" />
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <cn.scau.scautreasure.widget.SchoolActivityToggle
+        <LinearLayout
             android:id="@+id/expandable_toggle_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -33,18 +31,17 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="24dp"
                     android:scaleType="fitCenter"
                     android:background="#ffffffff"
-                    android:src="@drawable/logotest" />
+                    android:src="@drawable/logotest"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="2.5"
+
                     android:orientation="vertical"
                     android:padding="12dp">
 
@@ -52,9 +49,9 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:text="学生会招新"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TableLayout
                         android:layout_width="wrap_content"
@@ -81,7 +78,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:text="校学生会"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:layout_weight="1" />
                         </TableRow>
 
                         <TableRow
@@ -105,7 +103,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:text="2014年8月27日  00:00"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:layout_weight="1" />
                         </TableRow>
 
                         <TableRow
@@ -128,14 +127,16 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:text="第三教学楼"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:layout_weight="1" />
                         </TableRow>
 
                     </TableLayout>
                 </LinearLayout>
+
             </LinearLayout>
 
-        </cn.scau.scautreasure.widget.SchoolActivityToggle>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/icon_new"
@@ -146,7 +147,7 @@
             android:visibility="gone" />
 
     </FrameLayout>
-
+<!--
     <FrameLayout
         android:id="@+id/fake_toggle_triangle"
         android:layout_width="fill_parent"
@@ -164,47 +165,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/icon_green_triangle" />
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/expandable"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/cut_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="#22000000" />
-
-        <cn.scau.scautreasure.widget.SchoolActivityContentWebView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/cut_line"
-            android:hardwareAccelerated="false"
-            android:scrollbars="none" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/toggle_triangle"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <ImageView
-            android:id="@+id/cross_bar"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_gravity="top"
-            android:src="#cef1f4" />
-
-        <ImageView
-            android:id="@+id/triangle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/icon_green_triangle" />
-    </FrameLayout>
+    </FrameLayout>-->
 
 </LinearLayout>

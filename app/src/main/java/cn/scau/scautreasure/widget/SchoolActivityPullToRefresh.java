@@ -58,7 +58,7 @@ public class SchoolActivityPullToRefresh extends PullToRefreshListView {
         ListView _listView = getRefreshableView();
         SchoolActivityListAdapter listAdapter = new SchoolActivityListAdapter(mContext, helper);
         listAdapter.addAll(lists);
-        BaseAdapter _adapter = UIHelper.buildEffectAdapter(listAdapter, _listView, UIHelper.LISTVIEW_EFFECT_MODE.WEBVIEW_EXPANDABLE);
+        BaseAdapter _adapter = UIHelper.buildEffectAdapter(listAdapter, _listView, UIHelper.LISTVIEW_EFFECT_MODE.SWING);
         setAdapter(_adapter);
     }
 }

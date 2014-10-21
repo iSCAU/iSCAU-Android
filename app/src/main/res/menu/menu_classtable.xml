@@ -4,9 +4,9 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="按周查看"
-        android:id="@+id/menu_selece_week"
-        android:icon="@drawable/icon_menu_week_setting"
+        android:title="日周切换"
+        android:id="@+id/table_change_mode"
+        android:icon="@drawable/action_week_mod"
         app:showAsAction="always"
         >
 

@@ -45,18 +45,40 @@ public class ClassUtil {
     }
 
     /**
+     * 上课时间
+     *
+     *
+     * @param node 节次
+     * @return String 字符串
+     */
+    public static String genClassBeginTime( int node) {
+
+        return  String.format("%02d:%02d",HOURS_ON[node-1],MINUTES_ON[node-1]); //不足两位，补零
+    }
+
+    /**
      * 下课时间
      *
      * @param c    时间，设置好小时和分钟
      * @param node 节次
      */
-    public static void genClassOverTime(Calendar c, int node) {
+    public static String genClassOverTime(Calendar c, int node) {
         c.set(Calendar.HOUR_OF_DAY, HOURS_OVER[node - 1]);
         c.set(Calendar.MINUTE, MINUTES_OVER[node - 1]);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
 
+        return  String.format("%02d:%02d",HOURS_OVER[node-1],MINUTES_OVER[node-1]); //不足两位，补零
+    }
 
+    /**
+     * 下课时间
+     * @param node
+     * @return 时间字符串
+     */
+    public static String genClassOverTime( int node) {
+
+        return  String.format("%02d:%02d",HOURS_OVER[node-1],MINUTES_OVER[node-1]); //不足两位，补零
     }
 
     /**

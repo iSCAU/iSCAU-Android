@@ -14,6 +14,7 @@ import java.util.List;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.ui.ClassTable;
+import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.util.DateUtil;
 
 /**
@@ -111,5 +112,13 @@ public class WebWeekClasstableHelper {
     @JavascriptInterface
     public int getHeight(){
         return webView.getBottom();
+    }
+    @JavascriptInterface
+    public String getStartTime(int node){
+        return ClassUtil.genClassBeginTime(node);
+    }
+    @JavascriptInterface
+    public String getEndTime(int node){
+        return ClassUtil.genClassOverTime(node);
     }
 }

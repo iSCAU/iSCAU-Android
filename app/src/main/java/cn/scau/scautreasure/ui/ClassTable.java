@@ -31,6 +31,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
@@ -68,7 +69,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EFragment(R.layout.classtable)
 @OptionsMenu(R.menu.menu_classtable)
-public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener, ActionBar.TabListener {
+public class ClassTable extends CommonFragment implements ServerOnChangeListener, OnTabSelectListener {
     @App
     protected AppContext app;
 
@@ -145,16 +146,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         return builder.toString();
     }
 
-//    @AfterViews
-//    void initView() {
-//
-//    }
-
-
-    ActionBar  actionBar= null;
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    @AfterViews
+    void initView() {
         listViews = new ArrayList<View>();
         adapter = new ClassTableAdapter();
 
@@ -171,8 +164,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         actionBar= getSherlockActivity().getSupportActionBar();
         ActionBarHelper.enableEmbeddedTabs(actionBar);
-        boolean isSelectedDay = config.classTableSelectedTab().get() == 0;
-        actionBar.addTab(actionBar.newTab()
+        isSelectedDay = config.classTableSelectedTab().get() == 0;
+        /*actionBar.addTab(actionBar.newTab()
                         .setText(app.getString(R.string.actionbar_tab_day))
                         .setTabListener(this),
                 isSelectedDay);
@@ -181,6 +174,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
                         .setTabListener(this),
                 !isSelectedDay
         );
+        */
+
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 
@@ -189,7 +184,43 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
         week_classtable.getSettings().setSupportZoom(true);
         week_classtable .getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        isSelectedDay = config.classTableSelectedTab().get() == 0;
+        if(isSelectedDay){
+            onSelectDayMode();
+        }else{
+            onSelectWeekMode();
+        }
     }
+
+    boolean isSelectedDay;
+    ActionBar  actionBar= null;
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+/*        if(isSelectedDay){
+            change_mode.setIcon(R.drawable.action_week_mod);
+            onSelectDayMode();
+        }else{
+            change_mode.setIcon(R.drawable.action_day_mod);
+            onSelectWeekMode();
+        }*/
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem change_mode = menu.findItem(R.id.table_change_mode);
+        isSelectedDay = config.classTableSelectedTab().get() == 0;
+        if(isSelectedDay){
+            change_mode.setIcon(R.drawable.action_week_mod);
+           // onSelectDayMode();
+        }else{
+            change_mode.setIcon(R.drawable.action_day_mod);
+           // onSelectWeekMode();
+        }
+    }
+
     @UiThread
     void showWeekClass(){
         week_classtable.reload();
@@ -197,7 +228,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     /**
      * 按周查看
      */
-    void selectWeek(){
+    /*void selectWeek(){
 
         NumberPicker mPicker = new NumberPicker(getSherlockActivity());
         mPicker.setMinValue(1);
@@ -228,6 +259,20 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         });
         builder.create();
         builder.show();
+
+    }*/
+    @OptionsItem
+    void table_change_mode(MenuItem menuItem){
+           if(isSelectedDay){ //原来是日模式
+               menuItem.setIcon(R.drawable.action_day_mod);
+               onSelectWeekMode();//转换成周
+               config.classTableSelectedTab().put(1);
+           }else{
+               menuItem.setIcon(R.drawable.action_week_mod);
+               onSelectDayMode();//转换成日
+               config.classTableSelectedTab().put(0);
+           }
+        isSelectedDay=!isSelectedDay;
 
     }
 
@@ -262,11 +307,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             loadData();
         }
     }
-    @OptionsItem
+/*    @OptionsItem
     void menu_selece_week(){
         selectWeek();
 
-    }
+    }*/
+
+
 
     /**
      * 切换到加载所有课程模式;
@@ -475,7 +522,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      * Action Bar Tab 选择切换区域;
      * ---------------------------------------------------------
      */
-    @Override
+  /*  @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         if (tab.getPosition() == 0) {
             week_classtable.setVisibility(View.GONE);
@@ -494,8 +541,32 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         // 储存用户当前选择的 Tab ；
         config.classTableSelectedTab().put(tab.getPosition());
     }
+*/
 
-    @Override
+    /**
+     * 当选择周模式
+     */
+    void onSelectWeekMode(){
+        day_classtable_container.setVisibility(View.GONE);
+        if(first) {
+            week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
+            week_classtable.setVisibility(View.VISIBLE);
+            first=false;
+        }else{
+            week_classtable.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 当选择日模式
+     */
+    void onSelectDayMode(){
+        week_classtable.setVisibility(View.GONE);
+        day_classtable_container.setVisibility(View.VISIBLE);
+        showTab();
+    }
+
+/*    @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
     }
@@ -503,7 +574,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -513,4 +584,5 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             showClassTable();
         }
     }
+
 }
