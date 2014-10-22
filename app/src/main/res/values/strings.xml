@@ -230,7 +230,7 @@
     <string name="action_search">搜索</string>
     <string name="title_activity_login">Login</string>
     <string name="sns_no_login_tips">您尚未登陆，请使用一种方式登陆</string>
-    <string name="actionbar_tab_day">单日</string>
-    <string name="actionbar_tab_week">全周</string>
+    <string name="actionbar_day">切换至单日课表</string>
+    <string name="actionbar_week">切换至全周课表</string>
 
 </resources>

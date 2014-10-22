@@ -20,7 +20,7 @@
         <menu>
             <item
                 android:id="@+id/menu_refresh_classtable"
-                android:title="从正方刷新课程表"
+                android:title="导入课程表"
                 app:showAsAction="always"/>
             <item
                 android:id="@+id/menu_add_class"

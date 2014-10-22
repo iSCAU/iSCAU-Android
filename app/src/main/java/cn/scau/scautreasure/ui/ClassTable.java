@@ -214,9 +214,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         isSelectedDay = config.classTableSelectedTab().get() == 0;
         if(isSelectedDay){
             change_mode.setIcon(R.drawable.action_week_mod);
+            change_mode.setTitle(R.string.actionbar_week);
            // onSelectDayMode();
         }else{
             change_mode.setIcon(R.drawable.action_day_mod);
+            change_mode.setTitle(R.string.actionbar_day);
            // onSelectWeekMode();
         }
     }
@@ -265,10 +267,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     void table_change_mode(MenuItem menuItem){
            if(isSelectedDay){ //原来是日模式
                menuItem.setIcon(R.drawable.action_day_mod);
+               menuItem.setTitle(R.string.actionbar_day);
                onSelectWeekMode();//转换成周
                config.classTableSelectedTab().put(1);
            }else{
                menuItem.setIcon(R.drawable.action_week_mod);
+               menuItem.setTitle(R.string.actionbar_week);
                onSelectDayMode();//转换成日
                config.classTableSelectedTab().put(0);
            }
