@@ -100,6 +100,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     private ClassTableAdapter adapter;
     private WebWeekClasstableHelper webWeekClasstableHelper;
     private boolean first=true;
+    ActionBar actionBar;
     /**
      * 星期标签的点击,同时viewPager设置到相应位置；
      */
@@ -162,21 +163,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
 
-       //actionBar= getSherlockActivity().getSupportActionBar();
-       //ActionBarHelper.enableEmbeddedTabs(actionBar);
-        isSelectedDay = config.classTableSelectedTab().get() == 0;
-        /*actionBar.addTab(actionBar.newTab()
-                        .setText(app.getString(R.string.actionbar_tab_day))
-                        .setTabListener(this),
-                isSelectedDay);
-        actionBar.addTab(actionBar.newTab()
-                        .setText(app.getString(R.string.actionbar_tab_week))
-                        .setTabListener(this),
-                !isSelectedDay
-        );
-        */
 
-       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 
         webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
@@ -193,11 +180,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     }
 
     boolean isSelectedDay;
-    ActionBar  actionBar= null;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        actionBar= getSherlockActivity().getSupportActionBar();
+        ActionBarHelper.enableEmbeddedTabs(actionBar);
+       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 /*        if(isSelectedDay){
             change_mode.setIcon(R.drawable.action_week_mod);
             onSelectDayMode();
@@ -517,8 +505,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onTabSelect() {
         setTitle(getTitle());
         setSubTitle(getSubTitle());
-        getSherlockActivity().getSupportActionBar()
-                .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        /*getSherlockActivity().getSupportActionBar()
+                .setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);*/
     }
 
     /*
