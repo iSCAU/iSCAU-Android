@@ -162,8 +162,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
 
-        actionBar= getSherlockActivity().getSupportActionBar();
-        ActionBarHelper.enableEmbeddedTabs(actionBar);
+       //actionBar= getSherlockActivity().getSupportActionBar();
+       //ActionBarHelper.enableEmbeddedTabs(actionBar);
         isSelectedDay = config.classTableSelectedTab().get() == 0;
         /*actionBar.addTab(actionBar.newTab()
                         .setText(app.getString(R.string.actionbar_tab_day))
@@ -176,7 +176,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         );
         */
 
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 
         webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
@@ -294,7 +294,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @OptionsItem
     void menu_add_class() {
-        startActivityForResult(ClassEditor_.intent(getActivity())
+        startActivityForResult(ClassEditor_.intent(getSherlockActivity())
                 .isNewClass(true)
                 .model(new ClassModel()).get(), UIHelper.QUERY_FOR_EDIT_CLASS);
     }
@@ -345,7 +345,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
      */
     @OnActivityResult(UIHelper.QUERY_FOR_EDIT_CLASS)
     void modifyClassOnResult(int resultCode, Intent data) {
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == getSherlockActivity().RESULT_OK) {
             ClassModel model = (ClassModel) data.getSerializableExtra("class");
             createOrUpdateClassInformation(model);
         }
@@ -406,7 +406,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @UiThread
     void showSuccess() {
-        AppMsg.makeText(getActivity(), "课表更新完成", AppMsg.STYLE_INFO).show();
+        AppMsg.makeText(getSherlockActivity(), "课表更新完成", AppMsg.STYLE_INFO).show();
     }
 
     @UiThread
@@ -454,8 +454,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 			    }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList) {
-        ListView classListView = UIHelper.buildClassListView(getActivity());
-        ClassAdapter cAdapter = ClassAdapter_.getInstance_(getActivity());
+        ListView classListView = UIHelper.buildClassListView(getSherlockActivity());
+        ClassAdapter cAdapter = ClassAdapter_.getInstance_(getSherlockActivity());
         BaseAdapter _adapter = UIHelper.buildEffectAdapter(cAdapter, (AbsListView) classListView, EXPANDABLE_ALPHA);
 
         cAdapter.addAll(dayClassList);

@@ -10,6 +10,7 @@ import android.util.Log;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.Calendar;
 import java.util.List;
@@ -29,7 +30,6 @@ import cn.scau.scautreasure.util.DateUtil;
 			1、要用同一个notification，不要多个notification在通知栏叠加。
 			2、这个notification不闪光，但震动提示，并且允许用户在通知栏清除。
 			3、在设置页面添加一个选项：是否开启上课提醒，默认是开。当用户选择关时，这个功能就关闭。√
-（这个是功能上的优化亮点，请务必完成）
 
  */
 @EService
@@ -38,6 +38,8 @@ public class AlertClassSerice extends Service{
     private   List<ClassModel> dayClassList = null;
     private  int currentDay ;
     private  String chineseDay;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
 
     @Bean
     ClassHelper classHelper;
@@ -55,17 +57,15 @@ public class AlertClassSerice extends Service{
           chineseDay = dateUtil.numDayToChinese(currentDay);
 
         dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+        if(config.isAlertClass().get()) {
+            if (dayClassList.size() > 0) {
+                for (int i = 0; i < dayClassList.size(); i++) {
+                    Log.i("今天课程:", "第" + dayClassList.get(i).getNode() + "节--" + dayClassList.get(i).getClassname());
+                    startAlert(dayClassList.get(i).getClassname(), dayClassList.get(i).getLocation(), dayClassList.get(i).getNode(), i);
 
-        if (dayClassList.size()>0) {
-
-
-            for (int i = 0; i < dayClassList.size(); i++) {
-                Log.i("今天课程:","第"+dayClassList.get(i).getNode()+"节--" +dayClassList.get(i).getClassname());
-                startAlert(dayClassList.get(i).getClassname(),dayClassList.get(i).getLocation(),dayClassList.get(i).getNode(),i);
-
+                }
             }
         }
-
         stopSelf();
     }
 
