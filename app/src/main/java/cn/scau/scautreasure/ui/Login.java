@@ -106,7 +106,6 @@ public class Login extends Activity {
         app.config.libPassword().put(libPassword);
         app.config.cardPassword().put(cardPassword);
 
-        //LoginService_.intent(getApplicationContext()).start();
         UpLoadUsersService_.intent(getApplicationContext()).start();
 
         if (runMainActivity)
