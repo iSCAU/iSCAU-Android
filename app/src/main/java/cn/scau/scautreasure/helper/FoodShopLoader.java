@@ -83,8 +83,6 @@ public class FoodShopLoader {
                 Log.i("保存时间戳", String.valueOf(appConfig.lastUpdateFood().get()));
                 onCallBack.onSucceed();
 
-
-
     }
 
 

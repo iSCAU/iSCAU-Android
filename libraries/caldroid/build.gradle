@@ -3,6 +3,7 @@ apply plugin: 'android-library'
 dependencies {
     compile 'com.android.support:support-v4:19.+'
     compile files('libs/date4j.jar')
+
 }
 
 android {

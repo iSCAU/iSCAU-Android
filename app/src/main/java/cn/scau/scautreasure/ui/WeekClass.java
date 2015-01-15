@@ -198,7 +198,6 @@ public class WeekClass extends Activity {
             public void onClick(View view) {
                 gridLayout.setX(gridLayout.getX() + 50);
                 topGrid.setX(topGrid.getX() + 50);
-//                gridLayout.resi
             }
         });
 
