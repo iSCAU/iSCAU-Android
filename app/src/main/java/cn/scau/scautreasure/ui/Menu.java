@@ -133,6 +133,7 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     void menu_english() {
         //此频道建设中
         English_.intent(this).start();
+
     }
 
     @Click

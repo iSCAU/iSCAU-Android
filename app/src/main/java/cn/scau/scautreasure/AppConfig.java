@@ -39,7 +39,8 @@ public interface AppConfig {
     @DefaultBoolean(false)
     boolean isThePad();  //判断设备类型,手机或者是平板
 
-
+    @DefaultBoolean(false)
+    boolean forceMobile();
     @DefaultLong(0)
     long lastUpdateFood();  //上一次更新外卖列表的时间记录
 

@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autoLink="web"
-                    android:text="   http://weibo.com/huanongbao"
+                    android:text="\t\t\t\t\t\t\thttp://weibo.com/huanongbao"
                     android:textColor="#434242"
                     android:textSize="15sp"/>
 

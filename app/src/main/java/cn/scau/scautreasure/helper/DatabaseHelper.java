@@ -2,12 +2,15 @@ package cn.scau.scautreasure.helper;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.sql.SQLException;
 
@@ -28,6 +31,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "db_iscau.db";
     private static final int DATABASE_VERSION = 3;
+
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

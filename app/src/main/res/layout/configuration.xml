@@ -84,7 +84,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/settings_other"/>
 
-            <Button
+            <!--<Button
                 android:id="@+id/btn_notification_setting"
                 style="@style/settings_other_button"
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
 
-                android:text="@string/btn_notification_setting"/>
+                android:text="@string/btn_notification_setting"/>-->
 
             <ImageView
                 style="@style/listitem_separator"
@@ -129,15 +129,6 @@
                 android:layout_marginRight="15dp"
                 android:text="@string/btn_about"/>
 
-            <!--<Button-->
-                <!--android:id="@+id/btn_save"-->
-                <!--style="@style/noraml_button"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_marginLeft="15dp"-->
-                <!--android:layout_marginRight="15dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/btn_save"/>-->
 
             <Button
                 android:id="@+id/btn_change_account"
@@ -148,6 +139,16 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/btn_change_account"/>
+
+            <Button
+            android:id="@+id/btn_save"
+            style="@style/noraml_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/btn_save"/>
 
             <View
                 android:layout_width="match_parent"

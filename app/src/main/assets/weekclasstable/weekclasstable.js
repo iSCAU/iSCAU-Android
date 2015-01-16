@@ -4,18 +4,24 @@ var main = function(){
     // 显示的天数
     var showCount = 7;
     // 可视范围大小
-    var fullWidth = Android.getWidth();
+    var fullWidth = window.innerWidth;
     var fullHeight = window.innerHeight;
     if(fullHeight==0){
         fullHeight=document.body.clientHeight;
     }
     Android.debug(document.body.clientHeight);
     // 顶部高度
+    $('#first-row').width(fullWidth);
+    $(".right_top_block").width(fullWidth*0.9285714);
     var topHeight = (fullHeight/15) * 2 * (1/2) - $("hr").height()>=35?(fullHeight/15) * 2 * (1/2) - $("hr").height():35;
     // 块大小
     var blockHeight = ((fullHeight - topHeight - $("hr").height())/7.2);
-    var blockWidth = $(".right_top_block").width()/showCount;
-
+    var blockWidth = (fullWidth*0.9285714)/showCount;
+    //Android.debug('full width is '+fullWidth);
+    //Android.debug('body width is '+$('body').width());
+    //Android.debug('container width is:'+$('#container').width());
+    //Android.debug('#first-row width is '+$('#first-row').width());
+   // Android.debug('$(".right_top_block").width() return'+$(".right_top_block").width());
     // 设置顶部相关
     var $first_row = $("#margin-height");
     $first_row.height(topHeight);
@@ -86,4 +92,7 @@ function hideBody(){
 
 }
 
+function toTop(){
+    window.scrollTo(0,0);
+}
 main();

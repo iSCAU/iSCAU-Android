@@ -100,6 +100,7 @@ public class OrderFood extends CommonActivity {
             builder.setPositiveButton("下一步",new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    appConfig.forceMobile().put(true);//用户认为是手机，记住用户的选择
                     nextStep();
                 }
             });

@@ -230,7 +230,7 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
     @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
         if (alreadyInLoadData) return;
-        long lastUpdate = helper.getLastUpdate();
+        long lastUpdate = app.config.lastUpdated().get();
         if (!isFirstTimeOpenActivity && System.currentTimeMillis() / 1000 - lastUpdate < 10) {
             Log.e("frequently", "lastUpdate=" + lastUpdate + ",current=" + System.currentTimeMillis() / 1000);
             tips_no_allow_so_frequently();
@@ -239,14 +239,15 @@ public class ShoolActivitys extends CommonFragment implements OnTabSelectListene
         }
         try {
             alreadyInLoadData = true;
-            SchoolActivityModel.ActivityList lists = api.getSchoolActivity(app.config.lastRedPoint().get());
+            SchoolActivityModel.ActivityList lists = api.getSchoolActivity(lastUpdate);
             List<SchoolActivityModel> content = lists.getContent();
             if (content != null && content.size() != 0) {
                 /*for (int i = 0; i < content.size(); i++) {
                     content.get(i).setIsNewOne(true);
                 }*/
                 helper.addSchoolActivity(lists);
-                helper.setLastUpdate(System.currentTimeMillis() / 1000);
+                //helper.setLastUpdate(System.currentTimeMillis() / 1000);
+                app.config.lastUpdated().put(System.currentTimeMillis() / 1000);
                 app.config.lastRedPoint().put(System.currentTimeMillis() / 1000);
                 showSchoolActivity();
             } else {

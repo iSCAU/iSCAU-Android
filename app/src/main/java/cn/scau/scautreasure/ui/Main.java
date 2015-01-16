@@ -58,6 +58,8 @@ public class Main extends ActionBarActivity {
     private static final String CLASSTABLE_TAG = "classtable_";
     private static final String SETTINGS_TAG = "settings_";
     private static final String FOOD_TAG = "food_";
+    private static final String BUS_TAG="bus_";
+
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
     @App
@@ -78,6 +80,7 @@ public class Main extends ActionBarActivity {
     Fragment fragmentClassTable;
     Fragment fragmentActivity;
     Fragment fragmentFood;
+    Fragment bus;
     private ActionBarActivity mContext;
     private int checkedId;
     private long exitTime = 0;
@@ -127,6 +130,9 @@ public class Main extends ActionBarActivity {
         if (fragmentActivity == null) {
             fragmentActivity = ShoolActivitys_.builder().build();
         }
+        if(bus==null){
+            bus = Bus_.builder().build();
+        }
         if (checkedId != 0) {
             //恢复到Activity被杀前的选中状态
             radioGroup.check(checkedId);
@@ -134,7 +140,7 @@ public class Main extends ActionBarActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+               // getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
                 checkedId = i;
                 if (i == rd_features.getId()) {
@@ -152,14 +158,19 @@ public class Main extends ActionBarActivity {
                     ((OnTabSelectListener) fragmentActivity).onTabSelect();
 
                 } else if (i == rd_food.getId()) {
-                    UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-                    ((OnTabSelectListener) fragmentFood).onTabSelect();
+                    //UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
+                    UIHelper.startFragment(mContext,bus,BUS_TAG);
+                   // ((OnTabSelectListener) bus).onTabSelect();
 
                 }
             }
         });
 
-        if (checkTime()) {
+        if (checkedId == 0) {
+            UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
+            rd_classtable.setChecked(true);
+        }
+      /*  if (checkTime()) {
             UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
             rd_food.setChecked(true);
         } else {
@@ -167,7 +178,7 @@ public class Main extends ActionBarActivity {
                 UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
                 rd_classtable.setChecked(true);
             }
-        }
+        }*/
 
 
     }
@@ -294,7 +305,7 @@ public class Main extends ActionBarActivity {
         fragmentMenu = fm.findFragmentByTag(MENU_TAG);
         fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
         fragmentActivity = fm.findFragmentByTag(SETTINGS_TAG);
-        fragmentFood = fm.findFragmentByTag(FOOD_TAG);
+        bus = fm.findFragmentByTag(BUS_TAG);
     }
 
     @Background(delay = 500)

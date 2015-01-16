@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
@@ -206,15 +207,20 @@ public class Bus extends CommonFragment {
     @UiThread
     void refreshSiteAndBus() {
 
-        AppMsg.makeText(getSherlockActivity(), R.string.tips_bus_loading, AppMsg.STYLE_INFO).show();
+        if(lineList==null){
+            UIHelper.getDialog(R.string.loading_bus_route).show();
+            loadLine();
+        }else {
+            AppMsg.makeText(getSherlockActivity(), R.string.tips_bus_loading, AppMsg.STYLE_INFO).show();
 
-        BusLineModel _line = lineList.get(wheel_line.getWheel().getCurrentItem());
-        String[] direction_eng = getDirectionEngByLine(_line);
-        String line = wheel_line.getSelectedParam();
-        String direction = direction_eng[wheel_direction.getWheel().getCurrentItem()];
+            BusLineModel _line = lineList.get(wheel_line.getWheel().getCurrentItem());
+            String[] direction_eng = getDirectionEngByLine(_line);
+            String line = wheel_line.getSelectedParam();
+            String direction = direction_eng[wheel_direction.getWheel().getCurrentItem()];
 
-        loadSite(line, direction);
-        loadData(line, direction);
+            loadSite(line, direction);
+            loadData(line, direction);
+        }
     }
 
     /**
@@ -246,12 +252,16 @@ public class Bus extends CommonFragment {
         loadCacheLineList();
         if (lineList == null) {
             try {
+                Log.d("-----bus----", "pre");
                 lineList = api.getLine().getLines();
+                Log.d("-----bus----", "get");
                 saveCacheLineList();
                 showLine();
             } catch (HttpStatusCodeException e) {
                 showErrorResult(getSherlockActivity(), e.getStatusCode().value());
             }
+        }else{
+            showLine();
         }
     }
 

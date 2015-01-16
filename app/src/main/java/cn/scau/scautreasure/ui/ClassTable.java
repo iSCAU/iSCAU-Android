@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.*;
 import android.view.Menu;
 import android.webkit.WebSettings;
@@ -166,11 +168,19 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
 
 
-        webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
+        webWeekClasstableHelper = new WebWeekClasstableHelper(getActivity(),week_classtable,config,dateUtil,classHelper);
         week_classtable.getSettings().setJavaScriptEnabled(true);
         week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
         week_classtable.getSettings().setSupportZoom(true);
         week_classtable .getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        //以下代码是为了修正部分机型显示课表不正常的bug
+        LinearLayout.LayoutParams webLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+       /* DisplayMetrics dm =getResources().getDisplayMetrics();
+        webLayoutParams.width = dm.widthPixels;*/
+        float scale = getResources().getDisplayMetrics().density;
+        Log.d("density is ",scale+"");
+        week_classtable.setLayoutParams(webLayoutParams);
         isSelectedDay = config.classTableSelectedTab().get() == 0;
         if(isSelectedDay){
             onSelectDayMode();
@@ -184,7 +194,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         actionBar= getSherlockActivity().getSupportActionBar();
-        ActionBarHelper.enableEmbeddedTabs(actionBar);
+        //ActionBarHelper.enableEmbeddedTabs(actionBar);
        // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 /*        if(isSelectedDay){
             change_mode.setIcon(R.drawable.action_week_mod);
@@ -213,7 +223,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @UiThread
     void showWeekClass(){
-        week_classtable.reload();
+        week_classtable.loadUrl("javascript:main()");
     }
     /**
      * 按周查看
@@ -484,7 +494,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @UiThread(delay = 300)
     void updateTabOnOrientationChange() {
         titles.changeWeekDay(pager.getCurrentItem());
-        ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
+        //ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
         if(config.classTableSelectedTab().get()==1){
             week_classtable.reload();
         }
@@ -541,8 +551,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     void onSelectWeekMode(){
         day_classtable_container.setVisibility(View.GONE);
         if(first) {
-            week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
             week_classtable.setVisibility(View.VISIBLE);
+            week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
             first=false;
         }else{
             week_classtable.setVisibility(View.VISIBLE);

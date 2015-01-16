@@ -105,10 +105,10 @@ public class Settings extends CommonActivity {
         }
     }
 
-    @Click
+   /* @Click
     void btn_notification_setting() {
         NotificationTiming_.intent(getSherlockActivity()).start();
-    }
+    }*/
 
     @Click
     void btn_about() {
@@ -131,6 +131,7 @@ public class Settings extends CommonActivity {
     }
 
 
+    @Click
     void btn_save() {
         setAlertClass();
         boolean isFirstScreen = param_classTableAsFirstScreen.getYesOrNo();

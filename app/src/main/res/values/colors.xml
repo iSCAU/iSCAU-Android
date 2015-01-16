@@ -57,5 +57,8 @@
     <color name="money_bg">#c7eae4</color>
 
     <color name="transparent">#00000000</color>
-
+    <color name="lite_blue">#70a8fb</color>
+    <color name="lite_orange">#f7882d</color>
+    <color name="lite_purple">#ffea96ff</color>
+    <color name="lite_green">#c7eae4</color>
 </resources>

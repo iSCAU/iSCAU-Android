@@ -18,6 +18,7 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/Theme.SpecialWhite"
+        android:persistent="true"
         tools:replace="android:theme,android:icon,android:label">
         >
         <activity
@@ -155,6 +156,11 @@
             android:name="cn.scau.scautreasure.ui.sns.Login_"
             android:label="@string/title_activity_login"></activity>
         <activity
+            android:name="cn.scau.scautreasure.ui.Bus_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_bus"
+            />
+        <activity
             android:name="cn.scau.scautreasure.ui.WidgetConfiguration_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan">
@@ -219,7 +225,10 @@
         <service android:name=".service.NotifyFoodService_" />
         <service android:name=".service.AlertClassSerice_" />
         <service android:name=".service.FoodShopService_" />
-        <service android:name=".service.NetworkStatusService_"></service>
+        <service android:name=".service.NetworkStatusService_"
+            android:process=":ISCAUWidget"
+            android:label="@string/app_process"
+            ></service>
         <service android:name="cn.scau.scautreasure.service.SplashDownloadService"/>
 
         <receiver android:name=".receiver.NetWorkStatusReceiver_"></receiver>

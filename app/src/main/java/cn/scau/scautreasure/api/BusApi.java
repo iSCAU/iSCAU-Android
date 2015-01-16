@@ -16,16 +16,16 @@ import cn.scau.scautreasure.model.BusStateModel;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://115.28.144.49/bus/", converters = {GsonHttpMessageConverter.class})
+@Rest( rootUrl = "http://iscaucms.sinaapp.com/index.php/Bus/",converters = {GsonHttpMessageConverter.class})
 public interface BusApi {
 
-    @Get("getline")
+    @Get("line")
     BusLineModel.LineList getLine();
 
-    @Get("getsite/{line}/{direction}")
+    @Get("site/line/{line}/direction/{direction}")
     BusSiteModel.SiteList getSite(String line, String direction);
 
-    @Get("getbustate/{line}/{direction}")
+    @Get("state/line/{line}/direction/{direction}")
     BusStateModel.StateList getBusState(String line, String direction);
 
 }

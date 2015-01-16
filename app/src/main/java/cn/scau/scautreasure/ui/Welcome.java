@@ -87,8 +87,11 @@ public class Welcome extends Activity {
 
         //判断设备类型
         if (isPad()) {
-
-            appConfig.isThePad().put(true);
+            if(appConfig.forceMobile().get()){ //用户认为是手机，则直接认为是手机
+                appConfig.isThePad().put(false);
+            }else {
+                appConfig.isThePad().put(true);
+            }
         }
 
         splashHelper.initHelper(api, getApplication());
@@ -123,9 +126,9 @@ public class Welcome extends Activity {
             Login_.intent(this).runMainActivity(true).start();
         }
 
-        if (appConfig.isFirstStartApp().get()) {
+        /*if (appConfig.isFirstStartApp().get()) {
             GuideView_.intent(this).start();
-        }
+        }*/
         finish();
     }
 

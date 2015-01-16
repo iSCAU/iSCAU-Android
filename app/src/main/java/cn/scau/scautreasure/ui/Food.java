@@ -208,7 +208,7 @@ public class Food extends CommonFragment implements OnTabSelectListener {
     @Override
     public void onTabSelect() {
         setTitle(R.string.tab_food);
-        setSubTitle(null);
+        setSubTitle("");
     }
     @Click(R.id.menu_refresh_foodshop)
     void onClick(){

@@ -1,5 +1,9 @@
 package cn.scau.scautreasure.helper;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
+
 import android.view.ViewTreeObserver;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -29,13 +33,16 @@ public class WebWeekClasstableHelper {
     private DateUtil dateUtil;
     private ClassHelper classHelper;
     private ArrayList<String> lessons = new ArrayList<String>(7);
+    private Context mContext;
+    private boolean hasMeasured;
 
-    public WebWeekClasstableHelper(WebView webView, cn.scau.scautreasure.AppConfig_ config, DateUtil dateUtil, ClassHelper classHelper) {
+    public WebWeekClasstableHelper(Context context,WebView webView, cn.scau.scautreasure.AppConfig_ config, DateUtil dateUtil, ClassHelper classHelper) {
         this.webView = webView;
         this.vto = webView.getViewTreeObserver();
         this.config = config;
         this.dateUtil = dateUtil;
         this.classHelper = classHelper;
+        this.mContext = context;
         initLesson();
     }
 
@@ -107,7 +114,19 @@ public class WebWeekClasstableHelper {
     }
     @JavascriptInterface
     public int getWidth(){
-        return webView.getWidth();
+
+        DisplayMetrics dm =mContext.getResources().getDisplayMetrics();
+        int w_screen = dm.widthPixels;
+        /*int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        webView.measure(w, h);
+        int width =webView.getMeasuredWidth();
+        int height =webView.getMeasuredHeight();
+        return width;*/
+        Log.d("web width:", "" + w_screen);
+        return w_screen;
+
+
     }
     @JavascriptInterface
     public int getHeight(){

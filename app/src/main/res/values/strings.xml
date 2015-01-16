@@ -215,7 +215,7 @@
     <string name="btn_notification_setting">借书提醒</string>
     <string name="btn_update">检查更新</string>
     <string name="btn_about">关于我们</string>
-    <string name="btn_change_account">更换账号</string>
+    <string name="btn_change_account">账号设置</string>
     <string name="tips_checking_for_update">正在检查更新..</string>
     <string name="title_activity_about">关于我们</string>
     <string name="title_notification_setting">时间设置</string>
@@ -232,5 +232,10 @@
     <string name="sns_no_login_tips">您尚未登陆，请使用一种方式登陆</string>
     <string name="actionbar_day">切换至单日课表</string>
     <string name="actionbar_week">切换至全周课表</string>
-
+    <string name="title_feedback">联系我们</string>
+    <string name="feedback_contact_info">点这里留下你的联系方式吧~</string>
+    <string name="feedback_hint">华农宝，我想对你说...</string>
+    <string name="feedback_send">发送</string>
+    <string name="feedback_contact_hint">留下你的电话，QQ或微信</string>
+    <string name="app_process">华农宝桌面小插件及后台服务</string>
 </resources>

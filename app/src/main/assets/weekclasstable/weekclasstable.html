@@ -6,10 +6,7 @@
               content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet" href="weekclasstable.css">
-        <link type="text/css" rel="stylesheet" href="foundation\css\foundation.css">
         <script type="text/javascript" src="jquery-2.1.0.min.js"></script>
-         <script type="text/javascript" src="touch-0.2.14.min.js"></script>
-
         <script type="text/javascript" src="foundation\js\foundation.min.js"></script>
 </head>
 <style type="text/css">
@@ -21,14 +18,17 @@
     position:fixed;
     width:100%;
     z-index:10;
+    margin-right:0;
+    top:0px;
     }
+
 </style>
 <body>
-<div class="row">
+<div class="row" id="container">
         <div class="small-14 large-14 columns">
-                <div class="row" id="first-row">
+                <div class="row" id="first-row" >
                         <div class="small-1 large-1 columns left_top_block"></div>
-                        <div class="small-13 large-13 columns right_top_block">
+                        <div class="small-13 large-13 columns right_top_block" style="float:left;position:relative;left:7.14286%;">
                                 <div class="day_block day_01">
                                         <div class="eng">MON</div>
                                         <div class="num">1</div>
