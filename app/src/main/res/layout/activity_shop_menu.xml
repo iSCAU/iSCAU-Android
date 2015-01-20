@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include
+        layout="@layout/base_activity_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_color"
+        android:paddingBottom="10dp"
+        android:paddingTop="1dp">
+
+        <TextView
+            android:id="@+id/shop_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/title_white"
+            android:textSize="@dimen/text_size_body"/>
+    </LinearLayout>
 
     <ListView
+        android:id="@+id/foodMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/foodMenu"></ListView>
-    <LinearLayout
-        android:clickable="true"
-        android:background="@drawable/blue_button_selector"
-        android:descendantFocusability="blocksDescendants"
-        android:id="@+id/order"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal" android:layout_height="wrap_content"
-        >
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/shopbox"/>
-        <TextView
-            android:id="@+id/order_button"
-            android:textColor="@color/actionbar_title_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="去下单"
-            android:padding="10dp"
-            android:textSize="16sp"
-           />
+        android:background="@color/title_white"
+        android:divider="@color/gray_btn_bg_color"
+        android:dividerHeight="0.2dp"></ListView>
 
-        </LinearLayout>
+
 </LinearLayout>

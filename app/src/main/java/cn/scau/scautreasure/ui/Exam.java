@@ -4,8 +4,10 @@ import android.widget.AbsListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.api.BackgroundExecutor;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.ExamModel;
 import cn.scau.scautreasure.util.StringUtil;
+import cn.scau.scautreasure.widget.AppProgress;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
@@ -29,27 +32,38 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Mail:  specialcyci@gmail.com
  */
 @EActivity(R.layout.exam)
-public class Exam extends CommonQueryActivity {
+public class Exam extends ListActivity {
 
     @RestService
     EdusysApi api;
 
+    @Click(R.id.more)
+    void refresh() {
+        loadData();
+    }
 
     @AfterViews
     void init() {
-        setTitle(R.string.title_exam);
-        setDataEmptyTips(R.string.tips_exam_null);
+        setTitleText("考试安排");
+        setMoreButtonText("刷新");
+
         cacheHelper.setCacheKey("exam_arrange");
 
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
+        loadData();
     }
 
     @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-        beforeLoadData();
+        beforeLoadData("正在刷新", "请耐心等待,正方你懂的", "取消", new AppProgress.Callback() {
+            @Override
+            public void onCancel() {
+                BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
+            }
+        });
         try {
-           list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
+            list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
             //模拟数据,用来测试
            /* ExamModel examModel = new ExamModel("test", "test", "12-11", "教4", "3432", "34", "嗯嗯");
            ArrayList listTest = new ArrayList();
@@ -62,15 +76,15 @@ public class Exam extends CommonQueryActivity {
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
+            showErrorResult(e.getStatusCode().value());
         } catch (Exception e) {
-            handleNoNetWorkError(getSherlockActivity());
+            handleNoNetWorkError();
         }
         afterLoadData();
     }
 
     private void buildAndShowListViewAdapter() {
-        ExamAdapter examadapter = new ExamAdapter(getSherlockActivity(), R.layout.exam_listitem, list);
+        ExamAdapter examadapter = new ExamAdapter(this, R.layout.exam_listitem, list);
         adapter = UIHelper.buildEffectAdapter(examadapter, (AbsListView) listView, ALPHA);
         showSuccessResult();
     }

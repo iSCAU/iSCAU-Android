@@ -5,48 +5,50 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <include
+        layout="@layout/base_activity_title_bar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-
+        <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/title_white"
+            android:divider="#0000"
+            android:dividerHeight="0dp">
 
-            <ListView
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/updateError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="150dp"
+            android:visibility="gone">
+
+            <TextView
                 android:layout_width="match_parent"
-                android:id="@+id/shopListView"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="更新失败,请检查网络状态"/>
 
-                android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/refreshButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="刷新"/>
+        </LinearLayout>
 
-                </ListView>
-<LinearLayout
-    android:paddingTop="150dp"
-    android:layout_gravity="center"
-    android:id="@+id/updateError"
-    android:visibility="gone"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
-    <TextView
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="更新失败,请检查网络状态"/>
-    <Button
-        android:id="@+id/refreshButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="刷新"/>
     </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

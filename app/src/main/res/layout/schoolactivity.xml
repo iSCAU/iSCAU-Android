@@ -1,20 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_normal"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/theme_color"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+
+        <LinearLayout
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#0000"
+                android:gravity="center"
+                android:text="校园活动"
+                android:textColor="@color/title_white"
+                android:textSize="@dimen/text_size_title"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="#0000"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#ee1010"
+            android:textSize="@dimen/text_size_button"/>
+
+    </RelativeLayout>
 
 
     <cn.scau.scautreasure.widget.SchoolActivityTabWidget_
         android:id="@+id/titles"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="3dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+
+        />
 
     <ImageView
         style="@style/listitem_separator"
@@ -23,14 +64,14 @@
         android:layout_marginTop="2dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <android.support.v4.view.ViewPager
-        android:background="#f2f2f2"
         android:id="@+id/pager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#f2f2f2"/>
 
 
 </LinearLayout>

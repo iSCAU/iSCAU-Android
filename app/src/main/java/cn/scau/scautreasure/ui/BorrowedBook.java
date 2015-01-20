@@ -1,13 +1,14 @@
 package cn.scau.scautreasure.ui;
 
-import android.support.v7.app.ActionBarActivity;
+
 import android.widget.AbsListView;
 
-import com.devspark.appmsg.AppMsg;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
@@ -16,22 +17,19 @@ import org.springframework.web.client.HttpStatusCodeException;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+
 import cn.scau.scautreasure.adapter.BorrowedBookAdapter_;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
+
+import cn.scau.scautreasure.widget.AppProgress;
+import cn.scau.scautreasure.widget.AppToast;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
-/**
- * 当前借阅书籍记录及过去借阅记录
- * User: special
- * Date: 13-8-20
- * Time: 上午11:36
- * Mail: specialcyci@gmail.com
- */
+
 @EActivity(R.layout.borrowedbook)
-public class BorrowedBook extends CommonQueryActivity {
+public class BorrowedBook extends ListActivity {
 
     @RestService
     LibraryApi api;
@@ -44,11 +42,17 @@ public class BorrowedBook extends CommonQueryActivity {
         setQueryTarget(QUERY_FOR_LIBRARY);
     }
 
+    @Click(R.id.more)
+    void refreshByButton() {
+        loadData();
+    }
+
     @AfterViews
     void init() {
-        setTitle(R.string.title_borrowedbook);
-        setDataEmptyTips(R.string.tips_borrowedbook_null);
-
+        setTitleText(target == UIHelper.TARGET_FOR_NOW_BORROW ? "当前借阅" : "过去借阅");
+        setMoreButtonText("刷新");
+        setDataEmptyTips("当前借阅记录为空");
+        loadData();
         cacheHelper.setCacheKey("borrowedBook_" + target);
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
@@ -56,7 +60,7 @@ public class BorrowedBook extends CommonQueryActivity {
 
     @UiThread
     void showReNewResult() {
-        AppMsg.makeText(getSherlockActivity(), R.string.tips_renew_success, AppMsg.STYLE_INFO).show();
+        AppToast.show(this, "你已续借成功", 0);
     }
 
     /**
@@ -72,14 +76,19 @@ public class BorrowedBook extends CommonQueryActivity {
             api.reNewBook(app.userName, app.getEncodeLibPassword(), barCode, checkCode);
             showReNewResult();
         } catch (HttpStatusCodeException e) {
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+            showErrorResult(e.getStatusCode().value());
         }
 
     }
 
     @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-        beforeLoadData();
+        beforeLoadData("正在查询", "", "取消", new AppProgress.Callback() {
+            @Override
+            public void onCancel() {
+
+            }
+        });
         try {
             if (target == UIHelper.TARGET_FOR_PAST_BORROW) {
                 list = api.getHistoryBorrowedBooks(AppContext.userName, app.getEncodeLibPassword()).getBooks();
@@ -89,13 +98,13 @@ public class BorrowedBook extends CommonQueryActivity {
             cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
-            if(e.getStatusCode().value()==500){
-                handleServerError(getSherlockActivity(),null);
-            }else {
-                showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+            if (e.getStatusCode().value() == 500) {
+                handleServerError();
+            } else {
+                showErrorResult(e.getStatusCode().value());
             }
         } catch (Exception e) {
-            handleNoNetWorkError(getSherlockActivity());
+            handleNoNetWorkError();
         }
         afterLoadData();
     }
@@ -103,15 +112,14 @@ public class BorrowedBook extends CommonQueryActivity {
     private void buildAndShowListViewAdapter() {
         if (list == null)
             return;
-        BorrowedBookAdapter_ bookadapter = BorrowedBookAdapter_.getInstance_(getSherlockActivity());
+        BorrowedBookAdapter_ bookadapter = BorrowedBookAdapter_.getInstance_(this);
         bookadapter.setParent(this);
         bookadapter.addAll(list);
         adapter = UIHelper.buildEffectAdapter(bookadapter, (AbsListView) listView, ALPHA);
         showSuccessResult();
     }
 
-    @Override
-    void handleServerError(ActionBarActivity ctx, ServerOnChangeListener listener) {
-        AppMsg.makeText(this,R.string.book_sys_error,AppMsg.STYLE_ALERT).show();
+    void handleServerError() {
+        AppToast.show(this, "图书馆服务器繁忙,稍候再试试", 0);
     }
 }

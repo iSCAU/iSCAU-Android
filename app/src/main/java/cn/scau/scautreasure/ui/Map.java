@@ -20,6 +20,7 @@ import org.androidannotations.annotations.ViewById;
 import cn.scau.scautreasure.AppContext;
 
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.widget.AppToast;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 
@@ -27,28 +28,24 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * Created by apple on 14-8-30.
  */
 @EActivity(R.layout.activity_map)
-//@OptionsMenu(R.menu.menu_turn)
-public class Map extends CommonActivity {
+public class Map extends BaseActivity {
     private static PhotoViewAttacher mAttacher = null;
     @ViewById(R.id.map)
     ImageView map;
     private float angel = 0;
 
-    //旋转
-//    @OptionsItem(R.id.menu_turn)
-//    boolean turn(){
-//        Matrix matrix=new Matrix();
-//        map.setScaleType(ImageView.ScaleType.MATRIX);   //required
-//        matrix.postRotate(angel+=90, 0, 0);
-//        map.setImageMatrix(matrix);
-//
-//        return true;
-//
-//    }
+
     @AfterViews
     void initView() {
 
-        setTitle("校内地图");
+        setTitleText("校内地图");
+        setMoreButtonText("分享");
+        setMoreButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppToast.show(Map.this, "正在开发...", 0);
+            }
+        });
 //        AppContext.loadImage( "http://img3.imgtn.bdimg.com/it/u=86040403,2916800900&fm=90&gp=0.jpg",map,new ImageLoadingListener() {
         AppContext.loadImage("assets://map.png", map, new ImageLoadingListener() {
             @Override

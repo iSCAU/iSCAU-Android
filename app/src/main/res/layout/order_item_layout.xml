@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:gravity="center_vertical"
-    android:padding="10dp"
-    android:clickable="true"
-    android:descendantFocusability="blocksDescendants"
-    android:id="@+id/list_item_bg"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/settings_button_bg_selector"
+              android:clickable="true"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="10dp">
+
     <TextView
-        android:text="斯蒂芬斯达夫"
+        android:id="@+id/foodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/foodName"/>
+        android:textSize="@dimen/text_size_body"/>
+
     <TextView
-        android:text="3份"
-        android:gravity="right"
+        android:id="@+id/foodCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/foodCount"/>
-    <TextView
-    android:text="$67"
         android:gravity="right"
-    android:layout_width="60dp"
-    android:layout_height="wrap_content"
-    android:id="@+id/foodMoney"/>
+        android:textSize="@dimen/text_size_body"/>
+
+    <TextView
+        android:id="@+id/foodMoney"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textSize="@dimen/text_size_body"/>
 
 </LinearLayout>

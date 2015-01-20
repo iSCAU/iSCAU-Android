@@ -36,12 +36,14 @@ import cn.scau.scautreasure.ui.Calendar;
  */
 
 
-public class FoodShopAdapter extends BaseAdapter{
+public class FoodShopAdapter extends BaseAdapter {
 
     private Context context;
     private List<FoodShopDBModel> data;
-    public FoodShopAdapter(Context context,List<FoodShopDBModel> data) {
-    this.context=context;this.data=data;
+
+    public FoodShopAdapter(Context context, List<FoodShopDBModel> data) {
+        this.context = context;
+        this.data = data;
     }
 
     @Override
@@ -68,64 +70,53 @@ public class FoodShopAdapter extends BaseAdapter{
             view = LayoutInflater.from(context).inflate(R.layout.food_shop_list_layout, null);
             viewHolder.imageView = (ImageView) view.findViewById(R.id.shopLogo);
             viewHolder.textView = (TextView) view.findViewById(R.id.text1);
-            viewHolder.goicon=(ImageView)view.findViewById(R.id.goicon);
-            viewHolder.restText=(TextView)view.findViewById(R.id.text2);
+            viewHolder.goicon = (ImageView) view.findViewById(R.id.goicon);
+            viewHolder.restText = (TextView) view.findViewById(R.id.text2);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        checkTime(data.get(i).getStart_time(),data.get(i).getEnd_time(),viewHolder);
+        checkTime(data.get(i).getStart_time(), data.get(i).getEnd_time(), viewHolder);
         viewHolder.textView.setText(data.get(i).getShop_name());
-        setLogo(viewHolder.imageView,data.get(i).getLogo_url());
-        setBg(view,i);
+        setLogo(viewHolder.imageView, data.get(i).getLogo_url());
 
-
-        if (i % 2 == 0) {
-            view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click));
-        } else {
-            view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click1));
-        }
         return view;
     }
-    private void setLogo(ImageView imageView,String url){
 
-        AppContext.loadImage(url,imageView,null);
+    private void setLogo(ImageView imageView, String url) {
+
+        AppContext.loadImage(url, imageView, null);
 
     }
-    private void setBg(View view,int pos) {
-        if (pos % 2 == 0) {
-            view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click));
-        } else {
-            view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click1));
-        }
-    }
-    private void checkTime(String start,String end,ViewHolder holder){
-        String startTime[]=start.split(":");
-        String endTime[]=end.split(":");
-        int startMin=Integer.parseInt(startTime[0])*60+Integer.parseInt(startTime[1]);
-        int endMin=Integer.parseInt(endTime[0])*60+Integer.parseInt(endTime[1]);
+
+    private void checkTime(String start, String end, ViewHolder holder) {
+        String startTime[] = start.split(":");
+        String endTime[] = end.split(":");
+        int startMin = Integer.parseInt(startTime[0]) * 60 + Integer.parseInt(startTime[1]);
+        int endMin = Integer.parseInt(endTime[0]) * 60 + Integer.parseInt(endTime[1]);
         java.util.Calendar c = java.util.Calendar.getInstance();
-        int nowMIn=c.get(java.util.Calendar.HOUR_OF_DAY)*60+c.get(java.util.Calendar.MINUTE);
-        ImageView imageView=holder.imageView;
-        ImageView goIcon=holder.goicon;
-        if (!((nowMIn>startMin)&&(nowMIn<endMin))){
+        int nowMIn = c.get(java.util.Calendar.HOUR_OF_DAY) * 60 + c.get(java.util.Calendar.MINUTE);
+        ImageView imageView = holder.imageView;
+        ImageView goIcon = holder.goicon;
+        if (!((nowMIn > startMin) && (nowMIn < endMin))) {
             holder.restText.setVisibility(View.VISIBLE);
             holder.textView.setTextColor(context.getResources().getColor(R.color.intro_content_textcolor));
-            if(Build.VERSION.SDK_INT >= 11) {
+            if (Build.VERSION.SDK_INT >= 11) {
                 imageView.setAlpha(0.5f);
                 goIcon.setAlpha(0.5f);
             }
-        }else {
-           holder.restText.setVisibility(View.GONE);
+        } else {
+            holder.restText.setVisibility(View.GONE);
             holder.textView.setTextColor(context.getResources().getColor(R.color.black_text));
-            if (Build.VERSION.SDK_INT >= 11){
+            if (Build.VERSION.SDK_INT >= 11) {
                 imageView.setAlpha(1f);
                 goIcon.setAlpha(1f);
             }
         }
     }
-    class ViewHolder{
+
+    class ViewHolder {
         public ImageView imageView;
         public TextView textView;
         public ImageView goicon;
@@ -133,63 +124,3 @@ public class FoodShopAdapter extends BaseAdapter{
 
     }
 }
-
-
-/*
-
-public class FoodShopAdapter extends QuickAdapter<FoodShopDBModel> {
-
-    private Context context;
-
-    public FoodShopAdapter(Context context, int layoutResId, List<FoodShopDBModel> data) {
-        super(context, layoutResId, data);
-        this.context=context;
-
-    }
-
-    @Override
-    protected void convert(BaseAdapterHelper helper, FoodShopDBModel item) {
-        helper.setText(R.id.text1, item.getShop_name());
-        checkTime(item.getStart_time(),item.getEnd_time(),helper);
-        setLogo(helper,item.getLogo_url());
-        setBg(helper);
-    }
-    private void setLogo(BaseAdapterHelper helper,String url){
-        ImageView imageView=(ImageView)helper.getView(R.id.shopLogo);
-        AppContext.loadImage(url,imageView,null);
-
-    }
-        private void setBg(BaseAdapterHelper helper) {
-            if (helper.getPosition() % 2 == 0) {
-                helper.getView(R.id.list_item_bg).setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click));
-            } else {
-                helper.getView(R.id.list_item_bg).setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click1));
-            }
-        }
-    private void checkTime(String start,String end,BaseAdapterHelper helper){
-        String startTime[]=start.split(":");
-        String endTime[]=end.split(":");
-        int startMin=Integer.parseInt(startTime[0])*60+Integer.parseInt(startTime[1]);
-        int endMin=Integer.parseInt(endTime[0])*60+Integer.parseInt(endTime[1]);
-        java.util.Calendar c = java.util.Calendar.getInstance();
-        int nowMIn=c.get(java.util.Calendar.HOUR_OF_DAY)*60+c.get(java.util.Calendar.MINUTE);
-        ImageView imageView=(ImageView)helper.getView(R.id.shopLogo);
-        ImageView goIcon=(ImageView)helper.getView(R.id.goicon);
-        if (!((nowMIn>startMin)&&(nowMIn<endMin))){
-            helper.getView(R.id.text2).setVisibility(View.VISIBLE);
-            ((TextView)helper.getView(R.id.text1)).setTextColor(context.getResources().getColor(R.color.intro_content_textcolor));
-            if(Build.VERSION.SDK_INT >= 11) {
-                imageView.setAlpha(0.5f);
-                goIcon.setAlpha(0.5f);
-            }
-        }else {
-            helper.getView(R.id.text2).setVisibility(View.GONE);
-            ((TextView) helper.getView(R.id.text1)).setTextColor(context.getResources().getColor(R.color.black_text));
-            if (Build.VERSION.SDK_INT >= 11){
-                imageView.setAlpha(1f);
-                goIcon.setAlpha(1f);
-            }
-        }
-    }
-}
-*/

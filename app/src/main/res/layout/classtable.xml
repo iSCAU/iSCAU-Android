@@ -6,59 +6,118 @@
               android:background="@color/background_normal"
               android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <RelativeLayout
+        android:id="@+id/tab_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="45dp"
+        android:background="@color/theme_color"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="center">
 
-            <!-- 全周课表 -->
-            <WebView
-                android:id="@+id/week_classtable"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/class_table_title"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:hardwareAccelerated="true"
-                android:scrollbars="none"
-                android:visibility="gone"/>
+                android:background="#0000"
+                android:gravity="center"
+                android:text="第一周"
+                android:textColor="@color/title_white"
+                android:textSize="@dimen/text_size_title"
+                />
 
-            <!-- 单日课表 -->
-            <LinearLayout
-                android:id="@+id/day_classtable_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#f7f7f7"
-                android:orientation="vertical">
-
-                <cn.scau.scautreasure.widget.ClassTabWidget_
-                    android:id="@+id/titles"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="3dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"/>
-
-                <ImageView
-                    style="@style/listitem_separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:contentDescription=""
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"/>
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="#0000"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_check_up"/>
         </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+        <ImageButton
+            android:id="@+id/class_table_more"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="#0000"
+            android:gravity="center"
+            android:padding="3dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_show_menu"
+            />
+
+
+        <Button
+            android:id="@+id/class_table_day_week"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="#0000"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 全周课表 -->
+        <WebView
+            android:id="@+id/week_classtable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hardwareAccelerated="true"
+            android:scrollbars="none"
+            android:visibility="gone"/>
+
+        <!-- 单日课表 -->
+        <LinearLayout
+            android:id="@+id/day_classtable_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <cn.scau.scautreasure.widget.ClassTabWidget_
+                android:id="@+id/titles"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+            <ImageView
+                style="@style/listitem_separator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:contentDescription=""
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

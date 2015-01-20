@@ -32,42 +32,42 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EActivity(R.layout.introduction)
 public class Introduction extends CommonActivity {
-
-    @Bean
-    TextUtil textUtil;
-
-    @ViewById
-    View listView;
-
-    @Extra("target")
-    String target;
-    @Extra("title")
-    int title;
-    private BaseAdapter adapter;
-
-    @AfterViews
-    void init() {
-        loadData();
-        setTitle(title);
-    }
-
-    @UiThread
-    void showContent() {
-        ((ListView) listView).setAdapter(adapter);
-    }
-
-    @Background
-    void loadData(Object... params) {
-        String fileName = "introduction/" + target + ".json";
-        String context = textUtil.getFromAssets(fileName);
-        List<IntroductionModel> introList = IntroductionModel.parse(context);
-        buildListViewAdapter(introList);
-        showContent();
-
-    }
-
-    private void buildListViewAdapter(List<IntroductionModel> introList) {
-        IntroductionAdapter introAdapter = new IntroductionAdapter(getSherlockActivity(), R.layout.introduction_listitem, introList);
-        adapter = UIHelper.buildEffectAdapter(introAdapter, (AbsListView) listView, EXPANDABLE_ALPHA);
-    }
+//
+//    @Bean
+//    TextUtil textUtil;
+//
+//    @ViewById
+//    View listView;
+//
+//    @Extra("target")
+//    String target;
+//    @Extra("title")
+//    int title;
+//    private BaseAdapter adapter;
+//
+//    @AfterViews
+//    void init() {
+//        loadData();
+//        setTitle(title);
+//    }
+//
+//    @UiThread
+//    void showContent() {
+//        ((ListView) listView).setAdapter(adapter);
+//    }
+//
+//    @Background
+//    void loadData(Object... params) {
+//        String fileName = "introduction/" + target + ".json";
+//        String context = textUtil.getFromAssets(fileName);
+//        List<IntroductionModel> introList = IntroductionModel.parse(context);
+//        buildListViewAdapter(introList);
+//        showContent();
+//
+//    }
+//
+//    private void buildListViewAdapter(List<IntroductionModel> introList) {
+//        IntroductionAdapter introAdapter = new IntroductionAdapter(getSherlockActivity(), R.layout.introduction_listitem, introList);
+//        adapter = UIHelper.buildEffectAdapter(introAdapter, (AbsListView) listView, EXPANDABLE_ALPHA);
+//    }
 }

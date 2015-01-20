@@ -38,15 +38,13 @@ import cn.scau.scautreasure.util.TextManager;
 @EBean
 public class AppCompatible {
 
-
-
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
 
 
     @RootContext
     Context ctx;
-//429331233:abcd666888,
+    //429331233:abcd666888,
     @Bean
     ClassHelper classHelper;
 
@@ -119,7 +117,6 @@ public class AppCompatible {
     }
 
 
-
     private List<ClassModel> parseFromOldVersionJson(String jsonString) throws JSONException {
         List<ClassModel> classModelList = new ArrayList<ClassModel>();
         JSONArray jsonArray = new JSONArray(jsonString);
@@ -156,7 +153,6 @@ public class AppCompatible {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
         // if error
         return 0;
     }

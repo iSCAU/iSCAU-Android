@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import cn.scau.scautreasure.AppConfig_;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
@@ -90,6 +89,7 @@ public class ClassHelper {
      * load day's lesson no matter any condition
      *
      * @param wantDay
+     *
      * @return
      */
     public List<ClassModel> getDayLesson(String wantDay) {
@@ -112,12 +112,32 @@ public class ClassHelper {
      * According to the start week and end week , odd and even week to load a day's lesson
      *
      * @param wantDay
+     *
      * @return
      */
     public List<ClassModel> getDayLessonWithParams(String wantDay) {
         PreparedQuery where = null;
         try {
             where = buildWhere(wantDay, getSchoolWeek(), getSchoolWeekDsz());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        List clsList = classDao.query(where);
+        return sortClassList(clsList);
+    }
+
+    /**
+     * 通过周来显示课表
+     *
+     * @param wantDay
+     * @param week
+     *
+     * @return
+     */
+    public List<ClassModel> getDayLessonByWeek(String wantDay, int week) {
+        PreparedQuery where = null;
+        try {
+            where = buildWhere(wantDay, week, week / 2 == 0 ? "双" : "单");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -168,6 +188,7 @@ public class ClassHelper {
 
     /**
      * 获取当前第几周
+     *
      * @return
      */
     public int getSchoolWeek() {

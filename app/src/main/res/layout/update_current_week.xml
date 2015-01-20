@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="5dp">
-    <TextView
-        android:id="@+id/currentWeek"
-        android:layout_width="match_parent"
-        android:text="当前第4周"
-        android:textSize="10pt"
-        android:padding="10dp"
-        android:layout_height="wrap_content" />
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-<ListView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/listviews"
-    ></ListView>
+    <include
+        layout="@layout/base_activity_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_color">
+
+        <TextView
+            android:id="@+id/currentWeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:alpha="0.7"
+            android:padding="10dp"
+            android:text="按周查看课表"
+            android:textColor="@color/title_white"
+            android:textSize="@dimen/text_size_body"/>
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/listviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        ></ListView>
 </LinearLayout>

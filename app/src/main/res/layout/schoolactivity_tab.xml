@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/theme_color"
+              android:orientation="vertical"
+
+              android:paddingTop="10dp">
 
     <LinearLayout
         android:id="@+id/linear_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="6dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -22,10 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center_horizontal"
+                 android:gravity="center_horizontal"
                 android:text="今天"
-                android:textColor="#1fc1a8"
-                android:textSize="20sp" />
+
+                android:textColor="#ffd3d3d3"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -38,10 +41,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center_horizontal"
+                 android:gravity="center_horizontal"
                 android:text="明天"
-                android:textColor="#6d6d6d"
-                android:textSize="20sp" />
+
+                android:textColor="#ffd3d3d3"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -54,10 +58,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center_horizontal"
+                 android:gravity="center_horizontal"
                 android:text="未来"
-                android:textColor="#6d6d6d"
-                android:textSize="20sp" />
+                android:textColor="#ffd3d3d3"
+                android:textSize="20sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -71,9 +75,8 @@
             android:id="@+id/iv_underline"
             android:layout_width="0dp"
             android:layout_height="3dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:src="#1fc1a8" />
+            android:alpha="0.7"
+            android:src="#ffffffff"/>
 
     </LinearLayout>
 

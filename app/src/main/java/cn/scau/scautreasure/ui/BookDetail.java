@@ -2,56 +2,69 @@ package cn.scau.scautreasure.ui;
 
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.devspark.appmsg.AppMsg;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.api.BackgroundExecutor;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import java.util.ArrayList;
+
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+//import cn.scau.scautreasure.adapter.BookDetailAdapter;
 import cn.scau.scautreasure.adapter.BookDetailAdapter;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.util.CryptUtil;
+import cn.scau.scautreasure.widget.AppProgress;
+import cn.scau.scautreasure.widget.AppToast;
 
 import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
-/**
- * 搜书图书后，获取详细信息;
- * User: special
- * Date: 13-8-18
- * Time: 下午10:42
- * Mail: specialcyci@gmail.com
- */
 @EActivity(R.layout.bookdetail)
-public class BookDetail extends CommonActivity implements DialogInterface.OnCancelListener {
+public class BookDetail extends ListActivity {
 
-    @App
-    AppContext app;
+
     @RestService
     LibraryApi api;
+
     @Extra
     String bookName;
+    protected ArrayList list;
+
     @Extra
     String url;
-    private BaseAdapter adapter;
+
+    @ViewById(R.id.book_name)
+    TextView book_name;
 
     @AfterViews
     void init() {
-        getSupportActionBar().setTitle(bookName);
-        UIHelper.getDialog(R.string.loading_bookdetail).show();
+        book_name.setText(bookName);
+        setTitleText("图书详情");
+        AppProgress.show(this, "正在加载...", "", "取消", new AppProgress.Callback() {
+            @Override
+            public void onCancel() {
+                BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
+                finish();
+            }
+        });
         loadData(url);
     }
 
@@ -60,7 +73,7 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
      */
     @UiThread
     void showSuccessResult() {
-        UIHelper.getDialog().dismiss();
+        AppProgress.hide();
         ((ListView) listView).setAdapter(adapter);
     }
 
@@ -71,9 +84,9 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
      */
     @UiThread
     void showErroResult(int requestCode) {
-        UIHelper.getDialog().dismiss();
+        AppProgress.hide();
         if (requestCode == 404) {
-            AppMsg.makeText(this, getString(R.string.tips_bookdetail_null), AppMsg.STYLE_CONFIRM).show();
+            AppToast.info(this, "没有找到你想要的书的馆藏信息");
         } else {
             app.showError(requestCode, this);
         }
@@ -89,23 +102,14 @@ public class BookDetail extends CommonActivity implements DialogInterface.OnCanc
         } catch (HttpStatusCodeException e) {
             showErroResult(e.getStatusCode().value());
         } catch (Exception e) {
-            handleNoNetWorkError(getSherlockActivity());
+            handleNoNetWorkError();
         }
     }
 
     private void buildListViewAdapter() {
-        BookDetailAdapter listadapter = new BookDetailAdapter(getSherlockActivity(), R.layout.bookdetail_listitem, list);
+        BookDetailAdapter listadapter = new BookDetailAdapter(this, R.layout.bookdetail_listitem, list);
         adapter = UIHelper.buildEffectAdapter(listadapter, (AbsListView) listView, ALPHA);
     }
 
-    @Override
-    public void onCancel(DialogInterface dialogInterface) {
-        BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
-        finish();
-    }
 
-    @Override
-    void handleServerError(ActionBarActivity ctx, ServerOnChangeListener listener) {
-        AppMsg.makeText(this,R.string.book_sys_error,AppMsg.STYLE_ALERT).show();
-    }
 }

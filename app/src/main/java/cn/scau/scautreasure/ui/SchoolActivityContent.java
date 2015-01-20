@@ -9,10 +9,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ButtonFlat;
+
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
@@ -24,7 +28,7 @@ import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
 
 @EActivity(R.layout.schoolactivity_content)
-public class SchoolActivityContent extends CommonActivity {
+public class SchoolActivityContent extends BaseActivity {
 
     @ViewById
     TextView title;
@@ -38,9 +42,26 @@ public class SchoolActivityContent extends CommonActivity {
     @Extra
     SchoolActivityModel model;
 
+    @ViewById(R.id.title_text)
+    TextView title_text;
+
+    @ViewById(R.id.more)
+    Button shareButton;
+
+    @Click(R.id.more)
+    void share() {
+
+    }
+
+    @Click(R.id.back)
+    void onBack() {
+        finish();
+    }
+
     @AfterViews
-    void init(){
-        getSupportActionBar().setTitle("活动内容");
+    void init() {
+        shareButton.setText("分享");
+        title_text.setText("活动内容");
         title.setText(model.getTitle());
         //time.setText(SchoolActivityHelper.getTimeText(model.getTime()));
         content.setContent(model.getContent());

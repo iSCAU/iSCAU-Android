@@ -15,9 +15,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.model.ClassModel;
-import cn.scau.scautreasure.ui.ClassTable;
+import cn.scau.scautreasure.ui.FragmentClassTable;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.util.DateUtil;
 
@@ -52,10 +51,10 @@ public class WebWeekClasstableHelper {
         for (int i=0;i<7;i++) {
             List<ClassModel> dayClassList = null;
             String chineseDay = dateUtil.numDayToChinese(i+1);
-            if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
-                dayClassList = classHelper.getDayLesson(chineseDay);
-            } else {
+            if (config.smart_class_table().get()) {
                 dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+            } else {
+                dayClassList = classHelper.getDayLesson(chineseDay);
             }
 
             JSONArray ja = new JSONArray();

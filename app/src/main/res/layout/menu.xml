@@ -1,451 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_normal"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
-    <cn.scau.scautreasure.widget.ElasticScrollView_
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="45dp"
+        android:background="@color/theme_color"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+
+        <LinearLayout
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#0000"
+                android:gravity="center"
+                android:text="应用"
+                android:textColor="@color/title_white"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/more"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="#0000"
+            android:gravity="center"
+            android:padding="3dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_setting"
+            />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            >
 
-            <!--八宝箱-->
-            <!--地图 校历 常用电话  英语角-->
-            <TextView
-                style="@style/menu_title_label"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="百宝箱"
-                />
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:stretchColumns="*">
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_map"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_map_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="地图" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_calendar"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_calendar_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_calendar" />
-
-                    </LinearLayout>
+                android:orientation="vertical">
 
 
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#32000000"/>
 
-                        <ImageButton
-                            android:id="@+id/menu_busandtelphone"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_bus_selector" />
+                <LinearLayout
 
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_busandtelphone" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_english"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_english_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="英语角" />
-
-                    </LinearLayout>
-
-                </TableRow>
-
-                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_course_comments"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_course_comments_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_course_comments" />
-
-                    </LinearLayout>
-
-                </TableRow>
-
-            </TableLayout>
+                    android:orientation="horizontal">
 
 
-            <!--教务系统-->
-            <!--查询成绩 空余教室 考试安排 选课情况-->
-            <TextView
-                style="@style/menu_title_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_edusys" />
+                    <Button
+                        android:id="@+id/menu_kfc"
+                        style="@style/menu_button"
+                        android:drawableTop="@drawable/icon_kfc"
+                        android:text="外卖"/>
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:stretchColumns="*">
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
 
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    <Button
+                        android:id="@+id/menu_calendar"
+                        style="@style/menu_button"
+                        android:drawableTop="@drawable/icon_calendar"
+                        android:text="校历"/>
 
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
 
-                        <ImageButton
-                            android:id="@+id/menu_goal"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_goal_selector" />
+                    <Button
+                        android:id="@+id/menu_map"
+                        style="@style/menu_button"
+                        android:drawableTop="@drawable/icon_map"
+                        android:text="校内地图"/>
 
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_goal" />
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_emptyClassRoom"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_emptyclassroom_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_emptyClassRoom" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_exam"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_test_arrangement_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_exam" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_pickCourseInfo"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_current_pickcourse_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_pickCourseInfo" />
-
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/menu_info"
+                        style="@style/menu_button"
+                        android:drawableTop="@drawable/icon_info"
+                        android:text="常用信息"/>
 
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#32000000"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:visibility="gone">
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        style="@style/menu_item"
+                    <Button
+                        android:id="@+id/menu_room"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_room"
+                        android:text="空教室"/>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
+
+                    <Button
+                        android:id="@+id/menu_grade"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_grade"
+                        android:text="查成绩"/>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
+
+                    <Button
+                        android:id="@+id/menu_exam"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_exam"
+                        android:text="查考试"/>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
+
+                    <Button
+                        android:id="@+id/menu_subject"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_subject"
+                        android:text="查选课"/>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#32000000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/menu_search"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_search"
+                        android:text="查图书"/>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
+
+                    <Button
+                        android:id="@+id/menu_book"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_book"
+                        android:text="当前借阅"/>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
+
+                    <Button
+                        android:id="@+id/menu_record"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/icon_record"
+                        android:text="过去借阅"/>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#32000000"/>
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:text=""/>
 
-                        <ImageButton
-                            android:id="@+id/menu_course_comments"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_course_comments_selector" />
+                </LinearLayout>
 
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_course_comments" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#32000000"/>
 
-                    </LinearLayout>
+                <ListView
+                    android:id="@+id/menu_listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                </TableRow>
+                </ListView>
 
-            </TableLayout>
-
-
-            <!--图书馆-->
-            <!--搜索图书 当前借阅 过去借阅-->
-            <TextView
-                style="@style/menu_title_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_lib" />
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:stretchColumns="*">
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_searchBook"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_search_book_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_searchBook" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_nowBorrowedBook"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_now_borrow_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_nowBorrowedBook" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_pastBorrowedBook"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_borrow_history_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/menu_pastBorrowedBook" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton style="@style/menu_item_icon" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-                </TableRow>
-
-
-            </TableLayout>
-
-
-            <!--其他-->
-            <!--设置,联系我们-->
-            <TextView
-                style="@style/menu_title_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_other" />
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:stretchColumns="*">
-
-
-                <TableRow>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_settings"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_setting_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="设置" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/menu_contact"
-                            style="@style/menu_item_icon"
-                            android:src="@drawable/icon_contatc_selector" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="联系我们" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-
-                            style="@style/menu_item_icon" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        style="@style/menu_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-
-                            style="@style/menu_item_icon" />
-
-                        <TextView
-                            style="@style/menu_item_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-
-                </TableRow>
-
-            </TableLayout>
-
+            </LinearLayout>
         </LinearLayout>
 
-    </cn.scau.scautreasure.widget.ElasticScrollView_>
+
+    </ScrollView>
 
 </LinearLayout>

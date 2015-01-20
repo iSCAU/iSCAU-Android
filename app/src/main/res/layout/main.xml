@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_normal"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/main_fragment"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
@@ -32,7 +32,7 @@
             android:background="#0000"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
+            android:paddingBottom="3dp"
             android:paddingTop="10dp">
 
             <Button
@@ -40,27 +40,28 @@
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false" />
-
-            <Button
-                android:id="@+id/bt_features"
-                style="@style/tab_item_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false" />
+                android:focusable="false"/>
 
             <Button
                 android:id="@+id/bt_activity"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false" />
+                android:focusable="false"/>
+
             <Button
-                android:id="@+id/bt_food"
+                android:id="@+id/bt_bus"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false" />
+                android:focusable="false"/>
+
+            <Button
+                android:id="@+id/bt_app"
+                style="@style/tab_item_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"/>
 
 
         </LinearLayout>
@@ -70,11 +71,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="3dp"
+            >
 
             <RadioButton
                 android:id="@+id/rd_classtable"
@@ -82,15 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/icon_classtable_selector"
-                android:text="@string/tab_classtable" />
-
-            <RadioButton
-                android:id="@+id/rd_features"
-                style="@style/tab_item_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/icon_features_selector"
-                android:text="@string/tab_features" />
+                android:text="@string/tab_classtable"/>
 
             <RadioButton
                 android:id="@+id/rd_activity"
@@ -98,15 +90,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/icon_shoolactivity_selector"
-                android:text="@string/tab_activity" />
+                android:text="@string/tab_activity"/>
 
             <RadioButton
-                android:id="@+id/rd_food"
+                android:id="@+id/rd_bus"
                 style="@style/tab_item_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/icon_food_selector"
-                android:text="@string/tab_food" />
+                android:text="校巴"/>
+
+            <RadioButton
+                android:id="@+id/rd_app"
+                style="@style/tab_item_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_features_selector"
+                android:text="应用"/>
 
 
         </RadioGroup>

@@ -11,12 +11,12 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.model.BookDetailModel;
 
 /**
- * 搜到的图书列表适配器
- * User:  Special Leung
- * Date:  13-7-30
- * Time:  下午4:16
- * Mail:  specialcyci@gmail.com
- */
+* 搜到的图书列表适配器
+* User:  Special Leung
+* Date:  13-7-30
+* Time:  下午4:16
+* Mail:  specialcyci@gmail.com
+*/
 public class BookDetailAdapter extends QuickAdapter<BookDetailModel> {
 
     public BookDetailAdapter(Context context, int layoutResId, List<BookDetailModel> data) {

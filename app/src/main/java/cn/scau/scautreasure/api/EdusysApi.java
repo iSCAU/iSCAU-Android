@@ -26,8 +26,16 @@ public interface EdusysApi {
     @Get("login/{userName}/{passWord}/{server}")
     PersonModel login(String userName, String passWord, int server);//错误时候{"msg":"password_error"}
 
-    @Get("classtable/{userName}/{passWord}/{server}")
-    ClassModel.ClassList getClassTable(String userName, String passWord, int server);
+    /**
+     * 更新课表
+     *
+     * @param userName
+     * @param passWord
+     *
+     * @return
+     */
+    @Get("classtable/{userName}/{passWord}/1")
+    ClassModel.ClassList getClassTable(String userName, String passWord);
 
     @Get("goal/{userName}/{passWord}/{server}/{year}/{team}")
     GoalModel.GoalList getGoal(String userName, String passWord, int server, String year, String team);
@@ -38,8 +46,8 @@ public interface EdusysApi {
     @Get("pickclassinfo/{userName}/{passWord}/{server}")
     PickClassModel.PickClassList getPickClassInfo(String userName, String passWord, int server);
 
-    @Get("emptyclassroom/{userName}/{passWord}/{server}/{xq}/{jslb}/{ddlKsz}/{ddlJsz}/{sjd}/{xqj}/{dsz}")
-    ClassRoomModel.ClassRoomList getEmptyClassRoom(String userName, String passWord, int server,
+    @Get("emptyclassroom/{userName}/{passWord}/1/{xq}/{jslb}/{ddlKsz}/{ddlJsz}/{sjd}/{xqj}/{dsz}")
+    ClassRoomModel.ClassRoomList getEmptyClassRoom(String userName, String passWord,
                                                    String xq, String jslb, String ddlKsz, String ddlJsz,
                                                    String sjd, String xqj, String dsz);
 

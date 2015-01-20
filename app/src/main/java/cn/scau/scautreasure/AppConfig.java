@@ -1,14 +1,12 @@
 package cn.scau.scautreasure;
 
-import com.j256.ormlite.field.DatabaseField;
-
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.DefaultInt;
 import org.androidannotations.annotations.sharedpreferences.DefaultLong;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
-import cn.scau.scautreasure.ui.ClassTable;
+import cn.scau.scautreasure.ui.FragmentClassTable;
 
 /**
  * 应用程序配置文件;
@@ -20,6 +18,31 @@ import cn.scau.scautreasure.ui.ClassTable;
 
 @SharedPref(value = SharedPref.Scope.UNIQUE)
 public interface AppConfig {
+
+
+    /*
+    记录用户常用路线
+     */
+    @DefaultInt(1)
+    //1号线,2号线
+    int default_bus_line();
+
+    /*
+    单日模式和全周模式
+    单日:0,全周:1
+     */
+    @DefaultInt(0)
+    int day_week();
+
+    /**
+     * 智能课表/全部课表
+     * false为显示全部,true为智能显示,默认是显示全部的.
+     *
+     * @return
+     */
+    @DefaultBoolean(false)
+    boolean smart_class_table();
+
     @DefaultBoolean(false)
     boolean isFirstStartApp();
 
@@ -41,6 +64,7 @@ public interface AppConfig {
 
     @DefaultBoolean(false)
     boolean forceMobile();
+
     @DefaultLong(0)
     long lastUpdateFood();  //上一次更新外卖列表的时间记录
 
@@ -92,8 +116,6 @@ public interface AppConfig {
     @DefaultString("")
     String lastSeeNotificationDate();      // 上次显示通知的时间
 
-    @DefaultInt(ClassTable.MODE_PARAMS)
-    int classTableShowMode(); // 课程表显示模式;
 
     @DefaultInt(0xffffffff)
     int widgetFontColor();

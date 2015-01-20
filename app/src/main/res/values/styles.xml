@@ -40,7 +40,7 @@
 
     <!-- ActionBar tabs styles -->
     <style name="ActionBarTabs"
-        parent="@style/Widget.AppCompat.ActionBar.TabView">
+           parent="@style/Widget.AppCompat.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_special</item>
     </style>
 
@@ -180,7 +180,7 @@
         <item name="android:layout_marginTop">@dimen/modify_lable_marginTop</item>
         <item name="android:layout_marginBottom">@dimen/modify_lable_marginBottom</item>
     </style>
-    
+
     <style name="classTab_normal_engtext">
         <item name="android:textColor">#969696</item>
         <item name="android:textSize">14sp</item>
@@ -202,12 +202,12 @@
     </style>
 
     <style name="schoolActivityTab_click">
-        <item name="android:textColor">#1fc1a8</item>
+        <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">20sp</item>
     </style>
 
     <style name="schoolActivityTab_normal">
-        <item name="android:textColor">#6d6d6d</item>
+        <item name="android:textColor">#ffd3d3d3</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -282,12 +282,48 @@
     <style name="tab_item_style">
         <item name="android:button">@null</item>
         <item name="android:background">#00000000</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="android:textColor">@drawable/tab_textcolor_selector</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:layout_weight">1.0</item>
     </style>
 
+    <style name="Dialog_Notitle" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/caldroid_white</item>
+    </style>
 
+    <style name="menu_button">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">@dimen/text_size_sub_body_button_menu</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/menu_button_selector</item>
+
+    </style>
+
+
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/float_transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="dialog_blue_button" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:background">@drawable/blue_button_background</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textColor">@color/button_text_color</item>
+    </style>
 </resources>

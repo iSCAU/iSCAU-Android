@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center_vertical"
+<LinearLayout
     android:id="@+id/list_item_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="5dp">
 
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="50dp">
     <ImageButton
         android:id="@+id/removeOne"
         android:layout_width="45dp"
-        android:background="#0000"
         android:layout_height="45dp"
+        android:background="#0000"
         android:src="@drawable/remove_one"/>
-    <LinearLayout android:layout_weight="1"
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
+
         <TextView
 
             android:id="@+id/foodName"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="麻辣鸡扒饭"
-            android:textSize="16sp"
-            android:layout_height="match_parent" />
+            android:textSize="16sp"/>
+
         <TextView
-            android:textColor="@color/money_color"
             android:id="@+id/foodMoney"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="$23"
 
-            android:layout_height="match_parent" />
-        </LinearLayout>
+            android:textColor="@color/money_color"/>
+    </LinearLayout>
 
     <TextView
-    android:textSize="16sp"
-        android:textColor="@color/money_color"
-        style="@style/login_edittext"
         android:id="@+id/foodCount"
+        style="@style/login_edittext"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:gravity="center"
         android:padding="5dp"
         android:text="0"
-        android:gravity="center"
-        android:layout_width="35dp"
+        android:textColor="@color/money_color"
 
 
-        android:layout_height="35dp" />
+        android:textSize="16sp"/>
+
     <ImageButton
         android:id="@+id/addOne"
-        android:background="#0000"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:background="#0000"
         android:src="@drawable/add_one"/>
 </LinearLayout>

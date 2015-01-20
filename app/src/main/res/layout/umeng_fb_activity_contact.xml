@@ -7,40 +7,63 @@
 
     <RelativeLayout
         android:id="@+id/umeng_fb_contact_header"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/action_bar">
+        android:background="@color/theme_color"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
-        <ImageView
-            android:id="@+id/umeng_fb_back"
-            android:layout_width="50dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/umeng_fb_back_selector"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/title_bar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:text="填写联系方式"
-            android:textColor="#ffffff"
-            android:layout_margin="60dp"
+            android:clickable="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="center">
 
-            android:layout_centerVertical="true"
-            android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#0000"
+                android:gravity="center"
+                android:text="联系方式"
+                android:textColor="@color/title_white"
+                android:textSize="20dp"/>
 
-        <ImageView
+        </LinearLayout>
+
+        <ImageButton
             android:id="@+id/umeng_fb_save"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/umeng_fb_tick_selector"/>
+            android:background="#0000"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/umeng_fb_tick_selector"
+            android:textColor="@color/title_white"
+            android:textSize="@dimen/text_size_button"/>
+
+        <ImageButton
+            android:id="@+id/umeng_fb_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="#0000"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_return_title"
+            />
     </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="fill_parent"

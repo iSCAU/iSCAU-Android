@@ -25,12 +25,13 @@ import cn.scau.scautreasure.model.ShopMenuDBModel;
 /*
 10-2重写
  */
-public class OrderListAdapter extends BaseAdapter{
-    private  Context context;
+public class OrderListAdapter extends BaseAdapter {
+    private Context context;
     private List<ShopMenuDBModel> data;
-    public OrderListAdapter(Context context,List<ShopMenuDBModel> data) {
-        this.context=context;
-        this.data=data;
+
+    public OrderListAdapter(Context context, List<ShopMenuDBModel> data) {
+        this.context = context;
+        this.data = data;
     }
 
     @Override
@@ -51,33 +52,25 @@ public class OrderListAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 //        R.layout.order_item_layout
-        ViewHolder holder=null;
-        if (view ==null){
-            holder=new ViewHolder();
+        ViewHolder holder = null;
+        if (view == null) {
+            holder = new ViewHolder();
             view = LayoutInflater.from(context).inflate(R.layout.order_item_layout, null);
-            holder.title=(TextView)view.findViewById(R.id.foodName);
-            holder.count=(TextView)view.findViewById(R.id.foodCount);
-            holder.price=(TextView)view.findViewById(R.id.foodMoney);
+            holder.title = (TextView) view.findViewById(R.id.foodName);
+            holder.count = (TextView) view.findViewById(R.id.foodCount);
+            holder.price = (TextView) view.findViewById(R.id.foodMoney);
             view.setTag(holder);
-        }else{
-            holder=(ViewHolder)view.getTag();
+        } else {
+            holder = (ViewHolder) view.getTag();
         }
         holder.title.setText(data.get(i).getFood_name());
-        holder.count.setText(String.valueOf(data.get(i).getCount())+" 份");
-        holder.price.setText( "¥ " + String.valueOf(data.get(i).getFood_price() * data.get(i).getCount()));
-        setBg(view,i);
+        holder.count.setText(String.valueOf(data.get(i).getCount()) + " 份");
+        holder.price.setText("¥ " + String.valueOf(data.get(i).getFood_price() * data.get(i).getCount()));
         return view;
     }
 
-    private void setBg(View view,int pos) {
-        if (pos % 2 == 0) {
-            view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click));
-        } else {
-           view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.list_item_click1));
-        }
-    }
 
-    class ViewHolder{
+    class ViewHolder {
         public TextView title;
         public TextView count;
         public TextView price;

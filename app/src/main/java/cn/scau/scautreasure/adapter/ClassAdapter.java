@@ -16,8 +16,9 @@ import cn.scau.scautreasure.AppConstant;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.ClassModel;
+//import cn.scau.scautreasure.ui.ClassEditor_;
 import cn.scau.scautreasure.ui.ClassEditor_;
-import cn.scau.scautreasure.ui.ClassTable;
+import cn.scau.scautreasure.ui.FragmentClassTable;
 
 /**
  * User:  Special Leung
@@ -29,14 +30,14 @@ import cn.scau.scautreasure.ui.ClassTable;
 public class ClassAdapter extends QuickAdapter<ClassModel> {
 
     private final Context ctx;
-    private ClassTable fragment;
+    private FragmentClassTable fragment;
 
     public ClassAdapter(Context context) {
         super(context, R.layout.classtable_listitem);
         ctx = context;
     }
 
-    public void setFragment(ClassTable fragment) {
+    public void setFragment(FragmentClassTable fragment) {
         this.fragment = fragment;
     }
 

@@ -3,8 +3,10 @@ package cn.scau.scautreasure.ui;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.devspark.appmsg.AppMsg;
+import com.gc.materialdesign.views.ButtonFlat;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -21,16 +23,22 @@ import cn.scau.scautreasure.helper.StringHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.util.DateUtil;
+import cn.scau.scautreasure.widget.AppToast;
 
 /**
- * 课程表修改;
- * User: special
- * Date: 13-8-31
- * Time: 下午2:13
- * Mail: specialcyci@gmail.com
+ * 添加课程/修改课程
  */
 @EActivity(R.layout.classtable_editor)
-public class ClassEditor extends CommonActivity {
+public class ClassEditor extends BaseActivity {
+    @Click(R.id.back)
+    void onBack() {
+        finish();
+    }
+
+
+    @ViewById(R.id.title_text)
+    TextView title_text;
+
 
     @Extra
     ClassModel model;
@@ -42,13 +50,17 @@ public class ClassEditor extends CommonActivity {
     StringHelper stringHelper;
     @Bean
     DateUtil dateUtil;
-    @ViewById
-    EditText edt_classname, edt_teacher, edt_place;
+    @ViewById(R.id.edt_classname)
+    EditText edt_classname;
+    @ViewById(R.id.edt_teacher)
+    EditText edt_teacher;
+    @ViewById(R.id.edt_place)
+    EditText edt_place;
     @ViewById
     WheelHorizontalView wheel_weekday, wheel_dsz, wheel_note_start;
     @ViewById
     WheelHorizontalView wheel_note_end, wheel_week_start, wheel_week_end;
-    @ViewById
+    @ViewById(R.id.more)
     Button btn_modify;
     @StringArrayRes
     String[] weekdays, notes, week, dsz;
@@ -77,11 +89,12 @@ public class ClassEditor extends CommonActivity {
         wheel_note_start.setViewAdapter(adapter_note_start);
         wheel_week_start.setViewAdapter(adapter_week_start);
 
-        getSupportActionBar().setTitle(model.getClassname());
         initView();
     }
 
     void initView() {
+        btn_modify.setText("完成");
+        title_text.setText(isNewClass ? "添加新课程" : "修改课程");
         try {
             edt_place.setText(model.getLocation());
             edt_teacher.setText(model.getTeacher());
@@ -94,9 +107,7 @@ public class ClassEditor extends CommonActivity {
             e.printStackTrace();
         }
 
-        if (isNewClass) {
-            btn_modify.setText(getString(R.string.btn_add_class));
-        }
+
     }
 
     private void setNoteRelativeView() throws Exception {
@@ -124,44 +135,48 @@ public class ClassEditor extends CommonActivity {
         wheel_weekday.setCurrentItem(day);
     }
 
-    @Click
+    @Click(R.id.more)
     void btn_modify() {
+        if (!edt_classname.getText().toString().trim().equals("")) {
+            // 判断开始节数是否大于结束节数;
+            int startNote = Integer.parseInt(getWheelCurrentText(wheel_note_start, adapter_note_start));
+            int endNote = Integer.parseInt(getWheelCurrentText(wheel_note_end, adapter_note_end));
+            int startWeek = Integer.parseInt(getWheelCurrentText(wheel_week_start, adapter_week_start));
+            int endWeek = Integer.parseInt(getWheelCurrentText(wheel_week_end, adapter_week_end));
+            if (endNote < startNote) {
+                AppToast.show(this, "开始节次不能大于结束节次", 0);
 
-        // 判断开始节数是否大于结束节数;
-        int startNote = Integer.parseInt(getWheelCurrentText(wheel_note_start, adapter_note_start));
-        int endNote = Integer.parseInt(getWheelCurrentText(wheel_note_end, adapter_note_end));
-        int startWeek = Integer.parseInt(getWheelCurrentText(wheel_week_start, adapter_week_start));
-        int endWeek = Integer.parseInt(getWheelCurrentText(wheel_week_end, adapter_week_end));
-        if (endNote < startNote) {
-            AppMsg.makeText(this, R.string.tips_classtable_modify_note_start_bigger_end, AppMsg.STYLE_ALERT).show();
-            return;
+                return;
+            }
+            if (endWeek < startWeek) {
+                AppToast.show(this, "开始周不能大于结束周", 0);
+                return;
+            }
+
+            // 生成节次信息;
+            String[] notes = new String[endNote - startNote + 1];
+            for (int note = startNote; note <= endNote; note++)
+                notes[note - startNote] = String.valueOf(note);
+            String strNote = stringHelper.join(",", notes);
+
+            // 设置信息;
+            model.setNode(strNote);
+            model.setTeacher(edt_teacher.getText().toString().trim());
+            model.setClassname(edt_classname.getText().toString().trim());
+            model.setLocation(edt_place.getText().toString().trim());
+            model.setDsz(getWheelCurrentText(wheel_dsz, adapter_dsz));
+            model.setDay(getWheelCurrentText(wheel_weekday, adapter_weekday));
+            model.setStrWeek(startWeek);
+            model.setEndWeek(endWeek);
+
+            Intent data = new Intent();
+            data.putExtra("class", model);
+            this.setResult(RESULT_OK, data);
+            finish();
+
+        } else {
+            finish();
         }
-        if (endWeek < startWeek) {
-            AppMsg.makeText(this, R.string.tips_classtable_modify_week_start_bigger_end, AppMsg.STYLE_ALERT).show();
-            return;
-        }
-
-        // 生成节次信息;
-        String[] notes = new String[endNote - startNote + 1];
-        for (int note = startNote; note <= endNote; note++)
-            notes[note - startNote] = String.valueOf(note);
-        String strNote = stringHelper.join(",", notes);
-
-        // 设置信息;
-        model.setNode(strNote);
-        model.setTeacher(edt_teacher.getText().toString().trim());
-        model.setClassname(edt_classname.getText().toString().trim());
-        model.setLocation(edt_place.getText().toString().trim());
-        model.setDsz(getWheelCurrentText(wheel_dsz, adapter_dsz));
-        model.setDay(getWheelCurrentText(wheel_weekday, adapter_weekday));
-        model.setStrWeek(startWeek);
-        model.setEndWeek(endWeek);
-
-        Intent data = new Intent();
-        data.putExtra("class", model);
-        this.setResult(RESULT_OK, data);
-
-        finish();
     }
 
     /**
@@ -169,6 +184,7 @@ public class ClassEditor extends CommonActivity {
      *
      * @param wheel
      * @param adapter
+     *
      * @return
      */
     private String getWheelCurrentText(WheelHorizontalView wheel, ArrayWheelAdapter adapter) {

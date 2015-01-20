@@ -3,142 +3,305 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_normal"
+    android:background="@color/menu_bg"
     android:orientation="vertical">
+
+    <include
+        layout="@layout/base_activity_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_class_name"/>
-
-            <EditText
-                android:id="@+id/edt_classname"
-                style="@style/modify_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_name_teacher"/>
-
-            <EditText
-                android:id="@+id/edt_teacher"
-                style="@style/modify_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_class_place"/>
-
-            <EditText
-                android:id="@+id/edt_place"
-                style="@style/modify_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_weekday"/>
-
-            <antistatic.spinnerwheel.WheelHorizontalView
-                android:id="@+id/wheel_weekday"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+                android:background="@color/theme_color"
+                android:orientation="vertical">
 
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_dsz"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    >
 
-            <antistatic.spinnerwheel.WheelHorizontalView
-                android:id="@+id/wheel_dsz"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="课程名称"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <EditText
+                        android:id="@+id/edt_classname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint=""
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_title"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="教师姓名"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <EditText
+                        android:id="@+id/edt_teacher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint=""
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_title"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="上课地点"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <EditText
+                        android:id="@+id/edt_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint=""
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_title"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
 
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_note_start"/>
+                android:orientation="vertical">
 
-            <antistatic.spinnerwheel.WheelHorizontalView
-                android:id="@+id/wheel_note_start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
 
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_note_end"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                     android:background="@drawable/inputbox_bg"
+                    android:orientation="vertical">
 
-            <antistatic.spinnerwheel.WheelHorizontalView
-                android:id="@+id/wheel_note_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
 
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_week_start"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputbox_bg"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-            <antistatic.spinnerwheel.WheelHorizontalView
-                android:id="@+id/wheel_week_start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="星期几"/>
 
-            <TextView
-                style="@style/class_modify_text_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/listitem_lable_week_end"/>
+                        <antistatic.spinnerwheel.WheelHorizontalView
+                            android:id="@+id/wheel_weekday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"/>
+                    </LinearLayout>
 
-            <antistatic.spinnerwheel.WheelHorizontalView
-                android:id="@+id/wheel_week_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputbox_bg"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="单双周"/>
+
+                        <antistatic.spinnerwheel.WheelHorizontalView
+                            android:id="@+id/wheel_dsz"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"/>
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputbox_bg"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="开始节次"/>
+
+                        <antistatic.spinnerwheel.WheelHorizontalView
+                            android:id="@+id/wheel_note_start"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputbox_bg"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="结束节次"/>
+
+                        <antistatic.spinnerwheel.WheelHorizontalView
+                            android:id="@+id/wheel_note_end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"/>
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputbox_bg"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="开始周"/>
+
+                        <antistatic.spinnerwheel.WheelHorizontalView
+                            android:id="@+id/wheel_week_start"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputbox_bg"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="结束周"/>
+
+                        <antistatic.spinnerwheel.WheelHorizontalView
+                            android:id="@+id/wheel_week_end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         </LinearLayout>
+
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btn_modify"
-            style="@style/noraml_button"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:text="@string/btn_modify"/>
-    </LinearLayout>
 
 </LinearLayout>

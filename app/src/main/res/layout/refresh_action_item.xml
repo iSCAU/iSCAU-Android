@@ -8,5 +8,6 @@
         android:id="@+id/refresh_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/abc_action_bar_icon_vertical_padding"/>
+        android:padding="@dimen/abc_action_bar_icon_vertical_padding"
+        android:src="@drawable/icon_menu_refresh"/>
 </FrameLayout>

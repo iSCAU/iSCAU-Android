@@ -1,128 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="fill_parent"
-             android:layout_height="fill_parent"
-             android:background="@color/background_normal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/background_normal"
+              android:orientation="vertical">
 
-    <ImageView
+    <include
+        layout="@layout/base_activity_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription=""
-        android:orientation="vertical"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login_background"/>
+        android:layout_height="wrap_content"/>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/login_frame_margin"
-            android:background="@drawable/login_frame"
-            android:orientation="vertical"
-            android:padding="@dimen/login_frame_padding">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@color/theme_color"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/tv_login"
-                    android:textColor="@color/login_lable_font_color"
-                    android:textSize="@dimen/login_lable_textsize"/>
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical"
+                    >
 
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/login_lable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_username"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="教务系统帐号"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
 
-                <EditText
+                    <EditText
+                        android:id="@+id/edt_userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint="e.g. 201330120126"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_display1"/>
 
-                    android:id="@+id/edt_userName"
-                    style="@style/login_edittext"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_username"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
 
-                <TextView
-                    android:id="@+id/textView1"
-                    style="@style/login_lable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_edupassword"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        />
 
-                <EditText
-                    android:id="@+id/edt_eduSysPassword"
-                    style="@style/login_edittext"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_edusyspassword"
-                    android:password="true"/>
+                    <TextView
+                        android:layout_width="match_parent"
 
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/login_lable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_libpassword"/>
+                        android:layout_height="wrap_content"
 
-                <EditText
-                    android:id="@+id/edt_libPassword"
-                    style="@style/login_edittext"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_libpassword"
-                    android:password="true"/>
+                        android:alpha="0.7"
+                        android:text="教务系统密码"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/login_lable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_cardpassword"
-                    android:visibility="gone"/>
+                    <EditText
+                        android:id="@+id/edt_eduSysPassword"
 
-                <EditText
-                    android:id="@+id/edt_cardPassword"
-                    style="@style/login_edittext"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_cardpassword"
-                    android:password="true"
-                    android:visibility="gone"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint="********"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:password="true"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_display1"/>
 
-                <TextView
-                    android:id="@+id/tv_special_entrance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/login_lable_padding_top"
-                    android:text="@string/tv_special_entrance"
-                    android:textColor="#A8A8A8"
-                    android:textSize="13sp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
 
-                <Button
-                    android:id="@+id/btn_save"
-                    style="@style/login_button"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/login_lable_padding_bottom"
-                    android:layout_marginTop="@dimen/login_lable_padding_top"
-                    android:text="@string/btn_save"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        />
 
+                    <TextView
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:alpha="0.7"
+                        android:text="图书管密码(默认:001)"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <EditText
+                        android:id="@+id/edt_libPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint="******"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+
+                        android:password="true"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_display1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:alpha="0.7"
+                        android:text="校园卡密码(默认:身份证后6位数字)"
+                        android:textColor="@color/title_white"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <EditText
+                        android:id="@+id/edt_cardPassword"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:gravity="bottom"
+                        android:hint="******"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:password="true"
+                        android:singleLine="true"
+                        android:textColor="@color/title_white"
+                        android:textColorHint="@color/title_white"
+                        android:textSize="@dimen/text_size_display1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_btn_bg_color"/>
+                </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:paddingTop="20dp"
+                android:text="温馨提示:如果你在正方系统修改了密码,也需要在此输入新密码才可以使用."
+                android:textSize="@dimen/text_size_body"/>
+
         </LinearLayout>
 
     </ScrollView>
-</FrameLayout>
+</LinearLayout>
 

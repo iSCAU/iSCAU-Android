@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <declare-styleable name="Rotate3dAnimation">
+        <attr name="rollType" format="enum">
+            <enum name="x" value="0"/>
+            <enum name="y" value="1"/>
+            <enum name="z" value="2"/>
+        </attr>
+        <attr name="fromDeg" format="float"/>
+        <attr name="toDeg" format="float"/>
+        <attr name="pivotX" format="fraction"/>
+        <attr name="pivotY" format="fraction"/>
+    </declare-styleable>
+    <declare-styleable name="ProgressWheel">
+        <attr name="progressIndeterminate" format="boolean"/>
+        <attr name="barColor" format="color"/>
+        <attr name="rimColor" format="color"/>
+        <attr name="rimWidth" format="dimension"/>
+        <attr name="spinSpeed" format="float"/>
+        <attr name="barSpinCycleTime" format="integer"/>
+        <attr name="circleRadius" format="dimension"/>
+        <attr name="fillRadius" format="boolean"/>
+        <attr name="barWidth" format="dimension"/>
+        <attr name="linearProgress" format="boolean"/>
+    </declare-styleable>
     <declare-styleable name="JazzyViewPager">
         <attr name="style">
-            <enum name="standard" value="0" />
-            <enum name="tablet" value="1" />
-            <enum name="cubein" value="2" />
-            <enum name="cubeout" value="3" />
-            <enum name="flipvertical" value="4" />
-            <enum name="fliphorizontal" value="5" />
-            <enum name="stack" value="6" />
-            <enum name="zoomin" value="7" />
-            <enum name="zoomout" value="8" />
-            <enum name="rotateup" value="9" />
-            <enum name="rotatedown" value="10" />
-            <enum name="accordion" value="11" />
+            <enum name="standard" value="0"/>
+            <enum name="tablet" value="1"/>
+            <enum name="cubein" value="2"/>
+            <enum name="cubeout" value="3"/>
+            <enum name="flipvertical" value="4"/>
+            <enum name="fliphorizontal" value="5"/>
+            <enum name="stack" value="6"/>
+            <enum name="zoomin" value="7"/>
+            <enum name="zoomout" value="8"/>
+            <enum name="rotateup" value="9"/>
+            <enum name="rotatedown" value="10"/>
+            <enum name="accordion" value="11"/>
         </attr>
-        <attr name="fadeEnabled" format="boolean" />
-        <attr name="outlineEnabled" format="boolean" />
-        <attr name="outlineColor" format="color|reference" />
+        <attr name="fadeEnabled" format="boolean"/>
+        <attr name="outlineEnabled" format="boolean"/>
+        <attr name="outlineColor" format="color|reference"/>
     </declare-styleable>
 
+    <style name="AnimationFade">
+
+        <!-- PopupWindow左右弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/class_popup_in</item>
+        <item name="android:windowExitAnimation">@anim/class_popup_out</item>
+    </style>
 </resources>

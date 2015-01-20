@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.content.Context;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -29,20 +30,17 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
+import cn.scau.scautreasure.model.KeyValueModel;
 import cn.scau.scautreasure.model.ParamModel;
 import cn.scau.scautreasure.util.CacheUtil;
+import cn.scau.scautreasure.widget.AppProgress;
 import cn.scau.scautreasure.widget.ParamWidget;
 import cn.scau.scautreasure.widget.ParamWidget_;
+import cn.scau.scautreasure.widget.RichButton;
 
-/**
- * 条件选择
- * User:  Special Leung
- * Date:  13-8-15
- * Time:  下午4:13
- * Mail:  specialcyci@gmail.com
- */
+
 @EActivity(R.layout.param)
-public class Param extends CommonActivity implements ServerOnChangeListener {
+public class Param extends BaseActivity {
 
     @App
     AppContext app;
@@ -53,32 +51,40 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
 
     @Extra("target")
     String target;
+
     @Extra("targetActivity")
     String targetActivity;
-    private List<ParamWidget> wheelList;
+    private List<RichButton> buttonList;
     private ArrayList<ParamModel> paramList;
     //是否开学
     private boolean isStartStudy = true;
 
     @AfterInject
     void init() {
-        wheelList = new ArrayList<ParamWidget>();
-        UIHelper.getDialog(R.string.tips_loading_params).show();
+        buttonList = new ArrayList<RichButton>();
+        AppProgress.show(this, "加载条件", "第一次加载可能比较慢，请耐心等待", "取消", new AppProgress.Callback() {
+            @Override
+            public void onCancel() {
+                finish();
+            }
+        });
         loadData();
     }
 
+    @Extra
+    String _title;
+
     @Override
     @AfterViews
-    void initActionBar() {
-        super.initActionBar();
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.title_params);
+    void initView() {
+        setTitleText(_title);
+        setMoreButtonText("下一步");
     }
 
     /**
      * 继续查询按钮点击事件;
      */
-    @Click
+    @Click(R.id.more)
     void btn_continue() {
         try {
             startNextActivity();
@@ -113,8 +119,10 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
 
     private ArrayList<String> buildParamsValue() {
         ArrayList<String> value = new ArrayList<String>();
-        for (int i = 0; i < wheelList.size(); i++)
-            value.add(wheelList.get(i).getSelectedParam());
+        for (int i = 0; i < buttonList.size(); i++) {
+            value.add(buttonList.get(i).getTv_subtitle().getText().toString());
+            Log.i(getClass().getName(), buttonList.get(i).getTv_subtitle().getText().toString());
+        }
         return value;
     }
 
@@ -123,28 +131,29 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
      */
     @UiThread
     void showParams() {
-        if (UIHelper.getDialog() != null)
-            UIHelper.getDialog().dismiss();
-        wheelList.clear();
+        AppProgress.hide();
+        buttonList.clear();
         for (ParamModel p : paramList) {
-            ParamWidget paramWidget = buildParamViews(p.getKey(), p.getValue());
-            linear_parent.addView(paramWidget);
+            List<KeyValueModel> keyList = new ArrayList<KeyValueModel>();
+            for (String key : p.getValue()) {
+                keyList.add(new KeyValueModel(key, 0));
+            }
+            RichButton richButton = new RichButton(this, keyList, callback);
+            richButton.getTv_title().setText(p.getKey());
+            richButton.getTv_subtitle().setText(p.getValue()[0]);
+            buttonList.add(richButton);
+            linear_parent.addView(richButton);
+
         }
     }
 
-    private ParamWidget buildParamViews(String key, String[] values) {
-        if (values == null) {
-            values = new String[]{"无"};
-            if(target.equals("emptyClassRoom"))
-            isStartStudy=false;
-
+    private RichButton.Callback callback = new RichButton.Callback() {
+        @Override
+        public void afterItemClickListener(KeyValueModel model) {
+            Log.i(getClass().getName(), model.toString());
         }
-        ParamWidget paramWidget = ParamWidget_.build(getSherlockActivity());
-        paramWidget.initView(key, values, wheelList.size());
-        paramWidget.setSeparatorVisable(View.VISIBLE);
-        wheelList.add(paramWidget);
-        return paramWidget;
-    }
+    };
+
 
     @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
@@ -155,23 +164,30 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
                 paramList = api.getParams(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, target).getParams();
                 saveCacheParamsList(paramList);
             } catch (HttpStatusCodeException e) {
-                showErrorResult(this, e.getStatusCode().value(), this);
+                showErrorResult(e.getStatusCode().value());
+                hideProgressBar();
                 return;
             } catch (Exception e) {
-                handleNoNetWorkError(getSherlockActivity());
+                handleNoNetWorkError();
+                hideProgressBar();
             }
         }
         showParams();
     }
 
+    @UiThread
+    void hideProgressBar() {
+        AppProgress.hide();
+    }
+
     private ArrayList<ParamModel> getCacheParamsList() {
-        CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
+        CacheUtil cacheUtil = CacheUtil.get(this);
         String cacheKey = getCacheKey();
         return (ArrayList<ParamModel>) cacheUtil.getAsObject(cacheKey);
     }
 
     private void saveCacheParamsList(ArrayList<ParamModel> paramList) {
-        CacheUtil cacheUtil = CacheUtil.get(getSherlockActivity());
+        CacheUtil cacheUtil = CacheUtil.get(this);
         if (paramList.size() != 0)
             cacheUtil.put(getCacheKey(), paramList, AppConstant.PARAMS_CACHE_TIME);
     }
@@ -180,10 +196,5 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
         return "param_" + target;
     }
 
-    @Override
-    public void onChangeServer() {
-        UIHelper.getDialog(R.string.tips_loading_params).show();
-        loadData();
-    }
 
 }

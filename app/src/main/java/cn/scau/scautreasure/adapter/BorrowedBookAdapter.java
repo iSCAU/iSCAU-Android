@@ -63,7 +63,7 @@ public class BorrowedBookAdapter extends QuickAdapter<BookModel> {
             baseAdapterHelper.getView(R.id.btn_renew).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ctx.reNew(model.getBarcode_number(), model.getCheck_code());
+                    // ctx.reNew(model.getBarcode_number(), model.getCheck_code());
                 }
             });
         } else {

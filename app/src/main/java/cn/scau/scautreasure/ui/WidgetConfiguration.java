@@ -67,7 +67,7 @@ public class WidgetConfiguration extends CommonActivity {
     @AfterViews
     void init() {
         getAppWidgetParams();
-        getSupportActionBar().setTitle(R.string.title_colorpicker);
+        //getSupportActionBar().setTitle(R.string.title_colorpicker);
         initColorPicker();
         initParam();
     }

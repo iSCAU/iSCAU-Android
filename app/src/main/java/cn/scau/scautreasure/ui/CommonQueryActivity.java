@@ -12,7 +12,7 @@ import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.widget.RefreshActionItem;
 
 /**
- * 可查询 Activity 的共享上层。
+ * 可查询 Activity 的共享上层。正在弃用
  */
 @EActivity
 public class CommonQueryActivity extends CommonActivity implements ServerOnChangeListener, RefreshActionItem.RefreshButtonListener {
@@ -45,7 +45,7 @@ public class CommonQueryActivity extends CommonActivity implements ServerOnChang
         if (startLoginActivity) {
             int startTips = queryTarget == QUERY_FOR_EDUSYS ?
                     R.string.start_tips_edusys : R.string.start_tips_library;
-            Login_.intent(this).startTips(getString(startTips)).start();
+            //  Login_.intent(this).startTips(getString(startTips)).start();
             this.finish();
         }
     }

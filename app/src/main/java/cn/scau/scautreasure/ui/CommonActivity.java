@@ -32,13 +32,10 @@ import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.widget.SpinnerDialog;
 
 /**
- * User:  Special Leung
- * Date:  13-8-17
- * Time:  下午2:38
- * Mail:  specialcyci@gmail.com
+ * 正在弃用
  */
 @EActivity
-public class CommonActivity extends ActionBarActivity implements DialogInterface.OnCancelListener {
+public class CommonActivity extends Activity implements DialogInterface.OnCancelListener {
 
     @App
     protected AppContext app;
@@ -58,22 +55,22 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
         cacheHelper = new CacheHelper(this);
     }
 
-    @AfterViews
-    void initActionBar() {
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.menu_icon_back);
-    }
+//    @AfterViews
+//    void initActionBar() {
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.menu_icon_back);
+//    }
 
     protected void setTitle(String title) {
-        getSupportActionBar().setTitle(title);
+//        getSupportActionBar().setTitle(title);
     }
 
     @Override
     public void setTitle(int titleResource) {
-        getSupportActionBar().setTitle(titleResource);
+//        getSupportActionBar().setTitle(titleResource);
     }
 
     /**
@@ -112,6 +109,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      * 判断是否教务系统服务器错误;
      *
      * @param requestCode
+     *
      * @return
      */
     private boolean isServerError(int requestCode) {
@@ -122,6 +120,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      * 确保要使用的上下文没有被销毁。
      *
      * @param ctx
+     *
      * @return
      */
     private boolean ensureActivityAvailable(Activity ctx) {
@@ -168,7 +167,7 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
 //            }
 //        });
 //        spinner.createBuilder().create().show();
-        AppMsg.makeText(this,R.string.tips_edu_server_error,AppMsg.STYLE_ALERT).show();
+        AppMsg.makeText(this, R.string.tips_edu_server_error, AppMsg.STYLE_ALERT).show();
     }
 
 
@@ -217,10 +216,9 @@ public class CommonActivity extends ActionBarActivity implements DialogInterface
      *
      * @return
      */
-    protected ActionBarActivity getSherlockActivity() {
-        return this;
-    }
-
+//    protected ActionBarActivity getSherlockActivity() {
+//        return this;
+//    }
     @OptionsItem(android.R.id.home)
     void home() {
         this.finish();

@@ -2,55 +2,44 @@ package cn.scau.scautreasure.ui;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.devspark.appmsg.AppMsg;
-import com.joanzapata.android.BaseAdapterHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.Extra;
+
 import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.OptionsMenuItem;
+
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import cn.scau.scautreasure.AppCompatible;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.FoodShopAdapter;
-import cn.scau.scautreasure.adapter.NoticeAdapter;
 import cn.scau.scautreasure.helper.FoodShopHelper;
 import cn.scau.scautreasure.helper.FoodShopLoader;
-import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.model.FoodShopDBModel;
-import cn.scau.scautreasure.service.FoodShopService_;
+import cn.scau.scautreasure.widget.AppToast;
 
-import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
 
 /**
  * 外卖
  */
-@EFragment(R.layout.food)
-public class Food extends CommonFragment implements OnTabSelectListener {
+@EActivity(R.layout.food)
+public class Food extends ListActivity {
+
     @Bean
     FoodShopHelper helper;
     @Bean
@@ -64,25 +53,16 @@ public class Food extends CommonFragment implements OnTabSelectListener {
     TextView restText;
 
     @Click(R.id.refreshButton)
-    void onRefresh(){
-        swipe_refresh.setRefreshing(true);
+    void onRefresh() {
+        AppToast.show(this, "正在联网更新外卖数据", 0);
         refresh();
 
     }
 
-    /**
-     *  "id": "1",
-     "shop_name": "一心一意",
-     "phone": "123456",
-     "status": "1",
-     "edit_time": "1408760358"
 
-     */
-
-
-    @ItemClick(R.id.shopListView)
-    void itemClick(int position){
-        ShopMenu_.intent(getSherlockActivity()).id(String.valueOf(list.get(position).getId()))
+    @ItemClick(R.id.listView)
+    void itemClick(int position) {
+        ShopMenu_.intent(this).id(String.valueOf(list.get(position).getId()))
                 .shop_name(list.get(position).getShop_name())
                 .phone(list.get(position).getPhone())
                 .edit_time(String.valueOf(list.get(position).getEdit_time()))
@@ -93,9 +73,8 @@ public class Food extends CommonFragment implements OnTabSelectListener {
     }
 
     @Background
-    void refresh(){
+    void refresh() {
         try {
-
             loader.downLoader(new FoodShopLoader.OnCallBack() {
                 @Override
                 public void onSucceed() {
@@ -111,50 +90,28 @@ public class Food extends CommonFragment implements OnTabSelectListener {
 
                 }
             });
-        }catch (HttpStatusCodeException e) {
-            Log.i("异常",String.valueOf(e.getStatusCode().value()));
-            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+        } catch (HttpStatusCodeException e) {
+            Log.i("异常", String.valueOf(e.getStatusCode().value()));
+//            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
         } catch (Exception e) {
-            handleNoNetWorkError(getSherlockActivity());
-        }finally {
-            closeSwipeRefresh();
+//            handleNoNetWorkError(getSherlockActivity());
+        } finally {
         }
     }
 
     @UiThread
-    void updateUi(String text){
+    void updateUi(String text) {
         loadFromDB();
 
-        Toast.makeText(getSherlockActivity(),text,Toast.LENGTH_LONG).show();
-
     }
-    @Pref
-    cn.scau.scautreasure.AppConfig_ config;
 
-    @ViewById
-    SwipeRefreshLayout swipe_refresh;
-
-    @ViewById(R.id.shopListView)
-    ListView shopListView;
     List<FoodShopDBModel> list;
     private FoodShopAdapter listAdapter;
 
     @AfterViews
     void initViews() {
-
-        setSwipeRefresh();
-        swipe_refresh.setRefreshing(true);
+        title_text.setText("外卖");
         loadFromDB();
-
-
-    }
-    private void setSwipeRefresh() {
-        swipe_refresh.setEnabled(false);
-        // 顶部刷新的样式
-        swipe_refresh.setColorScheme(R.color.swipe_refresh_1,
-                R.color.swipe_refresh_2,
-                R.color.swipe_refresh_3,
-                R.color.swipe_refresh_4);
     }
 
     void loadFromDB() {
@@ -176,45 +133,24 @@ public class Food extends CommonFragment implements OnTabSelectListener {
 
                 if (listAdapter == null) {
                     Log.i("adapter", "建立adapter");
-                    listAdapter = new FoodShopAdapter(getSherlockActivity(),list);
-                    shopListView.setAdapter(listAdapter);
+                    listAdapter = new FoodShopAdapter(this, list);
+                    listView.setAdapter(listAdapter);
                 } else {
                     Log.i("adapter", "刷新adapter");
                     listAdapter.notifyDataSetChanged();
                 }
                 linearLayout.setVisibility(View.GONE);
             } else {
-                AppMsg.makeText(getSherlockActivity(), "暂无数据,请尝试手动更新", AppMsg.STYLE_INFO).show();
+                AppToast.show(this, "暂无数据,请尝试手动更新", 0);
                 linearLayout.setVisibility(View.VISIBLE);
             }
-            closeSwipeRefresh();
-        }catch (Exception e){
-            Log.d("food","还没建表");
-            AppMsg.makeText(getSherlockActivity(), "暂无数据,请尝试手动更新", AppMsg.STYLE_INFO).show();
+        } catch (Exception e) {
+            Log.d("food", "还没建表");
+            AppToast.show(this, "暂无数据,请尝试手动更新", 0);
             linearLayout.setVisibility(View.VISIBLE);
         }
     }
 
-    @UiThread
-    void closeSwipeRefresh() {
-        swipe_refresh.setRefreshing(false);
-    }
-
-    @Override
-    void showSuccessResult() {
-
-    }
-
-    @Override
-    public void onTabSelect() {
-        setTitle(R.string.tab_food);
-        setSubTitle("");
-    }
-    @Click(R.id.menu_refresh_foodshop)
-    void onClick(){
-        swipe_refresh.setRefreshing(true);
-
-    }
 
     /**
      * 返回负数就是靠前,正数靠后---排序器
@@ -265,23 +201,21 @@ public class Food extends CommonFragment implements OnTabSelectListener {
 
         }
     }
-    class SortByLastTime implements Comparator{
 
+    class SortByLastTime implements Comparator {
 
         @Override
         public int compare(Object o, Object o2) {
             FoodShopDBModel a = (FoodShopDBModel) o;
             FoodShopDBModel b = (FoodShopDBModel) o2;
-           // return Integer.parseInt(String.valueOf(Long.valueOf(a.getLastTime()-b.getLastTime())));
-            if (a.getLastTime()>b.getLastTime()){
+            // return Integer.parseInt(String.valueOf(Long.valueOf(a.getLastTime()-b.getLastTime())));
+            if (a.getLastTime() > b.getLastTime()) {
                 return -1;
-            }else if (a.getLastTime()<b.getLastTime()){
+            } else if (a.getLastTime() < b.getLastTime()) {
                 return 1;
-            }else {
+            } else {
                 return 0;
             }
-
-//            return  (int)(b.getLastTime()-a.getLastTime());
 
 
         }

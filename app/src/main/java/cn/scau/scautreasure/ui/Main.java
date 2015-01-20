@@ -1,269 +1,283 @@
 package cn.scau.scautreasure.ui;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.devspark.appmsg.AppMsg;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.rest.RestService;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
-
-import java.sql.Time;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
-import cn.scau.scautreasure.api.SchoolActivityApi;
-import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.helper.HttpLoader;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.model.ActivityCountModel;
-import cn.scau.scautreasure.util.DateUtil;
+import cn.scau.scautreasure.widget.AppNotification;
+import cn.scau.scautreasure.widget.AppViewDrawable;
 import cn.scau.scautreasure.widget.BadgeView;
 
+
 /**
- * 主页面;
- * <p/>
- * User:  Special Leung
- * Date:  13-7-28
- * Time:  下午9:11
- * Mail:  specialcyci@gmail.com
+ * 入口Activity
  */
-@EActivity(R.layout.main)
-public class Main extends ActionBarActivity {
-
-    private static final String MENU_TAG = "menu_";
-    private static final String CLASSTABLE_TAG = "classtable_";
-    private static final String SETTINGS_TAG = "settings_";
-    private static final String FOOD_TAG = "food_";
-    private static final String BUS_TAG="bus_";
-
-    @Pref
-    cn.scau.scautreasure.AppConfig_ config;
+@EActivity
+public class Main extends FragmentActivity {
+    @Bean
+    HttpLoader httpLoader;
     @App
     AppContext app;
-    @Bean
-    DateUtil dateUtil;
-    @ViewById
-    RadioGroup radioGroup;
-    @ViewById
-    RadioButton rd_classtable, rd_features, rd_activity, rd_food;
-    @ViewById
-    Button bt_classtable, bt_features, bt_activity, bt_food;
-    @RestService
-    SchoolActivityApi api;
 
-    BadgeView bv_classtable,bv_features,bv_activity,bv_food;
-    Fragment fragmentMenu;
-    Fragment fragmentClassTable;
-    Fragment fragmentActivity;
-    Fragment fragmentFood;
-    Fragment bus;
-    private ActionBarActivity mContext;
-    private int checkedId;
-    private long exitTime = 0;
+    private FragmentManager fragmentManager;
 
-    @AfterInject
-    void init() {
-        mContext = this;
-    }
+    //课表,应用,活动圈,校巴
+    private Fragment fragment_class_table, fragment_app, fragment_activity, fragment_bus;
 
-    @AfterViews
-    void initView() {
-        setUpTab();
-        initMobclickAgent();
-        checkForUpdate();
-        showNotification();
-        showNotePoint();
-        updateActivityRedPoint();
-/*//显示红点
-        if(Long.valueOf(app.config.lastRedPoint().get())>0) {
-            bv_activity.show();
-        }*/
-    }
+    //红点
+    BadgeView bv_class_table, bv_app, bv_bus, bv_activity;
+    @ViewById(R.id.bt_classtable)
+    Button bt_class_table;
+    @ViewById(R.id.bt_app)
+    Button bt_app;
+    @ViewById(R.id.bt_bus)
+    Button bt_bus;
+    @ViewById(R.id.bt_activity)
+    Button bt_activity;
 
-    /**
-     * 获取红点
-     */
-    private void showNotePoint() {
-        bv_classtable=AppContext.setTabRedPoint(this,bt_classtable);
-        bv_features=AppContext.setTabRedPoint(this,bt_features);
-        bv_activity=AppContext.setTabRedPoint(this,bt_activity);
-        bv_food=AppContext.setTabRedPoint(this,bt_food);
-    }
+    @ViewById(R.id.rd_classtable)
+    RadioButton rd_class_table;
 
+    @ViewById(R.id.rd_app)
+    RadioButton rd_app;
 
+    @ViewById(R.id.rd_bus)
+    RadioButton rd_bus;
 
+    @ViewById(R.id.rd_activity)
+    RadioButton rd_activity;
 
-    private void setUpTab() {
-        if (fragmentMenu == null) {
-            fragmentMenu = Menu_.builder().build();
-        }
-        if (fragmentClassTable == null) {
-            fragmentClassTable = ClassTable_.builder().build();
-        }
-        if (fragmentFood == null) {
-            fragmentFood = Food_.builder().build();
-        }
-        if (fragmentActivity == null) {
-            fragmentActivity = ShoolActivitys_.builder().build();
-        }
-        if(bus==null){
-            bus = Bus_.builder().build();
-        }
-        if (checkedId != 0) {
-            //恢复到Activity被杀前的选中状态
-            radioGroup.check(checkedId);
-        }
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-               // getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+    public enum TabName {
+        CLASS_TABLE("class_table"), APP("app"), ACTIVITY("activity"), BUS("bus");
+        private String name;
 
-                checkedId = i;
-                if (i == rd_features.getId()) {
-                    UIHelper.startFragment(mContext, fragmentMenu, MENU_TAG);
-                    ((OnTabSelectListener) fragmentMenu).onTabSelect();
-
-
-                } else if (i == rd_classtable.getId()) {
-                    UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
-                    ((OnTabSelectListener) fragmentClassTable).onTabSelect();
-
-                } else if (i == rd_activity.getId()) {
-                    bv_activity.hide();
-                    UIHelper.startFragment(mContext, fragmentActivity, SETTINGS_TAG);
-                    ((OnTabSelectListener) fragmentActivity).onTabSelect();
-
-                } else if (i == rd_food.getId()) {
-                    //UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-                    UIHelper.startFragment(mContext,bus,BUS_TAG);
-                   // ((OnTabSelectListener) bus).onTabSelect();
-
-                }
-            }
-        });
-
-        if (checkedId == 0) {
-            UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
-            rd_classtable.setChecked(true);
-        }
-      /*  if (checkTime()) {
-            UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-            rd_food.setChecked(true);
-        } else {
-            if (checkedId == 0) {
-                UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
-                rd_classtable.setChecked(true);
-            }
-        }*/
-
-
-    }
-    //7、	在11:30-12:30时间段和5:30到6:30的时间段，打开华农宝，自动跳转到外卖的页面，其余时间跳转到课表的页面。
-
-    boolean checkTime() {
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
-
-        if ((hour >= 11) && (hour <= 12) || ((hour >= 17) && (hour <= 18))) {
-            Log.i("当前时间:", String.valueOf(hour) + "时,切换外卖");
-            return true;
-        }
-        Log.i("当前时间:", String.valueOf(hour) + "时,切换课表");
-        return false;
-
-    }
-
-    private void initMobclickAgent() {
-        MobclickAgent.updateOnlineConfig(this);
-        MobclickAgent.openActivityDurationTrack(false);
-        // 检查反馈消息;
-        FeedbackAgent agent = new FeedbackAgent(this);
-        agent.sync();
-    }
-
-    private void checkForUpdate() {
-        UmengUpdateAgent.setUpdateOnlyWifi(false);
-        UmengUpdateAgent.update(this);
-    }
-
-    @UiThread(delay = 4000)
-    void showNotification() {
-        String notification = MobclickAgent.getConfigParams(this, "notification");
-        if (isConfigAble(notification)) {
-            // 今天显示过就不显示了
-            if (!config.lastSeeNotificationDate().get().equals(dateUtil.getCurrentDateString()))
-                Notification_.intent(this).notification(notification).start();
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getGroupId()) {
-            case R.id.group_edusys:
-                return ensureExisted(AppContext.eduSysPassword, R.string.tips_main_edusyspassword_not_existed);
-
-            case R.id.group_lib:
-                if (item.getItemId() != R.id.menu_searchBook)
-                    return ensureExisted(AppContext.libPassword, R.string.tips_main_libpassword_not_existed);
-                break;
-
+        TabName(String _name) {
+            this.name = _name;
         }
 
-        return super.onOptionsItemSelected(item);
-    }
-
-    private boolean ensureExisted(String targetString, int notExistedTipsString) {
-        if (targetString == null || targetString.equals("")) {
-            AppMsg.makeText(this, notExistedTipsString, AppMsg.STYLE_ALERT).show();
-            return true;
+        @Override
+        public String toString() {
+            return name;
         }
-        return false;
-    }
-
-    @OnActivityResult(UIHelper.QUERY_FOR_EDIT_ACCOUNT)
-    void onEditAccountResult() {
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            checkedId = savedInstanceState.getInt("checkedId");
-            restoreFragments();
+        setContentView(R.layout.main);
+        fragmentManager = getSupportFragmentManager();
+
+        //初始化友盟
+        initMobclickAgent();
+
+        initTabButton();
+        //刷新红点
+        updateTabRedPoint();
+    }
+
+    /**
+     * 初始化tabButton
+     */
+
+    void initTabButton() {
+
+        RadioButton[] rb = {rd_class_table, rd_activity, rd_bus, rd_app};
+        for (RadioButton bt : rb) {
+            AppViewDrawable.build(bt, 1, 0, 7, 45, 45);
+        }
+
+        //切换到课表页面
+        tabRadio(rd_class_table);
+        rd_class_table.setChecked(true);
+
+
+    }
+
+    /**
+     * 切换页面
+     *
+     * @param v
+     */
+    @Click({R.id.rd_classtable, R.id.rd_app, R.id.rd_bus, R.id.rd_activity})
+    void tabRadio(View v) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        switch (v.getId()) {
+            case R.id.rd_classtable:
+                if (fragment_class_table == null) {
+                    fragment_class_table = new FragmentClassTable_();
+                    transaction.add(R.id.container, fragment_class_table);
+                }
+                if (fragment_app != null)
+                    transaction.hide(fragment_app);
+                if (fragment_bus != null)
+                    transaction.hide(fragment_bus);
+                if (fragment_activity != null)
+                    transaction.hide(fragment_activity);
+                transaction.show(fragment_class_table);
+//                ((OnTabSelectListener) fragment_class_table).onTabSelect();
+                break;
+            case R.id.rd_app:
+
+                if (fragment_app == null) {
+                    fragment_app = new FragmentApp_();
+                    transaction.add(R.id.container, fragment_app);
+                }
+                if (fragment_class_table != null)
+                    transaction.hide(fragment_class_table);
+                if (fragment_bus != null)
+                    transaction.hide(fragment_bus);
+                if (fragment_activity != null)
+                    transaction.hide(fragment_activity);
+                transaction.show(fragment_app);
+
+
+                //     ((OnTabSelectListener) fragment_app).onTabSelect();
+
+                break;
+            case R.id.rd_bus:
+                if (fragment_bus == null) {
+                    fragment_bus = new FragmentBus_();
+                    transaction.add(R.id.container, fragment_bus);
+                }
+                if (fragment_app != null)
+                    transaction.hide(fragment_app);
+                if (fragment_class_table != null)
+                    transaction.hide(fragment_class_table);
+                if (fragment_activity != null)
+                    transaction.hide(fragment_activity);
+                transaction.show(fragment_bus);
+                break;
+
+            case R.id.rd_activity:
+                if (fragment_activity == null) {
+                    fragment_activity = new FragmentActivity_();
+                    transaction.add(R.id.container, fragment_activity);
+                }
+                if (fragment_app != null)
+                    transaction.hide(fragment_app);
+                if (fragment_bus != null)
+                    transaction.hide(fragment_bus);
+                if (fragment_class_table != null)
+                    transaction.hide(fragment_class_table);
+                transaction.show(fragment_activity);
+                hideActivityRedPoint();
+                //((OnTabSelectListener) fragment_activity).onTabSelect();
+                break;
+        }
+        transaction.commit();
+
+    }
+
+    /**
+     * 初始化友盟
+     */
+    private void initMobclickAgent() {
+        //自动更新
+        MobclickAgent.updateOnlineConfig(this);
+        MobclickAgent.openActivityDurationTrack(false);
+        UmengUpdateAgent.setUpdateOnlyWifi(false);
+        UmengUpdateAgent.update(this);
+
+        // 检查反馈消息;
+        FeedbackAgent agent = new FeedbackAgent(this);
+        agent.sync();
+        showNotification();
+    }
+
+    /**
+     * 显示消息推送
+     */
+    @UiThread(delay = 4000)
+    void showNotification() {
+        String notification = MobclickAgent.getConfigParams(this, "notification");
+        if (!notification.trim().equals("0") && !notification.trim().equals("")) {
+            // 今天显示过就不显示了
+            if (!app.config.lastSeeNotificationDate().get().equals(app.dateUtil.getCurrentDateString())) {
+                AppNotification.show(this, "软件公告", notification, "关闭", new AppNotification.Callback() {
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            }
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //保存当前选中的页面
-        outState.putInt("checkedId", checkedId);
+    /**
+     * 初始化红点控件,因为直接用RadioButton会变形,就套一个Button
+     */
+    private void updateTabRedPoint() {
+        bv_class_table = AppContext.setTabRedPoint(this, bt_class_table);
+        bv_app = AppContext.setTabRedPoint(this, bt_app);
+        bv_bus = AppContext.setTabRedPoint(this, bt_bus);
+        bv_activity = AppContext.setTabRedPoint(this, bt_activity);
+        refreshActivityRedPoint();
+    }
+
+    /**
+     * 从服务端刷新消息,判断是否显示红点
+     */
+    @Background(delay = 500)
+    protected void refreshActivityRedPoint() {
+        httpLoader.updateActivityFlags(new HttpLoader.NormalCallBack() {
+            @Override
+            public void onSuccess(Object obj) {
+                if (obj.toString().equals("yes"))
+                    showActivityRedPoint();
+            }
+
+            @Override
+            public void onError(Object obj) {
+                hideActivityRedPoint();
+            }
+
+            @Override
+            public void onNetworkError(Object obj) {
+                hideActivityRedPoint();
+            }
+        });
+
+    }
+
+    /**
+     * 显示活动圈的红点
+     */
+    @UiThread
+    protected void showActivityRedPoint() {
+        bv_activity.show();
+    }
+
+    /**
+     * 隐藏活动圈红点
+     */
+    @UiThread
+    void hideActivityRedPoint() {
+        bv_activity.hide();
     }
 
     @Override
@@ -276,58 +290,5 @@ public class Main extends ActionBarActivity {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-    }
-
-    private boolean isConfigAble(String config) {
-        return !config.trim().equals("0") && !config.trim().equals("");
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                MobclickAgent.onKillProcess(this);
-                System.exit(0);
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * 尝试恢复程序在后台被杀前的fragments
-     */
-    private void restoreFragments() {
-        FragmentManager fm = getSupportFragmentManager();
-        fragmentMenu = fm.findFragmentByTag(MENU_TAG);
-        fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
-        fragmentActivity = fm.findFragmentByTag(SETTINGS_TAG);
-        bus = fm.findFragmentByTag(BUS_TAG);
-    }
-
-    @Background(delay = 500)
-    protected void updateActivityRedPoint(){
-        try {
-            ActivityCountModel model = api.getActivityCount(String.valueOf(app.config.lastRedPoint().get()));
-            if (Integer.parseInt(model.getResult()) > 0) {
-                Log.d("校园活动", "有更新");
-                showActvityRedPoint();
-            } else {
-                Log.d("校园活动", "无更新");
-
-            }
-        } catch (HttpStatusCodeException e) {
-            Log.d("校园活动", "无网络");
-        } catch (Exception e) {
-            Log.d("校园活动", "无网络");
-        }
-    }
-
-    @UiThread
-    protected void showActvityRedPoint(){
-        bv_activity.show();
     }
 }

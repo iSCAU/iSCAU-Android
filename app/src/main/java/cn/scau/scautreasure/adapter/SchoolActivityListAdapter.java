@@ -29,6 +29,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.ui.SchoolActivityContent;
+//import cn.scau.scautreasure.ui.SchoolActivityContent_;
 import cn.scau.scautreasure.ui.SchoolActivityContent_;
 import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
 
@@ -59,7 +60,7 @@ public class SchoolActivityListAdapter extends QuickAdapter<SchoolActivityModel>
         expandable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               SchoolActivityContent_.intent(expandable.getContext()).model(model).start();
+              SchoolActivityContent_.intent(expandable.getContext()).model(model).start();
             }
         });
         if (model.getContent() == null || "".equals(model.getContent()))

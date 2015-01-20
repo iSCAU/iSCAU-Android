@@ -84,6 +84,7 @@ public class SchoolActivityTabWidget extends LinearLayout {
         iv_underline.startAnimation(animation);
 
         setTabTextStyle(currentPosition, false);
+
         setTabTextStyle(position, true);
         currentPosition = position;
     }

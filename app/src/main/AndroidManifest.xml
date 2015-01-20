@@ -1,154 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="cn.scau.scautreasure">
+<manifest
+    package="cn.scau.scautreasure"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 
     <application
+
         android:name="cn.scau.scautreasure.AppContext_"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.SpecialWhite"
         android:persistent="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar"
         tools:replace="android:theme,android:icon,android:label">
         >
         <activity
             android:name="cn.scau.scautreasure.ui.Welcome_"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name="cn.scau.scautreasure.ui.CommonQueryActivity_"
+
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name=".guideview.GuideView_"
+
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name="cn.scau.scautreasure.ui.Splash_"
-            android:theme="@android:style/Theme.NoTitleBar" />
+
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="cn.scau.scautreasure.ui.Food_"
+
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="cn.scau.scautreasure.ui.BaseBrowser_"
+
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Map_"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Login_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Settings_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name="cn.scau.scautreasure.ui.Main_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.ShopMenu_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.ClassEditor_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.NoticeDetail_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.BookDetail_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.OrderFood_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Param_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Goal_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Exam_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.PickClassInfo_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.SchoolActivityContent_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.UpdateCurrentWeek_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name="cn.scau.scautreasure.ui.EmptyClassRoom_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.SearchBook_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.English_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.BorrowedBook_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name="cn.scau.scautreasure.ui.Introduction_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Calendar_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Notice_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.Notification_"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.scau.scautreasure.ui.NotificationTiming_"
-            android:label="@string/title_notification_setting" />
+
+            android:label="@string/title_notification_setting"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="cn.scau.scautreasure.ui.About_"
-            android:label="@string/title_activity_about"></activity>
+
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.umeng.fb.ConversationActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".ui.CommonActivity_"></activity>
         <activity
             android:name="com.umeng.fb.ContactActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
@@ -156,17 +225,14 @@
             android:name="cn.scau.scautreasure.ui.sns.Login_"
             android:label="@string/title_activity_login"></activity>
         <activity android:name=".ui.WeekClass_"></activity>
-        <activity
-            android:name="cn.scau.scautreasure.ui.Bus_"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_bus"
-            />
+
+
         <activity
             android:name="cn.scau.scautreasure.ui.WidgetConfiguration_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
 
@@ -174,41 +240,41 @@
             android:name="cn.scau.scautreasure.WidgetProvider"
             android:icon="@drawable/icon">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="cn.scau.scautreasure.RECEIVER_UPDATE" />
-                <action android:name="cn.scau.scautreasure.SETTINGS" />
-                <action android:name="cn.scau.scautreasure.MONDAY" />
-                <action android:name="cn.scau.scautreasure.TUESDAY" />
-                <action android:name="cn.scau.scautreasure.WEDNESDAY" />
-                <action android:name="cn.scau.scautreasure.THURDAY" />
-                <action android:name="cn.scau.scautreasure.FRIDAY" />
-                <action android:name="cn.scau.scautreasure.SATURDAY" />
-                <action android:name="cn.scau.scautreasure.SUNDAY" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="cn.scau.scautreasure.RECEIVER_UPDATE"/>
+                <action android:name="cn.scau.scautreasure.SETTINGS"/>
+                <action android:name="cn.scau.scautreasure.MONDAY"/>
+                <action android:name="cn.scau.scautreasure.TUESDAY"/>
+                <action android:name="cn.scau.scautreasure.WEDNESDAY"/>
+                <action android:name="cn.scau.scautreasure.THURDAY"/>
+                <action android:name="cn.scau.scautreasure.FRIDAY"/>
+                <action android:name="cn.scau.scautreasure.SATURDAY"/>
+                <action android:name="cn.scau.scautreasure.SUNDAY"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget" />
+                android:resource="@xml/widget"/>
         </receiver>
         <receiver android:name="cn.scau.scautreasure.receiver.RingerModeAlarmReceiver">
             <intent-filter>
-                <action android:name="cn.scau.scautreasure.RINGER_MODE_ALARM_DURING" />
-                <action android:name="cn.scau.scautreasure.RINGER_MODE_ALARM_AFTER" />
+                <action android:name="cn.scau.scautreasure.RINGER_MODE_ALARM_DURING"/>
+                <action android:name="cn.scau.scautreasure.RINGER_MODE_ALARM_AFTER"/>
             </intent-filter>
         </receiver>
         <receiver android:name="cn.scau.scautreasure.receiver.BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
         <receiver android:name="cn.scau.scautreasure.receiver.DateChangedReceiver">
             <intent-filter>
-                <action android:name="cn.scau.scautreasure.DATE_CHANGED" />
+                <action android:name="cn.scau.scautreasure.DATE_CHANGED"/>
             </intent-filter>
         </receiver>
         <receiver android:name="cn.scau.scautreasure.receiver.NotificationReceiver">
             <intent-filter>
-                <action android:name="cn.scau.scautreasure.BOOK_NOTIFICATION" />
+                <action android:name="cn.scau.scautreasure.BOOK_NOTIFICATION"/>
             </intent-filter>
         </receiver>
         <receiver android:name=".receiver.AlertClassReceiver_">
@@ -219,23 +285,24 @@
             android:name="com.umeng.common.net.DownloadingService"
             android:process=":DownloadingService"></service>
 
-        <service android:name=".service.NotificationService" />
-        <service android:name=".service.UpLoadUsersService_" />
-        <service android:name=".service.ActivityCountService_" />
-        <service android:name=".service.LoginService_" />
-        <service android:name=".service.NotifyFoodService_" />
-        <service android:name=".service.AlertClassSerice_" />
-        <service android:name=".service.FoodShopService_" />
-        <service android:name=".service.NetworkStatusService_"
-            android:process=":ISCAUWidget"
+        <service android:name=".service.NotificationService"/>
+        <service android:name=".service.UpLoadUsersService_"/>
+        <service android:name=".service.ActivityCountService_"/>
+        <service android:name=".service.LoginService_"/>
+        <service android:name=".service.NotifyFoodService_"/>
+        <service android:name=".service.AlertClassSerice_"/>
+        <service android:name=".service.FoodShopService_"/>
+        <service
+            android:name=".service.NetworkStatusService_"
             android:label="@string/app_process"
+            android:process=":ISCAUWidget"
             ></service>
         <service android:name="cn.scau.scautreasure.service.SplashDownloadService"/>
 
         <receiver android:name=".receiver.NetWorkStatusReceiver_"></receiver>
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="503868725270157f0e0001f7" />
+            android:value="503868725270157f0e0001f7"/>
 
     </application>
 

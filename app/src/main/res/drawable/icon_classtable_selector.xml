@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/classtable_on" android:state_checked="true"/>
-    <item android:drawable="@drawable/classtable"/>
+    <item android:drawable="@drawable/icon_table" android:state_checked="true"/>
+    <item android:drawable="@drawable/icon_table_off"/>
 </selector>

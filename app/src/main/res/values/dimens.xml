@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--md dimens-->
+    <dimen name="text_size_menu">14sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_subhead">16sp</dimen>
+    <dimen name="text_size_body">14sp</dimen>
+    <dimen name="text_size_button">14sp</dimen>
+    <dimen name="text_size_display1">34sp</dimen>
+    <dimen name="text_size_display2">45sp</dimen>
+    <dimen name="text_size_display3">56sp</dimen>
+    <dimen name="text_size_headline">24sp</dimen>
+    <dimen name="text_size_sub_body_button_menu">12sp</dimen>
+
+
+    <!--SweetAlert-->
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
+    <dimen name="action_button">40dp</dimen>
+
+    <dimen name="float_action_item_padding">18dip</dimen>
+    <dimen name="float_action_item_gap">4dip</dimen>
+    <dimen name="float_action_h_padding">8dip</dimen>
+    <dimen name="float_action_v_padding">8dip</dimen>
+    <dimen name="float_action_threshold">24dip</dimen>
+
+
+    <!---->
     <dimen name="listitem_padding">4dp</dimen>
     <dimen name="listitem_textSize">15sp</dimen>
     <dimen name="login_frame_padding">20dp</dimen>

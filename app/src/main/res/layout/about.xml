@@ -2,14 +2,21 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin">
+    >
 
-    <cn.scau.scautreasure.widget.ElasticScrollView_
+    <include
+        layout="@layout/base_activity_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"/>
+
+    <com.gc.materialdesign.views.ScrollView
+        android:id="@+id/scroll"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +29,7 @@
                 android:layout_height="160dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/logo"/>
+                android:src="@drawable/code_2d"/>
 
             <TextView
                 android:id="@+id/textView_appName"
@@ -30,10 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:text="华农宝 v2.6"
+                android:padding="5dp"
+                android:text="华农宝 v3.0"
                 android:textColor="#ff376b"
-                android:textSize="30sp"/>
-
+                android:textSize="@dimen/text_size_title"/>
 
 
             <LinearLayout
@@ -49,23 +56,26 @@
                     android:autoLink="web"
                     android:text="深度合作:\n\t\t\t\t\t\t\t视传工作室"
                     android:textColor="#434242"
-                    android:textSize="15sp"
-                     />
+                    android:textSize="@dimen/text_size_body"
+                    />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autoLink="web"
                     android:text="\t\t\t\t\t\t\t华南农业大学学生会"
                     android:textColor="#434242"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/text_size_body"
                     />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autoLink="web"
                     android:text="官方网站: http://www.huanongbao.com"
                     android:textColor="#434242"
-                    android:textSize="15sp"/>
+                    android:textSize="@dimen/text_size_body"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -74,7 +84,8 @@
                     android:autoLink="web"
                     android:text="新浪微博: @华农宝工作室"
                     android:textColor="#434242"
-                    android:textSize="15sp"/>
+                    android:textSize="@dimen/text_size_body"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -82,7 +93,8 @@
                     android:autoLink="web"
                     android:text="\t\t\t\t\t\t\thttp://weibo.com/huanongbao"
                     android:textColor="#434242"
-                    android:textSize="15sp"/>
+                    android:textSize="@dimen/text_size_body"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -90,19 +102,11 @@
                     android:layout_marginTop="5dp"
                     android:text="微信公众号: 搜索 华农宝 "
                     android:textColor="#434242"
-                    android:textSize="15sp"/>
+                    android:textSize="@dimen/text_size_body"
+                    />
             </LinearLayout>
 
-            <!--<Button-->
-                <!--android:id="@+id/btn_advise"-->
-                <!--style="@style/blue_button"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_marginLeft="35dp"-->
-                <!--android:layout_marginRight="35dp"-->
-                <!--android:layout_marginTop="30dp"-->
-                <!--android:text="@string/btn_advise"/>-->
 
         </LinearLayout>
-    </cn.scau.scautreasure.widget.ElasticScrollView_>
+    </com.gc.materialdesign.views.ScrollView>
 </LinearLayout>

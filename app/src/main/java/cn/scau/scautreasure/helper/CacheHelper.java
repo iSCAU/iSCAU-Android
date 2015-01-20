@@ -2,6 +2,8 @@ package cn.scau.scautreasure.helper;
 
 import android.content.Context;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.ArrayList;
 
 import cn.scau.scautreasure.AppContext;
@@ -12,6 +14,7 @@ import cn.scau.scautreasure.util.CacheUtil;
  * <p/>
  * Created by special on 14-6-2.
  */
+@EBean
 public class CacheHelper {
 
     private CacheUtil cacheUtil;

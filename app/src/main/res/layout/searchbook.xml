@@ -3,23 +3,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/background_normal"
               android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <include
+        layout="@layout/base_activity_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"/>
 
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/listView"
-            style="@style/noraml_listview"
-            xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            ptr:ptrDrawable="@drawable/ptr_rotate"
-            ptr:ptrHeaderTextAppearance="@style/ptrHeader_text"
-            ptr:ptrMode="pullFromEnd"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/theme_color"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/edt_search_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:alpha="0.8"
+            android:background="@drawable/searchbook_button_background"
+            android:gravity="center_vertical|left"
+            android:hint="人丑多读书..."
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="true"
+            android:textColor="@color/title_white"
+            android:textColorHint="@color/title_white"
+            android:textSize="@dimen/text_size_button"/>
+
+        <ImageButton
+            android:id="@+id/search_go"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="0dp"
+            android:background="#0000"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/abc_ic_search"/>
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pullListView"
+        style="@style/noraml_listview"
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        ptr:ptrDrawable="@drawable/ptr_rotate"
+        ptr:ptrHeaderTextAppearance="@style/ptrHeader_text"
+        ptr:ptrMode="pullFromEnd"/>
+
 
 </LinearLayout>

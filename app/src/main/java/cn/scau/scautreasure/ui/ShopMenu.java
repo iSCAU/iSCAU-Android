@@ -1,24 +1,20 @@
 package cn.scau.scautreasure.ui;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.Image;
-import android.os.Bundle;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.devspark.appmsg.AppMsg;
-import com.joanzapata.android.BaseAdapterHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -26,25 +22,28 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.OptionsMenuItem;
-import org.androidannotations.annotations.ViewById;
-import org.w3c.dom.Text;
 
-import java.io.Serializable;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.FoodShopHelper;
 import cn.scau.scautreasure.model.ShopMenuDBModel;
+import cn.scau.scautreasure.widget.AppToast;
 
 /**
  * Created by apple on 14-8-24.
  */
 @EActivity(R.layout.activity_shop_menu)
-public class ShopMenu extends CommonActivity {
+public class ShopMenu extends BaseActivity {
+    @Click(R.id.back)
+    void onBack() {
+        showTips();
+    }
+
+
     @Extra("")
     String id;
     @Extra("")
@@ -66,15 +65,16 @@ public class ShopMenu extends CommonActivity {
     @Bean
     FoodShopHelper helper;
 
-    @ViewById(R.id.order_button)
-    TextView order_button;
+    @ViewById(R.id.shop_title)
+    TextView shop_title;
+
     private boolean isRest = false;
     List<ShopMenuDBModel> menuList, orderList;
     private String msg = "";
-    private boolean hasOrder=false;
+    private boolean hasOrder = false;
 
 
-    @Click(R.id.order)
+    @Click(R.id.more)
     void next() {
         //是否休息中
         if (!isRest) {
@@ -84,10 +84,10 @@ public class ShopMenu extends CommonActivity {
             if ((orderList.size() > 0)) {
                 OrderFood_.intent(this).sendList(orderList).msg(msg).phone(phone).shopName(shop_name).shopLogo(shop_logo).shopId(id).startForResult(1111);
             } else {
-                Toast.makeText(this, "你还没选择饭菜", Toast.LENGTH_SHORT).show();
+                AppToast.show(this, "你还没选择饭菜", 0);
             }
         } else {
-            AppMsg.makeText(getSherlockActivity(), "本外卖店休息中", AppMsg.STYLE_ALERT).show();
+            AppToast.show(this, "本外卖店休息中", 0);
         }
     }
 
@@ -100,8 +100,8 @@ public class ShopMenu extends CommonActivity {
         int nowMIn = c.get(java.util.Calendar.HOUR_OF_DAY) * 60 + c.get(java.util.Calendar.MINUTE);
         if (!(nowMIn > startMin && nowMIn < endMin)) {
             isRest = true;
-            getSherlockActivity().getSupportActionBar().setSubtitle("休息中");
-            order_button.setText("本店休息中,暂无法下单");
+            setTitleText("休息中");
+            more.setVisibility(View.GONE);
         }
     }
 
@@ -121,7 +121,9 @@ public class ShopMenu extends CommonActivity {
 
     @AfterViews
     void initView() {
-        setTitle("" + shop_name);
+        setMoreButtonText("下一步");
+        setTitleText("菜单");
+        shop_title.setText(shop_name);
         checkoutTime(start_time, end_time);
 
         loadData();
@@ -161,7 +163,7 @@ public class ShopMenu extends CommonActivity {
             ViewHolder viewHolder = null;
             if (view == null) {
                 viewHolder = new ViewHolder();
-                view = LayoutInflater.from(getSherlockActivity()).inflate(R.layout.food_menu_list_item_layout, null);
+                view = LayoutInflater.from(ShopMenu.this).inflate(R.layout.food_menu_list_item_layout, null);
                 viewHolder.removeOne = (ImageButton) view.findViewById(R.id.removeOne);
                 viewHolder.addOne = (ImageButton) view.findViewById(R.id.addOne);
                 viewHolder.foodName = (TextView) view.findViewById(R.id.foodName);
@@ -193,11 +195,7 @@ public class ShopMenu extends CommonActivity {
                     finalViewHolder.foodCount.setText(String.valueOf(menuList.get(i).getCount()));
                 }
             });
-            if (i % 2 == 0) {
-                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_click));
-            } else {
-                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_click1));
-            }
+
             return view;
         }
 
@@ -215,23 +213,14 @@ public class ShopMenu extends CommonActivity {
     @OnActivityResult(1111)
     void emptyMsg() {
         msg = "";
-        hasOrder=true;
+        hasOrder = true;
 
     }
 
-    @Override
-    void up() {
-//        super.up();
-        Log.i("up", "up");
-    }
 
-    @Override
-    void home() {
-        showTips();
-    }
-    void showTips(){
+    void showTips() {
         makeList();
-        if (orderList.size() > 0 && !hasOrder&&!isRest) {
+        if (orderList.size() > 0 && !hasOrder && !isRest) {
 //           你未进行结算，返回的话，你现在的订单会丢失，是否继续？
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setMessage("你未进行结算，返回的话，你现在的订单会丢失，确定继续？");
@@ -251,11 +240,11 @@ public class ShopMenu extends CommonActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getKeyCode()== KeyEvent.KEYCODE_BACK){
-            Log.i("back","返回");
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            Log.i("back", "返回");
             showTips();
         }
-       // return super.onKeyDown(keyCode, event);
+        // return super.onKeyDown(keyCode, event);
         return false;
     }
 

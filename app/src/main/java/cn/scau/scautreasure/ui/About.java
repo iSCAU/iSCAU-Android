@@ -2,7 +2,6 @@ package cn.scau.scautreasure.ui;
 
 import android.widget.TextView;
 
-import com.umeng.fb.FeedbackAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -14,7 +13,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.PackageHelper;
 
 @EActivity(R.layout.about)
-public class About extends CommonActivity {
+public class About extends BaseActivity {
 
     @ViewById
     TextView textView_appName;
@@ -24,6 +23,7 @@ public class About extends CommonActivity {
 
     @AfterViews
     void init() {
+        setTitleText("关于华农宝");
         textView_appName.setText(getString(R.string.app_name) + " v" + packageHelper.getAppVersionName());
     }
 
