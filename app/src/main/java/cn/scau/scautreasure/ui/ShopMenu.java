@@ -30,7 +30,9 @@ import java.util.List;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.FoodShopHelper;
+import cn.scau.scautreasure.helper.LogCenter;
 import cn.scau.scautreasure.model.ShopMenuDBModel;
+import cn.scau.scautreasure.widget.AppOKCancelDialog;
 import cn.scau.scautreasure.widget.AppToast;
 
 /**
@@ -222,16 +224,17 @@ public class ShopMenu extends BaseActivity {
         makeList();
         if (orderList.size() > 0 && !hasOrder && !isRest) {
 //           你未进行结算，返回的话，你现在的订单会丢失，是否继续？
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.setMessage("你未进行结算，返回的话，你现在的订单会丢失，确定继续？");
-            dialog.setTitle("提示").setNegativeButton("取消", null).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            AppOKCancelDialog.show(this, "提示", "你未进行结算，返回的话，你现在的订单会丢失，确定继续？", "确定", "取消", new AppOKCancelDialog.Callback() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                public void onCancel() {
+                    LogCenter.i(getClass(), Thread.currentThread(), "用户返回导致订单丢失");
+                }
+
+                @Override
+                public void onOk() {
                     finish();
                 }
             });
-            dialog.show();
-
 
         } else {
             finish();
@@ -241,7 +244,7 @@ public class ShopMenu extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            Log.i("back", "返回");
+
             showTips();
         }
         // return super.onKeyDown(keyCode, event);

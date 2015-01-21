@@ -73,7 +73,6 @@ public class AppContext extends Application {
     public static String eduSysPassword;
     public static String libPassword;
     public static String cardPassword;
-    public static int server = 4;
 
 
     /**
@@ -108,14 +107,7 @@ public class AppContext extends Application {
         }
     }
 
-    public static int getServer() {
-        return server;
-    }
 
-    public static void setServer(int server) {
-        AppContext.server = server;
-        config.eduServer().put(server);
-    }
 
     @Override
     public void onCreate() {
@@ -139,13 +131,12 @@ public class AppContext extends Application {
 
     @Background
     public void getAccountSettings() {
-//        CryptUtil cryptUtil = new CryptUtil();
-//        userName = config.userName().get();
-//        eduSysPassword = cryptUtil.decrypt(config.eduSysPassword().get());
-//        libPassword = cryptUtil.decrypt(config.libPassword().get());
-//        cardPassword = cryptUtil.decrypt(config.cardPassword().get());
-//        server = config.eduServer().get();
-    }
+        CryptUtil cryptUtil = new CryptUtil();
+        userName = config.userName().get();
+        eduSysPassword = cryptUtil.decrypt(config.eduSysPassword().get());
+        libPassword = cryptUtil.decrypt(config.libPassword().get());
+        cardPassword = cryptUtil.decrypt(config.cardPassword().get());
+     }
 
     public String getEncodeEduSysPassword() {
         return CryptUtil.base64_url_safe(eduSysPassword);

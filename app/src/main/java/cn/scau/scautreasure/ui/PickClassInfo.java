@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.view.View;
 import android.widget.AbsListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -33,15 +34,17 @@ public class PickClassInfo extends ListActivity {
     @RestService
     EdusysApi api;
 
-    @Click(R.id.more)
-    void refresh() {
-        loadData();
-    }
 
     @AfterViews
     void init() {
         setTitleText("选课查询");
         setMoreButtonText("刷新");
+        setMoreButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadData();
+            }
+        });
         setDataEmptyTips("现在找不到你的选课情况");
         cacheHelper.setCacheKey("pickClassInfo");
         list = cacheHelper.loadListFromCache();
@@ -59,7 +62,7 @@ public class PickClassInfo extends ListActivity {
             }
         });
         try {
-            list = api.getPickClassInfo(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getPickclassinfos();
+            list = api.getPickClassInfo(AppContext.userName, app.getEncodeEduSysPassword()).getPickclassinfos();
             cacheHelper.writeListToCache(list);
             buildAndShowAdapter();
         } catch (HttpStatusCodeException e) {

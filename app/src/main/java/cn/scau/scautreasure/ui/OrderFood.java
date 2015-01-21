@@ -34,6 +34,7 @@ import cn.scau.scautreasure.helper.FoodShopHelper;
 
 import cn.scau.scautreasure.model.ShopMenuDBModel;
 import cn.scau.scautreasure.service.NotifyFoodService_;
+import cn.scau.scautreasure.widget.AppOKCancelDialog;
 import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.ParamWidget;
 
@@ -86,19 +87,19 @@ public class OrderFood extends ListActivity {
         if (!appConfig.isThePad().get()) {
             nextStep();
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("提示");
-            builder.setMessage("请确认你的设备是手机!");
-            builder.setNegativeButton("取消", null);
-            builder.setPositiveButton("下一步", new DialogInterface.OnClickListener() {
+            AppOKCancelDialog.show(this, "说明", "请确认你的设备能发出短信", "确认", "取消", new AppOKCancelDialog.Callback() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                public void onCancel() {
+                    appConfig.forceMobile().put(false);//用户认为不是手机，记住用户的选择
+                }
+
+                @Override
+                public void onOk() {
                     appConfig.forceMobile().put(true);//用户认为是手机，记住用户的选择
                     nextStep();
                 }
             });
-            builder.create();
-            builder.show();
+
         }
     }
 
@@ -112,11 +113,10 @@ public class OrderFood extends ListActivity {
                 type = 0;
 
             } else {
-
-                AppToast.info(this, "你尚未选择饭菜");
+                AppToast.show(this, "你尚未选择饭菜", 0);
             }
         } else {
-            AppToast.info(this, "请输入详细地址");
+            AppToast.show(this, "请输入详细地址", 0);
         }
     }
 

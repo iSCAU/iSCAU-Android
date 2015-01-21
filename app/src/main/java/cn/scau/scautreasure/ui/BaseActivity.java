@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -29,6 +31,22 @@ import cn.scau.scautreasure.widget.AppToast;
  */
 @EActivity
 public class BaseActivity extends Activity {
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getSimpleName());
+    }
+
+    private String getSimpleName() {
+        return ((Object) this).getClass().getSimpleName();
+    }
+
     @App
     AppContext app;
     protected BaseAdapter adapter;

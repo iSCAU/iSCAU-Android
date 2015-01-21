@@ -3,6 +3,7 @@ package cn.scau.scautreasure.ui;
 import android.support.v4.app.Fragment;
 
 import com.devspark.appmsg.AppMsg;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -42,6 +43,22 @@ public class BaseFragment extends Fragment {
     @UiThread
     void showNetWorkError(Object obj) {
         AppToast.error(getActivity(), "网络错误,请检查网络状态");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getSimpleName());
+    }
+
+    private String getSimpleName() {
+        return getClass().getSimpleName();
     }
 
 }

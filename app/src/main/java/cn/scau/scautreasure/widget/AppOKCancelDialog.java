@@ -4,28 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
-
 import com.gc.materialdesign.widgets.Dialog;
 
-import cn.scau.scautreasure.R;
-
 /**
- * Created by macroyep on 15/1/19.
- * Time:20:50
+ * Created by macroyep on 15/1/21.
+ * Time:20:55
  */
-public class AppProgress {
+public class AppOKCancelDialog {
     static Dialog dialog;
 
-    public static void show(Context context, String title, String msg, String cancelButton, final Callback callback) {
+    public static void show(Context context, String title, String msg, String okButton, String cancelButton, final Callback callback) {
 
         dialog = new Dialog(context, title, msg);
 
         dialog.show();
-        View view = (View) LayoutInflater.from(context).inflate(R.layout.app_progress_view, null);
-        dialog.addCustomView(view);
-        dialog.getButtonAccept().setVisibility(View.GONE);
-        dialog.getButtonCancel().setText(cancelButton.equals("") ? "取消" : cancelButton);
-        dialog.setCloseOutside(false);
+
+        dialog.getButtonAccept().setText(okButton);
+        dialog.getButtonCancel().setText(cancelButton);
+
         dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,9 +29,16 @@ public class AppProgress {
                 callback.onCancel();
             }
         });
+        dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.onOk();
+                dialog.dismiss();
+            }
+        });
     }
 
-    public static void hide() {
+    public static void dismiss() {
         if (dialog != null) {
             dialog.dismiss();
         }
@@ -43,5 +46,7 @@ public class AppProgress {
 
     public interface Callback {
         public void onCancel();
+
+        public void onOk();
     }
 }

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -15,13 +16,18 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.helper.AppUIMeasure;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
+import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.BadgeView;
 
 
 @EFragment(R.layout.menu)
 public class FragmentApp extends BaseFragment {
+
+    @ViewById(R.id.menu_listLayout)
+    LinearLayout menu_listLayout;
 
     //外卖
     @ViewById(R.id.menu_kfc)
@@ -68,6 +74,8 @@ public class FragmentApp extends BaseFragment {
     @ViewById(R.id.menu_record)
     Button menu_record;
 
+    @ViewById(R.id.menu_card)
+    Button menu_card;
 
     /**
      * 设置页面
@@ -150,25 +158,48 @@ public class FragmentApp extends BaseFragment {
 
     }
 
+    /**
+     * 校历
+     */
     @Click(R.id.menu_calendar)
     void menu_calendar() {
 //        Calendar_.intent(this).start();
-        BaseBrowser_.intent(getActivity()).browser_title("校历").url("http://www.btbaba.com").start();
+        BaseBrowser_.intent(getActivity()).browser_title("校历").url("http://www.huanongbao.com").start();
     }
 
+    /**
+     * 常用信息
+     */
     @Click(R.id.menu_info)
     void menu_info() {
-        BaseBrowser_.intent(getActivity()).browser_title("常用信息").url("http://www.btbaba.com").start();
+        BaseBrowser_.intent(getActivity()).browser_title("常用信息").url("http://www.huanongbao.com").start();
 
     }
+
+    /**
+     * 校园卡
+     */
+    @Click(R.id.menu_card)
+    void menu_card() {
+        AppToast.show(getActivity(), "一百块都不给我,不用查了,你校园卡没钱", AppUIMeasure.getHeight());
+    }
+
 
     @AfterViews
     void initView() {
         initButton();
+        initListLayout();
     }
 
+    void initListLayout() {
+
+    }
+
+    /**
+     * 按钮图标的控制
+     */
     void initButton() {
-        Button[] menu_button = {menu_kfc, menu_calendar, menu_map, menu_info, menu_room, menu_grade, menu_exam, menu_subject, menu_search, menu_book, menu_record};
+        Button[] menu_button = {menu_kfc, menu_card, menu_calendar, menu_map, menu_info, menu_room, menu_grade, menu_exam, menu_subject, menu_search, menu_book, menu_record};
         for (Button bt : menu_button) {
             Drawable[] drawables = bt.getCompoundDrawables();
             drawables[1].setBounds(0, 0, 55, 55);
@@ -176,122 +207,5 @@ public class FragmentApp extends BaseFragment {
         }
 
     }
-
-
-//
-//    @Click
-//    void menu_exam() {
-//        Exam_.intent(this).start();
-//    }
-//
-//    @Click
-//    void menu_settings() {
-//        Settings_.intent(this).start();
-//    }
-//
-//    @Click
-//    void menu_pickCourseInfo() {
-//        PickClassInfo_.intent(this).start();
-//    }
-//
-//    @Click
-//    void menu_emptyClassRoom() {
-//        Param_.intent(this)
-//                .target("emptyClassRoom")
-//                .targetActivity(EmptyClassRoom_.class.getName())
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_searchBook() {
-//        SearchBook_.intent(this).start();
-//    }
-//
-//    @Click
-//    void menu_nowBorrowedBook() {
-//        BorrowedBook_.intent(this)
-//                .target(UIHelper.TARGET_FOR_NOW_BORROW)
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_pastBorrowedBook() {
-//        BorrowedBook_.intent(this)
-//                .target(UIHelper.TARGET_FOR_PAST_BORROW)
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_lifeinformation() {
-//        Introduction_.intent(this)
-//                .target("LifeInformation")
-//                .title(R.string.menu_lifeinformation)
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_communityinformation() {
-//        Introduction_.intent(this)
-//                .target("CommunityInformation")
-//                .title(R.string.menu_communityinformation)
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_guardianserves() {
-//        Introduction_.intent(this)
-//                .target("GuardianServes")
-//                .title(R.string.menu_guardianserves)
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_studyinformation() {
-//        Introduction_.intent(this)
-//                .target("StudyInformation")
-//                .title(R.string.menu_studyinformation)
-//                .start();
-//    }
-//
-//    @Click
-//    void menu_busandtelphone() {
-//        Introduction_.intent(this)
-//                .target("Bus&Telphone")
-//                .title(R.string.menu_busandtelphone)
-//                .start();
-//    }
-//
-//
-//    @Click
-//    void menu_calendar() {
-//        Calendar_.intent(this).start();
-//    }
-//
-//    @Click
-//    void menu_notice() {
-//        Notice_.intent(this).start();
-//    }
-//
-//    @Click
-//    void menu_english() {
-//        //此频道建设中
-//        English_.intent(this).start();
-//
-//    }
-//
-//    @Click
-//    void menu_contact() {
-//
-//        FeedbackAgent agent = new FeedbackAgent(getActivity());
-//        agent.startFeedbackActivity();
-//    }
-//
-//    @Click
-//    void menu_map() {
-//        Map_.intent(this).start();
-//    }
-//
-//
-
 
 }

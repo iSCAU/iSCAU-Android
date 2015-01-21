@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="按钮名称"
+            android:text=""
             android:textSize="@dimen/text_size_button"/>
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/icon_next"
             android:gravity="center"
-            android:text="设置项"
+            android:text=""
             android:textSize="@dimen/text_size_sub_body_button_menu"
             />
     </LinearLayout>

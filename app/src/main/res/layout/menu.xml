@@ -226,11 +226,11 @@
                         android:background="#32000000"/>
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#0000"
-                        android:text=""/>
+                        android:id="@+id/menu_card"
+                        style="@style/menu_button"
+
+                        android:drawableTop="@drawable/logo"
+                        android:text="校园卡"/>
 
                 </LinearLayout>
 
@@ -239,12 +239,21 @@
                     android:layout_height="0.1dp"
                     android:background="#32000000"/>
 
-                <ListView
-                    android:id="@+id/menu_listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <LinearLayout
 
-                </ListView>
+                    android:id="@+id/menu_listLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:text="这里是动态加载区域"/>
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

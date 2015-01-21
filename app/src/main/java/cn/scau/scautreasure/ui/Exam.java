@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.view.View;
 import android.widget.AbsListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -37,15 +38,17 @@ public class Exam extends ListActivity {
     @RestService
     EdusysApi api;
 
-    @Click(R.id.more)
-    void refresh() {
-        loadData();
-    }
 
     @AfterViews
     void init() {
         setTitleText("考试安排");
         setMoreButtonText("刷新");
+        setMoreButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadData();
+            }
+        });
 
         cacheHelper.setCacheKey("exam_arrange");
 
@@ -63,7 +66,7 @@ public class Exam extends ListActivity {
             }
         });
         try {
-            list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server).getExam();
+            list = api.getExam(AppContext.userName, app.getEncodeEduSysPassword()).getExam();
             //模拟数据,用来测试
            /* ExamModel examModel = new ExamModel("test", "test", "12-11", "教4", "3432", "34", "嗯嗯");
            ArrayList listTest = new ArrayList();

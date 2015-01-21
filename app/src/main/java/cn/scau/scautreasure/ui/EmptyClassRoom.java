@@ -1,6 +1,7 @@
 package cn.scau.scautreasure.ui;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.AbsListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -33,15 +34,17 @@ public class EmptyClassRoom extends ListActivity {
     @Extra("value")
     ArrayList<String> value;
 
-    @Click(R.id.more)
-    void refresh() {
-        loadData();
-    }
 
     @AfterViews
     void init() {
         setTitleText("空教室");
         setMoreButtonText("刷新");
+        setMoreButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadData();
+            }
+        });
         setDataEmptyTips("没有这样的空教室");
         loadData();
         cacheHelper.setCacheKey("emptyClassRoom_" + StringUtil.join(value, "_"));

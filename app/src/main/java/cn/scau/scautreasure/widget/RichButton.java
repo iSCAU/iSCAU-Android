@@ -58,6 +58,13 @@ public class RichButton extends LinearLayout implements View.OnClickListener, Ad
 
     }
 
+    public List<KeyValueModel> getList() {
+        return list;
+    }
+
+    public void setList(List<KeyValueModel> list) {
+        this.list = list;
+    }
 
     public RichButton(Context context) {
         super(context);

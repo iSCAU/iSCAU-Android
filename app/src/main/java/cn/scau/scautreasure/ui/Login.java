@@ -47,10 +47,10 @@ public class Login extends BaseActivity {
 
     @AfterViews
     void setUpViews() {
-        edt_userName.setText(app.config.userName().get());
-        edt_eduSysPassword.setText(app.config.eduSysPassword().get());
-        edt_libPassword.setText(app.config.libPassword().get());
-        edt_cardPassword.setText(app.config.cardPassword().get());
+        edt_userName.setText(app.userName);
+        edt_eduSysPassword.setText(app.eduSysPassword);
+        edt_libPassword.setText(app.libPassword);
+        edt_cardPassword.setText(app.cardPassword);
 
         if (startTips != null) {
             AppToast.show(this, startTips, 0);

@@ -98,7 +98,7 @@ public class Goal extends ListActivity {
         });
         try {
             ArrayList<String> param = value;
-            list = api.getGoal(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, param.get(0), param.get(1)).getGoals();
+            list = api.getGoal(AppContext.userName, app.getEncodeEduSysPassword() , param.get(0), param.get(1)).getGoals();
             for (int i = 0; i < list.size(); i++)
                 Log.i(getClass().getName(), "刷新成绩:" + list.get(i).toString());
             cacheHelper.writeListToCache(list);

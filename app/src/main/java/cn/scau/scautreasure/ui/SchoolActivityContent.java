@@ -25,10 +25,11 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.SchoolActivityListAdapter;
 import cn.scau.scautreasure.helper.SchoolActivityHelper;
 import cn.scau.scautreasure.model.SchoolActivityModel;
+import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
 
 @EActivity(R.layout.schoolactivity_content)
-public class SchoolActivityContent extends BaseActivity {
+public class SchoolActivityContent extends BaseActivity implements View.OnClickListener {
 
     @ViewById
     TextView title;
@@ -42,29 +43,21 @@ public class SchoolActivityContent extends BaseActivity {
     @Extra
     SchoolActivityModel model;
 
-    @ViewById(R.id.title_text)
-    TextView title_text;
-
-    @ViewById(R.id.more)
-    Button shareButton;
-
-    @Click(R.id.more)
-    void share() {
-
-    }
-
-    @Click(R.id.back)
-    void onBack() {
-        finish();
-    }
 
     @AfterViews
     void init() {
-        shareButton.setText("分享");
+        setTitleText("活动内容");
+        setMoreButtonText("分享");
+        setMoreButtonOnClick(this);
+
         title_text.setText("活动内容");
         title.setText(model.getTitle());
         //time.setText(SchoolActivityHelper.getTimeText(model.getTime()));
         content.setContent(model.getContent());
     }
 
+    @Override
+    public void onClick(View view) {
+        AppToast.show(this, "你又乱点了,草泥马哦", 0);
+    }
 }

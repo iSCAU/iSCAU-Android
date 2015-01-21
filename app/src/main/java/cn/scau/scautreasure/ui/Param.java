@@ -29,13 +29,12 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
+
 import cn.scau.scautreasure.model.KeyValueModel;
 import cn.scau.scautreasure.model.ParamModel;
 import cn.scau.scautreasure.util.CacheUtil;
 import cn.scau.scautreasure.widget.AppProgress;
-import cn.scau.scautreasure.widget.ParamWidget;
-import cn.scau.scautreasure.widget.ParamWidget_;
+
 import cn.scau.scautreasure.widget.RichButton;
 
 
@@ -161,7 +160,7 @@ public class Param extends BaseActivity {
         // load param from cache, load from network if not existed
         if (paramList == null) {
             try {
-                paramList = api.getParams(AppContext.userName, app.getEncodeEduSysPassword(), AppContext.server, target).getParams();
+                paramList = api.getParams(AppContext.userName, app.getEncodeEduSysPassword(), target).getParams();
                 saveCacheParamsList(paramList);
             } catch (HttpStatusCodeException e) {
                 showErrorResult(e.getStatusCode().value());

@@ -37,21 +37,21 @@ public interface EdusysApi {
     @Get("classtable/{userName}/{passWord}/1")
     ClassModel.ClassList getClassTable(String userName, String passWord);
 
-    @Get("goal/{userName}/{passWord}/{server}/{year}/{team}")
-    GoalModel.GoalList getGoal(String userName, String passWord, int server, String year, String team);
+    @Get("goal/{userName}/{passWord}/1/{year}/{team}")
+    GoalModel.GoalList getGoal(String userName, String passWord, String year, String team);
 
-    @Get("exam/{userName}/{passWord}/{server}")
-    ExamModel.ExamList getExam(String userName, String passWord, int server);
+    @Get("exam/{userName}/{passWord}/1")
+    ExamModel.ExamList getExam(String userName, String passWord);
 
-    @Get("pickclassinfo/{userName}/{passWord}/{server}")
-    PickClassModel.PickClassList getPickClassInfo(String userName, String passWord, int server);
+    @Get("pickclassinfo/{userName}/{passWord}/1")
+    PickClassModel.PickClassList getPickClassInfo(String userName, String passWord);
 
     @Get("emptyclassroom/{userName}/{passWord}/1/{xq}/{jslb}/{ddlKsz}/{ddlJsz}/{sjd}/{xqj}/{dsz}")
     ClassRoomModel.ClassRoomList getEmptyClassRoom(String userName, String passWord,
                                                    String xq, String jslb, String ddlKsz, String ddlJsz,
                                                    String sjd, String xqj, String dsz);
 
-    @Get("params/{target}/{userName}/{passWord}/{server}")
-    ParamModel.ParamList getParams(String userName, String passWord, int server, String target);
+    @Get("params/{target}/{userName}/{passWord}/1")
+    ParamModel.ParamList getParams(String userName, String passWord, String target);
 
 }

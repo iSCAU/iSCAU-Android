@@ -50,20 +50,12 @@
                 android:layout_marginTop="50dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autoLink="web"
-                    android:text="深度合作:\n\t\t\t\t\t\t\t视传工作室"
-                    android:textColor="#434242"
-                    android:textSize="@dimen/text_size_body"
-                    />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autoLink="web"
-                    android:text="\t\t\t\t\t\t\t华南农业大学学生会"
+                    android:text="深度合作:\n\t\t\t\t\t\t\t华南农业大学学生会"
                     android:textColor="#434242"
                     android:textSize="@dimen/text_size_body"
                     />

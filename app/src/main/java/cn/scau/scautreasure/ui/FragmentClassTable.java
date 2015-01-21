@@ -46,6 +46,7 @@ import cn.scau.scautreasure.adapter.ClassAdapter_;
 import cn.scau.scautreasure.adapter.ClassTableAdapter;
 
 
+import cn.scau.scautreasure.helper.AppHelper;
 import cn.scau.scautreasure.helper.AppUIMeasure;
 import cn.scau.scautreasure.helper.ClassHelper;
 import cn.scau.scautreasure.helper.HttpLoader;
@@ -69,6 +70,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  */
 @EFragment(R.layout.classtable)
 public class FragmentClassTable extends BaseFragment {
+
 
     @ViewById(R.id.tab_bar_layout)
     View tab_bar_layout;
@@ -198,12 +200,10 @@ public class FragmentClassTable extends BaseFragment {
         bt_import_class_table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (app.eduSysPassword == null || app.eduSysPassword.equals("")) {
-
-                    //弹出登录窗口
-//                      Login_.intent(getActivity()).startTips(getString(R.string.start_tips_edusys)).start();
-                } else {
+                if (AppHelper.hasSetAccount(app)) {
                     loadData();
+                } else {
+                    Login_.intent(getActivity()).startTips(getString(R.string.start_tips_edusys)).start();
                 }
                 class_table_more.setImageResource(R.drawable.icon_show_menu);
 
@@ -277,6 +277,7 @@ public class FragmentClassTable extends BaseFragment {
 
     @AfterViews
     void initView() {
+        AppUIMeasure.build(tab_bar_layout);
         school_week = classHelper.getSchoolWeek();
         school_week = (school_week == 0 ? 1 : school_week);
         listViews = new ArrayList<View>();

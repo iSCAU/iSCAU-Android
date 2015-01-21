@@ -88,20 +88,20 @@ public class SearchBook extends ListActivity {
     };
 
 
-    @Click(R.id.more)
-    void more() {
-        search_layout.setVisibility(search_layout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-        more.setText(search_layout.getVisibility() == View.VISIBLE ? "隐藏" : "显示");
-
-        if (search_layout.getVisibility() == View.VISIBLE) {
-            edt_search_box.requestFocus();
-        }
-    }
-
     @AfterViews
     void init() {
-        title_text.setText("搜索图书");
+        setTitleText("搜索图书");
+        setMoreButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_layout.setVisibility(search_layout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                more.setText(search_layout.getVisibility() == View.VISIBLE ? "隐藏" : "显示");
 
+                if (search_layout.getVisibility() == View.VISIBLE) {
+                    edt_search_box.requestFocus();
+                }
+            }
+        });
         tips_empty = "真的没有找到你想要的图书";
         pullListView.setOnRefreshListener(onRefreshListener);
         pullListView.setOnItemClickListener(onListViewItemClicked);
