@@ -139,12 +139,12 @@ public class AppContext extends Application {
 
     @Background
     public void getAccountSettings() {
-        CryptUtil cryptUtil = new CryptUtil();
-        userName = config.userName().get();
-        eduSysPassword = cryptUtil.decrypt(config.eduSysPassword().get());
-        libPassword = cryptUtil.decrypt(config.libPassword().get());
-        cardPassword = cryptUtil.decrypt(config.cardPassword().get());
-        server = config.eduServer().get();
+//        CryptUtil cryptUtil = new CryptUtil();
+//        userName = config.userName().get();
+//        eduSysPassword = cryptUtil.decrypt(config.eduSysPassword().get());
+//        libPassword = cryptUtil.decrypt(config.libPassword().get());
+//        cardPassword = cryptUtil.decrypt(config.cardPassword().get());
+//        server = config.eduServer().get();
     }
 
     public String getEncodeEduSysPassword() {

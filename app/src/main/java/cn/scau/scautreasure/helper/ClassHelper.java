@@ -194,6 +194,7 @@ public class ClassHelper {
     public int getSchoolWeek() {
         String currentDate = dateUtil.getCurrentDateString();
         String termStartDate = config.termStartDate().get();
+
         return dateUtil.dateToSchoolWeek(currentDate, termStartDate);
     }
 

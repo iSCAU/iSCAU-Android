@@ -108,7 +108,7 @@ public class Main extends FragmentActivity {
 
         RadioButton[] rb = {rd_class_table, rd_activity, rd_bus, rd_app};
         for (RadioButton bt : rb) {
-            AppViewDrawable.build(bt, 1, 0, 7, 45, 45);
+            AppViewDrawable.build(bt, 1, 0, 7, 60, 60);
         }
 
         //切换到课表页面

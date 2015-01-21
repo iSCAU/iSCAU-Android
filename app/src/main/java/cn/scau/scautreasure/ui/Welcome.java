@@ -24,6 +24,7 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.SplashApi;
 import cn.scau.scautreasure.guideview.GuideView_;
+import cn.scau.scautreasure.helper.AppHelper;
 import cn.scau.scautreasure.helper.PackageHelper;
 import cn.scau.scautreasure.helper.SplashHelper;
 import cn.scau.scautreasure.model.SplashModel;
@@ -87,9 +88,9 @@ public class Welcome extends Activity {
 
         //判断设备类型
         if (isPad()) {
-            if(appConfig.forceMobile().get()){ //用户认为是手机，则直接认为是手机
+            if (appConfig.forceMobile().get()) { //用户认为是手机，则直接认为是手机
                 appConfig.isThePad().put(false);
-            }else {
+            } else {
                 appConfig.isThePad().put(true);
             }
         }
@@ -99,13 +100,13 @@ public class Welcome extends Activity {
         SplashModel splashModel = splashHelper.getSuitableSplash();
         if (splashModel != null) {
             Intent splash = new Intent(this, Splash_.class);
-            splash.putExtra("title", splashModel.getEdit_time()+"");
+            splash.putExtra("title", splashModel.getEdit_time() + "");
             startActivity(splash);
             wantToExit = true;
             finish();
         }
-            Log.d("splash","start");
-            splashHelper.loadData();
+        Log.d("splash", "start");
+        splashHelper.loadData();
 
     }
 
@@ -120,10 +121,10 @@ public class Welcome extends Activity {
 
     @UiThread(delay = 2000)
     protected void close() {
-        if (hasSetAccount()) {
+        if (AppHelper.hasSetAccount(app)) {
             Main_.intent(this).start();
         } else {
-         //   Login_.intent(this).runMainActivity(true).start();
+            Login_.intent(this).runMainActivity(true).start();
         }
 
         /*if (appConfig.isFirstStartApp().get()) {
@@ -132,10 +133,6 @@ public class Welcome extends Activity {
         finish();
     }
 
-    private boolean hasSetAccount() {
-        return app.userName != null &&
-                (app.eduSysPassword != null || app.libPassword != null || app.cardPassword != null);
-    }
 
     /**
      * 判断是否为平板

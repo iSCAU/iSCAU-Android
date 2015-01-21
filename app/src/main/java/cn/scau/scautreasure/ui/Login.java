@@ -37,14 +37,20 @@ public class Login extends BaseActivity {
     @Extra
     boolean runMainActivity = false;
 
+    @Override
+    void back() {
+        if (runMainActivity)
+            Main_.intent(this).start();
+        finish();
+
+    }
 
     @AfterViews
     void setUpViews() {
-
-        edt_userName.setText(app.userName);
-        edt_eduSysPassword.setText(app.eduSysPassword);
-        edt_libPassword.setText(app.libPassword);
-        edt_cardPassword.setText(app.cardPassword);
+        edt_userName.setText(app.config.userName().get());
+        edt_eduSysPassword.setText(app.config.eduSysPassword().get());
+        edt_libPassword.setText(app.config.libPassword().get());
+        edt_cardPassword.setText(app.config.cardPassword().get());
 
         if (startTips != null) {
             AppToast.show(this, startTips, 0);
