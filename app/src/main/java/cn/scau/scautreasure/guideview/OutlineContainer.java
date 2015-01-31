@@ -46,7 +46,7 @@ public class OutlineContainer extends FrameLayout implements Animatable {
 		mOutlinePaint = new Paint();
 		mOutlinePaint.setAntiAlias(true);
 		mOutlinePaint.setStrokeWidth(Util.dpToPx(getResources(), 2));
-		mOutlinePaint.setColor(getResources().getColor(R.color.caldroid_sky_blue));
+		mOutlinePaint.setColor(getResources().getColor(R.color.title_white));
 		mOutlinePaint.setStyle(Style.STROKE);
 
 		int padding = Util.dpToPx(getResources(), 10);

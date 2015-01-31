@@ -4,11 +4,6 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include
-        layout="@layout/base_activity_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -27,8 +22,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/theme_color"
-                android:gravity="center"
-                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dp"
+                android:paddingLeft="60dp"
+                android:paddingTop="5dp"
                 android:text="iPhone 6下月中国大陆销售，换行换行换哈换行"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/title_white"
@@ -53,6 +50,7 @@
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:padding="5dp"/>
         </LinearLayout>
     </ScrollView>

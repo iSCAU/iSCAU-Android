@@ -30,7 +30,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.BookDetailAdapter;
 import cn.scau.scautreasure.api.LibraryApi;
 import cn.scau.scautreasure.helper.UIHelper;
-import cn.scau.scautreasure.impl.ServerOnChangeListener;
+
 import cn.scau.scautreasure.util.CryptUtil;
 import cn.scau.scautreasure.widget.AppProgress;
 import cn.scau.scautreasure.widget.AppToast;

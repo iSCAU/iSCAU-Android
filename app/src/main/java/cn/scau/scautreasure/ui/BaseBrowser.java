@@ -35,12 +35,6 @@ public class BaseBrowser extends BaseActivity {
     void initViews() {
         setTitleText(browser_title);
         setMoreButtonText("更多");
-        setMoreButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppToast.show(BaseBrowser.this, "你手真多,不要乱点,还没做呢.这里就是刷新啊,分享啊,从safari打开啦之类的", 0);
-            }
-        });
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
@@ -51,7 +45,11 @@ public class BaseBrowser extends BaseActivity {
             }
         });
         webView.loadUrl(url);
-
     }
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        AppToast.show(BaseBrowser.this, "你手真多,不要乱点,还没做呢.这里就是刷新啊,分享啊,从safari打开啦之类的", 0);
+    }
 }

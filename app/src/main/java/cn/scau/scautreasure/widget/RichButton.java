@@ -21,6 +21,7 @@ import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.model.KeyValueModel;
 
 /**
+ * 必须先show再setTitle,setSubTitle
  * Created by macroyep on 15/1/20.
  * Time:09:37
  */
@@ -34,13 +35,6 @@ public class RichButton extends LinearLayout implements View.OnClickListener, Ad
     private ListView listView;
     private Callback callback;
 
-    public Callback getCallback() {
-        return callback;
-    }
-
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
 
     public RichButton(Context context, List<KeyValueModel> list, Callback callback) {
         this(context);
@@ -58,6 +52,14 @@ public class RichButton extends LinearLayout implements View.OnClickListener, Ad
 
     }
 
+    public Callback getCallback() {
+        return callback;
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
     public List<KeyValueModel> getList() {
         return list;
     }
@@ -73,6 +75,30 @@ public class RichButton extends LinearLayout implements View.OnClickListener, Ad
     public RichButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+    }
+
+    public LinearLayout getLinearLayout() {
+        return linearLayout;
+    }
+
+    public ListView getListView() {
+        return listView;
+    }
+
+    public Dialog getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(Dialog dialog) {
+        this.dialog = dialog;
+    }
+
+    public void setListView(ListView listView) {
+        this.listView = listView;
+    }
+
+    public void setLinearLayout(LinearLayout linearLayout) {
+        this.linearLayout = linearLayout;
     }
 
     public TextView getTv_title() {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="@dimen/abc_action_bar_default_height"
-             android:layout_height="@dimen/abc_action_bar_default_height">
+             android:layout_width="@dimen/abc_action_button_min_width_material"
+             android:layout_height="@dimen/abc_action_bar_default_height_material">
 
     <ImageView
         android:id="@+id/refresh_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/abc_action_bar_icon_vertical_padding"
+        android:padding="10dp"
         android:src="@drawable/icon_menu_refresh"/>
 </FrameLayout>

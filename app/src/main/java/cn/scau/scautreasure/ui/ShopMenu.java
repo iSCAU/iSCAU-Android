@@ -40,11 +40,6 @@ import cn.scau.scautreasure.widget.AppToast;
  */
 @EActivity(R.layout.activity_shop_menu)
 public class ShopMenu extends BaseActivity {
-    @Click(R.id.back)
-    void onBack() {
-        showTips();
-    }
-
 
     @Extra("")
     String id;
@@ -76,8 +71,9 @@ public class ShopMenu extends BaseActivity {
     private boolean hasOrder = false;
 
 
-    @Click(R.id.more)
-    void next() {
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
         //是否休息中
         if (!isRest) {
             //产生菜色list
@@ -103,7 +99,7 @@ public class ShopMenu extends BaseActivity {
         if (!(nowMIn > startMin && nowMIn < endMin)) {
             isRest = true;
             setTitleText("休息中");
-            more.setVisibility(View.GONE);
+            setMoreButtonVisible(false);
         }
     }
 
@@ -251,4 +247,9 @@ public class ShopMenu extends BaseActivity {
         return false;
     }
 
+    @Override
+    void home() {
+        showTips();
+
+    }
 }

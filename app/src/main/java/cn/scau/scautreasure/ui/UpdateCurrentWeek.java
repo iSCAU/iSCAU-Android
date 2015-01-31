@@ -13,6 +13,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.w3c.dom.Text;
 
@@ -27,13 +28,6 @@ import cn.scau.scautreasure.adapter.UpdateWeekAdapter;
  */
 @EActivity(R.layout.update_current_week)
 public class UpdateCurrentWeek extends BaseActivity {
-    @Click(R.id.back)
-    void onBack() {
-        finish();
-    }
-
-    @ViewById(R.id.title_text)
-    TextView title_text;
 
     //当前第几周
     @Extra("1")
@@ -44,9 +38,17 @@ public class UpdateCurrentWeek extends BaseActivity {
     ListView _listView;
     List list;
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        backToClassTable(Integer.parseInt(current));
+
+    }
+
     @AfterViews
     void initViews() {
-        title_text.setText("当前第" + current + "周");
+        setMoreButtonText("当前周");
+        setTitleText("当前第" + current + "周");
         list = new ArrayList();
         for (int i = 1; i < 23; i++) {
             list.add(i);

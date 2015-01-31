@@ -1,197 +1,119 @@
 package cn.scau.scautreasure.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
+
 
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
+import com.umeng.fb.SyncListener;
+import com.umeng.fb.model.Conversation;
+import com.umeng.fb.model.Reply;
+import com.umeng.fb.push.FBMessage;
+import com.umeng.fb.push.FeedbackPush;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.UmengRegistrar;
+import com.umeng.message.entity.UMessage;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
+
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
-import org.springframework.web.client.HttpStatusCodeException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.util.*;
+import java.util.Map;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.HttpLoader;
-import cn.scau.scautreasure.impl.OnTabSelectListener;
-import cn.scau.scautreasure.model.ActivityCountModel;
-import cn.scau.scautreasure.widget.AppNotification;
-import cn.scau.scautreasure.widget.AppViewDrawable;
-import cn.scau.scautreasure.widget.BadgeView;
+
+
+import cn.scau.scautreasure.widget.AppOKCancelDialog;
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 
 
 /**
  * 入口Activity
  */
 @EActivity
-public class Main extends FragmentActivity {
+public class Main extends MaterialNavigationDrawer {
+
+    MaterialSection classTableSection, activitySection, busSection, appSection;
+    TextView tv_title;
+    TextView tv_year_month;
+    TextView tv_day;
+    LinearLayout tv_container;
+
+    @Override
+    public void init(Bundle bundle) {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_header_drawer, null);
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
+        tv_year_month = (TextView) view.findViewById(R.id.tv_year_month);
+        tv_day = (TextView) view.findViewById(R.id.tv_day);
+        tv_container = (LinearLayout) view.findViewById(R.id.tv_container);
+        tv_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("菜单", "打开日历");
+            }
+        });
+
+        tv_year_month.setText(app.dateUtil.getCurrentYearMonth() + "\n" + app.dateUtil.getWeekOfDate());
+        tv_day.setText(app.dateUtil.getCurrentDay());
+        tv_title.setText("今天没啥事,吃屎吧");
+
+        setDrawerHeaderCustom(view);
+        // create sections
+        classTableSection = newSection("课程表", R.drawable.icon_classtale_md, new FragmentClassTable_());
+        activitySection = newSection("活动圈", R.drawable.icon_activity_md, new FragmentActivity_());
+        busSection = newSection("实时校巴", R.drawable.icon_bus_md, new FragmentBus_());
+        appSection = newSection("应用中心", R.drawable.icon_app_md, new FragmentApp_());
+
+        this.setBackPattern(BACKPATTERN_BACK_TO_FIRST);
+
+        this.addSection(classTableSection);
+        this.addSection(activitySection);
+        this.addSection(busSection);
+        this.addSection(appSection);
+
+        this.disableLearningPattern();
+        // create bottom section
+        this.addBottomSection(newSection("设置", R.drawable.icon_setting_md, new Intent(this, Settings_.class)));
+        //初始化友盟
+        initMobclickAgent();
+
+        //刷新红点
+        refreshActivityRedPoint();
+    }
+
     @Bean
     HttpLoader httpLoader;
     @App
     AppContext app;
 
-    private FragmentManager fragmentManager;
-
-    //课表,应用,活动圈,校巴
-    private Fragment fragment_class_table, fragment_app, fragment_activity, fragment_bus;
-
-    //红点
-    BadgeView bv_class_table, bv_app, bv_bus, bv_activity;
-    @ViewById(R.id.bt_classtable)
-    Button bt_class_table;
-    @ViewById(R.id.bt_app)
-    Button bt_app;
-    @ViewById(R.id.bt_bus)
-    Button bt_bus;
-    @ViewById(R.id.bt_activity)
-    Button bt_activity;
-
-    @ViewById(R.id.rd_classtable)
-    RadioButton rd_class_table;
-
-    @ViewById(R.id.rd_app)
-    RadioButton rd_app;
-
-    @ViewById(R.id.rd_bus)
-    RadioButton rd_bus;
-
-    @ViewById(R.id.rd_activity)
-    RadioButton rd_activity;
-
-    public enum TabName {
-        CLASS_TABLE("class_table"), APP("app"), ACTIVITY("activity"), BUS("bus");
-        private String name;
-
-        TabName(String _name) {
-            this.name = _name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        fragmentManager = getSupportFragmentManager();
-
-        //初始化友盟
-        initMobclickAgent();
-
-        initTabButton();
-        //刷新红点
-        updateTabRedPoint();
-    }
-
-    /**
-     * 初始化tabButton
-     */
-
-    void initTabButton() {
-
-        RadioButton[] rb = {rd_class_table, rd_activity, rd_bus, rd_app};
-        for (RadioButton bt : rb) {
-            AppViewDrawable.build(bt, 1, 0, 7, 60, 60);
-        }
-
-        //切换到课表页面
-        tabRadio(rd_class_table);
-        rd_class_table.setChecked(true);
-
-
-    }
-
-    /**
-     * 切换页面
-     *
-     * @param v
-     */
-    @Click({R.id.rd_classtable, R.id.rd_app, R.id.rd_bus, R.id.rd_activity})
-    void tabRadio(View v) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        switch (v.getId()) {
-            case R.id.rd_classtable:
-                if (fragment_class_table == null) {
-                    fragment_class_table = new FragmentClassTable_();
-                    transaction.add(R.id.container, fragment_class_table);
-                }
-                if (fragment_app != null)
-                    transaction.hide(fragment_app);
-                if (fragment_bus != null)
-                    transaction.hide(fragment_bus);
-                if (fragment_activity != null)
-                    transaction.hide(fragment_activity);
-                transaction.show(fragment_class_table);
-//                ((OnTabSelectListener) fragment_class_table).onTabSelect();
-                break;
-            case R.id.rd_app:
-
-                if (fragment_app == null) {
-                    fragment_app = new FragmentApp_();
-                    transaction.add(R.id.container, fragment_app);
-                }
-                if (fragment_class_table != null)
-                    transaction.hide(fragment_class_table);
-                if (fragment_bus != null)
-                    transaction.hide(fragment_bus);
-                if (fragment_activity != null)
-                    transaction.hide(fragment_activity);
-                transaction.show(fragment_app);
-
-
-                //     ((OnTabSelectListener) fragment_app).onTabSelect();
-
-                break;
-            case R.id.rd_bus:
-                if (fragment_bus == null) {
-                    fragment_bus = new FragmentBus_();
-                    transaction.add(R.id.container, fragment_bus);
-                }
-                if (fragment_app != null)
-                    transaction.hide(fragment_app);
-                if (fragment_class_table != null)
-                    transaction.hide(fragment_class_table);
-                if (fragment_activity != null)
-                    transaction.hide(fragment_activity);
-                transaction.show(fragment_bus);
-                break;
-
-            case R.id.rd_activity:
-                if (fragment_activity == null) {
-                    fragment_activity = new FragmentActivity_();
-                    transaction.add(R.id.container, fragment_activity);
-                }
-                if (fragment_app != null)
-                    transaction.hide(fragment_app);
-                if (fragment_bus != null)
-                    transaction.hide(fragment_bus);
-                if (fragment_class_table != null)
-                    transaction.hide(fragment_class_table);
-                transaction.show(fragment_activity);
-                hideActivityRedPoint();
-                //((OnTabSelectListener) fragment_activity).onTabSelect();
-                break;
-        }
-        transaction.commit();
-
-    }
 
     /**
      * 初始化友盟
@@ -203,41 +125,155 @@ public class Main extends FragmentActivity {
         UmengUpdateAgent.setUpdateOnlyWifi(false);
         UmengUpdateAgent.update(this);
 
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.enable();
+        PushAgent.getInstance(this).onAppStart();
+        String device_token = UmengRegistrar.getRegistrationId(this);
+        System.out.println("token:" + device_token);
+
         // 检查反馈消息;
-        FeedbackAgent agent = new FeedbackAgent(this);
-        agent.sync();
+        final FeedbackAgent agent = new FeedbackAgent(this);
+
+        agent.openFeedbackPush();
+        PushAgent.getInstance(this).enable();
+        PushAgent.getInstance(this).setNotificationClickHandler(new UmengNotificationClickHandler() {
+            @Override
+            public void dealWithCustomAction(Context context, UMessage uMessage) {
+                System.out.println("处理通知栏推送:" + uMessage.custom.toString());
+//                super.dealWithCustomAction(context, uMessage);
+            }
+        });
+        PushAgent.getInstance(this).setMessageHandler(new UmengMessageHandler() {
+            @Override
+            public void dealWithCustomMessage(Context context, UMessage uMessage) {
+
+
+                try {
+                    JSONObject json = new JSONObject(uMessage.custom);
+                    String type = json.getString("type");
+                    if (type.equals("dev_reply")) {
+                        showReplyFeedback(agent);
+                        System.out.println("反馈回复推送:" + uMessage.custom.toString());
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                showCustomPush(uMessage);
+                System.out.println("处理自定义推送:" + uMessage.custom.toString() + "|" + uMessage.extra);
+
+            }
+        });
+        System.out.println("token:" + UmengRegistrar.getRegistrationId(this));
+
+
+        Conversation conversation = agent.getDefaultConversation();
+        conversation.sync(new SyncListener() {
+            @Override
+            public void onReceiveDevReply(List<Reply> replies) {
+                if (replies.size() > 0) {
+                    showReplyFeedback(agent);
+                }
+                System.out.println("onReceiveDevReply\n");
+
+                for (Reply r : replies)
+                    System.out.println("onReceiveDevReply\n" + r.toString());
+            }
+
+            @Override
+            public void onSendUserReply(List<Reply> replies) {
+                System.out.println("onSendUserReply\n");
+
+                for (Reply r : replies)
+                    System.out.println("onSendUserReply\n" + r.toString());
+
+            }
+        });
         showNotification();
     }
 
     /**
-     * 显示消息推送
+     * 回复反馈
+     */
+    @UiThread(delay = 100)
+    void showReplyFeedback(final FeedbackAgent agent) {
+        AppOKCancelDialog.show(Main.this, "宝宝君", "我给你发了一条消息,请注意查看", "查看", "忽略", new AppOKCancelDialog.Callback() {
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onOk() {
+//                agent.startFeedbackActivity();
+                FeedBackActivity_.intent(Main.this).start();
+            }
+
+        });
+
+    }
+
+    /**
+     * 自定义消息推送
+     */
+    @UiThread
+    void showCustomPush(UMessage uMessage) {
+        String title = "";//标题
+        String text = uMessage.custom;//要显示的东西
+        String intent = "";//网址
+
+        for (Map.Entry<String, String> entry : uMessage.extra.entrySet()) {
+            if (entry.getKey().equals("intent")) {
+                intent = entry.getValue();
+            }
+            if (entry.getKey().equals("title")) {
+                title = entry.getValue();
+            }
+        }
+        final String url = intent;
+        final String browser_title = title;
+        AppOKCancelDialog.show(this, title.equals("") ? "提示" : title, text, "去看看", "忽略", new AppOKCancelDialog.Callback() {
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onOk() {
+                //do somethings
+                BaseBrowser_.intent(Main.this).url(url).browser_title(browser_title).start();
+            }
+        });
+
+
+    }
+
+    /**
+     * 显示公告消息推送
      */
     @UiThread(delay = 4000)
     void showNotification() {
         String notification = MobclickAgent.getConfigParams(this, "notification");
         if (!notification.trim().equals("0") && !notification.trim().equals("")) {
             // 今天显示过就不显示了
-            if (!app.config.lastSeeNotificationDate().get().equals(app.dateUtil.getCurrentDateString())) {
-                AppNotification.show(this, "软件公告", notification, "关闭", new AppNotification.Callback() {
+            if (app.config.lastSeeNotificationDate().get().equals(app.dateUtil.getCurrentDateString())) {
+                AppOKCancelDialog.show(Main.this, "宝宝君提醒你", notification, "朕已阅", "忽略", new AppOKCancelDialog.Callback() {
                     @Override
                     public void onCancel() {
 
                     }
+
+                    @Override
+                    public void onOk() {
+                        app.config.lastSeeNotificationDate().put(app.dateUtil.getCurrentDateString());
+                    }
                 });
+
+
             }
         }
     }
 
-    /**
-     * 初始化红点控件,因为直接用RadioButton会变形,就套一个Button
-     */
-    private void updateTabRedPoint() {
-        bv_class_table = AppContext.setTabRedPoint(this, bt_class_table);
-        bv_app = AppContext.setTabRedPoint(this, bt_app);
-        bv_bus = AppContext.setTabRedPoint(this, bt_bus);
-        bv_activity = AppContext.setTabRedPoint(this, bt_activity);
-        refreshActivityRedPoint();
-    }
 
     /**
      * 从服务端刷新消息,判断是否显示红点
@@ -247,18 +283,19 @@ public class Main extends FragmentActivity {
         httpLoader.updateActivityFlags(new HttpLoader.NormalCallBack() {
             @Override
             public void onSuccess(Object obj) {
-                if (obj.toString().equals("yes"))
-                    showActivityRedPoint();
+                if ((int) obj != 0)
+                    showActivityRedPoint((int) obj);
             }
 
             @Override
             public void onError(Object obj) {
-                hideActivityRedPoint();
+                activitySection.setNotificationsText("");
             }
 
             @Override
             public void onNetworkError(Object obj) {
-                hideActivityRedPoint();
+                activitySection.setNotificationsText("");
+
             }
         });
 
@@ -268,27 +305,19 @@ public class Main extends FragmentActivity {
      * 显示活动圈的红点
      */
     @UiThread
-    protected void showActivityRedPoint() {
-        bv_activity.show();
+    protected void showActivityRedPoint(int num) {
+        activitySection.setNotifications(num);
     }
 
-    /**
-     * 隐藏活动圈红点
-     */
-    @UiThread
-    void hideActivityRedPoint() {
-        bv_activity.hide();
-    }
 
-    @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
 
-    @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
 }

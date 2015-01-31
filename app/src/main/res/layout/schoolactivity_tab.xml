@@ -4,8 +4,7 @@
               android:layout_height="wrap_content"
               android:background="@color/theme_color"
               android:orientation="vertical"
-
-              android:paddingTop="10dp">
+    >
 
     <LinearLayout
         android:id="@+id/linear_tab"
@@ -24,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                 android:gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:text="今天"
 
                 android:textColor="#ffd3d3d3"
@@ -41,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                 android:gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:text="明天"
 
                 android:textColor="#ffd3d3d3"
@@ -58,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                 android:gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:text="未来"
                 android:textColor="#ffd3d3d3"
                 android:textSize="20sp"/>

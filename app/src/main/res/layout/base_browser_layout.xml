@@ -4,10 +4,6 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include
-        layout="@layout/base_activity_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <WebView
         android:id="@+id/webView"

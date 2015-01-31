@@ -5,10 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include
-        layout="@layout/base_activity_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 
     <LinearLayout
         android:id="@+id/search_layout"
@@ -46,7 +43,7 @@
             android:background="#0000"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/abc_ic_search"/>
+            android:src="@drawable/search_button"/>
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView

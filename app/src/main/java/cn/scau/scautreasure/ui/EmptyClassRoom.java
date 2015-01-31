@@ -34,19 +34,18 @@ public class EmptyClassRoom extends ListActivity {
     @Extra("value")
     ArrayList<String> value;
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        loadData();
+    }
 
     @AfterViews
     void init() {
         setTitleText("空教室");
         setMoreButtonText("刷新");
-        setMoreButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadData();
-            }
-        });
+
         setDataEmptyTips("没有这样的空教室");
-        loadData();
         cacheHelper.setCacheKey("emptyClassRoom_" + StringUtil.join(value, "_"));
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
@@ -54,6 +53,7 @@ public class EmptyClassRoom extends ListActivity {
 
     @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
+
         beforeLoadData("正在刷新", "请耐心等待,正方你懂的", "取消", new AppProgress.Callback() {
             @Override
             public void onCancel() {
@@ -63,7 +63,6 @@ public class EmptyClassRoom extends ListActivity {
         try {
             ArrayList<String> param = value;
             for (int i = 0; i < param.size(); i++) {
-                Log.i(getClass().getName(), param.get(0));
             }
             list = api.getEmptyClassRoom(AppContext.userName, app.getEncodeEduSysPassword(),
                     param.get(0), param.get(1), param.get(2), param.get(3), param.get(4),
@@ -73,10 +72,10 @@ public class EmptyClassRoom extends ListActivity {
 
 
         } catch (HttpStatusCodeException e) {
-            showErrorResult(e.getStatusCode().value());
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+
             e.printStackTrace();
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.getMessage());
             e.printStackTrace();
             handleNoNetWorkError();
 

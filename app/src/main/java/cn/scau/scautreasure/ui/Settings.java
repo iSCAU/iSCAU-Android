@@ -25,6 +25,7 @@ import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
@@ -46,7 +47,7 @@ import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.AppViewDrawable;
-import cn.scau.scautreasure.widget.ToggleButton;
+
 
 /**
  * Created by apple on 14-9-3.
@@ -139,15 +140,18 @@ public class Settings extends BaseActivity {
             @Override
             public void onCheck(boolean check) {
                 if (check) {
-                    app.config.isAlertClass().put(true);
-                    Intent sevice = new Intent(Settings.this, AlertClassSerice_.class);
-                    Settings.this.startService(sevice);
                     AppToast.show(Settings.this, "已开启课前提醒", 0);
 
+                    app.config.isAlertClass().put(true);
+                    AlertClassSerice_.intent(Settings.this).stop();
+                    Intent sevice = new Intent(Settings.this, AlertClassSerice_.class);
+                    Settings.this.startService(sevice);
+
                 } else {
+                    AppToast.show(Settings.this, "已关闭课前提醒", 0);
+
                     app.config.isAlertClass().put(false);
                     AlertClassSerice_.intent(Settings.this).stop();
-                    AppToast.show(Settings.this, "已关闭课前提醒", 0);
 
                 }
             }
@@ -277,15 +281,27 @@ public class Settings extends BaseActivity {
 
     }
 
+
+    /**
+     * 用户反馈
+     */
     @Click(R.id.btn_contact)
     void btn_contact() {
-        FeedbackAgent agent = new FeedbackAgent(this);
-        agent.startFeedbackActivity();
+        FeedBackActivity_.intent(this).start();
+
+//        FeedbackAgent agent = new FeedbackAgent(this);
+//        agent.startFeedbackActivity();
+//        agent.openAudioFeedback();
+//        agent.openFeedbackPush();
+//
+//        agent.setWelcomeInfo("欢迎与宝宝君交流");
     }
 
     @AfterViews
     void initViews() {
         setTitleText("设置");
+        setMoreButtonVisible(false);
+
         setAlertClass();
         setDuringClassMode();
         setAfterClassMode();

@@ -41,21 +41,22 @@ public class Goal extends ListActivity {
     @Extra("value")
     ArrayList<String> value;
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        loadData();
+
+    }
+
     @AfterViews
     void init() {
         setTitleText("查成绩");
         setMoreButtonText("刷新");
-        setMoreButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadData();
-            }
-        });
+
         tips_empty = "正方上没有你的考试成绩";
         cacheHelper.setCacheKey("goal_" + StringUtil.join(value, "_"));
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
-        loadData();
     }
 
 
@@ -98,14 +99,14 @@ public class Goal extends ListActivity {
         });
         try {
             ArrayList<String> param = value;
-            list = api.getGoal(AppContext.userName, app.getEncodeEduSysPassword() , param.get(0), param.get(1)).getGoals();
+            list = api.getGoal(AppContext.userName, app.getEncodeEduSysPassword(), param.get(0), param.get(1)).getGoals();
             for (int i = 0; i < list.size(); i++)
-                Log.i(getClass().getName(), "刷新成绩:" + list.get(i).toString());
-            cacheHelper.writeListToCache(list);
+                cacheHelper.writeListToCache(list);
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
             Log.d("server_code", e.getStatusCode() + "");
-            showErrorResult(e.getStatusCode().value());
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+
         } catch (Exception e) {
             handleNoNetWorkError();
         }

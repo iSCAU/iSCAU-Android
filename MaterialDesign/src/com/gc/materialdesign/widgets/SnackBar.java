@@ -3,6 +3,7 @@ package com.gc.materialdesign.widgets;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ public class SnackBar extends Dialog {
     ButtonFlat button;
     int backgroundSnackBar = Color.parseColor("#333333");
     int backgroundButton = Color.parseColor("#1E88E5");
+
     int h;
     OnHideListener onHideListener;
     // Timer
@@ -159,7 +161,6 @@ public class SnackBar extends Dialog {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO 自动生成的方法存根
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             dismiss();
         }

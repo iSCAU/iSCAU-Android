@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:background="@color/theme_color"
+              android:orientation="vertical"
+           >
 
     <LinearLayout
         android:id="@+id/linear_tab"
@@ -21,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="MON"
-                android:textColor="#484747"
+                android:textColor="#ffd3d3d3"
                 android:textSize="14sp"/>
 
             <TextView
@@ -30,7 +32,7 @@
                 android:layout_gravity="center"
 
                 android:text="1"
-                android:textColor="#919090"
+                android:textColor="#ffd3d3d3"
                 android:textSize="13sp"/>
         </LinearLayout>
 
@@ -158,10 +160,9 @@
         <ImageView
             android:id="@+id/iv_underline"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:src="#d9322c"/>
+            android:layout_height="3dp"
+            android:alpha="0.7"
+            android:src="#ffffffff"/>
 
     </LinearLayout>
 

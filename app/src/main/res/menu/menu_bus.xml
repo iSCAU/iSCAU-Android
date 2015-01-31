@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_automate_refresh"
-        android:title="@string/menu_automate_refresh"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/menu_refresh"
+        android:id="@+id/refresh_button"
         android:icon="@drawable/icon_menu_refresh"
-        android:title=""
+        android:title="@string/action_refresh"
+        app:actionViewClass="cn.scau.scautreasure.widget.RefreshActionItem"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/menu_bus_line"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+        android:title="设置线路"
         app:showAsAction="always"/>
 </menu>

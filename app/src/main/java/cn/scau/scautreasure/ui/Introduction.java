@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -31,7 +32,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.EXPANDAB
  * Mail: specialcyci@gmail.com
  */
 @EActivity(R.layout.introduction)
-public class Introduction extends CommonActivity {
+public class Introduction extends Activity {
 //
 //    @Bean
 //    TextUtil textUtil;

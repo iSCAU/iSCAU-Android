@@ -1,49 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Action Bar title -->
-    <style name="ActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@color/actionbar_title_color</item>
+
+    <!-- Base application theme. -->
+    <style name="AppThemes" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowActionBar">false</item>
+
     </style>
 
-    <!-- Action Bar sub title -->
-    <style name="ActionBarSubTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/actionbar_title_color</item>
+
+    <!-- Light Themes-->
+
+    <!-- Mocked Account -->
+    <style name="MockedAccountLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="singleAccount">true</item>
+        <!-- Remove the change account button -->
     </style>
 
-    <!-- ActionBar Style -->
-    <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
-        <item name="titleTextStyle">@style/ActionBarTitle</item>
-        <item name="subtitleTextStyle">@style/ActionBarSubTitle</item>
-        <item name="background">@drawable/action_bar</item>
-        <item name="displayOptions">showTitle</item>
+    <!-- Accounts -->
+    <style name="AccountsLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
     </style>
 
-    <!--ActionBarWidget Style-->
-    <style name="ActionBarWidget" parent="@style/Theme.AppCompat">
-        <item name="searchViewCloseIcon">@drawable/menu_icon_close</item>
-        <item name="searchViewGoIcon">@drawable/menu_icon_search</item>
-        <item name="searchViewSearchIcon">@drawable/menu_icon_search</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabs</item>
+    <!-- Drawer Header Image -->
+    <style name="ImageHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_IMAGE</item>
     </style>
 
-    <!-- Theme -->
-    <style name="Theme.SpecialWhite" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowBackground">@color/background_normal</item>
+    <!-- No Drawer Header -->
+    <style name="NoHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
+    </style>
+
+    <!-- Custom Drawer Header -->
+    <style name="CustomHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">@color/theme_color</item>
+        <item name="colorPrimaryDark">@color/theme_color_dark</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>
+    </style>
+    <style name="BaseActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/theme_color</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="actionBarStyle">@style/ActionBar</item>
-        <item name="actionBarWidgetTheme">@style/ActionBarWidget</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabs</item>
+        <item name="colorPrimaryDark">@color/theme_color_dark</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>
+    </style>
+    <!-- Dark Themes-->
+
+    <!-- Mocked Account -->
+    <style name="MockedAccountDark" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="singleAccount">true</item>
+        <!-- Remove the change account button -->
     </style>
 
-    <!-- ActionBar tabs styles -->
-    <style name="ActionBarTabs"
-           parent="@style/Widget.AppCompat.ActionBar.TabView">
-        <item name="android:background">@drawable/tab_indicator_ab_special</item>
+    <!-- Accounts -->
+    <style name="AccountsDark" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
     </style>
 
+    <!-- Drawer Header Image -->
+    <style name="ImageHeaderDark" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_IMAGE</item>
+    </style>
+
+    <!-- No Drawer Header -->
+    <style name="NoHeaderDark" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
+    </style>
+
+    <!-- Custom Drawer Header -->
+    <style name="CustomHeaderDark" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>
+    </style>
+
+    <!-- Functionality Themes-->
+    <!-- I used DRAWERTYPE_NO_HEADER only for get a simple tutorial, you can use any type of drawer obviously -->
+
+    <!-- Unique Toolbar Color -->
+    <style name="UniqueToolbarColor" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
+        <item name="uniqueToolbarColor">true</item>
+    </style>
+
+    <!-- Ripple Backport support -->
+    <style name="RippleBackport" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
+        <item name="rippleBackport">true</item>
+    </style>
+
+    <!-- Multipane Support for tablets -->
+    <style name="MultiPane" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="multipaneSupport">true</item>
+    </style>
+
+    <!-- custom section under account list -->
+    <style name="CustomAccountSection" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
+    <!-- Kitkat Traslucent Status bar -->
+    <style name="KitkatStatusBar" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar.TranslucentKitKatStatusBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
+    <!-- Master / Child Example -->
+    <style name="MasterChild" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="drawerType">@integer/DRAWERTYPE_IMAGE</item>
+    </style>
+
+    <!-- Test Theme -->
+    <style name="TestTheme" parent="MaterialNavigationDrawerTheme">
+        <item name="colorPrimary">#8bc34a</item>
+        <item name="colorPrimaryDark">#558b2f</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
     <!--login edittext-->
     <style name="login_edittext" parent="android:Widget">
         <item name="android:background">@drawable/login_edittext</item>
@@ -182,22 +295,22 @@
     </style>
 
     <style name="classTab_normal_engtext">
-        <item name="android:textColor">#969696</item>
+        <item name="android:textColor">#ffd3d3d3</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="classTab_normal_numtext">
-        <item name="android:textColor">#d2d2d2</item>
+        <item name="android:textColor">#ffd3d3d3</item>
         <item name="android:textSize">11sp</item>
     </style>
 
     <style name="classTab_click_engtext">
-        <item name="android:textColor">#484747</item>
+        <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="classTab_click_numtext">
-        <item name="android:textColor">#919090</item>
+        <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">11sp</item>
     </style>
 
@@ -291,10 +404,12 @@
 
     <style name="Dialog_Notitle" parent="android:Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@color/caldroid_white</item>
+        <item name="android:background">@color/title_white</item>
     </style>
 
     <style name="menu_button">
+        <item name="android:alpha">0.9</item>
+        <item name="android:textColor">#ffffffff</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:layout_width">0dp</item>

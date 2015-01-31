@@ -24,6 +24,7 @@ public class About extends BaseActivity {
     @AfterViews
     void init() {
         setTitleText("关于华农宝");
+        setMoreButtonVisible(false);
         textView_appName.setText(getString(R.string.app_name) + " v" + packageHelper.getAppVersionName());
     }
 

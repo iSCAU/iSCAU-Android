@@ -27,7 +27,6 @@ import cn.scau.scautreasure.widget.AppToast;
 @EActivity(R.layout.login)
 public class Login extends BaseActivity {
 
-
     @ViewById
     EditText edt_userName, edt_eduSysPassword, edt_libPassword, edt_cardPassword;
 
@@ -38,12 +37,12 @@ public class Login extends BaseActivity {
     boolean runMainActivity = false;
 
     @Override
-    void back() {
+    void home() {
         if (runMainActivity)
             Main_.intent(this).start();
         finish();
-
     }
+
 
     @AfterViews
     void setUpViews() {
@@ -57,26 +56,26 @@ public class Login extends BaseActivity {
         }
         setTitleText("帐号设置");
         setMoreButtonText("保存");
-        setMoreButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userName = edt_userName.getText().toString().trim();
-                String eduSysPassword = edt_eduSysPassword.getText().toString().trim();
-                String libPassword = edt_libPassword.getText().toString().trim();
-                String cardPassword = edt_cardPassword.getText().toString().trim();
 
-                if (userNameHasInput(userName) && onePasswordHasInput(eduSysPassword, libPassword, cardPassword)) {
-                    saveAccount(userName, eduSysPassword, libPassword, cardPassword);
-
-                } else if (!userNameHasInput(userName)) {
-                    AppToast.show(Login.this, "你还没输入帐号", 0);
-                } else {
-                    AppToast.show(Login.this, "你还没输入教务系统密码或图书馆密码", 0);
-                }
-            }
-        });
     }
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        String userName = edt_userName.getText().toString().trim();
+        String eduSysPassword = edt_eduSysPassword.getText().toString().trim();
+        String libPassword = edt_libPassword.getText().toString().trim();
+        String cardPassword = edt_cardPassword.getText().toString().trim();
+
+        if (userNameHasInput(userName) && onePasswordHasInput(eduSysPassword, libPassword, cardPassword)) {
+            saveAccount(userName, eduSysPassword, libPassword, cardPassword);
+
+        } else if (!userNameHasInput(userName)) {
+            AppToast.show(Login.this, "你还没输入帐号", 0);
+        } else {
+            AppToast.show(Login.this, "你还没输入教务系统密码或图书馆密码", 0);
+        }
+    }
 
     private boolean userNameHasInput(String userName) {
         return !userName.equals("");

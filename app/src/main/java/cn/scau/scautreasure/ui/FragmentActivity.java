@@ -68,33 +68,35 @@ public class FragmentActivity extends BaseFragment {
     private boolean isFirstTimeOpenActivity = true;
 
     @AfterViews
-    void initView() {
+    void initViews() {
+        if (!isAfterViews) {
+            isAfterViews = true;
+            System.out.println("活动圈");
+            helper.initHelper(getActivity().getApplication());
+            today = new SchoolActivityPullToRefresh(getActivity(), helper, "today");
+            tomorrow = new SchoolActivityPullToRefresh(getActivity(), helper, "tomorrow");
+            later = new SchoolActivityPullToRefresh(getActivity(), helper, "later");
 
-        helper.initHelper(getActivity().getApplication());
-        today = new SchoolActivityPullToRefresh(getActivity(), helper, "today");
-        tomorrow = new SchoolActivityPullToRefresh(getActivity(), helper, "tomorrow");
-        later = new SchoolActivityPullToRefresh(getActivity(), helper, "later");
+            initPullToRefreshListView(today);
+            initPullToRefreshListView(tomorrow);
+            initPullToRefreshListView(later);
 
-        initPullToRefreshListView(today);
-        initPullToRefreshListView(tomorrow);
-        initPullToRefreshListView(later);
+            adapter = new SchoolActivityPagerAdapter();
+            adapter.setViewList(listViews);
 
-        adapter = new SchoolActivityPagerAdapter();
-        adapter.setViewList(listViews);
+            showTab();
 
-        showTab();
+            pager.setOffscreenPageLimit(3);
+            pager.setOnPageChangeListener(onPageChangeListener);
+            pager.setAdapter(adapter);
 
-        pager.setOffscreenPageLimit(3);
-        pager.setOnPageChangeListener(onPageChangeListener);
-        pager.setAdapter(adapter);
-
-        showSchoolActivity();
-        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
-            demo();
+            showSchoolActivity();
+            ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected())
+                demo();
+        }
     }
-
 
     /*
      * 这里因为种种原因要这么做，getWidth=0是没办法避免的事情，只好等待

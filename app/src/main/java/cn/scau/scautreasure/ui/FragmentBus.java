@@ -1,13 +1,16 @@
 package cn.scau.scautreasure.ui;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import android.widget.TextView;
 
 
 import com.gc.materialdesign.widgets.Dialog;
@@ -16,14 +19,17 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
 import org.androidannotations.annotations.rest.RestService;
 
+import org.androidannotations.api.BackgroundExecutor;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.ArrayList;
@@ -35,37 +41,41 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.api.BusApi;
 
+import cn.scau.scautreasure.helper.HttpLoader;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.model.BusLineModel;
 import cn.scau.scautreasure.model.BusSiteModel;
 import cn.scau.scautreasure.model.BusStateModel;
 import cn.scau.scautreasure.util.CacheUtil;
+import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.BusTabWidget;
 
 import cn.scau.scautreasure.widget.BusWidget;
 
 
+import cn.scau.scautreasure.widget.RefreshActionItem;
 import cn.scau.scautreasure.widget.RefreshIcon;
 
 
 @EFragment(R.layout.bus)
-public class FragmentBus extends BaseFragment {
+@OptionsMenu(R.menu.menu_bus)
+public class FragmentBus extends BaseFragment implements RefreshActionItem.RefreshButtonListener {
+
+    @OptionsMenuItem(R.id.refresh_button)
+    MenuItem refresh_button;
+
+    protected RefreshActionItem mRefreshActionItem;
+
     private String direct = "up";//up:西园>荷园;down:荷园>西园
 
     //线路id
     private int line_id = 1;//1,2
 
-    @ViewById(R.id.more)
-    RefreshIcon refreshButton;
-    @ViewById(R.id.title_text)
-    TextView title_text;
-
 
     @ViewById(R.id.titles)
     BusTabWidget titles;
 
-    @RestService
-    BusApi api;
+
     @App
     AppContext app;
     @ViewById
@@ -81,85 +91,147 @@ public class FragmentBus extends BaseFragment {
     private ArrayList<BusSiteModel> siteList;
     private List<BusStateModel> stateList;
     private CacheUtil cacheUtil;
-    private boolean isAutomateRefresh = false;
-    private RefreshIcon refreshIcon;
+
+
+    @AfterViews
+    void initViews() {
+        if (!isAfterViews) {
+            isAfterViews = true;
+            System.out.println("校巴");
+            setCurrentLine();
+            cacheUtil = CacheUtil.get(getActivity());
+            refreshSiteAndBus();
+        }
+
+    }
 
 
     /**
-     * 切换路线
+     * 加载线路站点
+     *
+     * @param line
+     * @param direction
      */
-    @Click(R.id.title)
-    void changeLine() {
-        final Dialog dialog = new Dialog(getActivity(), "选择校巴线路", "1号线:荷园<->西园\n2号线:荷园<->车队候车场(环行)");
-        // Set accept click listenner
-        dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Log.i(getClass().getName(), "选择了2号线路");
-                title_text.setText("2号线(环行)");
-                if (line_id == 1) {
-                    String[] direction = getDirectionByLine(lineList.get(1));
+    @Background
+    void loadSite(final String line, final String direction) {
+        loadCacheSiteList(line, direction);
+        if (siteList == null) {
+            httpLoader.updateBusStation(line, direction, new HttpLoader.NormalCallBack() {
+                @Override
+                public void onSuccess(Object obj) {
+                    siteList = (ArrayList<BusSiteModel>) obj;
+                    saveCacheSiteList(line, direction);
 
-                    titles.setVisibility(View.GONE);
                 }
-                refreshSiteAndBus();
 
-                line_id = 2;
-                app.config.default_bus_line().put(line_id);
-//
-            }
-        });
-        // Set cancel click listenner
-
-        dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Log.i(getClass().getName(), "选择了1号线路");
-                title_text.setText("1号线");
-                if (line_id == 2) {
-                    titles.setVisibility(View.VISIBLE);
+                @Override
+                public void onError(Object obj) {
+                    showError(Integer.parseInt(String.valueOf(obj)));
+                    error();
                 }
-                refreshSiteAndBus();
-                line_id = 1;
-                app.config.default_bus_line().put(line_id);
 
+                @Override
+                public void onNetworkError(Object obj) {
+                    showNetWorkError(obj);
+                    error();
+                }
+            });
+        }
+    }
+
+    /**
+     * 加载校巴位置数据
+     *
+     * @param params
+     */
+    @Background(id = UIHelper.CANCEL_FLAG)
+    void loadData(Object... params) {
+        httpLoader.updateBusPos(new HttpLoader.NormalCallBack() {
+            @Override
+            public void onSuccess(Object obj) {
+                stateList = (List<BusStateModel>) obj;
+                showSiteAndBus();
+                BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
             }
-        });
+
+            @Override
+            public void onError(Object obj) {
+                showError(Integer.parseInt(String.valueOf(obj)));
+                error();
+            }
+
+            @Override
+            public void onNetworkError(Object obj) {
+                showNetWorkError(obj);
+                error();
+            }
+        }, (String) params[0], (String) params[1]);
+    }
+
+    /**
+     * 加载线路
+     */
+    @Background
+    void loadLine() {
+        loadCacheLineList();
+        if (lineList == null) {
+            httpLoader.updateBusLine(new HttpLoader.NormalCallBack() {
+                @Override
+                public void onSuccess(Object obj) {
+                    lineList = (ArrayList<BusLineModel>) obj;
+                    saveCacheLineList();
+                    String line = String.valueOf(line_id);
+                    if (line_id == 1) {
+                        loadSite(line, direct);
+                        loadData(line, direct);
+                    } else if (line_id == 2) {
+                        loadSite(line, "circle");
+                        loadData(line, "circle");
+                    }
+                    System.out.println("从网络加载线路");
+                }
+
+                @Override
+                public void onError(Object obj) {
+                    showError(Integer.parseInt(String.valueOf(obj)));
+                }
+
+                @Override
+                public void onNetworkError(Object obj) {
+                    error();
+                }
+            });
 
 
-        dialog.show();
-        dialog.getButtonCancel().setText("1号线");
-        dialog.getButtonAccept().setText("2号线");
-        Log.i(getClass().getName(), dialog.getButtonAccept() == null ? "null" : "nonull");
+        } else {
+            System.out.println("从缓存加载线路");
+
+            String line = String.valueOf(line_id);
+            if (line_id == 1) {
+                loadSite(line, direct);
+                loadData(line, direct);
+            } else if (line_id == 2) {
+                loadSite(line, "circle");
+                loadData(line, "circle");
+            }
+        }
 
     }
 
     /**
-     * the timer to automate load data
+     * 设置默认路线
      */
-    private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {
-        public void run() {
-            refreshSiteAndBus();
-            handler.postDelayed(this, 30 * 1000);
-        }
-    };
-
-    @AfterViews
-    void init() {
+    void setCurrentLine() {
         line_id = app.config.default_bus_line().get();
         if (line_id == 2) {
             titles.setVisibility(View.GONE);
-            title_text.setText("2号线(环行)");
+            getTheActionBar().setTitle("2号线(环行)");
 
         } else {
-            title_text.setText("1号线");
+            getTheActionBar().setTitle("1号线");
         }
         showTab();
-        cacheUtil = CacheUtil.get(getActivity());
-        loadLine();
+
 
     }
 
@@ -189,15 +261,6 @@ public class FragmentBus extends BaseFragment {
             titles.changeTab(0);
             titles.setListener(onTabChangeListener);
         }
-    }
-
-    /**
-     * when user
-     */
-    @Override
-    public void onDestroyView() {
-        handler.removeCallbacks(runnable);
-        super.onDestroyView();
     }
 
 
@@ -231,16 +294,11 @@ public class FragmentBus extends BaseFragment {
         return null;
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  UI Related;
-    //
-    //--------------------------------------------------------------------------
-
+    /**
+     * 更新ui,显示线路
+     */
     @UiThread(delay = 300)
     void showLine() {
-        refreshButton.stopProgress();
-        // build line information;
         int i = 0;
         String[] line = new String[lineList.size()];
         for (BusLineModel r : lineList) {
@@ -253,10 +311,18 @@ public class FragmentBus extends BaseFragment {
 
     @UiThread
     void showSiteAndBus() {
-        refreshButton.stopProgress();
+        mRefreshActionItem.stopProgress();
+        Log.i("刷新校巴", String.valueOf(siteList.size()) + ":" + String.valueOf(stateList.size()));
+        showLine();
 
-        if (siteList != null)
+        if (siteList != null) {
+            if (stateList.size() == 0) {
+                AppToast.show(getActivity(), "现在路上没有校巴...", 0);
+            }
             busWidget.initView(siteList, stateList);
+
+        }
+
     }
 
     /**
@@ -264,95 +330,18 @@ public class FragmentBus extends BaseFragment {
      */
     @UiThread
     void refreshSiteAndBus() {
-        refreshButton.startProgress();
-        if (lineList == null) {
-            loadLine();
-        } else {
-            String line = String.valueOf(line_id);
-            if (line_id == 1) {
-                loadSite(line, direct);
-                loadData(line, direct);
-            } else if (line_id == 2) {
-                loadSite(line, "circle");
-                loadData(line, "circle");
-            }
+        System.out.println("刷新一次");
+        mRefreshActionItem.startProgress();
+        loadLine();
 
-        }
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Network Request;
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     * loading line informations
-     */
-    @Background(id = UIHelper.CANCEL_FLAG)
-    void loadLine() {
-        loadCacheLineList();
-        if (lineList == null) {
-            try {
-                Log.d("-----bus----", "pre");
-                lineList = api.getLine().getLines();
-                Log.d("-----bus----", "get");
-                saveCacheLineList();
-                showLine();
-                refreshSiteAndBus();
-
-            } catch (HttpStatusCodeException e) {
-                showError(e.getStatusCode().value());
-                error();
-            }
-        } else {
-            Log.d("-----bus----", "show_line");
-            showLine();
-            refreshSiteAndBus();
-        }
-    }
 
     @UiThread
     void error() {
-        refreshButton.stopProgress();
+        mRefreshActionItem.stopProgress();
     }
 
-    /**
-     * loading the bus stop of the route;
-     *
-     * @param line
-     * @param direction
-     */
-    @Background(id = UIHelper.CANCEL_FLAG)
-    void loadSite(String line, String direction) {
-        loadCacheSiteList(line, direction);
-
-        if (siteList == null) {
-            try {
-                siteList = api.getSite(line, direction).getSites();
-                saveCacheSiteList(line, direction);
-            } catch (HttpStatusCodeException e) {
-//                showErrorResult(getActivity(), e.getStatusCode().value());
-            }
-        }
-
-    }
-
-    /**
-     * load the bus location information;
-     *
-     * @param params
-     */
-    @Background(id = UIHelper.CANCEL_FLAG)
-    void loadData(Object... params) {
-        try {
-            stateList = api.getBusState((String) params[0], (String) params[1]).getStates();
-            showSiteAndBus();
-        } catch (HttpStatusCodeException e) {
-            showError(e.getStatusCode().value());
-
-        }
-    }
 
     private void loadCacheLineList() {
         lineList = (ArrayList<BusLineModel>) cacheUtil.getAsObject("bus_line");
@@ -371,10 +360,70 @@ public class FragmentBus extends BaseFragment {
         cacheUtil.put("bus_site_" + line + direction, siteList, AppConstant.BUS_SITE_CACHE_TIME);
     }
 
-
-    @Click(R.id.more)
-    void refresh() {
+    /**
+     * 刷新校巴状态
+     *
+     * @param refreshActionItem
+     */
+    @Override
+    public void onRefresh(RefreshActionItem refreshActionItem) {
         refreshSiteAndBus();
+    }
+
+    @OptionsItem(R.id.menu_bus_line)
+    void menu_bus_line() {
+
+        final Dialog dialog = new Dialog(getActivity(), "选择校巴线路", "1号线:荷园<->西园\n2号线:荷园<->车队候车场(环行)");
+        // Set accept click listenner
+        dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Log.i(getClass().getName(), "选择了2号线路");
+                getTheActionBar().setTitle("2号线(环行)");
+                if (line_id == 1) {
+                    String[] direction = getDirectionByLine(lineList.get(1));
+
+                    titles.setVisibility(View.GONE);
+                }
+                refreshSiteAndBus();
+
+                line_id = 2;
+                app.config.default_bus_line().put(line_id);
+
+            }
+        });
+        // Set cancel click listenner
+
+        dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Log.i(getClass().getName(), "选择了1号线路");
+                getTheActionBar().setTitle("1号线");
+                if (line_id == 2) {
+                    titles.setVisibility(View.VISIBLE);
+                }
+                refreshSiteAndBus();
+                line_id = 1;
+                app.config.default_bus_line().put(line_id);
+
+            }
+        });
+
+
+        dialog.show();
+        dialog.getButtonCancel().setText("1号线");
+        dialog.getButtonAccept().setText("2号线");
+
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        mRefreshActionItem = (RefreshActionItem) MenuItemCompat.getActionView(refresh_button);
+        mRefreshActionItem.setMenuItem(refresh_button);
+        mRefreshActionItem.setRefreshButtonListener(this);
+    }
+
 }

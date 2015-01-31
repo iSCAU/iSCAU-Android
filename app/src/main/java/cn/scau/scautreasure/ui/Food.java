@@ -110,7 +110,7 @@ public class Food extends ListActivity {
 
     @AfterViews
     void initViews() {
-        title_text.setText("外卖");
+        setTitleText("外卖");
         loadFromDB();
     }
 

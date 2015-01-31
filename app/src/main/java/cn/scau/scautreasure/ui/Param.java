@@ -39,7 +39,7 @@ import cn.scau.scautreasure.widget.RichButton;
 
 
 @EActivity(R.layout.param)
-public class Param extends BaseActivity {
+public class Param extends ListActivity {
 
     @App
     AppContext app;
@@ -58,33 +58,13 @@ public class Param extends BaseActivity {
     //是否开学
     private boolean isStartStudy = true;
 
-    @AfterInject
-    void init() {
-        buttonList = new ArrayList<RichButton>();
-        AppProgress.show(this, "加载条件", "第一次加载可能比较慢，请耐心等待", "取消", new AppProgress.Callback() {
-            @Override
-            public void onCancel() {
-                finish();
-            }
-        });
-        loadData();
-    }
 
     @Extra
     String _title;
 
     @Override
-    @AfterViews
-    void initView() {
-        setTitleText(_title);
-        setMoreButtonText("下一步");
-    }
-
-    /**
-     * 继续查询按钮点击事件;
-     */
-    @Click(R.id.more)
-    void btn_continue() {
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
         try {
             startNextActivity();
                 /*if(target.equals("emptyClassRoom")&&!isStartStudy){
@@ -96,6 +76,20 @@ public class Param extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+    @AfterViews
+    void initView() {
+        setTitleText(_title);
+        setMoreButtonText("下一步");
+        buttonList = new ArrayList<RichButton>();
+        AppProgress.show(this, "加载条件", "第一次加载可能比较慢，请耐心等待", "取消", new AppProgress.Callback() {
+            @Override
+            public void onCancel() {
+                finish();
+            }
+        });
+    }
+
 
     /**
      * 通过函数反射手段实例出目标的Activity并且传递参数，
@@ -120,7 +114,6 @@ public class Param extends BaseActivity {
         ArrayList<String> value = new ArrayList<String>();
         for (int i = 0; i < buttonList.size(); i++) {
             value.add(buttonList.get(i).getTv_subtitle().getText().toString());
-            Log.i(getClass().getName(), buttonList.get(i).getTv_subtitle().getText().toString());
         }
         return value;
     }
@@ -134,6 +127,7 @@ public class Param extends BaseActivity {
         buttonList.clear();
         for (ParamModel p : paramList) {
             List<KeyValueModel> keyList = new ArrayList<KeyValueModel>();
+
             for (String key : p.getValue()) {
                 keyList.add(new KeyValueModel(key, 0));
             }
@@ -163,7 +157,7 @@ public class Param extends BaseActivity {
                 paramList = api.getParams(AppContext.userName, app.getEncodeEduSysPassword(), target).getParams();
                 saveCacheParamsList(paramList);
             } catch (HttpStatusCodeException e) {
-                showErrorResult(e.getStatusCode().value());
+                showErrorResult(getSherlockActivity(), e.getStatusCode().value());
                 hideProgressBar();
                 return;
             } catch (Exception e) {

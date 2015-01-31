@@ -7,55 +7,6 @@
               android:background="@color/background_normal"
               android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/theme_color"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
-
-
-        <LinearLayout
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="#0000"
-                android:gravity="center"
-                android:text="1号线"
-                android:textColor="@color/title_white"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="#0000"
-                android:gravity="center"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_check_up"/>
-        </LinearLayout>
-
-
-        <cn.scau.scautreasure.widget.RefreshIcon
-            android:id="@+id/more"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:layout_alignParentRight="true"
-            ></cn.scau.scautreasure.widget.RefreshIcon>
-
-
-    </RelativeLayout>
-
     <cn.scau.scautreasure.widget.BusTabWidget_
         android:id="@+id/titles"
         android:layout_width="match_parent"

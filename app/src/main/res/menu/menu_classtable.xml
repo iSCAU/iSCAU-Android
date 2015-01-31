@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:title="日周切换"
-        android:id="@+id/table_change_mode"
-        android:icon="@drawable/action_week_mod"
-        app:showAsAction="always"
-        >
-
-        </item>
 
     <item
         android:id="@+id/menu_all"
-        android:icon="@drawable/abc_ic_menu_moreoverflow_normal_holo_light"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
         android:title="更多"
         app:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/menu_refresh_classtable"
+                android:id="@+id/menu_class_table_day_week_mode"
+                android:title="周课表"
+                app:showAsAction="always"
+                >
+            </item>
+            <item
+                android:id="@+id/menu_import_class_table"
                 android:title="导入课程表"
                 app:showAsAction="always"/>
             <item
-                android:id="@+id/menu_add_class"
+                android:id="@+id/menu_add_custom_class"
                 android:title="添加自定义课程"
                 app:showAsAction="always"/>
             <item
-                android:id="@+id/menu_load_classtable_with_params"
-                android:title="@string/menu_load_classtable_with_params"/>
+                android:id="@+id/menu_class_table_smart_mode"
+                android:title="智能显示课程"
+                app:showAsAction="always"/>
             <item
-                android:id="@+id/menu_load_classtable_all"
-                android:title="@string/menu_load_classtable_with_all"/>
+                android:id="@+id/menu_class_table_select_week"
+                android:title="按周查看"
+                app:showAsAction="always"/>
+
         </menu>
     </item>
 </menu>

@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-import com.avos.avoscloud.AVOSCloud;
-import com.devspark.appmsg.AppMsg;
+
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -18,6 +17,11 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.fb.push.FBMessage;
+import com.umeng.fb.push.FeedbackPush;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -101,27 +105,23 @@ public class AppContext extends Application {
                     }
                 }, 0);
             } else {
-                AppToast.show(act, e.getMessage(), AppUIMeasure.getHeight());
+                AppToast.show(act, e.getMessage(), 0);
 
             }
         }
     }
 
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-        initAVOS();
+        FeedbackPush.getInstance(this).init(true);
+
         compatiable();
         getAccountSettings();
         initImageLoader(getApplicationContext());
     }
 
-    private void initAVOS() {
-        AVOSCloud.initialize(this, "2b2sixo06oursxuhoh9ujh1vovaz9gtndt03v1mwqot999zw",
-                "xgrma0g0qus5av7xgx3xp4rpfdx9htrxgk6a9m1lawcm840w");
-    }
 
     private void compatiable() {
         System.out.println("update compatiable");
@@ -136,7 +136,7 @@ public class AppContext extends Application {
         eduSysPassword = cryptUtil.decrypt(config.eduSysPassword().get());
         libPassword = cryptUtil.decrypt(config.libPassword().get());
         cardPassword = cryptUtil.decrypt(config.cardPassword().get());
-     }
+    }
 
     public String getEncodeEduSysPassword() {
         return CryptUtil.base64_url_safe(eduSysPassword);

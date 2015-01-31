@@ -73,6 +73,20 @@ public class DateUtil {
         return (sf.format(date));
     }
 
+    public String getCurrentYearMonth() {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+        Date date = new Date();
+        return (sf.format(date));
+    }
+
+    public String getCurrentDay() {
+
+        SimpleDateFormat sf = new SimpleDateFormat("dd");
+        Date date = new Date();
+        return (sf.format(date));
+    }
+
+
     /**
      * 获取当前日期是星期几<br>
      *
@@ -122,6 +136,7 @@ public class DateUtil {
      * 判断单双周;
      *
      * @param schoolWeek
+     *
      * @return
      */
     public String judgeDsz(int schoolWeek) {
@@ -157,7 +172,7 @@ public class DateUtil {
 
             // System.out.println("day:" + day / 7.0);
 
-            return ((int) Math.ceil(day / 7.0))>0?((int) Math.ceil(day / 7.0)):0;
+            return ((int) Math.ceil(day / 7.0)) > 0 ? ((int) Math.ceil(day / 7.0)) : 0;
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -169,6 +184,7 @@ public class DateUtil {
      * 中文日期到数字;
      *
      * @param day
+     *
      * @return
      */
     public int chineseToNumDay(String day) {
@@ -188,6 +204,7 @@ public class DateUtil {
      * 数字星期转换成中文日期;
      *
      * @param day
+     *
      * @return
      */
     public String numDayToChinese(int day) {

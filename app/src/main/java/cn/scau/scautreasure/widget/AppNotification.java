@@ -16,7 +16,7 @@ import cn.scau.scautreasure.R;
 public class AppNotification {
     static Dialog dialog;
 
-    public static void show(Context context, String title, String msg, String cancelButtonText, Callback callback) {
+    public static void show(Context context, String title, String msg, String cancelButtonText, final Callback callback) {
 
         dialog = new Dialog(context, title, msg);
 
@@ -30,6 +30,8 @@ public class AppNotification {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                callback.onCancel();
+
             }
         });
     }

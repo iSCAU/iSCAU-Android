@@ -42,8 +42,9 @@ public class BorrowedBook extends ListActivity {
         setQueryTarget(QUERY_FOR_LIBRARY);
     }
 
-    @Click(R.id.more)
-    void refreshByButton() {
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
         loadData();
     }
 
@@ -52,7 +53,7 @@ public class BorrowedBook extends ListActivity {
         setTitleText(target == UIHelper.TARGET_FOR_NOW_BORROW ? "当前借阅" : "过去借阅");
         setMoreButtonText("刷新");
         setDataEmptyTips("当前借阅记录为空");
-        loadData();
+
         cacheHelper.setCacheKey("borrowedBook_" + target);
         list = cacheHelper.loadListFromCache();
         buildAndShowListViewAdapter();
@@ -76,7 +77,8 @@ public class BorrowedBook extends ListActivity {
             api.reNewBook(app.userName, app.getEncodeLibPassword(), barCode, checkCode);
             showReNewResult();
         } catch (HttpStatusCodeException e) {
-            showErrorResult(e.getStatusCode().value());
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+
         }
 
     }
@@ -101,7 +103,8 @@ public class BorrowedBook extends ListActivity {
             if (e.getStatusCode().value() == 500) {
                 handleServerError();
             } else {
-                showErrorResult(e.getStatusCode().value());
+                showErrorResult(getSherlockActivity(), e.getStatusCode().value());
+
             }
         } catch (Exception e) {
             handleNoNetWorkError();

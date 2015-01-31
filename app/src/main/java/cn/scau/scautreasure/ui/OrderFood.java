@@ -79,8 +79,9 @@ public class OrderFood extends ListActivity {
     private int type;
 
 
-    @Click(R.id.more)
-    void next() {
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
         //保存用户输入的地址
         saveAddress();
         //判断是否手机设备,如果是则跳到发短信,否则提示

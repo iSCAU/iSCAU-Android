@@ -6,6 +6,7 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -26,6 +27,7 @@ public class ListActivity extends BaseActivity {
     protected static final int QUERY_FOR_EDUSYS = 0;
     private int queryTarget = QUERY_FOR_EDUSYS;
     protected static final int QUERY_FOR_LIBRARY = 1;
+    protected static final int QUERY_FOR_BOOK = 2;
 
     @ViewById
     ListView listView;
@@ -54,7 +56,15 @@ public class ListActivity extends BaseActivity {
                     R.string.start_tips_edusys : R.string.start_tips_library;
             Login_.intent(this).startTips(getString(startTips)).start();
             this.finish();
+        } else {
+            if (queryTarget != QUERY_FOR_BOOK)
+                loadData();
         }
+    }
+
+    @Background
+    void loadData(Object... params) {
+
     }
 
     /**

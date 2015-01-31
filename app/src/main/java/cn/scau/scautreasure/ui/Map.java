@@ -34,18 +34,19 @@ public class Map extends BaseActivity {
     ImageView map;
     private float angel = 0;
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        AppToast.show(Map.this, "正在开发...", 0);
+
+    }
 
     @AfterViews
     void initView() {
 
         setTitleText("校内地图");
         setMoreButtonText("分享");
-        setMoreButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppToast.show(Map.this, "正在开发...", 0);
-            }
-        });
+
 //        AppContext.loadImage( "http://img3.imgtn.bdimg.com/it/u=86040403,2916800900&fm=90&gp=0.jpg",map,new ImageLoadingListener() {
         AppContext.loadImage("assets://map.png", map, new ImageLoadingListener() {
             @Override

@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +30,7 @@ import cn.scau.scautreasure.widget.ParamWidget;
  * Mail: specialcyci@gmail.com
  */
 @EActivity(R.layout.widget_configuration)
-@OptionsMenu(R.menu.menu_widget_configuration)
-public class WidgetConfiguration extends CommonActivity {
+public class WidgetConfiguration extends BaseActivity {
 
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
@@ -67,7 +67,9 @@ public class WidgetConfiguration extends CommonActivity {
     @AfterViews
     void init() {
         getAppWidgetParams();
-        //getSupportActionBar().setTitle(R.string.title_colorpicker);
+        setTitleText("课程插件设置");
+        setMoreButtonText("保存");
+
         initColorPicker();
         initParam();
     }
@@ -96,8 +98,9 @@ public class WidgetConfiguration extends CommonActivity {
         return 0;
     }
 
-    @OptionsItem
-    void menu_done() {
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
         int color = picker.getColor();
         String fontSize = param_fontSize.getSelectedParam();
         String background = param_background.getSelectedParam();
@@ -107,6 +110,7 @@ public class WidgetConfiguration extends CommonActivity {
         widgetHelper.setUpViews();
         returnAppWidget();
     }
+
 
     private void getAppWidgetParams() {
         Intent intent = getIntent();

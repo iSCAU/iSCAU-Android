@@ -5,10 +5,7 @@
               android:background="@color/background_normal"
               android:orientation="vertical">
 
-    <include
-        layout="@layout/base_activity_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 
 
     <ScrollView

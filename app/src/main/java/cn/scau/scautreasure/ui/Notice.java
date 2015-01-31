@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.ui;
 
+import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,7 +37,7 @@ import static cn.scau.scautreasure.helper.UIHelper.LISTVIEW_EFFECT_MODE.ALPHA;
  * Mail: specialcyci@gmail.com
  */
 @EActivity(R.layout.notice)
-public class Notice extends CommonActivity {
+public class Notice extends Activity {
 //
 //    private final static String cacheKey = "notice_lastest_news";
 //    @RestService

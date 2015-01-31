@@ -1,21 +1,24 @@
 package cn.scau.scautreasure.ui;
 
-import android.app.Activity;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.TextView;
 
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
@@ -30,18 +33,14 @@ import cn.scau.scautreasure.widget.AppToast;
  * Time:11:45
  */
 @EActivity
-public class BaseActivity extends Activity {
+@OptionsMenu(R.menu.menu_next)
+public class BaseActivity extends ActionBarActivity {
     @Override
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart(getSimpleName());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PushAgent.getInstance(this).onAppStart();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd(getSimpleName());
-    }
 
     private String getSimpleName() {
         return ((Object) this).getClass().getSimpleName();
@@ -66,21 +65,19 @@ public class BaseActivity extends Activity {
         this.tips_empty = tips_text;
     }
 
-    /**
-     * 默认返回
-     */
-    @Click
-    void back() {
-        finish();
+    @AfterViews
+    void initActionBar() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.ic_arrow_back_white_24dp);
     }
 
-    //标题栏文本框
-    @ViewById
-    TextView title_text;
-
-    //标题栏右边按钮
-    @ViewById
-    Button more;
+    @OptionsItem(android.R.id.home)
+    void home() {
+        this.finish();
+    }
 
 
     /**
@@ -89,26 +86,9 @@ public class BaseActivity extends Activity {
      * @param text
      */
     void setTitleText(String text) {
-        title_text.setText(text);
+        getSupportActionBar().setTitle(text);
     }
 
-    /**
-     * 设置更多按钮文字
-     *
-     * @param text
-     */
-    void setMoreButtonText(String text) {
-        more.setText(text);
-    }
-
-    void setMoreButtonOnClick(View.OnClickListener l) {
-        more.setOnClickListener(l);
-    }
-
-    @AfterViews
-    void initView() {
-
-    }
 
     /**
      * 处理各种请求失败问题， 例如：
@@ -117,13 +97,23 @@ public class BaseActivity extends Activity {
      * @param requestCode
      */
     @UiThread
-    void showErrorResult(int requestCode) {
+    void showErrorResult(ActionBarActivity actionBarActivity, int requestCode) {
 
         if (requestCode == 404) {
-            AppToast.show(this, tips_empty, 0);
+            AppToast.show(actionBarActivity, tips_empty, 0);
         } else {
-            AppContext.showError(requestCode, this);
+            AppContext.showError(requestCode, actionBarActivity);
         }
+    }
+
+    /**
+     * 老版本是大多数fragment, 并且主要用这个函数获取context,
+     * 为了减少点代码这函数继续保留了
+     *
+     * @return
+     */
+    protected ActionBarActivity getSherlockActivity() {
+        return this;
     }
 
     /**
@@ -141,4 +131,61 @@ public class BaseActivity extends Activity {
         AppToast.show(this, msg, 0);
     }
 
+    @OptionsMenuItem(R.id.menu_done)
+    MenuItem menu_done;
+
+    @OptionsItem(R.id.menu_done)
+    void menu_done() {
+        doMoreButtonAction();
+    }
+
+
+    void doMoreButtonAction() {
+
+    }
+
+    //更多按钮文字
+    private String buttonText = "";
+
+    private boolean moreButtonVisible = true;
+
+    public MenuItem getMenu_done() {
+        return menu_done;
+    }
+
+    public String getMoreButtonText() {
+        return buttonText;
+    }
+
+    public void setMoreButtonText(String buttonText) {
+        this.buttonText = buttonText;
+    }
+
+    public boolean isMoreButtonVisible() {
+        return moreButtonVisible;
+    }
+
+    public void setMoreButtonVisible(boolean moreButtonVisible) {
+        this.moreButtonVisible = moreButtonVisible;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu_done.setTitle(buttonText);
+        menu_done.setVisible(moreButtonVisible);
+
+        return true;
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getSimpleName());
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getSimpleName());
+        MobclickAgent.onPause(this);
+    }
 }

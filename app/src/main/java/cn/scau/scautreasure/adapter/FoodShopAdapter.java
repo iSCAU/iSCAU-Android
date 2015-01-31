@@ -24,7 +24,6 @@ import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.model.FoodShopDBModel;
 import cn.scau.scautreasure.model.FoodShopModel;
-import cn.scau.scautreasure.ui.Calendar;
 
 /**
  * Created by apple on 14-8-24.

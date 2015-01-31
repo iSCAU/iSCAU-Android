@@ -39,7 +39,7 @@ import cn.scau.scautreasure.widget.RichButton;
  * 添加课程/修改课程
  */
 @EActivity(R.layout.classtable_editor)
-public class ClassEditor extends BaseActivity implements View.OnClickListener {
+public class ClassEditor extends BaseActivity {
 
 
     @Extra
@@ -155,7 +155,6 @@ public class ClassEditor extends BaseActivity implements View.OnClickListener {
 
     void initView() {
         setMoreButtonText("完成");
-        setMoreButtonOnClick(this);
         setTitleText(isNewClass ? "添加新课程" : "修改课程");
 
         try {
@@ -177,21 +176,17 @@ public class ClassEditor extends BaseActivity implements View.OnClickListener {
         if (isNewClass) {
             startNodeButton.getTv_subtitle().setText(notes[0]);
             endNodeButton.getTv_subtitle().setText(notes[0]);
-            LogCenter.i(getClass(), Thread.currentThread(), notes[0]);
         } else {
             // 设置节次;
             String[] note = model.getNode().split(",");
-            LogCenter.i(getClass(), Thread.currentThread(), model.getNode());
             if (note.length > 1) {
                 startNodeButton.getTv_subtitle().setText(note[0]);
                 endNodeButton.getTv_subtitle().setText(note[note.length - 1]);
-                LogCenter.i(getClass(), Thread.currentThread(), notes[0]);
 
 
             } else {
                 startNodeButton.getTv_subtitle().setText(model.getNode());
                 endNodeButton.getTv_subtitle().setText(model.getNode());
-                LogCenter.i(getClass(), Thread.currentThread(), notes[0]);
 
             }
         }
@@ -221,7 +216,8 @@ public class ClassEditor extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
         if (!edt_classname.getText().toString().trim().equals("")) {
             // 判断开始节数是否大于结束节数;
             int startNote = Integer.parseInt(startNodeButton.getTv_subtitle().getText().toString());
@@ -263,5 +259,4 @@ public class ClassEditor extends BaseActivity implements View.OnClickListener {
             finish();
         }
     }
-
 }

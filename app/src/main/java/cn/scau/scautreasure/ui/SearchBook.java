@@ -14,6 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
 import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
@@ -43,6 +44,10 @@ public class SearchBook extends ListActivity {
     @RestService
     LibraryApi api;
 
+    @AfterInject
+    void initAfterInject() {
+        setQueryTarget(QUERY_FOR_BOOK);
+    }
 
     /**
      * 一共搜索到多少本书
@@ -87,21 +92,20 @@ public class SearchBook extends ListActivity {
         }
     };
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        search_layout.setVisibility(search_layout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        getMenu_done().setTitle(search_layout.getVisibility() == View.VISIBLE ? "隐藏" : "显示");
+        if (search_layout.getVisibility() == View.VISIBLE) {
+            edt_search_box.requestFocus();
+        }
+    }
 
     @AfterViews
     void init() {
         setTitleText("搜索图书");
-        setMoreButtonOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                search_layout.setVisibility(search_layout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                more.setText(search_layout.getVisibility() == View.VISIBLE ? "隐藏" : "显示");
-
-                if (search_layout.getVisibility() == View.VISIBLE) {
-                    edt_search_box.requestFocus();
-                }
-            }
-        });
+        setMoreButtonText("隐藏");
         tips_empty = "真的没有找到你想要的图书";
         pullListView.setOnRefreshListener(onRefreshListener);
         pullListView.setOnItemClickListener(onListViewItemClicked);
@@ -114,8 +118,9 @@ public class SearchBook extends ListActivity {
         hideProgressBar();
         // new search
         if (bookadapter == null) {
-            more.setText("显示");
-            more.setVisibility(View.VISIBLE);
+            getMenu_done().setTitle("显示");
+            setMoreButtonVisible(true);
+
             search_layout.setVisibility(View.GONE);
             count = l.getCount();
             setListViewAdapter(l.getBooks());
@@ -162,20 +167,17 @@ public class SearchBook extends ListActivity {
 
     @Background(id = UIHelper.CANCEL_FLAG)
     void loadData(Object... params) {
-
         try {
-
             String serach_text = CryptUtil.base64_url_safe(searchKeyword);
             BookModel.BookList l = api.searchBook(serach_text, page);
 
             showSuccessResult(l);
             return;
         } catch (HttpStatusCodeException e) {
-            showErrorResult(e.getStatusCode().value());
+            showErrorResult(getSherlockActivity(), e.getStatusCode().value());
 
         } catch (Exception e) {
             handleNoNetWorkError();
-
         }
         onFailed();
 

@@ -73,7 +73,7 @@ public class AppException extends Exception {
 
         @Override
         public String getMessage() {
-            return "学号不存在";
+            return "这个学号不存在";
         }
 
     }
@@ -173,4 +173,5 @@ public class AppException extends Exception {
             return ctx.getString(R.string.tips_unknow_error);
         }
     }
+
 }

@@ -9,10 +9,17 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.rest.RestService;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.scau.scautreasure.AppContext;
+import cn.scau.scautreasure.api.BusApi;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.api.SchoolActivityApi;
 import cn.scau.scautreasure.model.ActivityCountModel;
+import cn.scau.scautreasure.model.BusLineModel;
+import cn.scau.scautreasure.model.BusSiteModel;
+import cn.scau.scautreasure.model.BusStateModel;
 import cn.scau.scautreasure.model.ClassModel;
 
 /**
@@ -33,7 +40,9 @@ public class HttpLoader {
     EdusysApi edusysApi;
 
 
-
+    //bus api
+    @RestService
+    BusApi busApi;
     @Bean
     ClassHelper classHelper;
 
@@ -79,10 +88,10 @@ public class HttpLoader {
         try {
             model = schoolActivityApi.getActivityCount(String.valueOf(app.config.lastRedPoint().get()));
             if (Integer.parseInt(model.getResult()) > 0) {
-                LogCenter.i(getClass(), Thread.currentThread(), "校园活动有更新");
-                callBack.onSuccess("yes");
+                LogCenter.i(getClass(), Thread.currentThread(), "校园活动有更新:" + model.getResult());
+                callBack.onSuccess(Integer.parseInt(model.getResult()));
             } else {
-                callBack.onSuccess("no");
+                callBack.onSuccess(0);
             }
         } catch (HttpStatusCodeException e) {
             LogCenter.i(getClass(), Thread.currentThread(), "活动圈是否有更新标记失败");
@@ -93,6 +102,65 @@ public class HttpLoader {
         }
     }
 
+    /**
+     * 更新校巴站点数据
+     *
+     * @param callBack
+     */
+    @Background
+    public void updateBusStation(String line, String direction, NormalCallBack callBack) {
+        ArrayList<BusSiteModel> siteList = null;
+        try {
+            siteList = busApi.getSite(line, direction).getSites();
+        } catch (HttpStatusCodeException e) {
+            callBack.onError(e.getStatusCode().value());
+        } catch (Exception e) {
+            callBack.onNetworkError(null);
+        }
+        if (siteList != null) {
+            callBack.onSuccess(siteList);
+        }
+
+    }
+
+    /**
+     * 更新校巴位置数据
+     *
+     * @param callBack
+     */
+    @Background
+    public void updateBusPos(NormalCallBack callBack, Object... params) {
+        List<BusStateModel> stateList = null;
+        try {
+            stateList = busApi.getBusState((String) params[0], (String) params[1]).getStates();
+        } catch (HttpStatusCodeException e) {
+            callBack.onError(e.getStatusCode().value());
+        } catch (Exception e) {
+            callBack.onNetworkError(null);
+        }
+        if (stateList != null) {
+            callBack.onSuccess(stateList);
+        }
+    }
+
+    /**
+     * 加载校巴线路数据
+     *
+     * @param callBack
+     */
+    public void updateBusLine(NormalCallBack callBack) {
+        ArrayList<BusLineModel> lineList = null;
+        try {
+            lineList = busApi.getLine().getLines();
+        } catch (HttpStatusCodeException e) {
+            callBack.onError(e.getStatusCode().value());
+        } catch (Exception e) {
+            callBack.onNetworkError(null);
+        }
+        if (lineList != null) {
+            callBack.onSuccess(lineList);
+        }
+    }
 
     public interface NormalCallBack {
         public void onSuccess(Object obj);
