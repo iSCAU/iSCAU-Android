@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,10 +13,13 @@ import com.gc.materialdesign.views.ButtonRectangle;
 
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -23,7 +27,10 @@ import java.util.List;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.helper.AppUIMeasure;
+import cn.scau.scautreasure.helper.CacheHelper;
+import cn.scau.scautreasure.helper.HttpLoader;
 import cn.scau.scautreasure.helper.UIHelper;
+import cn.scau.scautreasure.model.FunctionModel;
 import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.BadgeView;
 import cn.scau.scautreasure.widget.ItemButton;
@@ -167,7 +174,7 @@ public class FragmentApp extends BaseFragment {
      */
     @Click(R.id.menu_info)
     void menu_info() {
-        BaseBrowser_.intent(getActivity()).browser_title("常用信息").url("http://www.huanongbao.com").start();
+        BaseBrowser_.intent(getActivity()).browser_title("常用信息").allCache("1").url("http://iscaucms.sinaapp.com/apps/webapp/common_info.php").start();
 
     }
 //
@@ -182,31 +189,75 @@ public class FragmentApp extends BaseFragment {
 
     @AfterViews
     void initViews() {
+        cacheHelper.setCacheKey("apps");
         if (!isAfterViews) {
             isAfterViews = true;
             System.out.println("应用");
             initButton();
             initListLayout();
+            loadApps();
         }
+
+
     }
 
-    List<ItemButton> list;
 
+    @Bean
+    CacheHelper cacheHelper;
+
+    @Background
+    void loadApps() {
+        httpLoader.getFunctionList(new HttpLoader.NormalCallBack() {
+            @Override
+            public void onSuccess(Object obj) {
+                FunctionModel.FunctionList appList = (FunctionModel.FunctionList) obj;
+                cacheHelper.writeListToCache(appList.getItems());
+                initListLayout();
+            }
+
+            @Override
+            public void onError(Object obj) {
+
+            }
+
+            @Override
+            public void onNetworkError(Object obj) {
+
+            }
+        });
+
+    }
+
+    ArrayList<ItemButton> list = new ArrayList<ItemButton>();
+
+    @UiThread
     void initListLayout() {
-        list = new ArrayList<ItemButton>();
-        list.add(new ItemButton(getActivity(), "挂科榜单", "看看这学期有多少人挂科了", "http://www.baidu.com/img/baidu_jgylogo3.gif", ""));
-        list.add(new ItemButton(getActivity(), "逃课达人", "你逃课频率是多少", "http://www.baidu.com/img/baidu_jgylogo3.gif", ""));
-        list.add(new ItemButton(getActivity(), "学霸排行", "愿得一学霸,考试坐我旁", "http://www.baidu.com/img/baidu_jgylogo3.gif", ""));
-        list.add(new ItemButton(getActivity(), "挂科榜单", "看看这学期有多少人挂科了", "http://www.baidu.com/img/baidu_jgylogo3.gif", ""));
-        list.add(new ItemButton(getActivity(), "逃课达人", "你逃课频率是多少", "http://www.baidu.com/img/baidu_jgylogo3.gif", ""));
-        list.add(new ItemButton(getActivity(), "学霸排行", "愿得一学霸,考试坐我旁", "http://www.baidu.com/img/baidu_jgylogo3.gif", ""));
-        menu_listLayout.removeAllViews();
-        for (ItemButton itemButton : list) {
-            menu_listLayout.addView(itemButton);
-            Log.i(getClass().getName(), itemButton.getTv_title().getText().toString());
+        list.clear();
+        ArrayList<FunctionModel> tempList = cacheHelper.loadListFromCache();
+        if (tempList != null) {
+            for (final FunctionModel model : tempList) {
+                ItemButton itemButton = new ItemButton(getActivity(), model.getTitle(), model.getSubtitle(), model.getFirsttext(), getResources().getColor(R.color.theme_color));
+                itemButton.setOnClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String tempUrl = model.getLong_url() + "&student_id=" + app.userName;
+                        System.out.println(tempUrl);
+                        BaseBrowser_.intent(getActivity()).browser_title(model.getTitle()).url(tempUrl).allCache(model.getAllowcache()).start();
+                    }
+                });
+
+                list.add(itemButton);
+
+            }
+
+
+            menu_listLayout.removeAllViews();
+            for (ItemButton itemButton : list) {
+                menu_listLayout.addView(itemButton);
+                Log.i(getClass().getName(), itemButton.getTv_title().getText().toString());
+            }
+
         }
-
-
     }
 
     /**

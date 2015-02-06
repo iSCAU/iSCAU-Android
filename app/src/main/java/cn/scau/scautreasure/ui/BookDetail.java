@@ -2,6 +2,7 @@ package cn.scau.scautreasure.ui;
 
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -54,10 +55,20 @@ public class BookDetail extends ListActivity {
     @ViewById(R.id.book_name)
     TextView book_name;
 
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        BaseBrowser_.intent(this).allCache("0").browser_title(bookName).
+                url("http://iscaucms.sinaapp.com/apps/webapp/_book_by_url.php?url=" + 
+                        Base64.encodeToString(("http://202.116.174.108:8080/opac/" + url).getBytes(), Base64.DEFAULT)).
+                start();
+    }
+
     @AfterViews
     void init() {
         book_name.setText(bookName);
-        setTitleText("图书详情");
+        setTitleText("借阅情况");
+        setMoreButtonText("详细信息");
         AppProgress.show(this, "正在加载...", "", "取消", new AppProgress.Callback() {
             @Override
             public void onCancel() {
@@ -104,6 +115,12 @@ public class BookDetail extends ListActivity {
         } catch (Exception e) {
             handleNoNetWorkError();
         }
+    }
+
+    void handleNoNetWorkError() {
+        AppProgress.hide();
+
+
     }
 
     private void buildListViewAdapter() {

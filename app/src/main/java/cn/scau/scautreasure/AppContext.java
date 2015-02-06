@@ -2,12 +2,14 @@ package cn.scau.scautreasure;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -77,6 +79,7 @@ public class AppContext extends Application {
     public static String eduSysPassword;
     public static String libPassword;
     public static String cardPassword;
+    public static String deviceToken;
 
 
     /**
@@ -136,6 +139,7 @@ public class AppContext extends Application {
         eduSysPassword = cryptUtil.decrypt(config.eduSysPassword().get());
         libPassword = cryptUtil.decrypt(config.libPassword().get());
         cardPassword = cryptUtil.decrypt(config.cardPassword().get());
+        deviceToken = config.device_token().get();
     }
 
     public String getEncodeEduSysPassword() {
@@ -275,6 +279,16 @@ public class AppContext extends Application {
 
         return false;
     }
+
+    public int getAndroidSDKVersion() {
+        int version = 0;
+        try {
+            version = Integer.valueOf(android.os.Build.VERSION.SDK);
+        } catch (NumberFormatException e) {
+        }
+        return version;
+    }
+
 
 
 }

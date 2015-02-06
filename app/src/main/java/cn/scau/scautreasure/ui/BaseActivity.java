@@ -1,11 +1,15 @@
 package cn.scau.scautreasure.ui;
 
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 
 import com.umeng.analytics.MobclickAgent;
@@ -139,7 +143,31 @@ public class BaseActivity extends ActionBarActivity {
         doMoreButtonAction();
     }
 
+    void share(String text) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(intent, getTitle()));
 
+    }
+
+    /**
+     * 复制*
+     *
+     * @param text
+     */
+    void postToClipboard(String text) {
+        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(text);
+        AppToast.show(this, "已经复制到剪贴板", 0);
+
+    }
+
+    /**
+     * 更多,空函数,子类覆盖*
+     */
     void doMoreButtonAction() {
 
     }

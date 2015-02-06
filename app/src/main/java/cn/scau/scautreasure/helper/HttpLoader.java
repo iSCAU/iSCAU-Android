@@ -15,12 +15,14 @@ import java.util.List;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.api.BusApi;
 import cn.scau.scautreasure.api.EdusysApi;
+import cn.scau.scautreasure.api.FunctionApi;
 import cn.scau.scautreasure.api.SchoolActivityApi;
 import cn.scau.scautreasure.model.ActivityCountModel;
 import cn.scau.scautreasure.model.BusLineModel;
 import cn.scau.scautreasure.model.BusSiteModel;
 import cn.scau.scautreasure.model.BusStateModel;
 import cn.scau.scautreasure.model.ClassModel;
+import cn.scau.scautreasure.model.FunctionModel;
 
 /**
  * Created by macroyep on 15/1/17.
@@ -43,6 +45,12 @@ public class HttpLoader {
     //bus api
     @RestService
     BusApi busApi;
+
+    //功能api
+    @RestService
+    FunctionApi functionApi;
+
+
     @Bean
     ClassHelper classHelper;
 
@@ -162,6 +170,30 @@ public class HttpLoader {
         }
     }
 
+    /**
+     * 加载动态应用列表
+     *
+     * @param callBack
+     */
+    @Background
+    public void getFunctionList(NormalCallBack callBack) {
+        FunctionModel.FunctionList list = null;
+        try {
+            list = functionApi.getFunctionList(app.userName, app.deviceToken);
+        } catch (HttpStatusCodeException e) {
+            callBack.onError(null);
+        } catch (Exception e) {
+            callBack.onNetworkError(null);
+        }
+        if (list != null) {
+            callBack.onSuccess(list);
+        }
+
+    }
+
+    /**
+     * 常规回调
+     */
     public interface NormalCallBack {
         public void onSuccess(Object obj);
 

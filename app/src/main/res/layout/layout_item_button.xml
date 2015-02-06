@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@drawable/menu_button_selector"
-              android:clickable="true"
-              android:orientation="vertical"
-              android:padding="5dp">
+<LinearLayout
+    android:id="@+id/onclick"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/menu_button_selector"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,12 +15,21 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/item_logo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_kfc"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <cn.scau.scautreasure.widget.CircleView
+                android:id="@+id/item_logo"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:src="@drawable/circle_textview"
+                android:text="爱"
+                android:textColor="@color/title_white"
+                android:textSize="25dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

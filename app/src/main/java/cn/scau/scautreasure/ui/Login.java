@@ -4,6 +4,9 @@ import android.view.View;
 import android.widget.EditText;
 
 
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
+
 import org.androidannotations.annotations.AfterViews;
 
 
@@ -69,7 +72,15 @@ public class Login extends BaseActivity {
 
         if (userNameHasInput(userName) && onePasswordHasInput(eduSysPassword, libPassword, cardPassword)) {
             saveAccount(userName, eduSysPassword, libPassword, cardPassword);
+            //设置id
+            try {
+                PushAgent.getInstance(this).addAlias(app.userName, "STUDENT_ID");
+                app.deviceToken = UmengRegistrar.getRegistrationId(this);
+                app.config.device_token().put(app.deviceToken);
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (!userNameHasInput(userName)) {
             AppToast.show(Login.this, "你还没输入帐号", 0);
         } else {

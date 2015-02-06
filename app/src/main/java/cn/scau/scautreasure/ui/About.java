@@ -24,9 +24,13 @@ public class About extends BaseActivity {
     @AfterViews
     void init() {
         setTitleText("关于华农宝");
-        setMoreButtonVisible(false);
+        setMoreButtonText("分享");
         textView_appName.setText(getString(R.string.app_name) + " v" + packageHelper.getAppVersionName());
     }
 
-
+    @Override
+    void doMoreButtonAction() {
+        super.doMoreButtonAction();
+        share("邀请你使用华农宝,请到华农宝官方网站下载,网址:http://www.huanongbao.com");
+    }
 }

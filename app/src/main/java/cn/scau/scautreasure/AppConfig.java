@@ -21,6 +21,12 @@ public interface AppConfig {
 
 
     /*
+    友盟token
+    */
+    @DefaultString("")
+    String device_token();
+
+    /*
     记录用户常用路线
      */
     @DefaultInt(1)

@@ -37,15 +37,14 @@ public class Map extends BaseActivity {
     @Override
     void doMoreButtonAction() {
         super.doMoreButtonAction();
-        AppToast.show(Map.this, "正在开发...", 0);
-
+        BaseBrowser_.intent(this).allCache("1").browser_title("华农地图[在线]").url("http://iscaucms.sinaapp.com/apps/webapp/map.php").start();
     }
 
     @AfterViews
     void initView() {
 
         setTitleText("校内地图");
-        setMoreButtonText("分享");
+        setMoreButtonText("在线地图");
 
 //        AppContext.loadImage( "http://img3.imgtn.bdimg.com/it/u=86040403,2916800900&fm=90&gp=0.jpg",map,new ImageLoadingListener() {
         AppContext.loadImage("assets://map.png", map, new ImageLoadingListener() {

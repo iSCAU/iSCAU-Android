@@ -25,6 +25,7 @@ import com.umeng.fb.model.Conversation;
 import com.umeng.fb.model.Reply;
 import com.umeng.fb.push.FBMessage;
 import com.umeng.fb.push.FeedbackPush;
+import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
@@ -165,6 +166,8 @@ public class Main extends MaterialNavigationDrawer {
             }
         });
         System.out.println("token:" + UmengRegistrar.getRegistrationId(this));
+        app.deviceToken = UmengRegistrar.getRegistrationId(this);
+        app.config.device_token().put(app.deviceToken);
 
 
         Conversation conversation = agent.getDefaultConversation();
@@ -190,6 +193,22 @@ public class Main extends MaterialNavigationDrawer {
             }
         });
         showNotification();
+        setAlias();
+    }
+
+    @Background
+    void setAlias() {
+        try {
+            if (!app.userName.equals("")) {
+                boolean result = PushAgent.getInstance(this).addAlias(app.userName, "STUDENT_ID");
+                if (result) {
+                    Log.i(getLocalClassName() + "设置id", app.userName);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -251,12 +270,14 @@ public class Main extends MaterialNavigationDrawer {
     /**
      * 显示公告消息推送
      */
-    @UiThread(delay = 4000)
+    @UiThread(delay = 2000)
     void showNotification() {
         String notification = MobclickAgent.getConfigParams(this, "notification");
         if (!notification.trim().equals("0") && !notification.trim().equals("")) {
+
             // 今天显示过就不显示了
-            if (app.config.lastSeeNotificationDate().get().equals(app.dateUtil.getCurrentDateString())) {
+            if (!app.config.lastSeeNotificationDate().get().equals(app.dateUtil.getCurrentDateString())) {
+                System.out.println("通知:" + notification);
                 AppOKCancelDialog.show(Main.this, "宝宝君提醒你", notification, "朕已阅", "忽略", new AppOKCancelDialog.Callback() {
                     @Override
                     public void onCancel() {

@@ -18,24 +18,25 @@ public class ItemButton extends LinearLayout {
 
     TextView tv_title;
     TextView tv_subtitle;
-    ImageView iv_logo;
-    String logo_url, app_url;
+    TextView iv_logo;
+    LinearLayout linearLayout;
 
     public ItemButton(Context context) {
         super(context);
     }
 
-    public ItemButton(Context context, String title, String subtitle, String logo_url, String app_url) {
+    public ItemButton(Context context, String title, String subtitle, String logo_key, int color) {
         this(context);
-        this.logo_url = logo_url;
-        this.app_url = app_url;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.layout_item_button, this);
+        linearLayout = (LinearLayout) findViewById(R.id.onclick);
         tv_title = (TextView) findViewById(R.id.item_title);
         tv_subtitle = (TextView) findViewById(R.id.item_subtitle);
-        iv_logo = (ImageView) findViewById(R.id.item_logo);
+        iv_logo = (TextView) findViewById(R.id.item_logo);
         tv_title.setText(title);
+        iv_logo.setBackgroundColor(color);
         tv_subtitle.setText(subtitle);
+        iv_logo.setText(logo_key);
     }
 
     public ItemButton(Context context, AttributeSet attrs) {
@@ -62,11 +63,15 @@ public class ItemButton extends LinearLayout {
         this.tv_subtitle = tv_subtitle;
     }
 
-    public ImageView getIv_logo() {
+    public TextView getIv_logo() {
         return iv_logo;
     }
 
-    public void setIv_logo(ImageView iv_logo) {
+    public void setIv_logo(TextView iv_logo) {
         this.iv_logo = iv_logo;
+    }
+
+    public void setOnClick(OnClickListener l) {
+        linearLayout.setOnClickListener(l);
     }
 }
