@@ -1,12 +1,15 @@
 package cn.scau.scautreasure.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -40,6 +43,7 @@ import cn.scau.scautreasure.widget.AppToast;
 @OptionsMenu(R.menu.menu_browser)
 public class BaseBrowser extends BaseActivity implements ObservableScrollViewCallbacks {
 
+
     //浏览器标题
     @Extra("")
     String browser_title;
@@ -57,9 +61,26 @@ public class BaseBrowser extends BaseActivity implements ObservableScrollViewCal
     @ViewById(R.id.webView)
     ObservableWebView webView;
 
+
+    /**
+     * 新开页面打开网址*
+     *
+     * @param title
+     * @param url
+     */
     @UiThread
     void toLink(String title, String url) {
         BaseBrowser_.intent(this).browser_title(title).url(url).allCache("0").start();
+    }
+
+    /**
+     * 从网页拨打电话
+     *
+     * @param title
+     * @param number
+     */
+    void phoneCall(String title, String number) {
+        Log.i(title, number);
 
     }
 
@@ -70,8 +91,23 @@ public class BaseBrowser extends BaseActivity implements ObservableScrollViewCal
         setMoreButtonVisible(false);
         webView.setScrollViewCallbacks(this);
         String ua = webView.getSettings().getUserAgentString();
-        webView.getSettings().setUserAgentString(ua+";app/iscau");
+        webView.getSettings().setUserAgentString(ua + ";app/iscau");
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDatabaseEnabled(true);
+        String dir = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+        //启用地理定位
+        webView.getSettings().setGeolocationEnabled(true);
+        //设置定位的数据库路径
+        webView.getSettings().setGeolocationDatabasePath(dir);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+                callback.invoke(origin, true, false);
+                super.onGeolocationPermissionsShowPrompt(origin, callback);
+            }
+        });
+
         if (app.getAndroidSDKVersion() >= 17) {
             webView.addJavascriptInterface(new Object() {
                 @JavascriptInterface
@@ -80,6 +116,11 @@ public class BaseBrowser extends BaseActivity implements ObservableScrollViewCal
                     toLink(title, url);
                 }
 
+                @JavascriptInterface
+                public void phoneCall(String title, String number) {
+                    phoneCall(title, number);
+                }
+
             }, "newview");
         } else {
             webView.addJavascriptInterface(new Object() {
@@ -89,15 +130,14 @@ public class BaseBrowser extends BaseActivity implements ObservableScrollViewCal
                     toLink(title, url);
                 }
 
+                @JavascriptInterface
+                public void phoneCall(String title, String number) {
+                    phoneCall(title, number);
+                }
+
             }, "newview");
         }
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+        webView.setWebViewClient(webViewClient);
         if (allCache == null)
             allCache = "0";
         if (allCache.equals("0")) {
@@ -106,12 +146,31 @@ public class BaseBrowser extends BaseActivity implements ObservableScrollViewCal
             webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
         webView.setWebViewClient(webClient);
+
         if (app.net.getCurrentNetType(this) == NetworkHelper.NetworkType.NONE) {
             AppToast.show(this, "无网络连接", 0);
         } else {
 
             webView.loadUrl(url);
         }
+
+    }
+
+    WebViewClient webViewClient = new WebViewClient() {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+    };
+
+    public WebViewClient getWebClient() {
+        return webClient;
+    }
+
+    public void setWebClient(WebViewClient webClient) {
+        this.webClient = webClient;
     }
 
     @ViewById(R.id.progressBarLayout)

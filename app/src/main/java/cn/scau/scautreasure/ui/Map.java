@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.handmark.pulltorefresh.library.internal.LoadingLayout;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -16,6 +17,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+
+import java.net.URLEncoder;
 
 import cn.scau.scautreasure.AppContext;
 
@@ -37,7 +40,14 @@ public class Map extends BaseActivity {
     @Override
     void doMoreButtonAction() {
         super.doMoreButtonAction();
-        BaseBrowser_.intent(this).allCache("1").browser_title("华农地图[在线]").url("http://iscaucms.sinaapp.com/apps/webapp/map.php").start();
+        OnlineMap_.intent(this).start();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     @AfterViews

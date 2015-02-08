@@ -37,9 +37,25 @@ public interface EdusysApi {
     @Get("classtable/{userName}/{passWord}/1")
     ClassModel.ClassList getClassTable(String userName, String passWord);
 
+    /**
+     * 查成绩*
+     *
+     * @param userName
+     * @param passWord
+     * @param year
+     * @param team
+     *
+     * @return
+     */
     @Get("goal/{userName}/{passWord}/1/{year}/{team}")
     GoalModel.GoalList getGoal(String userName, String passWord, String year, String team);
 
+    /**
+     * 考试安排*
+     * @param userName
+     * @param passWord
+     * @return
+     */
     @Get("exam/{userName}/{passWord}/1")
     ExamModel.ExamList getExam(String userName, String passWord);
 
@@ -51,6 +67,13 @@ public interface EdusysApi {
                                                    String xq, String jslb, String ddlKsz, String ddlJsz,
                                                    String sjd, String xqj, String dsz);
 
+    /**
+     * 获取空教室参数*
+     * @param userName
+     * @param passWord
+     * @param target
+     * @return
+     */
     @Get("params/{target}/{userName}/{passWord}/1")
     ParamModel.ParamList getParams(String userName, String passWord, String target);
 

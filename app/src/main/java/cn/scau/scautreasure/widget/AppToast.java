@@ -26,8 +26,12 @@ public class AppToast {
      * @param msg
      */
     public static void show(Activity activity, String msg, int h) {
-        SnackBar snackBar = new SnackBar(activity, msg, h);
-        snackBar.show();
+        try {
+            SnackBar snackBar = new SnackBar(activity, msg, h);
+            snackBar.show();
+        } catch (Exception e) {
+
+        }
     }
 
     public static void showWithIntent(Activity activity, String msg, String buttonText, View.OnClickListener onClickListener, int h) {

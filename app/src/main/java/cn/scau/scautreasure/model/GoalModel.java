@@ -23,6 +23,8 @@ import java.util.ArrayList;
 //        "重修成绩" => "goal_restudy",
 //        "开课学院" => "college_hold",
 //        "重修标记" => "flag_restudy"
+//"平时成绩" => "goal_regular",
+//        "期末成绩" => "goal_exam",
 public class GoalModel implements Serializable {
     private String year;
     private String team;
@@ -37,6 +39,24 @@ public class GoalModel implements Serializable {
     private String goal_restudy;
     private String college_hold;
     private String flag_restudy;
+    private String goal_regular;
+    private String goal_exam;
+
+    public String getGoal_regular() {
+        return goal_regular;
+    }
+
+    public void setGoal_regular(String goal_regular) {
+        this.goal_regular = goal_regular;
+    }
+
+    public String getGoal_exam() {
+        return goal_exam;
+    }
+
+    public void setGoal_exam(String goal_exam) {
+        this.goal_exam = goal_exam;
+    }
 
     public String getYear() {
         return year;
@@ -158,6 +178,8 @@ public class GoalModel implements Serializable {
                 ", goal_restudy='" + goal_restudy + '\'' +
                 ", college_hold='" + college_hold + '\'' +
                 ", flag_restudy='" + flag_restudy + '\'' +
+                ", goal_regular='" + goal_regular + '\'' +
+                ", goal_exam='" + goal_exam + '\'' +
                 '}';
     }
 

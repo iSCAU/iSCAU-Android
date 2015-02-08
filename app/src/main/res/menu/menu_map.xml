@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+        android:title="更多"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menu_map_0"
+                android:title="平面地图"
+                app:showAsAction="always"
+                >
+            </item>
+            <item
+                android:id="@+id/menu_map_1"
+                android:title="卫星地图"
+                app:showAsAction="always"/>
+            <!--<item-->
+                <!--android:id="@+id/menu_map_2"-->
+                <!--android:title="夜景地图"-->
+                <!--app:showAsAction="always"/>-->
+            <item
+                android:id="@+id/menu_cancel"
+                android:title="取消"
+                app:showAsAction="always"/>
+
+        </menu>
+    </item>
+</menu>

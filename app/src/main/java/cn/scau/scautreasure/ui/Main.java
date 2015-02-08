@@ -38,6 +38,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +55,7 @@ import cn.scau.scautreasure.helper.HttpLoader;
 import cn.scau.scautreasure.widget.AppOKCancelDialog;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
+import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionListener;
 
 
 /**
@@ -67,6 +69,9 @@ public class Main extends MaterialNavigationDrawer {
     TextView tv_year_month;
     TextView tv_day;
     LinearLayout tv_container;
+
+    @Extra
+    boolean startWithIntent = false;
 
     @Override
     public void init(Bundle bundle) {
@@ -84,7 +89,7 @@ public class Main extends MaterialNavigationDrawer {
 
         tv_year_month.setText(app.dateUtil.getCurrentYearMonth() + "\n" + app.dateUtil.getWeekOfDate());
         tv_day.setText(app.dateUtil.getCurrentDay());
-        tv_title.setText("今天没啥事,吃屎吧");
+        tv_title.setText("今天没啥事,好好学习吧");
 
         setDrawerHeaderCustom(view);
         // create sections
@@ -92,7 +97,7 @@ public class Main extends MaterialNavigationDrawer {
         activitySection = newSection("活动圈", R.drawable.icon_activity_md, new FragmentActivity_());
         busSection = newSection("实时校巴", R.drawable.icon_bus_md, new FragmentBus_());
         appSection = newSection("应用中心", R.drawable.icon_app_md, new FragmentApp_());
-
+//        classTableSecti
         this.setBackPattern(BACKPATTERN_BACK_TO_FIRST);
 
         this.addSection(classTableSection);
@@ -108,6 +113,13 @@ public class Main extends MaterialNavigationDrawer {
 
         //刷新红点
         refreshActivityRedPoint();
+        if (startWithIntent) {
+            //加载课表
+            FragmentClassTable fct = (FragmentClassTable) classTableSection.getTargetFragment();
+            fct.menu_import_class_table();
+        }
+        allowArrowAnimation();
+
     }
 
     @Bean
@@ -216,6 +228,7 @@ public class Main extends MaterialNavigationDrawer {
      */
     @UiThread(delay = 100)
     void showReplyFeedback(final FeedbackAgent agent) {
+        AppOKCancelDialog.dismiss();
         AppOKCancelDialog.show(Main.this, "宝宝君", "我给你发了一条消息,请注意查看", "查看", "忽略", new AppOKCancelDialog.Callback() {
             @Override
             public void onCancel() {
@@ -327,7 +340,7 @@ public class Main extends MaterialNavigationDrawer {
      */
     @UiThread
     protected void showActivityRedPoint(int num) {
-        activitySection.setNotifications(num);
+        activitySection.setNotificationsText(String.valueOf(num));
     }
 
 

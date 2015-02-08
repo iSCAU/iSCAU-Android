@@ -5,6 +5,7 @@
     <!-- Base application theme. -->
     <style name="AppThemes" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="rippleBackport">true</item>
         <item name="android:windowActionBar">false</item>
 
     </style>
@@ -47,6 +48,7 @@
     <!-- Custom Drawer Header -->
     <style name="CustomHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
         <item name="colorPrimary">@color/theme_color</item>
+        <item name="rippleBackport">true</item>
         <item name="colorPrimaryDark">@color/theme_color_dark</item>
         <item name="colorAccent">#FFFFFF</item>
         <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>

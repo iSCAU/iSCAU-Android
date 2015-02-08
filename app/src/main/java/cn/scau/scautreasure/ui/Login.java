@@ -22,6 +22,7 @@ import cn.scau.scautreasure.R;
 
 import cn.scau.scautreasure.service.UpLoadUsersService_;
 import cn.scau.scautreasure.util.CryptUtil;
+import cn.scau.scautreasure.widget.AppProgress;
 import cn.scau.scautreasure.widget.AppToast;
 
 /**
@@ -116,8 +117,10 @@ public class Login extends BaseActivity {
         //LoginService_.intent(getApplicationContext()).start();
         UpLoadUsersService_.intent(getApplicationContext()).start();
 
-        if (runMainActivity)
-            Main_.intent(this).start();
+        if (runMainActivity) {
+
+            Main_.intent(this).startWithIntent(true).start();
+        }
         finish();
     }
 

@@ -13,7 +13,12 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <!--高德地图-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
 
     <application
         android:name="cn.scau.scautreasure.AppContext_"
@@ -207,6 +212,14 @@
             android:theme="@style/BaseActionBar"
             android:windowSoftInputMode="adjustPan"/>
 
+        <!--在线地图-->
+        <activity
+            android:name="cn.scau.scautreasure.ui.OnlineMap_"
+
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <!--当前借书/过去借书-->
         <activity
             android:name="cn.scau.scautreasure.ui.BorrowedBook_"
@@ -397,6 +410,10 @@
         </meta-data>
         <activity
             android:name="com.umeng.fb.ConversationActivity"/>
+        <!--高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="548aec9852a3a0ae6cf256caf7e71e37"/>
     </application>
 
 </manifest>

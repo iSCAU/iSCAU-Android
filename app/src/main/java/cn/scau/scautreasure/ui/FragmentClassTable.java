@@ -373,6 +373,7 @@ public class FragmentClassTable extends BaseFragment {
 
     @UiThread
     void showUpdateClassProgressBar() {
+        AppProgress.hide();
         AppProgress.show(getActivity(), "导入课表", "正在连接正方导入课表", "取消", new AppProgress.Callback() {
             @Override
             public void onCancel() {
@@ -421,7 +422,7 @@ public class FragmentClassTable extends BaseFragment {
      * 导入课表
      */
     @OptionsItem(R.id.menu_import_class_table)
-    void menu_import_class_table() {
+    public void menu_import_class_table() {
         if (AppHelper.hasSetAccount(app)) {
             loadData();
         } else {

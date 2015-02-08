@@ -58,6 +58,10 @@ dependencies {
     compile files('libs/com.umeng.message.lib.jar')
     compile files('libs/umeng-analytics-v5.4.1.jar')
     compile files('libs/com.umeng.fb.v5.1.0.jar')
+    compile files('libs/Android_Location_V1.3.1.jar')
+    compile files('libs/Android_2DMap_V2.4.0.jar')
+    compile files('libs/Android_3DMap_V2.4.0.jar')
+    compile files('libs/AMap_Services_V2.3.1.jar')
 }
 repositories {
     jcenter()

@@ -43,6 +43,7 @@ import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.widget.AppToast;
 import cn.scau.scautreasure.widget.SchoolActivityPullToRefresh;
 import cn.scau.scautreasure.widget.SchoolActivityTabWidget;
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 /**
  * 活动圈,
@@ -70,6 +71,7 @@ public class FragmentActivity extends BaseFragment {
     @AfterViews
     void initViews() {
         if (!isAfterViews) {
+            ((MaterialNavigationDrawer) this.getActivity()).getCurrentSection().setNotificationsText("");
             isAfterViews = true;
             System.out.println("活动圈");
             helper.initHelper(getActivity().getApplication());

@@ -80,7 +80,7 @@
                               android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/param_iv"
+                        android:id="@id/param_iv"
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
                         android:contentDescription=""

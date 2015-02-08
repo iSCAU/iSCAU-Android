@@ -142,14 +142,7 @@ public class FragmentApp extends BaseFragment {
         Exam_.intent(this).start();
     }
 
-//    /**
-//     * 查选修
-//     */
-//    @Click(R.id.menu_subject)
-//    void setMenu_subject() {
-//        PickClassInfo_.intent(this).start();
-//
-//    }
+
 
     /**
      * 地图
@@ -160,14 +153,7 @@ public class FragmentApp extends BaseFragment {
 
     }
 
-//    /**
-//     * 校历
-//     */
-//    @Click(R.id.menu_calendar)
-//    void menu_calendar() {
-////        Calendar_.intent(this).start();
-//        BaseBrowser_.intent(getActivity()).browser_title("校历").url("http://www.huanongbao.com").start();
-//    }
+
 
     /**
      * 常用信息
@@ -177,14 +163,7 @@ public class FragmentApp extends BaseFragment {
         BaseBrowser_.intent(getActivity()).browser_title("常用信息").allCache("1").url("http://iscaucms.sinaapp.com/apps/webapp/common_info.php").start();
 
     }
-//
-//    /**
-//     * 校园卡
-//     */
-//    @Click(R.id.menu_card)
-//    void menu_card() {
-//        AppToast.show(getActivity(), "一百块都不给我,不用查了,你校园卡没钱", AppUIMeasure.getHeight());
-//    }
+
 
 
     @AfterViews
@@ -205,6 +184,9 @@ public class FragmentApp extends BaseFragment {
     @Bean
     CacheHelper cacheHelper;
 
+    /**
+     * 加载*
+     */
     @Background
     void loadApps() {
         httpLoader.getFunctionList(new HttpLoader.NormalCallBack() {

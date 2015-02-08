@@ -55,7 +55,7 @@ public class GoalAdapter extends QuickAdapter<GoalModel> {
 
 
         baseAdapterHelper.setText(R.id.tv_classname, goalModel.getName())
-                .setText(R.id.tv_goal, goalModel.getGoal())
+                .setText(R.id.tv_goal, goalModel.getGoal() + " (平时成绩:" + goalModel.getGoal_regular() + " 考试成绩:" + goalModel.getGoal_exam() + ")")
                 .setText(R.id.tv_year, goalModel.getYear())
                 .setText(R.id.tv_team, goalModel.getTeam())
                 .setText(R.id.tv_credit, goalModel.getCredit())

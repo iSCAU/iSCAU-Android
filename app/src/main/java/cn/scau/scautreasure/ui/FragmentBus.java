@@ -317,7 +317,7 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
 
         if (siteList != null) {
             if (stateList.size() == 0) {
-                AppToast.show(getActivity(), "现在路上没有校巴...", 0);
+//                AppToast.show(getActivity(), "现在路上没有校巴...", 0);
             }
             busWidget.initView(siteList, stateList);
 

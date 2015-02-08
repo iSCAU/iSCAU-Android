@@ -21,6 +21,8 @@ import org.androidannotations.annotations.rest.RestService;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,9 @@ public class Param extends ListActivity {
     //是否开学
     private boolean isStartStudy = true;
 
+    //是否加载了条件
+    boolean loadParams = false;
+
 
     @Extra
     String _title;
@@ -65,15 +70,20 @@ public class Param extends ListActivity {
     @Override
     void doMoreButtonAction() {
         super.doMoreButtonAction();
-        try {
-            startNextActivity();
-                /*if(target.equals("emptyClassRoom")&&!isStartStudy){
-                    AppMsg.makeText(this,"现在还没开学，无法查询空课室",AppMsg.STYLE_ALERT).show();
-                }else{
+        if (loadParams) {
+            try {
+                startNextActivity();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            loadData();
+            AppProgress.show(this, "加载条件", "第一次加载可能比较慢，请耐心等待", "取消", new AppProgress.Callback() {
+                @Override
+                public void onCancel() {
 
-            }*/
-        } catch (Exception e) {
-            e.printStackTrace();
+                }
+            });
         }
     }
 
@@ -81,6 +91,7 @@ public class Param extends ListActivity {
     void initView() {
         setTitleText(_title);
         setMoreButtonText("下一步");
+        setMoreButtonVisible(true);
         buttonList = new ArrayList<RichButton>();
         AppProgress.show(this, "加载条件", "第一次加载可能比较慢，请耐心等待", "取消", new AppProgress.Callback() {
             @Override
@@ -123,6 +134,7 @@ public class Param extends ListActivity {
      */
     @UiThread
     void showParams() {
+        loadParams = true;
         AppProgress.hide();
         buttonList.clear();
         for (ParamModel p : paramList) {

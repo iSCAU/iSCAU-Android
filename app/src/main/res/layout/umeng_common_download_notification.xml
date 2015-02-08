@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="center"
-            android:contentDescription="@string/umeng_common_icon"
             android:src="@android:drawable/stat_sys_download" />
     </FrameLayout>
 
