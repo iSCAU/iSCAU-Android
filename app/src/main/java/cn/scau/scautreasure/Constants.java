@@ -1,33 +1,42 @@
 package cn.scau.scautreasure;
 
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.MarkerOptions;
+
+import java.util.List;
 
 public class Constants {
 
-	public static final int ERROR = 1001;// 网络异常
-	public static final int ROUTE_START_SEARCH = 2000;
-	public static final int ROUTE_END_SEARCH = 2001;
-	public static final int ROUTE_BUS_RESULT = 2002;// 路径规划中公交模式
-	public static final int ROUTE_DRIVING_RESULT = 2003;// 路径规划中驾车模式
-	public static final int ROUTE_WALK_RESULT = 2004;// 路径规划中步行模式
-	public static final int ROUTE_NO_RESULT = 2005;// 路径规划没有搜索到结果
 
-	public static final int GEOCODER_RESULT = 3000;// 地理编码或者逆地理编码成功
-	public static final int GEOCODER_NO_RESULT = 3001;// 地理编码或者逆地理编码没有数据
+    //华农学校周围
+    public static double xy[][] = {
+            {23.152164, 113.354337}, {23.152164, 113.354337}, {23.152593, 113.354069}, {23.152114, 113.354294},
+            {23.152514, 113.357127}, {23.15137, 113.358779}, {23.151902, 113.35939}, {23.152376, 113.362985},
+            {23.150669, 113.369411}, {23.153027, 113.369862}, {23.154221, 113.372458}, {23.157663, 113.369583},
+            {23.159478, 113.370581}, {23.160036, 113.372775}, {23.160036, 113.372775}, {23.167379, 113.368242},
+            {23.166709, 113.365152}, {23.160524, 113.363478}, {23.163335, 113.360206},
+            {23.165229, 113.352417}, {23.163089, 113.352857}, {23.16152, 113.351762}, {23.163976, 113.348179},
+            {23.163089, 113.346559}, {23.161037, 113.346623}, {23.158837, 113.344156}, {23.157634, 113.345207},
+            {23.15502, 113.351226}, {23.1535, 113.35187}, {23.152568, 113.354133}
+    };
 
-	public static final int POISEARCH = 4000;// poi搜索到结果
-	public static final int POISEARCH_NO_RESULT = 4001;// poi没有搜索到结果
-	public static final int POISEARCH_NEXT = 5000;// poi搜索下一页
+//    //华农校内标志性建筑
+//    private MarkerOptions[] markerOptions = null;
+//
+//    public MarkerOptions[] getBuildings() {
+//        markerOptions=new MarkerOptions[20];
+//        markerOptions[0].position(new LatLng())
+//
+//        return markerOptions;
+//    }
 
-	public static final int BUSLINE_LINE_RESULT = 6001;// 公交线路查询
-	public static final int BUSLINE_id_RESULT = 6002;// 公交id查询
-	public static final int BUSLINE_NO_RESULT = 6003;// 异常情况
+//    position(Required) 在地图上标记位置的经纬度值。参数不能为空。
+//    title 当用户点击标记，在信息窗口上显示的字符串。
+//    snippet 附加文本，显示在标题下方。
+//    draggable 如果您允许用户可以自由移动标记，设置为“ true ”。默认情况下为“ false ”。
+//    visible 设置“ false ”，标记不可见。默认情况下为“ true ”。
+//    anchor图标摆放在地图上的基准点。默认情况下，锚点是从图片下沿的中间处。
+//    perspective设置 true，标记有近大远小效果。默认情况下为 false。
 
-	public static final LatLng BEIJING = new LatLng(39.90403, 116.407525);// 北京市经纬度
-	public static final LatLng ZHONGGUANCUN = new LatLng(39.983456, 116.3154950);// 北京市中关村经纬度
-	public static final LatLng SHANGHAI = new LatLng(31.238068, 121.501654);// 上海市经纬度
-	public static final LatLng FANGHENG = new LatLng(39.989614, 116.481763);// 方恒国际中心经纬度
-	public static final LatLng CHENGDU = new LatLng(30.679879, 104.064855);// 成都市经纬度
-	public static final LatLng XIAN = new LatLng(34.341568, 108.940174);// 西安市经纬度
-	public static final LatLng ZHENGZHOU = new LatLng(34.7466, 113.625367);// 郑州市经纬度
+
 }

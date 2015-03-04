@@ -1,5 +1,6 @@
 package cn.scau.scautreasure.helper;
 
+import android.util.Base64;
 import android.util.Log;
 
 import org.androidannotations.annotations.App;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.api.BusApi;
+import cn.scau.scautreasure.api.CalendarApi;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.api.FunctionApi;
 import cn.scau.scautreasure.api.SchoolActivityApi;
@@ -21,6 +23,7 @@ import cn.scau.scautreasure.model.ActivityCountModel;
 import cn.scau.scautreasure.model.BusLineModel;
 import cn.scau.scautreasure.model.BusSiteModel;
 import cn.scau.scautreasure.model.BusStateModel;
+import cn.scau.scautreasure.model.CalendarModel;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.model.FunctionModel;
 
@@ -50,6 +53,9 @@ public class HttpLoader {
     @RestService
     FunctionApi functionApi;
 
+
+    @RestService
+    CalendarApi calendarApi;
 
     @Bean
     ClassHelper classHelper;
@@ -180,6 +186,26 @@ public class HttpLoader {
         FunctionModel.FunctionList list = null;
         try {
             list = functionApi.getFunctionList(app.userName, app.deviceToken);
+        } catch (HttpStatusCodeException e) {
+            callBack.onError(null);
+        } catch (Exception e) {
+            callBack.onNetworkError(null);
+        }
+        if (list != null) {
+            callBack.onSuccess(list);
+        }
+
+    }
+
+    /**
+     * 获取日历
+     *
+     * @param callBack
+     */
+    public void getCalendar(NormalCallBack callBack) {
+        CalendarModel.CalendarList list = null;
+        try {
+            list = calendarApi.getCalendar(Base64.encodeToString(app.userName.getBytes(), Base64.DEFAULT));
         } catch (HttpStatusCodeException e) {
             callBack.onError(null);
         } catch (Exception e) {

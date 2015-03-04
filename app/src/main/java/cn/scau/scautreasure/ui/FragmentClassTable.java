@@ -430,6 +430,23 @@ public class FragmentClassTable extends BaseFragment {
         }
     }
 
+    @OptionsItem(R.id.menu_add_class_from_net)
+    public void menu_add_class_from_net() {
+
+        System.out.println("心好累");
+
+    }
+
+
+    @UiThread(delay = 100)
+    public void prev_load() {
+        if (AppHelper.hasSetAccount(app)) {
+            loadData();
+        } else {
+            Login_.intent(getActivity()).startTips(getString(R.string.start_tips_edusys)).start();
+        }
+
+    }
 
     /**
      * 添加自定义课程

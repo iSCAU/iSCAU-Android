@@ -20,6 +20,12 @@
                 android:title="导入课程表"
                 app:showAsAction="always"/>
             <item
+                android:id="@+id/menu_add_class_from_net"
+                android:title="蹭课"
+                app:showAsAction="always"
+                >
+            </item>
+            <item
                 android:id="@+id/menu_add_custom_class"
                 android:title="添加自定义课程"
                 app:showAsAction="always"/>

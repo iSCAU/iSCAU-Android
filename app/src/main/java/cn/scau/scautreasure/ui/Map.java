@@ -16,6 +16,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.net.URLEncoder;
@@ -40,7 +41,19 @@ public class Map extends BaseActivity {
     @Override
     void doMoreButtonAction() {
         super.doMoreButtonAction();
+
+        AppToast.show(this, "正在获取定位...耐心等待", 0);
+
+        onlineMap();
+    }
+
+    /**
+     * 延迟100毫秒*
+     */
+    @UiThread(delay = 100)
+    void onlineMap() {
         OnlineMap_.intent(this).start();
+
 
     }
 
@@ -54,7 +67,7 @@ public class Map extends BaseActivity {
     void initView() {
 
         setTitleText("校内地图");
-        setMoreButtonText("在线地图");
+        setMoreButtonText("动态地图");
 
 //        AppContext.loadImage( "http://img3.imgtn.bdimg.com/it/u=86040403,2916800900&fm=90&gp=0.jpg",map,new ImageLoadingListener() {
         AppContext.loadImage("assets://map.png", map, new ImageLoadingListener() {

@@ -28,7 +28,6 @@ import cn.scau.scautreasure.helper.AppHelper;
 import cn.scau.scautreasure.helper.PackageHelper;
 import cn.scau.scautreasure.helper.SplashHelper;
 import cn.scau.scautreasure.model.SplashModel;
-import cn.scau.scautreasure.service.ActivityCountService_;
 import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.service.FoodShopService_;
 import cn.scau.scautreasure.service.NetworkStatusService_;

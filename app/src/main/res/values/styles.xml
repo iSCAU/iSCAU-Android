@@ -53,6 +53,7 @@
         <item name="colorAccent">#FFFFFF</item>
         <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>
     </style>
+
     <style name="BaseActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/theme_color</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -167,7 +168,13 @@
         <item name="android:textColor">@color/login_edittext_textcolor</item>
         <item name="android:singleLine">true</item>
     </style>
-
+    <!--login edittext-->
+    <style name="favorite_text" parent="android:Widget">
+        <item name="android:background">@drawable/login_edittext</item>
+        <item name="android:textSize">@dimen/normal_edittext_textsize</item>
+        <item name="android:padding">@dimen/login_edittext_padding</item>
+        <item name="android:textColor">@color/login_edittext_textcolor</item>
+    </style>
     <!--modify edittext-->
     <style name="modify_edittext" parent="login_edittext">
         <item name="android:textSize">@dimen/modify_edittext_textsize</item>

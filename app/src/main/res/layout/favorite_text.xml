@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/theme_color"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000"
+                android:gravity="bottom"
+                android:hint="写标题"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:singleLine="true"
+                android:textColor="@color/title_white"
+                android:textColorHint="@color/title_white"
+                android:textSize="@dimen/text_size_display1"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_btn_bg_color"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000"
+                android:gravity="left|top"
+                android:hint="写内容"
+                android:lines="8"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/title_white"
+                android:textColorHint="@color/title_white"
+                android:textSize="20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_btn_bg_color"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:paddingTop="10dp"
+                android:textColor="@color/title_white"
+                android:textSize="@dimen/text_size_subhead"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

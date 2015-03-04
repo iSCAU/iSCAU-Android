@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <!--高德地图-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -71,10 +72,33 @@
             android:theme="@style/BaseActionBar"
             android:windowSoftInputMode="adjustPan"
             />
+        <!--外卖-->
+        <activity
+            android:name="cn.scau.scautreasure.ui.FavoriteActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActionBar"
+            android:windowSoftInputMode="adjustPan"
+            />
         <!--浏览器-->
         <activity
             android:name="cn.scau.scautreasure.ui.BaseBrowser_"
 
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActionBar"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity
+            android:name="cn.scau.scautreasure.ui.Todays_"
+
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActionBar"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity
+            android:name="cn.scau.scautreasure.ui.FavoriteText_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/BaseActionBar"
@@ -171,17 +195,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/BaseActionBar"
             android:windowSoftInputMode="adjustPan"/>
-        <!--校园卡-->
+
+        <!--校园活动详情-->
         <activity
-            android:name="cn.scau.scautreasure.ui.PickClassInfo_"
+            android:name="cn.scau.scautreasure.ui.SchoolActivityContent_"
 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/BaseActionBar"
             android:windowSoftInputMode="adjustPan"/>
-        <!--校园活动详情-->
         <activity
-            android:name="cn.scau.scautreasure.ui.SchoolActivityContent_"
+            android:name="cn.scau.scautreasure.ui.AskCenter_"
 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
@@ -223,23 +247,6 @@
         <!--当前借书/过去借书-->
         <activity
             android:name="cn.scau.scautreasure.ui.BorrowedBook_"
-
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/BaseActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-        <!--介绍-->
-        <activity
-            android:name="cn.scau.scautreasure.ui.Introduction_"
-
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/BaseActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-
-        <!--校园通知-->
-        <activity
-            android:name="cn.scau.scautreasure.ui.Notice_"
 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"

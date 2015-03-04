@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="64dp"
     android:orientation="horizontal" >
 
     <FrameLayout
@@ -78,20 +78,17 @@
 
             <TextView
                 android:id="@+id/umeng_common_title"
+                style="@android:style/TextAppearance.StatusBar.EventContent.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textColor="?android:attr/textColorPrimaryInverse"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:singleLine="true" />
 
             <TextView
                 android:id="@+id/umeng_common_progress_text"
+                style="@android:style/TextAppearance.StatusBar.EventContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textColor="?android:attr/textColorPrimaryInverse"
-                android:textSize="14sp" />
+                android:singleLine="true" />
         </LinearLayout>
 
         <ProgressBar

@@ -49,9 +49,11 @@ import java.util.Map;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.helper.CacheHelper;
 import cn.scau.scautreasure.helper.HttpLoader;
 
 
+import cn.scau.scautreasure.model.CalendarModel;
 import cn.scau.scautreasure.widget.AppOKCancelDialog;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
@@ -64,32 +66,47 @@ import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionLis
 @EActivity
 public class Main extends MaterialNavigationDrawer {
 
-    MaterialSection classTableSection, activitySection, busSection, appSection;
-    TextView tv_title;
+    MaterialSection classTableSection, activitySection, busSection, appSection, favoriteSection;
+    TextView tv_title, tv_count;
     TextView tv_year_month;
     TextView tv_day;
+    TextView tv_content;
     LinearLayout tv_container;
 
+    CalendarModel.CalendarList calendarModelList;
+    @Bean
+    CacheHelper cacheHelper;
     @Extra
     boolean startWithIntent = false;
 
     @Override
     public void init(Bundle bundle) {
+        cacheHelper.setCacheKey("calendar");
+
         View view = LayoutInflater.from(this).inflate(R.layout.layout_header_drawer, null);
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         tv_year_month = (TextView) view.findViewById(R.id.tv_year_month);
         tv_day = (TextView) view.findViewById(R.id.tv_day);
         tv_container = (LinearLayout) view.findViewById(R.id.tv_container);
+        tv_content = (TextView) view.findViewById(R.id.tv_content);
+        tv_count = (TextView) view.findViewById(R.id.tv_count);
         tv_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("菜单", "打开日历");
+                if (calendarModelList != null) {
+                    Todays_.intent(Main.this).list(calendarModelList.getList()).start();
+                } else {
+                    BaseBrowser_.intent(Main.this).browser_title("校历").allCache("1").url("http://iscaucms.sinaapp.com/apps/calendar/calendar.php").start();
+                }
             }
         });
 
         tv_year_month.setText(app.dateUtil.getCurrentYearMonth() + "\n" + app.dateUtil.getWeekOfDate());
         tv_day.setText(app.dateUtil.getCurrentDay());
-        tv_title.setText("今天没啥事,好好学习吧");
+        tv_title.setText("点我查看校历");
+        tv_content.setText("今天没什么特别");
+        tv_count.setText("(0/0)");
 
         setDrawerHeaderCustom(view);
         // create sections
@@ -97,13 +114,20 @@ public class Main extends MaterialNavigationDrawer {
         activitySection = newSection("活动圈", R.drawable.icon_activity_md, new FragmentActivity_());
         busSection = newSection("实时校巴", R.drawable.icon_bus_md, new FragmentBus_());
         appSection = newSection("应用中心", R.drawable.icon_app_md, new FragmentApp_());
-//        classTableSecti
+        favoriteSection = newSection("我的收藏", R.drawable.icon_favorite_md, new Intent(this, FavoriteActivity_.class));
+//                BaseBrowser_.intent(this).allCache("0").browser_title("我的收藏").url("http://www.baidu.com").isShowMenu(false).get());
+
+        //        classTableSecti
         this.setBackPattern(BACKPATTERN_BACK_TO_FIRST);
 
         this.addSection(classTableSection);
         this.addSection(activitySection);
         this.addSection(busSection);
         this.addSection(appSection);
+//        this.addSection(newSection("帮一帮", R.drawable.icon_favorite_md,
+//                new Intent(this, AskCenter_.class)));
+
+        this.addSection(favoriteSection);
 
         this.disableLearningPattern();
         // create bottom section
@@ -111,12 +135,15 @@ public class Main extends MaterialNavigationDrawer {
         //初始化友盟
         initMobclickAgent();
 
+        //加载校历
+        refreshCalendar();
+
         //刷新红点
         refreshActivityRedPoint();
         if (startWithIntent) {
             //加载课表
             FragmentClassTable fct = (FragmentClassTable) classTableSection.getTargetFragment();
-            fct.menu_import_class_table();
+            fct.prev_load();
         }
         allowArrowAnimation();
 
@@ -321,6 +348,7 @@ public class Main extends MaterialNavigationDrawer {
                     showActivityRedPoint((int) obj);
             }
 
+
             @Override
             public void onError(Object obj) {
                 activitySection.setNotificationsText("");
@@ -332,6 +360,37 @@ public class Main extends MaterialNavigationDrawer {
 
             }
         });
+    }
+
+    @Background(delay = 100)
+    void refreshCalendar() {
+        httpLoader.getCalendar(new HttpLoader.NormalCallBack() {
+            @Override
+            public void onSuccess(Object obj) {
+                calendarModelList = (CalendarModel.CalendarList) obj;
+                updateCalendarText();
+            }
+
+            @Override
+            public void onError(Object obj) {
+
+            }
+
+            @Override
+            public void onNetworkError(Object obj) {
+
+            }
+        });
+
+    }
+
+    @UiThread
+    void updateCalendarText() {
+        if (calendarModelList.getList().size() != 0) {
+            tv_count.setText("(1/" + calendarModelList.getList().size() + ")");
+            tv_title.setText(calendarModelList.getList().get(0).getTitle());
+            tv_content.setText(calendarModelList.getList().get(0).getContent());
+        }
 
     }
 

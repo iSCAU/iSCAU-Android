@@ -39,6 +39,9 @@ import cn.scau.scautreasure.widget.AppToast;
 @EActivity
 @OptionsMenu(R.menu.menu_next)
 public class BaseActivity extends ActionBarActivity {
+
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

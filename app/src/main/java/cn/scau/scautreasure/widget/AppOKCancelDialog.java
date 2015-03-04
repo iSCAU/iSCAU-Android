@@ -15,6 +15,7 @@ public class AppOKCancelDialog {
 
     public static void show(Context context, String title, String msg, String okButton, String cancelButton, final Callback callback) {
 
+        dismiss();
         dialog = new Dialog(context, title, msg);
 
         dialog.show();

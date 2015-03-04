@@ -16,6 +16,7 @@ import java.sql.SQLException;
 
 import cn.scau.scautreasure.adapter.SchoolActivityListAdapter;
 import cn.scau.scautreasure.model.ClassModel;
+import cn.scau.scautreasure.model.FavoriteModel;
 import cn.scau.scautreasure.model.FoodShopDBModel;
 import cn.scau.scautreasure.model.SchoolActivityModel;
 import cn.scau.scautreasure.model.ShopMenuDBModel;
@@ -30,8 +31,7 @@ import cn.scau.scautreasure.model.SplashModel;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "db_iscau.db";
-    private static final int DATABASE_VERSION = 3;
-
+    private static final int DATABASE_VERSION = 4;//Mon Feb 9 11:19:26更新版本号
 
 
     public DatabaseHelper(Context context) {
@@ -47,6 +47,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
             TableUtils.createTable(connectionSource, SchoolActivityModel.class);
             TableUtils.createTable(connectionSource, SplashModel.class);
+            TableUtils.createTable(connectionSource, FavoriteModel.class);
+
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create datbases", e);
         }
@@ -62,6 +64,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, SchoolActivityModel.class);
             TableUtils.dropTable(connectionSource, SplashModel.class, true);
             TableUtils.createTable(connectionSource, SplashModel.class);
+            TableUtils.createTable(connectionSource, FavoriteModel.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create datbases", e);
         }

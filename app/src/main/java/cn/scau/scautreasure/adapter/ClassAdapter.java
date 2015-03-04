@@ -19,6 +19,7 @@ import cn.scau.scautreasure.model.ClassModel;
 //import cn.scau.scautreasure.ui.ClassEditor_;
 import cn.scau.scautreasure.ui.ClassEditor_;
 import cn.scau.scautreasure.ui.FragmentClassTable;
+import cn.scau.scautreasure.widget.AppOKCancelDialog;
 
 /**
  * User:  Special Leung
@@ -74,16 +75,18 @@ public class ClassAdapter extends QuickAdapter<ClassModel> {
         baseAdapterHelper.getView(R.id.btn_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                builder.setMessage(R.string.dialog_sure_to_delete_lesson);
-                builder.setNegativeButton(R.string.dialog_no, null);
-                builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                AppOKCancelDialog.show(ctx, "删除", "你确认删除该节课?", "删吧", "取消", new AppOKCancelDialog.Callback() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onOk() {
                         fragment.deleteClass(classModel);
+
                     }
                 });
-                builder.show();
             }
         });
     }

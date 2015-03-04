@@ -78,11 +78,10 @@ public class WidgetHelper {
 
     private void setWeekTextAndTipsText() {
         int week = classHelper.getSchoolWeek();
-        String eventTips = calendarHelper.getTodayEventTitle();
         String weekTips = app.getString(R.string.widget_week_start) + week
                 + app.getString(R.string.widget_week_end);
         remoteViews.setTextViewText(R.id.tv_week, weekTips);
-        remoteViews.setTextViewText(R.id.tv_calendar, eventTips);
+//        remoteViews.setTextViewText(R.id.tv_calendar, eventTips);
         setTextViewFontColorWithConfig(R.id.tv_week, TYPE_TITLE);
         setTextViewFontColorWithConfig(R.id.tv_calendar, TYPE_TITLE);
     }

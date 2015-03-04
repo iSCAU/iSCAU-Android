@@ -35,7 +35,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.scau.scautreasure.api.EdusysApi;
@@ -289,6 +291,17 @@ public class AppContext extends Application {
         return version;
     }
 
+    /**
+     * 获取现在时间
+     *
+     * @return返回字符串格式 yyyy-MM-dd HH:mm:ss
+     */
+    public static String getStringDate() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
 
 
 }

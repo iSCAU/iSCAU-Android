@@ -17,7 +17,7 @@ public class AppNotification {
     static Dialog dialog;
 
     public static void show(Context context, String title, String msg, String cancelButtonText, final Callback callback) {
-
+        hide();
         dialog = new Dialog(context, title, msg);
 
         dialog.show();

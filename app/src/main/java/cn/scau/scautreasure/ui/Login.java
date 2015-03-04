@@ -64,6 +64,12 @@ public class Login extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
     void doMoreButtonAction() {
         super.doMoreButtonAction();
         String userName = edt_userName.getText().toString().trim();

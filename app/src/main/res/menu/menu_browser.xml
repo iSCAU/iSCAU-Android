@@ -16,6 +16,12 @@
                 >
             </item>
             <item
+                android:id="@+id/menu_favorite"
+                android:title="收藏"
+                app:showAsAction="always"
+                >
+            </item>
+            <item
                 android:id="@+id/menu_out_open"
                 android:title="在浏览器打开"
                 app:showAsAction="always"/>

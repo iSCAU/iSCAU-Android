@@ -17,7 +17,7 @@ public class AppProgress {
     static Dialog dialog;
 
     public static void show(Context context, String title, String msg, String cancelButton, final Callback callback) {
-
+        hide();
         dialog = new Dialog(context, title, msg);
 
         dialog.show();

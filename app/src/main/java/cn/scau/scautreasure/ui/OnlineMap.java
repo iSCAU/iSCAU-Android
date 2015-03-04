@@ -10,8 +10,14 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdate;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.maps2d.model.PolylineOptions;
 
 
@@ -45,7 +51,9 @@ public class OnlineMap extends BaseActivity implements LocationSource, AMapLocat
         setMoreButtonVisible(false);
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);//必须写
+
         init();
+        setTitleText("动态地图");
     }
 
     void init() {
@@ -56,14 +64,28 @@ public class OnlineMap extends BaseActivity implements LocationSource, AMapLocat
     }
 
     private void setUpMap() {
-        aMap.addPolyline((new PolylineOptions()).
-                add(Constants.SHANGHAI, Constants.BEIJING, Constants.CHENGDU).width(10).setDottedLine(true).geodesic(true).color(Color.argb(255, 1, 1, 1)));
+//        aMap.addPolyline((new PolylineOptions()).
+//                add(Constants.SHANGHAI, Constants.BEIJING, Constants.CHENGDU).width(10).setDottedLine(true).geodesic(true).color(Color.argb(255, 1, 1, 1)));
+
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.setDottedLine(true).geodesic(true).color(Color.BLACK);
+        polylineOptions.width(5);
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        for (double xy[] : Constants.xy) {
+            polylineOptions.add(new LatLng(xy[0], xy[1]));
+        }
+
+        aMap.addPolyline(polylineOptions);
+
         aMap.setLocationSource(this);// 设置定位监听
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         // 设置定位的类型为定位模式：定位（AMap.LOCATION_TYPE_LOCATE）、跟随（AMap.LOCATION_TYPE_MAP_FOLLOW）
         // 地图根据面向方向旋转（AMap.LOCATION_TYPE_MAP_ROTATE）三种模式
 //         aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+        aMap.getUiSettings().setCompassEnabled(true);//指南针
+        aMap.getUiSettings().setScaleControlsEnabled(true);
+
     }
 
     /**
