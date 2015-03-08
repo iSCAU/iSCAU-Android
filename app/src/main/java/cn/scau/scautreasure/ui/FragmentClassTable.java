@@ -152,6 +152,7 @@ public class FragmentClassTable extends BaseFragment {
             week_classtable.setVisibility(View.GONE);
             day_classtable_container.setVisibility(View.VISIBLE);
             menu_class_table_day_week_mode.setTitle("周课表");
+            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_day_mod));
             showTab();
         } else if (mode == 1) {//周视图
             menu_class_table_day_week_mode.setTitle("日课表");
@@ -163,6 +164,9 @@ public class FragmentClassTable extends BaseFragment {
             } else {
                 week_classtable.setVisibility(View.VISIBLE);
             }
+            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_week_mod));
+            showWeekClass();
+
         }
     }
 
@@ -430,12 +434,12 @@ public class FragmentClassTable extends BaseFragment {
         }
     }
 
-    @OptionsItem(R.id.menu_add_class_from_net)
+/*    @OptionsItem(R.id.menu_add_class_from_net)
     public void menu_add_class_from_net() {
 
         System.out.println("心好累");
 
-    }
+    }*/
 
 
     @UiThread(delay = 100)
@@ -496,5 +500,11 @@ public class FragmentClassTable extends BaseFragment {
 
         }
 //        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
     }
 }

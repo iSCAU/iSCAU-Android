@@ -370,7 +370,7 @@ public class BaseBrowser extends BaseActivity implements ObservableScrollViewCal
         if (!getURL().equals(""))
             share(browser_title + " " + getURL());
         else
-            AppToast.show(this, "网址为空,操作失败", 0);
+            AppToast.show(this, "本页面无法分享", 0);
     }
 
     /**

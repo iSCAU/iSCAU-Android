@@ -15,7 +15,7 @@ var main = function(){
     $(".right_top_block").width(fullWidth*0.9285714);
     var topHeight = (fullHeight/15) * 2 * (1/2) - $("hr").height()>=35?(fullHeight/15) * 2 * (1/2) - $("hr").height():35;
     // 块大小
-    var blockHeight = ((fullHeight - topHeight - $("hr").height())/7.2);
+    var blockHeight = ((fullHeight - topHeight - $("hr").height())/9.2);
     var blockWidth = (fullWidth*0.9285714)/showCount;
     //Android.debug('full width is '+fullWidth);
     //Android.debug('body width is '+$('body').width());

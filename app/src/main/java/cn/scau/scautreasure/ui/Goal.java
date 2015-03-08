@@ -68,10 +68,14 @@ public class Goal extends ListActivity {
         double total_credit = 0;
 
         for (GoalModel g : (List<GoalModel>) list) {
-            double credit = Double.parseDouble(g.getCredit());
-            double grade_point = Double.parseDouble(g.getGrade_point());
-            total_credit += credit;
-            total_credit_point += (double) credit * grade_point;
+            if("".equals(g.getCredit())||"".equals(g.getGrade_point())){
+                continue;
+            }else {
+                double credit = Double.parseDouble(g.getCredit());
+                double grade_point = Double.parseDouble(g.getGrade_point());
+                total_credit += credit;
+                total_credit_point += (double) credit * grade_point;
+            }
         }
 
         // 一学期（学年）的平均绩点＝该学期（学年）全部学分绩点之和÷该学期（学年）所修学分之和

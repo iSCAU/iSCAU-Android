@@ -1,6 +1,8 @@
 package cn.scau.scautreasure.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -222,9 +224,19 @@ public class FragmentApp extends BaseFragment {
                 itemButton.setOnClick(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String tempUrl = model.getLong_url() + "&student_id=" + app.userName;
-                        System.out.println(tempUrl);
-                        BaseBrowser_.intent(getActivity()).browser_title(model.getTitle()).url(tempUrl).allCache(model.getAllowcache()).start();
+                        if("1".equals(model.getJump())){
+                            if (!"".equals(model.getUrl())) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(model.getUrl()));
+                                startActivity(intent);
+                            } else {
+                                AppToast.show(FragmentApp.this.getActivity(), "网址为空,操作失败", 0);
+                            }
+                        }else {
+                            String tempUrl = model.getLong_url() + "&student_id=" + app.userName;
+                            System.out.println(tempUrl);
+                            BaseBrowser_.intent(getActivity()).browser_title(model.getTitle()).url(tempUrl).allCache(model.getAllowcache()).start();
+                        }
                     }
                 });
 

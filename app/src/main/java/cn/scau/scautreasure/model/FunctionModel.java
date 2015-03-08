@@ -19,6 +19,7 @@ public class FunctionModel implements Serializable {
     private String update_time;
     private String long_url;
     private String subtitle;
+    private String jump;
 
     @Override
     public String toString() {
@@ -31,7 +32,16 @@ public class FunctionModel implements Serializable {
                 ", create_time='" + create_time + '\'' +
                 ", update_time='" + update_time + '\'' +
                 ", long_url='" + long_url + '\'' +
+                ", jump='" + jump + '\'' +
                 '}';
+    }
+
+    public String getJump() {
+        return jump;
+    }
+
+    public void setJump(String jump) {
+        this.jump = jump;
     }
 
     public String getId() {
