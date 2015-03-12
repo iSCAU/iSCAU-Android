@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <item
+            android:id="@+id/menu_share"
+            android:title="分享"
+            app:showAsAction="always"
+            android:icon="@drawable/share_icon"
+            >
+    </item>
 
     <item
         android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
         android:title="更多"
         app:showAsAction="always">
         <menu>
-            <item
-                android:id="@+id/menu_share"
-                android:title="分享"
-                app:showAsAction="always"
-                >
-            </item>
+
             <item
                 android:id="@+id/menu_out_open"
                 android:title="在浏览器打开"

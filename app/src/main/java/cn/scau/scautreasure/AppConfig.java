@@ -122,6 +122,8 @@ public interface AppConfig {
     @DefaultString("")
     String lastSeeNotificationDate();      // 上次显示通知的时间
 
+    @DefaultBoolean(true)
+    boolean first_use_fav();
 
     @DefaultInt(0xffffffff)
     int widgetFontColor();

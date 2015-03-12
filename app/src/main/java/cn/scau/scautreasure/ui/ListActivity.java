@@ -44,6 +44,9 @@ public class ListActivity extends BaseActivity {
      */
     @AfterViews
     void checkAccountAvailable() {
+        if(this instanceof Food){
+            return;
+        }
         boolean startLoginActivity = false;
         if (queryTarget == QUERY_FOR_EDUSYS) {
             startLoginActivity = (app.eduSysPassword == null || app.eduSysPassword.equals(""));

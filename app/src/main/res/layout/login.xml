@@ -139,7 +139,6 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:alpha="0.7"
                         android:text="校园卡密码(默认:身份证后6位数字)"
                         android:textColor="@color/title_white"

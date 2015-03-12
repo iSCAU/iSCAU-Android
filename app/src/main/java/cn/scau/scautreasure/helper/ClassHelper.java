@@ -137,7 +137,7 @@ public class ClassHelper {
     public List<ClassModel> getDayLessonByWeek(String wantDay, int week) {
         PreparedQuery where = null;
         try {
-            where = buildWhere(wantDay, week, week / 2 == 0 ? "双" : "单");
+            where = buildWhere(wantDay, week, week % 2 == 0 ? "双" : "单");
         } catch (SQLException e) {
             e.printStackTrace();
         }

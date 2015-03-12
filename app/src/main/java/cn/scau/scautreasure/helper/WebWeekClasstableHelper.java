@@ -34,6 +34,7 @@ public class WebWeekClasstableHelper {
     private ArrayList<String> lessons = new ArrayList<String>(7);
     private Context mContext;
     private boolean hasMeasured;
+    private  int school_week;
 
     public WebWeekClasstableHelper(Context context,WebView webView, cn.scau.scautreasure.AppConfig_ config, DateUtil dateUtil, ClassHelper classHelper) {
         this.webView = webView;
@@ -52,7 +53,7 @@ public class WebWeekClasstableHelper {
             List<ClassModel> dayClassList = null;
             String chineseDay = dateUtil.numDayToChinese(i+1);
             if (config.smart_class_table().get()) {
-                dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+                dayClassList = classHelper.getDayLessonByWeek(chineseDay, school_week);
             } else {
                 dayClassList = classHelper.getDayLesson(chineseDay);
             }
@@ -138,5 +139,13 @@ public class WebWeekClasstableHelper {
     @JavascriptInterface
     public String getEndTime(int node){
         return ClassUtil.genClassOverTime(node);
+    }
+
+    public int getSchool_week() {
+        return school_week;
+    }
+
+    public void setSchool_week(int school_week) {
+        this.school_week = school_week;
     }
 }

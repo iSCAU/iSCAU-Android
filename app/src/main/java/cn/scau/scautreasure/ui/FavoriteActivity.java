@@ -13,17 +13,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 
-import org.androidannotations.annotations.AfterViews;
-
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.ItemLongClick;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.OptionsMenuItem;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
+import cn.scau.scautreasure.AppContext;
+import org.androidannotations.annotations.*;
 
 import java.util.List;
 
@@ -49,6 +40,8 @@ public class FavoriteActivity extends BaseActivity implements SearchView.OnQuery
     List<FavoriteModel> favoriteModels;
     FavoriteAdapter favoriteAdapter;
 
+    @App
+    AppContext app;
 
     @AfterViews
     void init() {
@@ -62,6 +55,21 @@ public class FavoriteActivity extends BaseActivity implements SearchView.OnQuery
 
     @UiThread
     void loadData() {
+        if(app.config.first_use_fav().get()){
+            FavoriteModel f1 = new FavoriteModel();
+            f1.setFavoriteType(FavoriteModel.TEXT);
+            f1.setTitle("做笔记");
+            f1.setContent("这是一个小小的记事本，用于记录你生活的点滴。");
+            f1.setDate(AppContext.getStringDate());
+            FavoriteModel f2 = new FavoriteModel();
+            f2.setDate(AppContext.getStringDate());
+            f2.setFavoriteType(FavoriteModel.ULR);
+            f2.setTitle("华农宝官网");
+            f2.setUrl("http://www.huanongbao.com");
+            favoriteHelper.insertOneFavorite(f1);
+            favoriteHelper.insertOneFavorite(f2);
+            app.config.first_use_fav().put(false);
+        }
         favoriteModels = favoriteHelper.loadAll();
 
         if (favoriteAdapter == null) {
@@ -73,9 +81,9 @@ public class FavoriteActivity extends BaseActivity implements SearchView.OnQuery
 
     }
 
-    @OptionsItem(R.id.menu_about)
+   /* @OptionsItem(R.id.menu_about)
     void menu_about() {
-        AppOKCancelDialog.show(this, "你应该知道", "由于华农宝尚未建立自有的账户体系,收藏夹不会同步到服务器.", "我知道了", "哦", new AppOKCancelDialog.Callback() {
+        AppOKCancelDialog.show(this, "你应该知道", "看到好的东西就收藏下来吧！", "我知道了", "哦", new AppOKCancelDialog.Callback() {
             @Override
             public void onCancel() {
 
@@ -87,7 +95,7 @@ public class FavoriteActivity extends BaseActivity implements SearchView.OnQuery
             }
         });
 
-    }
+    }*/
 
 
     @OptionsItem(R.id.menu_add_text)
@@ -114,7 +122,7 @@ public class FavoriteActivity extends BaseActivity implements SearchView.OnQuery
 
     @ItemLongClick(R.id.favoriteList)
     void onLongClick(final int i) {
-        AppOKCancelDialog.show(FavoriteActivity.this, "操作", "目前仅支持删除操作", "删除", "取消", new AppOKCancelDialog.Callback() {
+        AppOKCancelDialog.show(FavoriteActivity.this, "操作", "是否删除?", "删除", "取消", new AppOKCancelDialog.Callback() {
             @Override
             public void onCancel() {
 

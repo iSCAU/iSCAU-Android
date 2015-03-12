@@ -152,7 +152,7 @@ public class FragmentClassTable extends BaseFragment {
             week_classtable.setVisibility(View.GONE);
             day_classtable_container.setVisibility(View.VISIBLE);
             menu_class_table_day_week_mode.setTitle("周课表");
-            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_day_mod));
+            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_week_mod));
             showTab();
         } else if (mode == 1) {//周视图
             menu_class_table_day_week_mode.setTitle("日课表");
@@ -164,7 +164,7 @@ public class FragmentClassTable extends BaseFragment {
             } else {
                 week_classtable.setVisibility(View.VISIBLE);
             }
-            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_week_mod));
+            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_day_mod));
             showWeekClass();
 
         }
@@ -322,6 +322,7 @@ public class FragmentClassTable extends BaseFragment {
         pager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         pager.setCurrentItem(prevPosition);
+        webWeekClasstableHelper.setSchool_week(school_week);
         //刷新全周课表
         webWeekClasstableHelper.refreshClassTable();
         showWeekClass();
@@ -413,9 +414,11 @@ public class FragmentClassTable extends BaseFragment {
     void menu_class_table_day_week_mode() {
         if (app.config.day_week().get() == 0) {
             app.config.day_week().put(1);
+            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_week_mod));
             menu_class_table_day_week_mode.setTitle("周课表");
         } else if (app.config.day_week().get() == 1) {
             app.config.day_week().put(0);
+            menu_class_table_day_week_mode.setIcon(getResources().getDrawable(R.drawable.action_day_mod));
             menu_class_table_day_week_mode.setTitle("日课表");
 
         }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 
+import cn.scau.scautreasure.widget.*;
 import com.gc.materialdesign.widgets.Dialog;
 
 import org.androidannotations.annotations.AfterViews;
@@ -47,14 +48,6 @@ import cn.scau.scautreasure.model.BusLineModel;
 import cn.scau.scautreasure.model.BusSiteModel;
 import cn.scau.scautreasure.model.BusStateModel;
 import cn.scau.scautreasure.util.CacheUtil;
-import cn.scau.scautreasure.widget.AppToast;
-import cn.scau.scautreasure.widget.BusTabWidget;
-
-import cn.scau.scautreasure.widget.BusWidget;
-
-
-import cn.scau.scautreasure.widget.RefreshActionItem;
-import cn.scau.scautreasure.widget.RefreshIcon;
 
 
 @EFragment(R.layout.bus)
@@ -95,6 +88,7 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
 
     @AfterViews
     void initViews() {
+        setHasOptionsMenu(true);
         if (!isAfterViews) {
             isAfterViews = true;
             System.out.println("校巴");
@@ -112,7 +106,7 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
      * @param line
      * @param direction
      */
-    @Background
+    //@Background
     void loadSite(final String line, final String direction) {
         loadCacheSiteList(line, direction);
         if (siteList == null) {
@@ -121,7 +115,7 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
                 public void onSuccess(Object obj) {
                     siteList = (ArrayList<BusSiteModel>) obj;
                     saveCacheSiteList(line, direction);
-
+                    loadData(line, direct);
                 }
 
                 @Override
@@ -136,6 +130,8 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
                     error();
                 }
             });
+        }else{
+            loadData(line, direct);
         }
     }
 
@@ -144,14 +140,14 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
      *
      * @param params
      */
-    @Background(id = UIHelper.CANCEL_FLAG)
+
     void loadData(Object... params) {
         httpLoader.updateBusPos(new HttpLoader.NormalCallBack() {
             @Override
             public void onSuccess(Object obj) {
                 stateList = (List<BusStateModel>) obj;
                 showSiteAndBus();
-                BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);
+
             }
 
             @Override
@@ -171,8 +167,9 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
     /**
      * 加载线路
      */
-    @Background
+    @Background(id = UIHelper.CANCEL_FLAG)
     void loadLine() {
+
         loadCacheLineList();
         if (lineList == null) {
             httpLoader.updateBusLine(new HttpLoader.NormalCallBack() {
@@ -183,10 +180,10 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
                     String line = String.valueOf(line_id);
                     if (line_id == 1) {
                         loadSite(line, direct);
-                        loadData(line, direct);
+
                     } else if (line_id == 2) {
                         loadSite(line, "circle");
-                        loadData(line, "circle");
+                       // loadData(line, "circle");
                     }
                     System.out.println("从网络加载线路");
                 }
@@ -209,10 +206,10 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
             String line = String.valueOf(line_id);
             if (line_id == 1) {
                 loadSite(line, direct);
-                loadData(line, direct);
+                //loadData(line, direct);
             } else if (line_id == 2) {
                 loadSite(line, "circle");
-                loadData(line, "circle");
+               // loadData(line, "circle");
             }
         }
 
@@ -234,6 +231,8 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
 
 
     }
+
+
 
     /**
      * 标签的点击,切换线路方向；
@@ -311,7 +310,10 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
 
     @UiThread
     void showSiteAndBus() {
-        mRefreshActionItem.stopProgress();
+        if(mRefreshActionItem!=null) {
+            mRefreshActionItem.stopProgress();
+        }
+        AppProgress.hide();
         Log.i("刷新校巴", String.valueOf(siteList.size()) + ":" + String.valueOf(stateList.size()));
         showLine();
 
@@ -331,7 +333,16 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
     @UiThread
     void refreshSiteAndBus() {
         System.out.println("刷新一次");
+        if(mRefreshActionItem != null)
         mRefreshActionItem.startProgress();
+        AppProgress.show(getActivity(), "载入中", "请稍后", "取消", new AppProgress.Callback() {
+            @Override
+            public void onCancel() {
+                Log.i(getClass().getName(), "点击了取消更新");
+                BackgroundExecutor.cancelAll(UIHelper.CANCEL_FLAG, true);//取消进程
+                mRefreshActionItem.stopProgress();
+            }
+        });
         loadLine();
 
     }
@@ -339,7 +350,9 @@ public class FragmentBus extends BaseFragment implements RefreshActionItem.Refre
 
     @UiThread
     void error() {
+        if(mRefreshActionItem!=null)
         mRefreshActionItem.stopProgress();
+        AppProgress.hide();
     }
 
 

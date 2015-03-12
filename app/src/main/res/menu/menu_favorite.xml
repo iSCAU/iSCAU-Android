@@ -10,26 +10,27 @@
         app:showAsAction="always"
         >
     </item>
-    <item
+    <!--<item
         android:id="@+id/menu_all"
         android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
         android:title="更多"
-        app:showAsAction="always">
-        <menu>
+        app:showAsAction="always">-->
+
             <item
                 android:id="@+id/menu_add_text"
-                android:title="添加文本"
+                android:title="添加笔记"
                 app:showAsAction="always"
+                android:icon="@drawable/icon_menu_add_ios7"
                 >
             </item>
 
-            <item
+            <!--<item
                 android:id="@+id/menu_about"
                 android:title="说明"
                 app:showAsAction="always"
                 >
-            </item>
+            </item>-->
 
-        </menu>
-    </item>
+
+   <!-- </item>-->
 </menu>
