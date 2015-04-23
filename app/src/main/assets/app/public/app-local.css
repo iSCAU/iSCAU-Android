@@ -1,0 +1,29 @@
+.title-nowrap {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: bold;
+}
+.poster,
+.time-postion {
+	color: gray;
+	font-size: 12px;
+}
+.list-item {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+html {
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+.page-container{
+	margin: 10px;
+}
+img{
+	max-width: 100%;
+}
+.page-title{
+	color: black;
+}

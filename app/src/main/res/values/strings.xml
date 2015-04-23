@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-     <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="pull_to_refresh_pull_down_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_down_label">释放更新</string>
+    <string name="pull_to_refresh_refreshing_down_label">正在刷新…</string>
+    <string name="pull_to_refresh_pull_up_label">上拉查看更多</string>
+    <string name="pull_to_refresh_release_up_label">释放加载更多</string>
+    <string name="pull_to_refresh_refreshing_up_label">正在加载…</string>
+    <string name="dialog_default_title">Here\'s a message!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="LOADING">Loading...</string>

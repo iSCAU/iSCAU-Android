@@ -31,6 +31,7 @@ public class About extends BaseActivity {
     @Override
     void doMoreButtonAction() {
         super.doMoreButtonAction();
-        share("邀请你使用华农宝,请到华农宝官方网站下载,网址:http://www.huanongbao.com");
+//        share("邀请你使用华农宝,请到华农宝官方网站下载,网址:http://www.huanongbao.com");
+        MacroBrowser_.intent(this).title("测试").url("http://www.baidu.com").start();
     }
 }

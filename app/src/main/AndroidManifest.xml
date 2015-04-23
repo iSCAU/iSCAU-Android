@@ -171,6 +171,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/BaseActionBar"
             android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name="cn.scau.scautreasure.ui.MacroBrowser_"
+
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <!--多选参数-->
         <activity
             android:name="cn.scau.scautreasure.ui.Param_"
