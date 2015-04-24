@@ -11,30 +11,81 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <script type="text/javascript" src="../public/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../public/func.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            loadCache();
+            load();
+        });
+
+        function load(){
+
+         	if(!window.JSAPI.isNetworkOk()){
+					window.JSAPI.toast('无网络连接');
+					window.JSAPI.ajaxFinish();
+				return;
+			};
+
+            $.get(
+                'http://120.24.164.20/temp-api/activity.php',
+                {
+                    date:getQueryString('date')
+                },function(data,status){
+                     updatePage(data);
+                     window.JSAPI.writeJsonStringCache(getQueryString('date'),JSON.stringify(data));
+
+                 }
+              );
+        }
+
+
+
+			    function loadCache(){
+						var jsonStr='';
+						jsonStr=window.JSAPI.readJsonStringCache(getQueryString('date'));
+
+ 						if(jsonStr!=''){
+							var jsonObj=$.parseJSON(jsonStr);
+							updatePage(jsonObj);
+						}else{
+							window.JSAPI.ajaxStart();
+						}
+
+
+				}
+
+				function updatePage(data){
+                    if(data.count>0){
+                        var list_item='';
+                        for(var i=0;i<data.count;i++){
+                           list_item+="<a onclick=\"window.JSAPI.newTab('"+data.content[i].association+"','file:///android_asset/app/activity/post.html?id="+data.content[i].id+"')\"class=\"collection-item avatar list-item\"><img src=\""+data.content[i].image+"\"alt=\""+data.content[i].title+"\"class=\"circle\"><span class=\"title title-nowrap\">"+data.content[i].title+"</span><p><span class=\"poster\"><i class=\"mdi-av-volume-down\"></i>"+data.content[i].association+"</span><br><span class=\"time-postion\"><i class=\"mdi-device-access-time\"></i>"+data.content[i].time+"<i class=\"mdi-communication-location-on\"></i>"+data.content[i].place+"</span></p></a>";
+                        }
+                        $("#listview").html(list_item);
+                    }else{
+
+
+                    }
+                     window.JSAPI.ajaxFinish();
+				};
+
+
+
+
+
+    </script>
 </head>
 
 <body>
 
-<div class="collection">
-    <a href="#!" class="collection-item   avatar list-item">
-        <img src="http://css88.b0.upaiyun.com/css88/2014/09/imooc.png" alt="" class="circle">
-        <span class="title title-nowrap ">终于等到你 | 第十一届“绿窗杯”现场征文大赛火热来袭！</span>
+<div id="listview" class="listview collection">
 
-        <p> <span class="poster"><i class="mdi-av-volume-down"></i>
-					人文与法学学院团委学生会
-				</span>
-            <br>
-            <span class="time-postion"><i class="mdi-device-access-time"></i> 2015-04-10 <i
-                    class="mdi-communication-location-on"></i>教四、教五</span>
-        </p>
-
-    </a>
 
 </div>
 
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../public/materialize/js/materialize.min.js"></script>
+
 </body>
 
 </html>

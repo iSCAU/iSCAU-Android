@@ -11,115 +11,70 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" type="text/css"
-          href="http://120.24.164.20/wp-content/themes/yusi1.0/style.css?ver=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../public/yusi1.0.css"/>
+    <script type="text/javascript" src="../public/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../public/func.js"></script>
+    <script>
+        $(document).ready(function(){
+            loadCache();
+            load();
+        });
+        function loadCache(){
+						var jsonStr='';
+						jsonStr=window.JSAPI.readJsonStringCache('post-'+getQueryString('id'));
+ 						if(jsonStr!=''){
+							var jsonObj=$.parseJSON(jsonStr);
+							updatePage(jsonObj);
+						}else{
+							window.JSAPI.ajaxStart();
+						}
+        }
+
+        function load(){
+           if(!window.JSAPI.isNetworkOk()){
+					window.JSAPI.toast('无网络连接');
+					window.JSAPI.ajaxFinish();
+					loadCache();
+					return;
+			}
+
+            $.get(
+                'http://120.24.164.20/temp-api/activity_post.php',
+                {
+                    id:getQueryString('id')
+                },
+                function(data,status){
+                    updatePage(data);
+                    window.JSAPI.writeJsonStringCacheWithTime('post-'+getQueryString('id'),JSON.stringify(data),5*24*60*60);
+					window.JSAPI.ajaxFinish();
+				}
+            );
+
+
+        }
+
+
+//临时
+        function updatePage(data){
+            if(data.status=='OK'){
+                $('#title').html(data.content.title);
+                $('#time-publisher').html(data.content['time']+" "+data.content['association']);
+                $('#post-content').html(data.content['content']);
+            }else{
+
+
+            }
+        }
+
+    </script>
 </head>
 
 <body class="page-container">
 <div class="page-title">
-    <h5>终于等到你 | 第十一届“绿窗杯”现场征文大赛火热来袭！</h5>
-    <span style="font-size: 14px;color: gray;">2015-04-23 人文与法学学院团委学生会</span>
+    <h5 id="title"></h5>
+    <span id="time-publisher" style="font-size: 14px;color: gray;"></span>
 </div>
-<div style="margin-top: 5px;" class="row">
-    <div class="rich_media_meta_list"><em id="post-date"
-                                          class="rich_media_meta rich_media_meta_text">2015-04-14</em>
-        <a id="post-user" class="rich_media_meta rich_media_meta_link rich_media_meta_nickname"></a>华农绿窗文学社
-    </div>
-    <div id="media" class="rich_media_thumb_wrp">
-        <img id="js_cover" class="rich_media_thumb"
-             src="http://mmbiz.qpic.cn/mmbiz/3ND5ITSiacklWyR3Je6oAlNyuAUFaRiajdNML6icibhJZ5HMjkKL5efl72eFK9MdcONyn0n8f0T9fUa2dMIiceps9Xw/640?tp=webp&amp;wxfrom=5"
-             alt="" data-s="300,640"/>
-    </div>
-    <div id="js_content" class="rich_media_content">
-
-        这是华农一年一度的文学盛事..... 这是华农文学爱好者们最为关注的文学赛事之一！ 不需要华丽的舞台， 不需要高大上的设备， 紧握手中的笔，在纸上文采飞扬！
-        绿窗杯，终于让我等到你...... 由华南农业大学绿窗文学社主办的第十一届“绿窗杯”现场征文大赛火热来袭！
-        此次大赛不再沿用传统的征文方式，在华农校内首次采用提前报名、现场公布主题、现场创作的方式，使赛制更公平公正，也对作者们更具有创新性！
-
-        <strong>你敢来挑战吗？</strong>
-        此次大赛的奖品也空前丰厚！古典型U盘、畅销图书、纯手工海鲜披萨，只为你准备！成绩前100名的作者还将获得价值46元的凯撒沙拉免费赠劵一张！
-
-        <strong>你心动了吗？</strong>
-
-        <img src="http://mmbiz.qpic.cn/mmbiz/HeaqHoWG8YyXhlzTiaQdvgPUAXEOeEqBxt10YgMVqnibFrCS0vsgic3v0FlghJKP8xBHBibncp14VA9KicfBA3RtOxQ/0?tp=webp&amp;wxfrom=5"
-             alt=""
-             data-src="http://mmbiz.qpic.cn/mmbiz/HeaqHoWG8YyXhlzTiaQdvgPUAXEOeEqBxt10YgMVqnibFrCS0vsgic3v0FlghJKP8xBHBibncp14VA9KicfBA3RtOxQ/0"
-             data-ratio="0.049800796812749" data-w=""/>
-
-        <strong>大赛时间轴</strong>
-
-        <strong>报名时间：</strong>4月15日-4月25日
-
-        <strong>扫楼时间：</strong>4月20日-4月21日
-
-        <strong>摆摊时间：</strong>4月23日（芷园、西园、荷园）
-
-        <strong>比赛时间：</strong>4月26日9:00-11:00
-
-        <strong>公布获奖名单：</strong>5月13日
-
-        <strong>颁奖典礼：</strong>待定
-
-        <hr/>
-
-        <strong>参赛信息</strong>
-
-        <strong>面向对象：</strong>华南农业大学全体在校学生
-
-        <strong>参赛方式：</strong>参赛者提前报名，文学社将于4月15日提前预告5个候选话题，4月26日现场最终公布三个话题（其中两个来自5个候选话题），参赛者任选<strong>一个</strong>进行现场创作。
-
-        <strong>参赛地点：</strong>教四306
-
-        <hr/>
-
-        <strong>报名方式（任选一种）</strong> 1.发送短信“姓名+学号+年级专业+宿舍区+长短号+QQ”至18819261733，收到回复即报名成功。
-        2.关注绿窗公众微信号scaulv，回复“
-
-        <strong>绿窗杯</strong>”获取报名链接，提交个人信息即报名成功。 3.在各大摊位处现场报名。
-
-        <hr/>
-
-        <strong>奖项设置</strong> 一等奖1名 古典型U盘+12寸海鲜披萨+畅销书籍 二等奖3名 古典型U盘+9寸海鲜披萨+畅销书籍 三等奖5名 古典型U盘+畅销书籍
-
-        <strong>以上获奖者同时均颁发荣誉证书一份</strong>
-
-        <strong>成绩前100名作者将获得凯撒沙拉免费赠劵一张！</strong>
-
-        <strong>所有参赛者均可获得参赛活动证明一份！同时优秀作品将有机会刊登至华农校报或绿窗社报《绿苑》。</strong>
-
-        <strong><img
-                src="http://mmbiz.qpic.cn/mmbiz/3ND5ITSiacklWyR3Je6oAlNyuAUFaRiajdk7cOWp8XWVXreEExocLso9icK69UicDeEOMCGobraLxCUUIZGgEO4j0w/640?tp=webp&amp;wxfrom=5"
-                alt="" data-s="300,640" data-type="png"
-                data-src="http://mmbiz.qpic.cn/mmbiz/3ND5ITSiacklWyR3Je6oAlNyuAUFaRiajdk7cOWp8XWVXreEExocLso9icK69UicDeEOMCGobraLxCUUIZGgEO4j0w/0"
-                data-ratio="0.9352112676056338" data-w="355"/>
-        </strong>
-
-        <hr/>
-
-        <strong>五个候选话题</strong>
-        1、重新装载微信软件后会弹出这样的界面：“在过去的一年里，你送出了xx个赞，得到了xx个赞；点赞容易，当面夸不易”。请以“微信时期的感情”为话题并作文，体裁不限。 2、边界
-        3、写不进诗里的爱情 4、电影《禁闭岛》的片尾，主角说了一个选择题：＂像怪物一样活着还是像好人一样死去”，谈谈你对这句话的感悟。
-        5、归家，这是一个永不落伍的词汇，我们曾无数次回味，无数次落笔，而当我们成年，离家越来越远，你是否对这个词有了更加深刻的体会？你是否在这个年少与成熟之间的节骨眼上，更加理解这个词汇？你是否能从一个不同的角度，看待这个词汇？
-        更多详情可关注绿窗微信号scaulv 或关注微博@华农绿窗文学社 或加入绿窗文学交流QQ群341540090 也可咨询林同学（18819261733/661733）
-
-        <img src="http://mmbiz.qpic.cn/mmbiz/mXxlqaPRlDzTXa45W9TJhxYHa6M3RZZCLxVUAdSTHz3JTaL4iaskuZD5Od3DO42S8BSgcJMdPVvX0qeIjkuoPqQ/0?tp=webp&amp;wxfrom=5"
-             alt=""
-             data-src="http://mmbiz.qpic.cn/mmbiz/mXxlqaPRlDzTXa45W9TJhxYHa6M3RZZCLxVUAdSTHz3JTaL4iaskuZD5Od3DO42S8BSgcJMdPVvX0qeIjkuoPqQ/0"
-             data-ratio="0.07854984894259819" data-w="331"/>
-
-        <strong>后续小窗将在微信发布往年绿窗杯征文话题和获奖作品，敬请关注！</strong>
-        <fieldset><strong>特别鸣谢：</strong><strong>American Pie Pizza</strong>&nbsp;
-
-            <strong>地址：广州市天河区茶山路230号之72</strong><strong>
-            </strong>
-
-            <strong>外卖电话：85289850</strong> &nbsp;
-
-        </fieldset>
-        <img src="http://mmbiz.qpic.cn/mmbiz/3ND5ITSiacknf89ATg96TMHVZakyPKDMzcxfdibY4RoslocvibEQPcyq33Zm5l9w10attJOqcusSwbH102mL1FWjg/640?tp=webp&amp;wxfrom=5"
-             alt=""
-             data-src="http://mmbiz.qpic.cn/mmbiz/3ND5ITSiacknf89ATg96TMHVZakyPKDMzcxfdibY4RoslocvibEQPcyq33Zm5l9w10attJOqcusSwbH102mL1FWjg/0"
-             data-type="png" data-s="300,640" data-ratio="0.6224066390041494" data-w="482"/>
+<div id="post-content" style="margin-top: 5px;" class="row">
 
     </div>
     <div class="post-footer">

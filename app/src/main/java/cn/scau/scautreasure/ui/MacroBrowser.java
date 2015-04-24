@@ -1,10 +1,9 @@
 package cn.scau.scautreasure.ui;
 
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.widget.LinearLayout;
 
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -22,12 +21,15 @@ import cn.scau.scautreasure.widget.MacroWebView;
 @EActivity(R.layout.macro_browser)
 //@OptionsMenu(R.menu.menu_browser)
 public class MacroBrowser extends BaseActivity implements MacroWebView.WebViewCallBack, MacroWebView.AjaxCallBack {
+    //父layout
     @ViewById(R.id.container)
     LinearLayout container;
-    MacroWebView webView;
 
-    @ViewById(R.id.progressBar)
-    ProgressBarCircularIndeterminate progressBar;
+    MacroWebView macroWebView;
+
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Extra
     String title = "正在加载...";
@@ -36,41 +38,70 @@ public class MacroBrowser extends BaseActivity implements MacroWebView.WebViewCa
     @Extra
     String url = "";
 
+    @Extra
+    boolean isAjaxRefresh = true;
+
+
     @AfterViews
     void initBrowser() {
         setTitleText(title);
-
-        webView = new MacroWebView(this);
-        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        webView.setWebViewCallBack(this);
-        webView.setAjaxCallBack(this);
-        container.addView(webView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        webView.loadUrl(url);
+        swipeRefreshLayout = new SwipeRefreshLayout(this);
+        macroWebView = new MacroWebView(this);
+        macroWebView.setWebViewCallBack(this);
+        macroWebView.setAjaxCallBack(this);
+        swipeRefreshLayout.addView(macroWebView);
+        container.addView(swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        swipeRefreshLayout.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.LARGE); // 设置圆圈的大小
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        macroWebView.loadUrl(url);
     }
 
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            hideProgress();
+            if (isAjaxRefresh)
+                macroWebView.loadUrl("javascript:load()");
+            else
+                macroWebView.loadUrl(url);
+        }
+    };
+
+    /**
+     * 防止...
+     */
     @UiThread(delay = 10000)
     void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
+    @UiThread
     @Override
     public void onAjaxStarting() {
-
+        hideProgress();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
+    @UiThread
     @Override
     public void onAjaxFinished() {
 
+        swipeRefreshLayout.setRefreshing(false);
     }
 
+    @UiThread
     @Override
     public void onPageStarting() {
         hideProgress();
-        progressBar.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void onPageFinished() {
-        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

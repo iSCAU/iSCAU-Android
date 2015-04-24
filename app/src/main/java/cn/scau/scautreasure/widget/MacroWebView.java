@@ -49,13 +49,19 @@ public class MacroWebView extends WebView {
         webSettings.setDomStorageEnabled(true);
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setAllowFileAccess(true);
+
+        if (network()) {
+            webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        } else {
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
         setWebViewClient(new MacroWebViewClient());
 
         setWebChromeClient(new MacroWebChromeClient());
 
         addJavascriptInterface(new JSAPINormal(), "JSAPI");
-
     }
+
 
     public WebViewCallBack getWebViewCallBack() {
         return webViewCallBack;
@@ -179,9 +185,16 @@ public class MacroWebView extends WebView {
          * @param text
          */
         @JavascriptInterface
-        public void toast(String text) {
-            AppToast.show((Activity) mContext, text, 0);
-
+        public void toast(final String text) {
+            new Thread(new Runnable() {
+                public void run() {
+                    post(new Runnable() {
+                        public void run() {
+                            AppToast.show((Activity) mContext, text, 0);
+                        }
+                    });
+                }
+            }).start();
         }
 
         /**
@@ -229,6 +242,18 @@ public class MacroWebView extends WebView {
         }
 
         /**
+         * 定时缓存
+         *
+         * @param cacheKey
+         * @param string
+         * @param saveTime 单位秒
+         */
+        @JavascriptInterface
+        public void writeJsonStringCacheWithTime(String cacheKey, String string, int saveTime) {
+            cacheHelper.writeStringToCache(cacheKey, string, saveTime);
+        }
+
+        /**
          * 读取json缓存
          *
          * @param cacheKey
@@ -239,6 +264,7 @@ public class MacroWebView extends WebView {
             return cacheHelper.readStringFromCache(cacheKey);
         }
 
+
         /**
          * 当前网络是否可用
          *
@@ -246,13 +272,18 @@ public class MacroWebView extends WebView {
          */
         @JavascriptInterface
         public boolean isNetworkOk() {
-            NetworkHelper.NetworkType type = networkHelper.getCurrentNetType(mContext);
-            if (type == NetworkHelper.NetworkType.NONE) {
-                return false;
-            }
-            return true;
+            return network();
         }
 
 
+    }
+
+
+    boolean network() {
+        NetworkHelper.NetworkType type = networkHelper.getCurrentNetType(mContext);
+        if (type == NetworkHelper.NetworkType.NONE) {
+            return false;
+        }
+        return true;
     }
 }

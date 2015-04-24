@@ -32,6 +32,6 @@ public class About extends BaseActivity {
     void doMoreButtonAction() {
         super.doMoreButtonAction();
 //        share("邀请你使用华农宝,请到华农宝官方网站下载,网址:http://www.huanongbao.com");
-        MacroBrowser_.intent(this).title("测试").url("http://www.baidu.com").start();
+        MacroBrowser_.intent(this).title("测试").url("file:///android_asset/app/activity/post.html?id=409").start();
     }
 }

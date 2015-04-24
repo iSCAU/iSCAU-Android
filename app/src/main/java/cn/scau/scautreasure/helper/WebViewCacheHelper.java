@@ -88,5 +88,16 @@ public class WebViewCacheHelper {
         cacheUtil.put(cacheKey, string);
     }
 
+    /**
+     * 写字符串
+     *
+     * @param cacheKey
+     * @param string
+     * @param time 秒
+     */
+    public void writeStringToCache(String cacheKey, String string, int time) {
+        cacheUtil.put(cacheKey, string, time);
+    }
+
 
 }

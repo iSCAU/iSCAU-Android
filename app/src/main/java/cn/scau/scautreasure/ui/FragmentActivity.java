@@ -53,9 +53,9 @@ public class FragmentActivity extends BaseFragment {
             isAfterViews = true;
             System.out.println("活动圈");
             helper.initHelper(getActivity().getApplication());
-            today = new MacroWebViewRefresh5(getActivity(), "file:///android_asset/app/activity/today.html");
-            tomorrow = new MacroWebViewRefresh5(getActivity(), "file:///android_asset/app/activity/index.html");
-            later = new MacroWebViewRefresh5(getActivity(), "file:///android_asset/app/activity/index.html");
+            today = new MacroWebViewRefresh5(getActivity(), "file:///android_asset/app/activity/index.html?date=today");
+            tomorrow = new MacroWebViewRefresh5(getActivity(), "file:///android_asset/app/activity/index.html?date=tomorrow");
+            later = new MacroWebViewRefresh5(getActivity(), "file:///android_asset/app/activity/index.html?date=future");
 
 
             browsers.add(today);
