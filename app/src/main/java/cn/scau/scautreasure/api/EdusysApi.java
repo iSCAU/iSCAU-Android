@@ -20,7 +20,7 @@ import cn.scau.scautreasure.model.PickClassModel;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://mywpserver.sinaapp.com/index.php?s=edusys/", converters = {GsonHttpMessageConverter.class})
+@Rest(rootUrl = "http://115.28.144.49/edusys/", converters = {GsonHttpMessageConverter.class})
 public interface EdusysApi {
 
     @Get("login/{userName}/{passWord}/{server}")

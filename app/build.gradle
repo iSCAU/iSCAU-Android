@@ -1,19 +1,21 @@
 apply plugin: 'android'
 apply plugin: 'android-apt'
+def AAVersion = '3.2+'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 23
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
         versionName "2.6"
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
@@ -37,8 +39,8 @@ dependencies {
     compile project(':libraries:SlideExpandableListView')
     compile fileTree(dir: 'libs', include: ['*.jar', '*/*.jar'])
     compile files('libs/universal-image-loader-1.9.3-SNAPSHOT.jar')
-    compile "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
-    apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile files('libs/customimagelibrary.jar')
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.nineoldandroids:library:2.4.0'
@@ -58,7 +60,7 @@ configurations {
 
 apt {
     arguments {
-        androidManifestFile variant.processResources.manifestFile
+        androidManifestFile variant.outputs[0].processResources.manifestFile
         resourcePackageName 'cn.scau.scautreasure'
     }
 }

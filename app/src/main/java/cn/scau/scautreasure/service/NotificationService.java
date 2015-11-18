@@ -45,7 +45,8 @@ public class NotificationService extends Service {
 
             Intent intentservice = new Intent(getApplicationContext(), BorrowedBook_.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intentservice, 0);
-            notification.setLatestEventInfo(getApplicationContext(), "借阅到期提示", "你有N本书即将满借阅", pendingIntent);
+            //notification.setLatestEventInfo(getApplicationContext(), "借阅到期提示", "你有N本书即将满借阅", pendingIntent);
+            System.out.println("修bug,cn.scau.scautreasure.service");
 
             mNotificationManager.notify(1000, notification);
 

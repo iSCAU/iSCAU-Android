@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="4"
+                android:layout_weight="5"
                 android:text="9,10,11节"
                 android:textColor="@color/class_note_textcolor"
                 android:textSize="@dimen/class_note_textsize"/>
@@ -40,7 +40,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
-                android:layout_weight="4"
+                android:layout_weight="3"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="大学英语"

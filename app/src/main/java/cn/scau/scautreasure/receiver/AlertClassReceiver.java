@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.EReceiver;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.ui.Welcome_;
@@ -25,6 +26,8 @@ public class AlertClassReceiver extends BroadcastReceiver
     private String className;
     private String classTime;
     private String classBlock;
+    @Pref
+    cn.scau.scautreasure.AppConfig_ config;
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -55,10 +58,15 @@ public class AlertClassReceiver extends BroadcastReceiver
 
         Intent intent = new Intent(context, Welcome_.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        // 点击状态栏的图标出现的提示信息设置
+        //点击状态栏的图标出现的提示信息设置
         //你即将要上的课是：xxxx(课名)，地点:xxx
-        notification.setLatestEventInfo(context, "华农宝提醒你：", className+"("+classBlock+"|"+classTime+")", pendingIntent);
-        manager.notify(1, notification);
+        //notification.setLatestEventInfo(context, "华农宝提醒你：", className+"("+classBlock+"|"+classTime+")", pendingIntent);
+        System.out.println("修bug:cn.scau.scautreasure.alertreceiver");
+
+        if(config.isAlertClass().get()){
+            manager.notify(1, notification);
+        }
+
 
     }
 }

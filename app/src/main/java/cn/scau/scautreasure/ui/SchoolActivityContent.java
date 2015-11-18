@@ -27,7 +27,7 @@ import cn.scau.scautreasure.widget.SchoolActivityContentWebView;
 public class SchoolActivityContent extends CommonActivity {
 
     @ViewById
-    TextView title,time;
+    TextView title;
 
     @ViewById
     SchoolActivityContentWebView content;
@@ -42,7 +42,7 @@ public class SchoolActivityContent extends CommonActivity {
     void init(){
         getSupportActionBar().setTitle("活动内容");
         title.setText(model.getTitle());
-        time.setText(SchoolActivityHelper.getTimeText(model.getTime()));
+        //time.setText(SchoolActivityHelper.getTimeText(model.getTime()));
         content.setContent(model.getContent());
     }
 

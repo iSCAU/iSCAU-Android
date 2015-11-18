@@ -108,7 +108,7 @@ public class SchoolActivityContentWebView extends WebView {
             }
 
             public void onPageFinished(WebView view, String url) {
-                view.loadUrl("javascript:(function _f(){\n" +
+               /* view.loadUrl("javascript:(function _f(){\n" +
                         "if(iwant._getWidth()==0){\n" +
                         " setTimeout(_f,20);}\n" +
                         "else{\n" +
@@ -116,14 +116,14 @@ public class SchoolActivityContentWebView extends WebView {
                         "var _width = iwant._getWidth();\n" +
                         "var _margin = 12;\n" +
                         "document.body.style.padding= _margin;\n" +
-                        /*"for(var i=0;i<_img.length;i++){\n" +
+                        *//*"for(var i=0;i<_img.length;i++){\n" +
                         "\t_img[i].style.marginTop= _margin;\n" +
                         "\t_img[i].style.marginBottom= _margin;\n" +
                         "\t_img[i].width = _width - _margin*2;\n" +
-                        "}\n" +*/
+                        "}\n" +*//*
                         "document.body.style.display=\"\";\n" +
                         "}\n" +
-                        "})();");
+                        "})();");*/
             }
 
         });

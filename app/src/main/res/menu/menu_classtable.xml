@@ -4,9 +4,9 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="按周查看"
-        android:id="@+id/menu_selece_week"
-        android:icon="@drawable/icon_menu_week_setting"
+        android:title="日周切换"
+        android:id="@+id/table_change_mode"
+        android:icon="@drawable/action_week_mod"
         app:showAsAction="always"
         >
 
@@ -20,7 +20,7 @@
         <menu>
             <item
                 android:id="@+id/menu_refresh_classtable"
-                android:title="从正方刷新课程表"
+                android:title="导入课程表"
                 app:showAsAction="always"/>
             <item
                 android:id="@+id/menu_add_class"

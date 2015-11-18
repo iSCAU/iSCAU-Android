@@ -51,7 +51,9 @@ public class NotificationReceiver extends BroadcastReceiver {
 
                 Intent intentservice = new Intent(context.getApplicationContext(), BorrowedBook_.class);
                 PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intentservice, 0);
-                notification.setLatestEventInfo(context.getApplicationContext(), "借阅到期提示", "你有N本书即将满借阅", pendingIntent);
+                //暂时注释
+               // notification.setLatestEventInfo(context.getApplicationContext(), "借阅到期提示", "你有N本书即将满借阅", pendingIntent);
+                System.out.println("修bug,cn.scau.scautreasure.receiver");
 
                 mNotificationManager.notify(1000, notification);
 

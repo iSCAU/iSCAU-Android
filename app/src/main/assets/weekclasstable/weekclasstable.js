@@ -1,3 +1,5 @@
+var hours = ["08","08", "10", "10", "12", "13", "14", "15", "16", "17", "19", "20", "21"];
+var mins = ["00", 50, "05", 55, 30, 20, 30, 20, 35, 25, 30, 20, 10];
 var main = function(){
     // 显示的天数
     var showCount = 7;
@@ -55,10 +57,11 @@ var main = function(){
                 allNodes += "," + nodes[k] + ",";
             }
             //Android.debug("node:"+(parseInt(nodes[0])+i));
+            var startTime = hours[parseInt(nodes[0])-1]+":"+mins[parseInt(nodes[0])-1];
             $class = $("<div id='"+obj.day_class[j].id+"' class='class_item' style='top: "+itemY+"px;"+
                                        " left:"+itemX+"px; width: "+blockWidth+"px; height: "+blockHeight*nodes.length+"px;"+
                                        " background-color: "+colors[parseInt(parseInt(nodes[0])+i)%colors.length]+"; '></div>");
-            $class_item=$("<div id=item"+obj.day_class[j].id+">"+obj.day_class[j].classname+"<br/>"+obj.day_class[j].location+"</div>");
+            $class_item=$("<div id=item"+obj.day_class[j].id+">"+startTime+"<br/>"+obj.day_class[j].classname+"<br/>"+obj.day_class[j].location+"</div>");
             $class.html($class_item);
             $(".classtable_class").append($class);
             var mt = (blockHeight*nodes.length - $class_item.height() ) /2;

@@ -48,7 +48,7 @@ public class ClassAdapter extends QuickAdapter<ClassModel> {
                 .setText(R.id.tv_classname_details, classModel.getClassname())
                 .setText(R.id.tv_place, classModel.getLocation())
                 .setText(R.id.tv_class_place, classModel.getLocation())
-                .setText(R.id.tv_nodes, classModel.getNode()+"节@"+getStartTime(classModel.getNode()))
+                .setText(R.id.tv_nodes, classModel.getNode())
                 .setText(R.id.tv_dsz, classModel.getDsz())
                 .setText(R.id.tv_week_range, classModel.getStrWeek() + "-" + classModel.getEndWeek());
 
@@ -87,28 +87,6 @@ public class ClassAdapter extends QuickAdapter<ClassModel> {
         });
     }
 
-    private String getStartTime(String node){
-        String[] nodes = node.split(",");
-        int firstNode=Integer.valueOf(nodes[0]);
-        switch (firstNode){
-            case 1 : return "8:00";
-            case 2 : return "8:50";
-            case 3 : return "10:05";
-            case 4 : return "10:55";
-            case 5 : return "12:30";
-            case 6 : return "13:20";
-            case 7 : return "14:30";
-            case 8 : return "15:20";
-            case 9 : return "16:35";
-            case 10 : return "17:25";
-            case 11 : return "19:30";
-            case 12 : return "20:20";
-            default:return "";
-
-
-        }
-
-    }
     private void setLeftImageViewColor(BaseAdapterHelper baseAdapterHelper) {
         int color = AppConstant.IV_COLOR[baseAdapterHelper.getPosition() % AppConstant.IV_COLOR.length];
         ImageView iv = baseAdapterHelper.getView(R.id.class_iv);

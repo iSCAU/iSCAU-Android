@@ -6,7 +6,7 @@ import android.os.IBinder;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EService;
-import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.Log;
 
 import cn.scau.scautreasure.AppContext;
 
