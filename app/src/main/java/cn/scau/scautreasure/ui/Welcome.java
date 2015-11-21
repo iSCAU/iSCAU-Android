@@ -1,13 +1,19 @@
 package cn.scau.scautreasure.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -32,6 +38,8 @@ import cn.scau.scautreasure.service.AlertClassSerice_;
 import cn.scau.scautreasure.service.FoodShopService_;
 import cn.scau.scautreasure.service.NetworkStatusService_;
 import cn.scau.scautreasure.service.UpLoadUsersService_;
+import cn.scau.scautreasure.widget.CheckcodeDialog;
+
 
 /**
  * User: special
@@ -41,6 +49,8 @@ import cn.scau.scautreasure.service.UpLoadUsersService_;
  */
 @EActivity(R.layout.welcome)
 public class Welcome extends Activity {
+
+    private Dialog downloadDialog;
 
     @App
     AppContext app;
@@ -74,10 +84,10 @@ public class Welcome extends Activity {
         //拿外卖
         FoodShopService_.intent(this).start();
 
-        //上传用户资料
-        if (!appConfig.hasUpdatedUsers().get() && !appConfig.userName().equals("")) {
-            UpLoadUsersService_.intent(getApplicationContext()).start();
-        }
+//        //上传用户资料
+//        if (!appConfig.hasUpdatedUsers().get() && !appConfig.userName().equals("")) {
+//            UpLoadUsersService_.intent(getApplicationContext()).start();
+//        }
 
         //开启网络监控
         Intent networkService = new Intent(this, NetworkStatusService_.class);
@@ -112,10 +122,28 @@ public class Welcome extends Activity {
         String originText = tv_version.getText().toString();
         String versionName = packageHelper.getAppVersionName();
         tv_version.setText(originText + " " + versionName);
+
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("版本更新下载中，请稍候");
+//
+//        final LayoutInflater inflater = LayoutInflater.from(this);
+//        View view = inflater.inflate(R.layout.checkcode_dialog, null);
+//        builder.setView(view);
+//        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        downloadDialog = builder.create();
+//        downloadDialog.show();
+
+
         close();
     }
 
-    @UiThread(delay = 2000)
+    @UiThread(delay = 1000)
     protected void close() {
         if (hasSetAccount()) {
             Main_.intent(this).start();

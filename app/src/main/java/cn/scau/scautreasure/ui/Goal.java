@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.scau.scautreasure.AppContext;
+import cn.scau.scautreasure.AppContext_;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.GoalAdapter;
 import cn.scau.scautreasure.api.EdusysApi;
@@ -88,6 +89,10 @@ public class Goal extends CommonQueryActivity {
             buildAndShowListViewAdapter();
         } catch (HttpStatusCodeException e) {
             Log.d("server_code",e.getStatusCode()+"");
+            //AppContext_.islogin=false;
+            if (e.getStatusCode().value()==500){
+                AppContext_.islogin=false;
+            }
             showErrorResult(getSherlockActivity(), e.getStatusCode().value(), this);
         } catch (Exception e) {
             handleNoNetWorkError(getSherlockActivity());

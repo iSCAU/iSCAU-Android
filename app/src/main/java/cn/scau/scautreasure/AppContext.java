@@ -60,6 +60,7 @@ public class AppContext extends Application {
      ClassHelper classHelper;
 
 
+    public static boolean islogin=false;
     public static String userName;
     public static String eduSysPassword;
     public static String libPassword;

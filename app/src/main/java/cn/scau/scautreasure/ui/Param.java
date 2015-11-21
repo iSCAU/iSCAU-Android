@@ -64,6 +64,7 @@ public class Param extends CommonActivity implements ServerOnChangeListener {
     void init() {
         wheelList = new ArrayList<ParamWidget>();
         UIHelper.getDialog(R.string.tips_loading_params).show();
+
         loadData();
     }
 

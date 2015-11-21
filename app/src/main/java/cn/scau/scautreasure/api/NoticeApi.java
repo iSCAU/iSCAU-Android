@@ -14,7 +14,7 @@ import cn.scau.scautreasure.model.NoticeModel;
  * Mail:  specialcyci@gmail.com
  */
 
-@Rest(rootUrl = "http://115.28.144.49/notice/", converters = {GsonHttpMessageConverter.class})
+@Rest(rootUrl = "http://hnbnodb.huanongbao.com/index.php?s=notice/", converters = {GsonHttpMessageConverter.class})
 public interface NoticeApi {
 
     @Get("getlist/{page}")

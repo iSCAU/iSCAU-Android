@@ -1,6 +1,9 @@
 package cn.scau.scautreasure.ui;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,21 +15,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.view.Menu;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 
+import com.avos.avoscloud.LogUtil;
 import com.devspark.appmsg.AppMsg;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
@@ -42,11 +50,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.scau.scautreasure.AppContext;
+import cn.scau.scautreasure.AppContext_;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.ClassAdapter;
 import cn.scau.scautreasure.adapter.ClassAdapter_;
 import cn.scau.scautreasure.adapter.ClassTableAdapter;
 
+import cn.scau.scautreasure.api.CookieApi;
 import cn.scau.scautreasure.api.EdusysApi;
 import cn.scau.scautreasure.helper.ActionBarHelper;
 import cn.scau.scautreasure.helper.ClassHelper;
@@ -55,6 +65,8 @@ import cn.scau.scautreasure.helper.WebWeekClasstableHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.impl.ServerOnChangeListener;
 import cn.scau.scautreasure.model.ClassModel;
+import cn.scau.scautreasure.model.CookieModel;
+import cn.scau.scautreasure.model.LoginModel;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.ClassTabWidget;
 
@@ -295,8 +307,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         if (app.eduSysPassword == null || app.eduSysPassword.equals("")) {
             Login_.intent(this).startTips(getString(R.string.start_tips_edusys)).start();
         } else {
-            swipe_refresh.setRefreshing(true);
-            loadData();
+            //swipe_refresh.setRefreshing(true);
+            //loadData();
+            beforeLoading();
         }
     }
 /*    @OptionsItem
@@ -402,7 +415,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         swipe_refresh.setRefreshing(false);
     }
 
-
+    @UiThread
+    void showMsg(String msg){
+        AppMsg.makeText(getSherlockActivity(),msg, AppMsg.STYLE_INFO).show();
+    }
 
     /**
      * 展示课程表,同时将课程表切换到今天.
@@ -576,5 +592,119 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             showClassTable();
         }
     }
+
+
+
+    /*2015-11-12 zzb添加，暂时未优化*/
+    @UiThread
+    void showCheckcode(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("请输入验证码");
+        final LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.checkcode_dialog, null);
+        final EditText editText= (EditText) view.findViewById(R.id.input_checkcode);
+        builder.setView(view);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                code = editText.getText().toString();
+                showProgressDialog(getActivity());
+                loginServer();
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
+        ImageView imageView=(ImageView)view.findViewById(R.id.checkcode_img);
+        AppContext.loadImage(cookieModel.getImg(), imageView, null);
+    }
+
+    @Click(R.id.checkcode_img)
+    void changeCheckCode(){
+        showProgressDialog(getActivity());
+        getCheckCode();
+    }
+
+    @UiThread
+    void beforeLoading(){
+        if (!AppContext_.islogin){
+            getCheckCode();
+        }else {
+            swipe_refresh.setRefreshing(true);
+            loadData();
+        }
+    }
+
+    private ProgressDialog progressDialog;
+    @RestService
+    CookieApi loginApi;
+
+    CookieModel cookieModel;
+    LoginModel loginModel;
+    String code;
+
+    @UiThread
+    void showProgressDialog(Context context){
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("正在加载中...");
+        progressDialog.show();
+    }
+
+    void colseProgressDialog(){
+        if (progressDialog!=null&&progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    @Background
+    void getCheckCode(){
+
+        try {
+            cookieModel=loginApi.getCookie();
+            showCheckcode();
+
+        }catch (Exception e){
+            LogUtil.log.i("设置："+e.toString());
+        }finally {
+            colseProgressDialog();
+        }
+
+    }
+
+
+
+    @Background
+    void loginServer() {
+
+        try {
+
+            loginModel=loginApi.loginCookie(AppContext.userName, app.getEncodeEduSysPassword(),cookieModel.getCookie(),code);
+            if (loginModel.getStatus()==1){
+                AppContext_.islogin=true;
+                beforeLoading();
+                LogUtil.log.i("设置：status为1" + loginModel.getMsg());
+            }else {
+                AppContext_.islogin=false;
+                showMsg(loginModel.getMsg());
+                LogUtil.log.i("设置：msg，不正常"+loginModel.getMsg());
+
+            }
+
+
+        }catch (Exception e){
+            LogUtil.log.i(e.toString());
+        }finally {
+            colseProgressDialog();
+        }
+    }
+
 
 }

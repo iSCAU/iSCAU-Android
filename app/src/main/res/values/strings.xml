@@ -23,6 +23,7 @@
     <string name="tips">提示</string>
     <string name="tips_loading_classtable">正在加载课程表..</string>
     <string name="tips_loading_params">正在加载条件..第一次加载可能比较慢，请耐心等待.</string>
+    <string name="tips_loading_checkcode">正在加载...</string>
     <string name="tips_no_allow_so_frequently">亲,刷新太频繁了,休息一会喝杯茶吧.</string>
     <string name="btn_continue">查   询</string>
     <string name="loading_goal">正在加载成绩..</string>

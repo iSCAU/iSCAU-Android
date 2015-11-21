@@ -12,7 +12,7 @@ import cn.scau.scautreasure.model.CardRecordModel;
  * Time: 下午3:30
  * Mail: specialcyci@gmail.com
  */
-@Rest(rootUrl = "http://115.28.144.49/card/", converters = {GsonHttpMessageConverter.class})
+@Rest(rootUrl = "http://hnbnodb.huanongbao.com/index.php?s=card/", converters = {GsonHttpMessageConverter.class})
 public interface CardApi {
 
     @Get("gettoday/{userName}/{passWord}")
