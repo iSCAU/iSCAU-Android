@@ -11,10 +11,10 @@ import cn.scau.scautreasure.model.SchoolActivityModel;
  * 校园活动 Api;
  */
 
-@Rest(rootUrl = "http://iscaucms.sinaapp.com/index.php/Api/", converters = {GsonHttpMessageConverter.class})
+@Rest(rootUrl = "http://a.huanongbao.com/temp-api/", converters = {GsonHttpMessageConverter.class})
 public interface SchoolActivityApi {
 
-    @Get("getActivities?time={time}")
+    @Get("api.php?time={time}")
     SchoolActivityModel.ActivityList getSchoolActivity(long time);
 
     //http://iscaucms.sinaapp.com/index.php/Api/activityCount?lastUpdate=123456789

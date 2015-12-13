@@ -3,15 +3,15 @@ apply plugin: 'android-apt'
 def AAVersion = '3.2+'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
-    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+//    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
-        versionName "2.6"
+        versionName "2.7"
     }
     buildTypes {
         release {

@@ -46,6 +46,7 @@ import cn.scau.scautreasure.widget.CheckcodeDialog;
  * Date: 13-9-28
  * Time: 下午12:36
  * Mail: specialcyci@gmail.com
+ * mmodify : zzb 15-12-13
  */
 @EActivity(R.layout.welcome)
 public class Welcome extends Activity {
@@ -75,25 +76,20 @@ public class Welcome extends Activity {
 
         //开启课程提醒
         if (appConfig.isAlertClass().get()) {
-//            AlertClassSerice_.intent(this).start();
-            //注解那个方法是绑定的
+//          AlertClassSerice_.intent(this).start();
+//          注解那个方法是绑定的
             Intent sevice = new Intent(this, AlertClassSerice_.class);
             startService(sevice);
         }
 
-        //拿外卖
-        FoodShopService_.intent(this).start();
-
-//        //上传用户资料
-//        if (!appConfig.hasUpdatedUsers().get() && !appConfig.userName().equals("")) {
-//            UpLoadUsersService_.intent(getApplicationContext()).start();
-//        }
-
         //开启网络监控
         Intent networkService = new Intent(this, NetworkStatusService_.class);
         startService(networkService);
-       /* //校园活动是否有更新
-        ActivityCountService_.intent(getApplicationContext()).start();*/
+
+         /*精简代码
+        //校园活动是否有更新
+        ActivityCountService_.intent(getApplicationContext()).start();
+
 
         //判断设备类型
         if (isPad()) {
@@ -113,6 +109,7 @@ public class Welcome extends Activity {
         }
             Log.d("splash","start");
             splashHelper.loadData();
+        */
 
     }
 

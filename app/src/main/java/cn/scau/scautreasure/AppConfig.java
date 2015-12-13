@@ -91,7 +91,7 @@ public interface AppConfig {
     @DefaultString("")
     String lastSeeNotificationDate();      // 上次显示通知的时间
 
-    @DefaultInt(ClassTable.MODE_PARAMS)
+    @DefaultInt(ClassTable.MODE_ALL)
     int classTableShowMode(); // 课程表显示模式;
 
     @DefaultInt(0xffffffff)

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.LogUtil;
+import com.devspark.appmsg.AppMsg;
 import com.umeng.fb.FeedbackAgent;
 
 import org.androidannotations.annotations.AfterViews;
@@ -42,7 +43,6 @@ import cn.scau.scautreasure.widget.BadgeView;
 public class Menu extends CommonFragment implements OnTabSelectListener {
 
 
-
     @RestService
     CookieApi api;
 
@@ -50,7 +50,7 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     LoginModel loginModel;
     String code;
 
-    int actionMark=1;
+    int actionMark = 1;
 
     private ProgressDialog progressDialog;
 
@@ -61,26 +61,25 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
 //        badgeView.show();
 
 
-
     }
 
-    private void setCheckCode(ImageView imageView,String url){
+    private void setCheckCode(ImageView imageView, String url) {
         AppContext.loadImage(url, imageView, null);
 
     }
 
 
     @Background
-    void getCheckCode(){
+    void getCheckCode() {
 
         try {
-               cookieModel=api.getCookie();
-               showCheckcode();
+            cookieModel = api.getCookie();
+            showCheckcode();
 
-        }catch (Exception e){
-            LogUtil.log.i("设置："+e.toString());
-        }finally {
-           colseProgressDialog();
+        } catch (Exception e) {
+            LogUtil.log.i("zzb_log:" + e.toString());
+        } finally {
+            colseProgressDialog();
         }
 
     }
@@ -90,42 +89,44 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
 
         try {
 
-            loginModel=api.loginCookie(AppContext.userName, app.getEncodeEduSysPassword(),cookieModel.getCookie(),code);
-            if (loginModel.getStatus()==1){
-                setCookie(getActivity(),cookieModel.getCookie(),cookieModel.getTime()*60);
-                AppContext_.islogin=true;
-                LogUtil.log.i("设置：status为1" + loginModel.getMsg());
+            loginModel = api.loginCookie(AppContext.userName, app.getEncodeEduSysPassword(), cookieModel.getCookie(), code);
+            if (loginModel.getStatus() == 1) {
+                LogUtil.log.i("zzb_log" + loginModel.getMsg());
                 goAction(actionMark);
-            }else {
-                //Toast.makeText(getActivity(),loginModel.getMsg(),Toast.LENGTH_SHORT).show();
-                AppContext_.islogin=false;
-                LogUtil.log.i("设置：msg，不正常"+loginModel.getMsg());
+            } else {
+                AppContext_.islogin = false;
+                LogUtil.log.i("zzb_log" + loginModel.getMsg());
+                showErrorMsg(loginModel.getMsg());
 
             }
 
 
-        }catch (Exception e){
-                LogUtil.log.i(e.toString());
-        }finally {
-           colseProgressDialog();
+        } catch (Exception e) {
+            LogUtil.log.i(e.toString());
+        } finally {
+            colseProgressDialog();
         }
     }
 
+    @UiThread
+    void showErrorMsg(String msg){
+        AppMsg.makeText(getSherlockActivity(),msg, AppMsg.STYLE_ALERT).show();
+    }
 
     @UiThread
-    void showCheckcode(){
+    void showCheckcode() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("请输入验证码");
         final LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.checkcode_dialog, null);
-        final EditText editText= (EditText) view.findViewById(R.id.input_checkcode);
+        final EditText editText = (EditText) view.findViewById(R.id.input_checkcode);
         builder.setView(view);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                code=editText.getText().toString();
+                code = editText.getText().toString();
                 showProgressDialog(getActivity());
                 loginServer();
 
@@ -140,78 +141,76 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
         });
         Dialog dialog = builder.create();
         dialog.show();
-        ImageView imageView=(ImageView)view.findViewById(R.id.checkcode_img);
+        ImageView imageView = (ImageView) view.findViewById(R.id.checkcode_img);
         setCheckCode(imageView, cookieModel.getImg());
     }
 
     @UiThread
-    void showProgressDialog(Context context){
-        progressDialog=new ProgressDialog(context);
+    void showProgressDialog(Context context) {
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("正在加载中...");
         progressDialog.show();
     }
 
-    void colseProgressDialog(){
-        if (progressDialog!=null&&progressDialog.isShowing())
+    void colseProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
     }
 
     @Click
     void menu_goal() {
-        if (!AppContext_.islogin){
-            showProgressDialog(getActivity());
-            actionMark=1;
-            getCheckCode();
-
-        }else{
-            Param_.intent(this)
-                    .target("goal")
-                    .targetActivity(Goal_.class.getName())
-                    .start();
-        }
-
-
+        showProgressDialog(getActivity());
+        actionMark = 1;
+        getCheckCode();
 
     }
 
-    void goAction(int n){
-        switch (n){
-            case 1 : menu_goal();break;
-            case 2 : menu_emptyClassRoom();break;
-            case 3 : menu_exam();break;
-            case 4 : menu_pickCourseInfo();break;
-            default:break;
+    void goAction(int n) {
+        switch (n) {
+            case 1:
+                Param_.intent(this)
+                        .target("goal")
+                        .targetActivity(Goal_.class.getName())
+                        .start();
+                ;
+                break;
+            case 2:
+                Param_.intent(this)
+                        .target("emptyClassRoom")
+                        .targetActivity(EmptyClassRoom_.class.getName())
+                        .start();
+                break;
+            case 3:
+                Exam_.intent(this).start();
+                break;
+            case 4:
+                PickClassInfo_.intent(this).start();
+                break;
+            default:
+                break;
         }
     }
 
-    private boolean isLoginCookie(Context context){
-        CacheUtil cacheUtil=CacheUtil.get(context);
-        if (cacheUtil.getAsString("cookie")!=null) {
-            LogUtil.log.i("设置：true"+cacheUtil.getAsString("cookie"));
+    private boolean isLoginCookie(Context context) {
+        CacheUtil cacheUtil = CacheUtil.get(context);
+        if (cacheUtil.getAsString("cookie") != null) {
+            LogUtil.log.i("设置：true" + cacheUtil.getAsString("cookie"));
             return true;
-        }else {
-            LogUtil.log.i("设置：false"+cacheUtil.getAsString("cookie"));
+        } else {
+            LogUtil.log.i("设置：false" + cacheUtil.getAsString("cookie"));
             return false;
         }
     }
 
-    private void setCookie(Context context,String cookie,int minutes){
-        CacheUtil cacheUtil= CacheUtil.get(context);
-        cacheUtil.put("cookie",cookie,minutes);
 
-        LogUtil.log.i("设置缓存"+cookie);
-
-    }
 
     @Click
     void menu_exam() {
-        if (!AppContext_.islogin){
-            showProgressDialog(getActivity());
-            actionMark=3;
-            getCheckCode();
-        }else {
-            Exam_.intent(this).start();
-        }
+
+        showProgressDialog(getActivity());
+        actionMark = 3;
+        getCheckCode();
+
     }
 
     @Click
@@ -221,27 +220,19 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
 
     @Click
     void menu_pickCourseInfo() {
-        if (!AppContext_.islogin){
-            showProgressDialog(getActivity());
-            actionMark=4;
-            getCheckCode();
-        }else {
-            PickClassInfo_.intent(this).start();
-        }
+
+        actionMark = 4;
+        getCheckCode();
+
     }
 
     @Click
     void menu_emptyClassRoom() {
-        if (!AppContext_.islogin){
-            showProgressDialog(getActivity());
-            actionMark=2;
-            getCheckCode();
-        }else {
-            Param_.intent(this)
-                    .target("emptyClassRoom")
-                    .targetActivity(EmptyClassRoom_.class.getName())
-                    .start();
-        }
+
+        showProgressDialog(getActivity());
+        actionMark = 2;
+        getCheckCode();
+
     }
 
     @Click
@@ -304,21 +295,21 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
     }
 
 
-    @Click
-    void menu_calendar() {
-        Calendar_.intent(this).start();
-    }
+//    @Click
+//    void menu_calendar() {
+//        Calendar_.intent(this).start();
+//    }
 
     @Click
     void menu_notice() {
         Notice_.intent(this).start();
     }
 
-    @Click
-    void menu_english() {
-        //此频道建设中
-        English_.intent(this).start();
-    }
+//    @Click
+//    void menu_english() {
+//        //此频道建设中
+//        English_.intent(this).start();
+//    }
 
     @Click
     void menu_contact() {
@@ -337,7 +328,6 @@ public class Menu extends CommonFragment implements OnTabSelectListener {
         setTitle(R.string.title_menu);
         setSubTitle(null);
     }
-
 
 
 }

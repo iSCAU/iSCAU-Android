@@ -105,6 +105,7 @@ public class Settings extends CommonActivity {
         }
     }
 
+
     @Click
     void btn_notification_setting() {
         NotificationTiming_.intent(getSherlockActivity()).start();

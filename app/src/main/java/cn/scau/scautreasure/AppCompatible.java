@@ -46,7 +46,7 @@ public class AppCompatible {
 
     @RootContext
     Context ctx;
-//429331233:abcd666888,
+
     @Bean
     ClassHelper classHelper;
 

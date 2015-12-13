@@ -92,8 +92,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-
-                android:text="@string/btn_notification_setting"/>
+                android:text="@string/btn_notification_setting"
+                />
 
             <ImageView
                 style="@style/listitem_separator"

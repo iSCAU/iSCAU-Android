@@ -175,9 +175,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
 
-
-
-
         webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
         week_classtable.getSettings().setJavaScriptEnabled(true);
         week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
@@ -312,13 +309,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             beforeLoading();
         }
     }
-/*    @OptionsItem
-    void menu_selece_week(){
-        selectWeek();
-
-    }*/
-
-
 
     /**
      * 切换到加载所有课程模式;
@@ -418,6 +408,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @UiThread
     void showMsg(String msg){
         AppMsg.makeText(getSherlockActivity(),msg, AppMsg.STYLE_INFO).show();
+    }
+
+    @UiThread
+    void showErrorMsg(String msg){
+        AppMsg.makeText(getSherlockActivity(),msg, AppMsg.STYLE_ALERT).show();
     }
 
     /**
@@ -597,13 +592,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     /*2015-11-12 zzb添加，暂时未优化*/
     @UiThread
-    void showCheckcode(){
-
+    void showCheckcode() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("请输入验证码");
         final LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.checkcode_dialog, null);
-        final EditText editText= (EditText) view.findViewById(R.id.input_checkcode);
+        final EditText editText = (EditText) view.findViewById(R.id.input_checkcode);
         builder.setView(view);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -624,7 +618,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         });
         Dialog dialog = builder.create();
         dialog.show();
-        ImageView imageView=(ImageView)view.findViewById(R.id.checkcode_img);
+        ImageView imageView = (ImageView) view.findViewById(R.id.checkcode_img);
         AppContext.loadImage(cookieModel.getImg(), imageView, null);
     }
 
@@ -636,12 +630,12 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @UiThread
     void beforeLoading(){
-        if (!AppContext_.islogin){
+//        if (!AppContext_.islogin){
             getCheckCode();
-        }else {
-            swipe_refresh.setRefreshing(true);
-            loadData();
-        }
+//        }else {
+//            swipe_refresh.setRefreshing(true);
+//            loadData();
+//        }
     }
 
     private ProgressDialog progressDialog;
@@ -665,43 +659,38 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     }
 
     @Background
-    void getCheckCode(){
-
+    void getCheckCode() {
         try {
-            cookieModel=loginApi.getCookie();
+            cookieModel = loginApi.getCookie();
             showCheckcode();
-
-        }catch (Exception e){
-            LogUtil.log.i("设置："+e.toString());
-        }finally {
+        } catch (Exception e) {
+            LogUtil.log.i("zzb_log classtable：" + e.toString());
+        } finally {
             colseProgressDialog();
         }
 
     }
 
 
-
     @Background
     void loginServer() {
-
         try {
-
-            loginModel=loginApi.loginCookie(AppContext.userName, app.getEncodeEduSysPassword(),cookieModel.getCookie(),code);
-            if (loginModel.getStatus()==1){
-                AppContext_.islogin=true;
-                beforeLoading();
-                LogUtil.log.i("设置：status为1" + loginModel.getMsg());
-            }else {
-                AppContext_.islogin=false;
-                showMsg(loginModel.getMsg());
-                LogUtil.log.i("设置：msg，不正常"+loginModel.getMsg());
+            loginModel = loginApi.loginCookie(AppContext.userName, app.getEncodeEduSysPassword(), cookieModel.getCookie(), code);
+            if (loginModel.getStatus() == 1) {
+                swipe_refresh.setRefreshing(true);
+                loadData();
+                LogUtil.log.i("zzb_log classtable：" + loginModel.getMsg());
+            } else {
+                AppContext_.islogin = false;
+                showErrorMsg(loginModel.getMsg());
+                LogUtil.log.i("zzb_log classtable：" + loginModel.getMsg());
 
             }
 
-
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtil.log.i(e.toString());
-        }finally {
+        } finally {
+
             colseProgressDialog();
         }
     }

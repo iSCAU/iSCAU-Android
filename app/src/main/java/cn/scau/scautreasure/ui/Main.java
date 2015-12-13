@@ -81,7 +81,7 @@ public class Main extends ActionBarActivity {
     Fragment fragmentMenu;
     Fragment fragmentClassTable;
     Fragment fragmentActivity;
-    Fragment fragmentFood;
+    //Fragment fragmentFood;
     private ActionBarActivity mContext;
     private int checkedId;
     private long exitTime = 0;
@@ -98,7 +98,8 @@ public class Main extends ActionBarActivity {
         checkForUpdate();
         showNotification();
         showNotePoint();
-        updateActivityRedPoint();
+        //删除
+        //updateActivityRedPoint();
 /*//显示红点
         if(Long.valueOf(app.config.lastRedPoint().get())>0) {
             bv_activity.show();
@@ -128,9 +129,9 @@ public class Main extends ActionBarActivity {
         if (fragmentClassTable == null) {
             fragmentClassTable = ClassTable_.builder().build();
         }
-        if (fragmentFood == null) {
-            fragmentFood = Food_.builder().build();
-        }
+//        if (fragmentFood == null) {
+//            fragmentFood = Food_.builder().build();
+//        }
         if (fragmentActivity == null) {
             fragmentActivity = ShoolActivitys_.builder().build();
         }
@@ -158,23 +159,28 @@ public class Main extends ActionBarActivity {
                     UIHelper.startFragment(mContext, fragmentActivity, SETTINGS_TAG);
                     ((OnTabSelectListener) fragmentActivity).onTabSelect();
 
-                } else if (i == rd_food.getId()) {
-                    UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-                    ((OnTabSelectListener) fragmentFood).onTabSelect();
-
                 }
+//                else if (i == rd_food.getId()) {
+//                    UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
+//                    ((OnTabSelectListener) fragmentFood).onTabSelect();
+//
+//                }
             }
         });
 
-        if (checkTime()) {
-            UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-            rd_food.setChecked(true);
-        } else {
-            if (checkedId == 0) {
-                UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
-                rd_classtable.setChecked(true);
-            }
-        }
+        UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
+        rd_classtable.setChecked(true);
+
+        /*去除外卖页面*/
+//        if (checkTime()) {
+//            UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
+//            rd_food.setChecked(true);
+//        } else {
+//            if (checkedId == 0) {
+//                UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
+//                rd_classtable.setChecked(true);
+//            }
+//        }
 
 
     }
@@ -301,7 +307,7 @@ public class Main extends ActionBarActivity {
         fragmentMenu = fm.findFragmentByTag(MENU_TAG);
         fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
         fragmentActivity = fm.findFragmentByTag(SETTINGS_TAG);
-        fragmentFood = fm.findFragmentByTag(FOOD_TAG);
+        //fragmentFood = fm.findFragmentByTag(FOOD_TAG);
     }
 
     @Background(delay = 500)
