@@ -27,7 +27,7 @@ import cn.scau.scautreasure.model.SplashModel;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "db_iscau.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,9 +37,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, ClassModel.class);
-            Log.d("food", "foodShop建表");
-            TableUtils.createTable(connectionSource, FoodShopDBModel.class);
-            TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
+
+           // TableUtils.createTable(connectionSource, FoodShopDBModel.class);
+            //TableUtils.createTable(connectionSource, ShopMenuDBModel.class);
             TableUtils.createTable(connectionSource, SchoolActivityModel.class);
             TableUtils.createTable(connectionSource, SplashModel.class);
         } catch (SQLException e) {
@@ -50,9 +50,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            Log.d("food", "foodShop建表");
-            TableUtils.createTableIfNotExists(connectionSource, FoodShopDBModel.class);
-            TableUtils.createTableIfNotExists(connectionSource, ShopMenuDBModel.class);
+            //Log.d("food", "foodShop建表");
+            //TableUtils.createTableIfNotExists(connectionSource, FoodShopDBModel.class);
+           // TableUtils.createTableIfNotExists(connectionSource, ShopMenuDBModel.class);
             TableUtils.dropTable(connectionSource, SchoolActivityModel.class, true);
             TableUtils.createTable(connectionSource, SchoolActivityModel.class);
             TableUtils.dropTable(connectionSource, SplashModel.class, true);
