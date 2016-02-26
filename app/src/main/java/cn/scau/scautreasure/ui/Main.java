@@ -1,8 +1,6 @@
 package cn.scau.scautreasure.ui;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,14 +8,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
+
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.avos.avoscloud.LogUtil;
 import com.devspark.appmsg.AppMsg;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
@@ -37,13 +35,17 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.R;
+import cn.scau.scautreasure.api.FunctionApi;
 import cn.scau.scautreasure.api.SchoolActivityApi;
+import cn.scau.scautreasure.helper.CacheHelper;
 import cn.scau.scautreasure.helper.UIHelper;
 import cn.scau.scautreasure.impl.OnTabSelectListener;
 import cn.scau.scautreasure.model.ActivityCountModel;
+import cn.scau.scautreasure.model.FunctionModel;
 import cn.scau.scautreasure.util.DateUtil;
 import cn.scau.scautreasure.widget.BadgeView;
 
@@ -61,7 +63,7 @@ public class Main extends ActionBarActivity {
     private static final String MENU_TAG = "menu_";
     private static final String CLASSTABLE_TAG = "classtable_";
     private static final String SETTINGS_TAG = "settings_";
-    private static final String FOOD_TAG = "food_";
+
     @Pref
     cn.scau.scautreasure.AppConfig_ config;
     @App
@@ -71,17 +73,21 @@ public class Main extends ActionBarActivity {
     @ViewById
     RadioGroup radioGroup;
     @ViewById
-    RadioButton rd_classtable, rd_features, rd_activity, rd_food;
+    RadioButton rd_classtable, rd_features, rd_activity;
     @ViewById
-    Button bt_classtable, bt_features, bt_activity, bt_food;
+    Button bt_classtable, bt_features, bt_activity;
     @RestService
     SchoolActivityApi api;
 
-    BadgeView bv_classtable,bv_features,bv_activity,bv_food;
+    @RestService
+    FunctionApi functionApi;
+
+
     Fragment fragmentMenu;
     Fragment fragmentClassTable;
-    Fragment fragmentActivity;
-    //Fragment fragmentFood;
+    Fragment FoundFragment;
+
+
     private ActionBarActivity mContext;
     private int checkedId;
     private long exitTime = 0;
@@ -97,27 +103,29 @@ public class Main extends ActionBarActivity {
         initMobclickAgent();
         checkForUpdate();
         showNotification();
-        showNotePoint();
-        //删除
-        //updateActivityRedPoint();
-/*//显示红点
-        if(Long.valueOf(app.config.lastRedPoint().get())>0) {
-            bv_activity.show();
-        }*/
 
-
-
+        loadFunction();
     }
 
-    /**
-     * 获取红点
-     */
-    private void showNotePoint() {
-        bv_classtable=AppContext.setTabRedPoint(this,bt_classtable);
-        bv_features=AppContext.setTabRedPoint(this,bt_features);
-        bv_activity=AppContext.setTabRedPoint(this,bt_activity);
-        bv_food=AppContext.setTabRedPoint(this,bt_food);
+    //加载动态功能
+    @Background
+    void loadFunction() {
+        try {
+            FunctionModel.FunctionList functionList = functionApi.functionList();
+            ArrayList<FunctionModel> list = functionList.getResult();
+            if (list != null) {
+                CacheHelper.writeList(this, "function", list);
+                Log.i("更新列表:", "列表有数据");
+            }
+            Log.i("更新列表:","正常");
+
+
+        } catch (Exception e) {
+
+        }
     }
+
+
 
 
 
@@ -129,11 +137,8 @@ public class Main extends ActionBarActivity {
         if (fragmentClassTable == null) {
             fragmentClassTable = ClassTable_.builder().build();
         }
-//        if (fragmentFood == null) {
-//            fragmentFood = Food_.builder().build();
-//        }
-        if (fragmentActivity == null) {
-            fragmentActivity = ShoolActivitys_.builder().build();
+        if (FoundFragment == null) {
+            FoundFragment = FoundFragment_.builder().build();
         }
         if (checkedId != 0) {
             //恢复到Activity被杀前的选中状态
@@ -155,36 +160,19 @@ public class Main extends ActionBarActivity {
                     ((OnTabSelectListener) fragmentClassTable).onTabSelect();
 
                 } else if (i == rd_activity.getId()) {
-                    bv_activity.hide();
-                    UIHelper.startFragment(mContext, fragmentActivity, SETTINGS_TAG);
-                    ((OnTabSelectListener) fragmentActivity).onTabSelect();
+
+                    UIHelper.startFragment(mContext, FoundFragment, SETTINGS_TAG);
+                    ((OnTabSelectListener) FoundFragment).onTabSelect();
 
                 }
-//                else if (i == rd_food.getId()) {
-//                    UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-//                    ((OnTabSelectListener) fragmentFood).onTabSelect();
-//
-//                }
             }
         });
 
         UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
         rd_classtable.setChecked(true);
 
-        /*去除外卖页面*/
-//        if (checkTime()) {
-//            UIHelper.startFragment(mContext, fragmentFood, FOOD_TAG);
-//            rd_food.setChecked(true);
-//        } else {
-//            if (checkedId == 0) {
-//                UIHelper.startFragment(mContext, fragmentClassTable, CLASSTABLE_TAG);
-//                rd_classtable.setChecked(true);
-//            }
-//        }
-
 
     }
-    //7、	在11:30-12:30时间段和5:30到6:30的时间段，打开华农宝，自动跳转到外卖的页面，其余时间跳转到课表的页面。
 
     boolean checkTime() {
         java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -306,30 +294,9 @@ public class Main extends ActionBarActivity {
         FragmentManager fm = getSupportFragmentManager();
         fragmentMenu = fm.findFragmentByTag(MENU_TAG);
         fragmentClassTable = fm.findFragmentByTag(CLASSTABLE_TAG);
-        fragmentActivity = fm.findFragmentByTag(SETTINGS_TAG);
-        //fragmentFood = fm.findFragmentByTag(FOOD_TAG);
+        FoundFragment = fm.findFragmentByTag(SETTINGS_TAG);
+
     }
 
-    @Background(delay = 500)
-    protected void updateActivityRedPoint(){
-        try {
-            ActivityCountModel model = api.getActivityCount(String.valueOf(app.config.lastRedPoint().get()));
-            if (Integer.parseInt(model.getResult()) > 0) {
-                Log.d("校园活动", "有更新");
-                showActvityRedPoint();
-            } else {
-                Log.d("校园活动", "无更新");
 
-            }
-        } catch (HttpStatusCodeException e) {
-            Log.d("校园活动", "无网络");
-        } catch (Exception e) {
-            Log.d("校园活动", "无网络");
-        }
-    }
-
-    @UiThread
-    protected void showActvityRedPoint(){
-        bv_activity.show();
-    }
 }

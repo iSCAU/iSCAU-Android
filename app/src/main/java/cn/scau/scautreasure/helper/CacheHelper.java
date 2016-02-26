@@ -46,4 +46,14 @@ public class CacheHelper {
     public void writeListToCache(ArrayList list) {
         cacheUtil.put(cacheKey, list);
     }
+
+    public static ArrayList loadList(Context mContext,String key){
+         CacheUtil aCache=CacheUtil.get(mContext);
+        return (ArrayList)aCache.getAsObject(key);
+    }
+
+    public static void writeList(Context mContext,String key,ArrayList list){
+        CacheUtil aCache=CacheUtil.get(mContext);
+        aCache.put(key, list);
+    }
 }

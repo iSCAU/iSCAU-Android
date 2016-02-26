@@ -258,5 +258,15 @@ public class AppContext extends Application {
         return false;
     }
 
+    public int getAndroidSDKVersion() {
+        int version = 0;
+        try {
+            version = Integer.valueOf(android.os.Build.VERSION.SDK);
+        } catch (NumberFormatException e) {
+        }
+        return version;
+    }
+
+
 
 }
