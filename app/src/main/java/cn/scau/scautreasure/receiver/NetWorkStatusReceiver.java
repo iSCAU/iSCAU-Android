@@ -10,7 +10,7 @@ import com.umeng.common.Log;
 
 import org.androidannotations.annotations.EReceiver;
 
-import cn.scau.scautreasure.service.NotifyFoodService_;
+//import cn.scau.scautreasure.service.NotifyFoodService_;
 
 /**
  * Created by apple on 14-9-4.
@@ -33,7 +33,7 @@ public class NetWorkStatusReceiver extends BroadcastReceiver {
             info = connectivityManager.getActiveNetworkInfo();
             if(info != null && info.isAvailable()) {
 
-                NotifyFoodService_.intent(context).start();//同步记录
+                //NotifyFoodService_.intent(context).start();//同步记录
 
                 String name = info.getTypeName();
                System.out.println("当前网络名称：" + name);

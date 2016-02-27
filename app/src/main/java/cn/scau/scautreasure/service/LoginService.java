@@ -35,16 +35,9 @@ public class LoginService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        login();
-
-
-//        app.config.major().put();
-//        app.config.department().put();
-//        app.config.grade().put();
-//        app.config.collage().put();
-//        app.config.classes().put();
-
-
+        // TODO: 2016-2-27 不记录任何信息
+        //login();
+        
         return super.onStartCommand(intent, flags, startId);
     }
 

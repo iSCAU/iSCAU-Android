@@ -111,7 +111,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     private ArrayList<View> listViews;
     private ClassTableAdapter adapter;
     private WebWeekClasstableHelper webWeekClasstableHelper;
-    private boolean first=true;
+    private boolean first = true;
     ActionBar actionBar;
     /**
      * 星期标签的点击,同时viewPager设置到相应位置；
@@ -144,7 +144,6 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     };
 
 
-
     private String getTitle() {
         StringBuilder builder = new StringBuilder();
         builder.append(dateUtil.getWeekOfDate());
@@ -175,26 +174,27 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
         // 给 Action Bar 增加 "单日", "全周" 的切换 Tab。
 
-        webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable,config,dateUtil,classHelper);
+        webWeekClasstableHelper = new WebWeekClasstableHelper(week_classtable, config, dateUtil, classHelper);
         week_classtable.getSettings().setJavaScriptEnabled(true);
         week_classtable.addJavascriptInterface(webWeekClasstableHelper, "Android");
         week_classtable.getSettings().setSupportZoom(true);
-        week_classtable .getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        week_classtable.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         isSelectedDay = config.classTableSelectedTab().get() == 0;
-        if(isSelectedDay){
+        if (isSelectedDay) {
             onSelectDayMode();
-        }else{
+        } else {
             onSelectWeekMode();
         }
     }
 
     boolean isSelectedDay;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        actionBar= getSherlockActivity().getSupportActionBar();
+        actionBar = getSherlockActivity().getSupportActionBar();
         ActionBarHelper.enableEmbeddedTabs(actionBar);
-       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 /*        if(isSelectedDay){
             change_mode.setIcon(R.drawable.action_week_mod);
             onSelectDayMode();
@@ -209,21 +209,22 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         super.onPrepareOptionsMenu(menu);
         MenuItem change_mode = menu.findItem(R.id.table_change_mode);
         isSelectedDay = config.classTableSelectedTab().get() == 0;
-        if(isSelectedDay){
+        if (isSelectedDay) {
             change_mode.setIcon(R.drawable.action_week_mod);
             change_mode.setTitle(R.string.actionbar_week);
-           // onSelectDayMode();
-        }else{
+            // onSelectDayMode();
+        } else {
             change_mode.setIcon(R.drawable.action_day_mod);
             change_mode.setTitle(R.string.actionbar_day);
-           // onSelectWeekMode();
+            // onSelectWeekMode();
         }
     }
 
     @UiThread
-    void showWeekClass(){
+    void showWeekClass() {
         week_classtable.reload();
     }
+
     /**
      * 按周查看
      */
@@ -261,19 +262,19 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     }*/
     @OptionsItem
-    void table_change_mode(MenuItem menuItem){
-           if(isSelectedDay){ //原来是日模式
-               menuItem.setIcon(R.drawable.action_day_mod);
-               menuItem.setTitle(R.string.actionbar_day);
-               onSelectWeekMode();//转换成周
-               config.classTableSelectedTab().put(1);
-           }else{
-               menuItem.setIcon(R.drawable.action_week_mod);
-               menuItem.setTitle(R.string.actionbar_week);
-               onSelectDayMode();//转换成日
-               config.classTableSelectedTab().put(0);
-           }
-        isSelectedDay=!isSelectedDay;
+    void table_change_mode(MenuItem menuItem) {
+        if (isSelectedDay) { //原来是日模式
+            menuItem.setIcon(R.drawable.action_day_mod);
+            menuItem.setTitle(R.string.actionbar_day);
+            onSelectWeekMode();//转换成周
+            config.classTableSelectedTab().put(1);
+        } else {
+            menuItem.setIcon(R.drawable.action_week_mod);
+            menuItem.setTitle(R.string.actionbar_week);
+            onSelectDayMode();//转换成日
+            config.classTableSelectedTab().put(0);
+        }
+        isSelectedDay = !isSelectedDay;
 
     }
 
@@ -406,13 +407,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     }
 
     @UiThread
-    void showMsg(String msg){
-        AppMsg.makeText(getSherlockActivity(),msg, AppMsg.STYLE_INFO).show();
+    void showMsg(String msg) {
+        AppMsg.makeText(getSherlockActivity(), msg, AppMsg.STYLE_INFO).show();
     }
 
     @UiThread
-    void showErrorMsg(String msg){
-        AppMsg.makeText(getSherlockActivity(),msg, AppMsg.STYLE_ALERT).show();
+    void showErrorMsg(String msg) {
+        AppMsg.makeText(getSherlockActivity(), msg, AppMsg.STYLE_ALERT).show();
     }
 
     /**
@@ -450,7 +451,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         webWeekClasstableHelper.refreshClassTable();
         showWeekClass();
 
-			    }
+    }
 
     private void buildDayClassTableAdapter(List<ClassModel> dayClassList) {
         ListView classListView = UIHelper.buildClassListView(getSherlockActivity());
@@ -467,7 +468,8 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     /**
      * 线程从服务器加载课程表，同时保存在本地数据库，再行操作;
      */
-    @Background(id = UIHelper.CANCEL_FLAG)
+    //@Background(id = UIHelper.CANCEL_FLAG)
+    @Background
     void loadData(Object... params) {
 
         try {
@@ -496,7 +498,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     void updateTabOnOrientationChange() {
         titles.changeWeekDay(pager.getCurrentItem());
         ActionBarHelper.enableEmbeddedTabs(getSherlockActivity().getSupportActionBar());
-        if(config.classTableSelectedTab().get()==1){
+        if (config.classTableSelectedTab().get() == 1) {
             week_classtable.reload();
         }
     }
@@ -549,13 +551,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     /**
      * 当选择周模式
      */
-    void onSelectWeekMode(){
+    void onSelectWeekMode() {
         day_classtable_container.setVisibility(View.GONE);
-        if(first) {
+        if (first) {
             week_classtable.loadUrl("file:///android_asset/weekclasstable/weekclasstable.html");
             week_classtable.setVisibility(View.VISIBLE);
-            first=false;
-        }else{
+            first = false;
+        } else {
             week_classtable.setVisibility(View.VISIBLE);
         }
     }
@@ -563,7 +565,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     /**
      * 当选择日模式
      */
-    void onSelectDayMode(){
+    void onSelectDayMode() {
         week_classtable.setVisibility(View.GONE);
         day_classtable_container.setVisibility(View.VISIBLE);
         showTab();
@@ -582,12 +584,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==12345){
+        if (requestCode == 12345) {
             //接受设置第几周
             showClassTable();
         }
     }
-
 
 
     /*2015-11-12 zzb添加，暂时未优化*/
@@ -623,19 +624,14 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     }
 
     @Click(R.id.checkcode_img)
-    void changeCheckCode(){
+    void changeCheckCode() {
         showProgressDialog(getActivity());
         getCheckCode();
     }
 
     @UiThread
-    void beforeLoading(){
-//        if (!AppContext_.islogin){
-            getCheckCode();
-//        }else {
-//            swipe_refresh.setRefreshing(true);
-//            loadData();
-//        }
+    void beforeLoading() {
+        getCheckCode();
     }
 
     private ProgressDialog progressDialog;
@@ -647,14 +643,14 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     String code;
 
     @UiThread
-    void showProgressDialog(Context context){
-        progressDialog=new ProgressDialog(context);
+    void showProgressDialog(Context context) {
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("正在加载中...");
         progressDialog.show();
     }
 
-    void colseProgressDialog(){
-        if (progressDialog!=null&&progressDialog.isShowing())
+    void colseProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
     }
 
@@ -664,7 +660,7 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             cookieModel = loginApi.getCookie();
             showCheckcode();
         } catch (Exception e) {
-            LogUtil.log.i("zzb_log classtable：" + e.toString());
+            LogUtil.log.i("classtable：" + e.toString());
         } finally {
             colseProgressDialog();
         }
@@ -677,22 +673,19 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         try {
             loginModel = loginApi.loginCookie(AppContext.userName, app.getEncodeEduSysPassword(), cookieModel.getCookie(), code);
             if (loginModel.getStatus() == 1) {
-                swipe_refresh.setRefreshing(true);
+                //swipe_refresh.setRefreshing(true);
                 loadData();
-                LogUtil.log.i("zzb_log classtable：" + loginModel.getMsg());
+                LogUtil.log.i("classtable：" + loginModel.getMsg());
             } else {
-                AppContext_.islogin = false;
                 showErrorMsg(loginModel.getMsg());
-                LogUtil.log.i("zzb_log classtable：" + loginModel.getMsg());
+                LogUtil.log.i("classtable：" + loginModel.getMsg());
 
             }
 
         } catch (Exception e) {
-            LogUtil.log.i(e.toString());
-        } finally {
-
-            colseProgressDialog();
+            LogUtil.log.i("获取课表时出错：" + e.toString());
         }
+        colseProgressDialog();
     }
 
 

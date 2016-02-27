@@ -12,10 +12,8 @@ import cn.scau.scautreasure.model.FunctionModel;
 
 
 
-@Rest(rootUrl="http://mywpserver.sinaapp.com/index.php?s=/function/", converters = { GsonHttpMessageConverter.class })
+@Rest(rootUrl="http://wx.huanongbao.com/api/api.php", converters = { GsonHttpMessageConverter.class })
 public interface  FunctionApi{
-    @Get("functionlist")
+    @Get("?option=appfunction")
     FunctionModel.FunctionList functionList();
-
-
 }

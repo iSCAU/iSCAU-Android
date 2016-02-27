@@ -115,10 +115,7 @@ public class Main extends ActionBarActivity {
             ArrayList<FunctionModel> list = functionList.getResult();
             if (list != null) {
                 CacheHelper.writeList(this, "function", list);
-                Log.i("更新列表:", "列表有数据");
             }
-            Log.i("更新列表:","正常");
-
 
         } catch (Exception e) {
 

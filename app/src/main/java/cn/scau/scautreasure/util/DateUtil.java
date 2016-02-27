@@ -1,5 +1,8 @@
 package cn.scau.scautreasure.util;
 
+import com.avos.avoscloud.*;
+import com.avos.avoscloud.LogUtil;
+
 import org.androidannotations.annotations.EBean;
 
 import java.text.ParseException;
@@ -110,6 +113,7 @@ public class DateUtil {
     /* 根据当前日期与开学时间获得周 */
     public int dateToSchoolWeek(String date, String termStartDate) {
         try {
+            LogUtil.log.i("termStartDate:"+termStartDate);
             return dateDiff(termStartDate, date,
                     "yyyy-MM-dd");
         } catch (java.text.ParseException e) {
