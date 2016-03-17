@@ -19,6 +19,10 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/menu_class_table_select_week"
+                android:title="按周查看"
+                app:showAsAction="never"/>
+            <item
                 android:id="@+id/menu_refresh_classtable"
                 android:title="导入课程表"
                 app:showAsAction="always"/>

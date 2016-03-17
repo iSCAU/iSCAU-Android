@@ -85,6 +85,11 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
     @App
     protected AppContext app;
 
+    public static int school_week = 0;
+
+    //加载周课表完成是否
+    private boolean LOAD_WEEK_DONE = false;
+
     /**
      * 课程表筛选显示模式
      */
@@ -160,6 +165,9 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
 
     @AfterViews
     void initView() {
+        school_week = classHelper.getSchoolWeek();
+        //school_week = (school_week == 0 ? 1 : school_week);
+        System.out.println("第"+school_week);
         listViews = new ArrayList<View>();
         adapter = new ClassTableAdapter();
 
@@ -329,6 +337,13 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         showClassTable();
     }
 
+    @OptionsItem(R.id.menu_class_table_select_week)
+    void menu_class_table_select_week() {
+        startActivityForResult(UpdateCurrentWeek_.intent(getActivity()).current(String.valueOf(classHelper.getSchoolWeek())).get(), 10);
+       // LogUtil.log.i("选择了按周查看");
+
+    }
+
     /**
      * 修改课程表后，接收来自修改课程表activiy回传的model,写入数据库，并且更新到界面；
      *
@@ -436,7 +451,10 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
             if (config.classTableShowMode().get() == MODE_ALL) {
                 dayClassList = classHelper.getDayLesson(chineseDay);
             } else {
-                dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+                //原来的智能显示
+                //dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+                //新的智能显示
+                dayClassList = classHelper.getDayLessonByWeek(chineseDay, school_week);
             }
 
             buildDayClassTableAdapter(dayClassList);
@@ -590,6 +608,21 @@ public class ClassTable extends CommonFragment implements ServerOnChangeListener
         }
     }
 
+    @OnActivityResult(10)
+    void show_custom_week(int resultCode, Intent data) {
+        if (resultCode == getActivity().RESULT_OK) {
+            System.out.println("用户选择了第:" + data.getExtras().getInt("week"));
+            school_week = data.getExtras().getInt("week");
+            config.classTableShowMode().put(MODE_PARAMS);
+            showClassTable();
+            setCustomTitle("正在显示第" + school_week + "周课程");
+        }
+    }
+
+    @UiThread
+    void setCustomTitle(String title){
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(title);
+    }
 
     /*2015-11-12 zzb添加，暂时未优化*/
     @UiThread

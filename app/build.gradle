@@ -11,7 +11,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
-        versionName "4.1"
+        versionName "4.2"
     }
     buildTypes {
         release {

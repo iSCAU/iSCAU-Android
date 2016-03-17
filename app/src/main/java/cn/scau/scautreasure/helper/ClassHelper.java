@@ -19,6 +19,7 @@ import java.util.List;
 import cn.scau.scautreasure.AppConfig_;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.model.ClassModel;
+import cn.scau.scautreasure.ui.ClassTable_;
 import cn.scau.scautreasure.util.DateUtil;
 
 /**
@@ -96,6 +97,7 @@ public class ClassHelper {
         PreparedQuery where = null;
         try {
             where = buildWhere(wantDay);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,6 +120,24 @@ public class ClassHelper {
         PreparedQuery where = null;
         try {
             where = buildWhere(wantDay, getSchoolWeek(), getSchoolWeekDsz());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        List clsList = classDao.query(where);
+        return sortClassList(clsList);
+    }
+
+    /**
+     * 通过周来显示课表
+     *
+     * @param wantDay
+     * @param week
+     * @return
+     */
+    public List<ClassModel> getDayLessonByWeek(String wantDay, int week) {
+        PreparedQuery where = null;
+        try {
+            where = buildWhere(wantDay, week, week % 2 == 0 ? "双" : "单");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -168,6 +188,7 @@ public class ClassHelper {
 
     /**
      * 获取当前第几周
+     *
      * @return
      */
     public int getSchoolWeek() {

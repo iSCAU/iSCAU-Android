@@ -14,6 +14,7 @@ import java.util.List;
 import cn.scau.scautreasure.AppContext;
 import cn.scau.scautreasure.model.ClassModel;
 import cn.scau.scautreasure.ui.ClassTable;
+import cn.scau.scautreasure.ui.ClassTable_;
 import cn.scau.scautreasure.util.ClassUtil;
 import cn.scau.scautreasure.util.DateUtil;
 
@@ -48,7 +49,8 @@ public class WebWeekClasstableHelper {
             if (config.classTableShowMode().get() == ClassTable.MODE_ALL) {
                 dayClassList = classHelper.getDayLesson(chineseDay);
             } else {
-                dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+                //dayClassList = classHelper.getDayLessonWithParams(chineseDay);
+                dayClassList=classHelper.getDayLessonByWeek(chineseDay, ClassTable_.school_week);
             }
 
             JSONArray ja = new JSONArray();

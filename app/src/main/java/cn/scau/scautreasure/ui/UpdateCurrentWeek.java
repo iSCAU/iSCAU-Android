@@ -5,7 +5,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.Intent;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -19,9 +19,7 @@ import java.util.List;
 import cn.scau.scautreasure.R;
 import cn.scau.scautreasure.adapter.UpdateWeekAdapter;
 
-/**
- * Created by macroyep on 14/10/1.
- */
+
 @EActivity(R.layout.update_current_week)
 public class UpdateCurrentWeek extends CommonActivity {
     //当前第几周
@@ -43,11 +41,18 @@ public class UpdateCurrentWeek extends CommonActivity {
         _listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getSherlockActivity(),"设置当前周为:第"+i+"周",Toast.LENGTH_LONG).show();
-
-                finish();
+                //Toast.makeText(getSherlockActivity(),"设置当前周为:第"+(i+1)+"周",Toast.LENGTH_LONG).show();
+                //finish();
+                backToClassTable(i+1);
             }
         });
+    }
+
+    void backToClassTable(int i) {
+        Intent data = new Intent();
+        data.putExtra("week", i);
+        this.setResult(RESULT_OK, data);
+        finish();
     }
 
 }
