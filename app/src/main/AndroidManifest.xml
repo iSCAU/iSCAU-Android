@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
     <application
@@ -155,6 +157,7 @@
             android:name="cn.scau.scautreasure.ui.sns.Login_"
             android:label="@string/title_activity_login"></activity>
         <activity android:name="cn.scau.scautreasure.ui.CommonWebviewAct_"></activity>
+        <activity android:name="cn.scau.scautreasure.ui.BaseBrowser_"></activity>
         <activity
             android:name="cn.scau.scautreasure.ui.WidgetConfiguration_"
             android:configChanges="orientation|keyboardHidden|screenSize"

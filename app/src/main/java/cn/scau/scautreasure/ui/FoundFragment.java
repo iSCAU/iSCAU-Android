@@ -50,7 +50,8 @@ public class FoundFragment extends CommonFragment implements OnTabSelectListener
                                 long arg3) {
 
             try {
-                CommonWebviewAct_.intent(getActivity())
+                BaseBrowser_.intent(getActivity())
+                //CommonWebviewAct_.intent(getActivity())
                         .title(functionList.get(position).getTitle())
                         .url(functionList.get(position).getUrl())
                         .allowCache(functionList.get(position).getAllowcache())

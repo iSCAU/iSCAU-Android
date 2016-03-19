@@ -63,7 +63,9 @@ public class GoalAdapter extends QuickAdapter<GoalModel> {
                 .setText(R.id.tv_classify, goalModel.getClassify())
                 .setText(R.id.tv_college_belong, goalModel.getCollege_belong())
                 .setText(R.id.tv_classcode, goalModel.getCode())
-                .setText(R.id.tv_college_hold, goalModel.getCollege_hold());
+                .setText(R.id.tv_college_hold, goalModel.getCollege_hold())
+                .setText(R.id.tv_goal_exam, goalModel.getGoal_exam())
+                .setText(R.id.tv_goal_regular, goalModel.getGoal_regular());
 
 
         // Transmit the view click to expand button

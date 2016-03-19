@@ -37,7 +37,21 @@ public class GoalModel implements Serializable {
     private String goal_restudy;
     private String college_hold;
     private String flag_restudy;
+    private String goal_regular;
+    private String goal_exam;
 
+    public String getGoal_exam() {
+        return goal_exam;
+    }
+    public String getGoal_regular() {
+        return goal_regular;
+    }
+    public void setGoal_regular(String goal_regular) {
+        this.goal_regular = goal_regular;
+    }
+    public void setGoal_exam(String goal_exam) {
+        this.goal_exam = goal_exam;
+    }
     public String getYear() {
         return year;
     }

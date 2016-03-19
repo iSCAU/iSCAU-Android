@@ -91,6 +91,37 @@
             </RelativeLayout>
 
         </TableRow>
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平时成绩:"/>
+
+            <!-- 平时成绩 -->
+            <TextView
+                android:id="@+id/tv_goal_regular"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="考试成绩:"/>
+
+            <!-- 学期 -->
+            <TextView
+                android:id="@+id/tv_goal_exam"
+                style="@style/normal_item_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
     </TableLayout>
 
     <ImageView
